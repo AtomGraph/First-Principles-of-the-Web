@@ -1028,9 +1028,9 @@ Two boundaries, stated rather than buried. First, the correspondence is proved o
 
 Together with the analysis theorem (C.5): every windowed `read` has the form, and the stack fills the form. This section is the click. ∎
 
-## D. Spec concordance and references
+## D. References
 
-The book's external dependency list, and deliberately its only one — followed by the witnesses, the candidates, and the works the audit examines, kept in separate ledgers per How to Read.
+The spec concordance: the book's external dependency list, and deliberately its only one — followed by the witnesses, the candidates, and the works the audit examines, kept in separate ledgers per How to Read.
 
 *Axioms — definitions used as premises:*
 
