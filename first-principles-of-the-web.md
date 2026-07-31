@@ -1052,7 +1052,7 @@ The spec concordance: the book's external dependency list, and deliberately its 
 | presentation | [CSS](https://www.w3.org/TR/CSS/) (1996) | Ch 8 |
 | forms as the write instrument | [HTML: forms](https://html.spec.whatwg.org/multipage/forms.html) | Prop. 7.2 |
 
-Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, never obsoleted, by BCP 190 ([RFC 8820](https://www.rfc-editor.org/rfc/rfc8820), which adds guidance on URI *ownership* and changes no syntax — the minting doctrine of C.2, in BCP form). RFC 9110 and 9111 are the current HTTP standards. RDF 1.2 (Candidate Recommendation, April 2026) and SPARQL 1.2 (Working Draft, June 2026) preserve every definition cited above — data and queries conforming to 1.1 remain conforming — and their shared addition, the triple term, is Chapter 9's annotation-syntax contrast, scored there. The prediction registry notes: RDF 1.2 keeps named graphs.
+Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, never obsoleted, by BCP 190 ([RFC 8820](https://www.rfc-editor.org/rfc/rfc8820), which adds guidance on URI *ownership* and changes no syntax — the minting doctrine of C.2, in BCP form). RFC 9110 and 9111 are the current HTTP standards. RDF 1.2 (Candidate Recommendation, April 2026) preserves every definition cited above — data conforming to 1.1 remains conforming — and its headline addition, the triple term, is Chapter 9's annotation-syntax contrast, scored there. The prediction registry notes: RDF 1.2 keeps named graphs. SPARQL is cited at 1.1 throughout, the current Recommendation.
 
 *Witnesses — norms and independent results corroborating, never premises:*
 
