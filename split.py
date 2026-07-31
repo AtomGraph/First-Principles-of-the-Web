@@ -134,7 +134,8 @@ if appendices:
         letter = t[0].lower()
         slug = re.sub(r"[^a-z0-9]+", "-", t.split(". ", 1)[-1].lower()).strip("-")
         fname = f"appendix-{letter}-{slug}.qmd"
-        write(fname, t, b)
+        # Quarto prefixes appendix pages with "Appendix X —" itself; drop the source's letter
+        write(fname, re.sub(r"^[A-Z]\.\s+", "", t), b)
         app_files.append(fname)
 if status:
     write("status.qmd", "Draft status", status)
