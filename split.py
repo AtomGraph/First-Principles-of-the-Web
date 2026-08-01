@@ -103,6 +103,7 @@ RESULT_LINE = re.compile(
     r"\s+(?P<num>C?\.?\d+(?:\.\d+)?)"
 )
 RS_LINE = re.compile(r"^(?P<pre>(?:>\s*)?)\*\*(?P<rs>[RS][1-4]) — ")
+COND_LINE = re.compile(r"^(?P<pre>-\s+)\*\*\((?P<cond>C-\d[a-d]?)\)")
 EQ_NUM = re.compile(r"\((\d+\.\d+)\)\s*$")
 KIND_ID = {"prop": "prop", "props": "prop", "proposition": "prop",
            "thm": "thm", "theorem": "thm", "def": "def", "definition": "def",
@@ -172,12 +173,17 @@ def add_anchors(text):
             continue
         m = RESULT_LINE.match(line)
         m2 = RS_LINE.match(line) if not m else None
+        m3 = COND_LINE.match(line) if not (m or m2) else None
         if m:
             line = m.group("pre") + "[]{#%s}" % result_id(m) + line[len(m.group("pre")):]
         elif m2:
             line = m2.group("pre") + "[]{#%s}" % m2.group("rs").lower() + line[len(m2.group("pre")):]
+        elif m3:
+            line = m3.group("pre") + "[]{#%s}" % m3.group("cond").lower() + line[len(m3.group("pre")):]
         elif re.match(r"^## C\.\d+ ", line):
-            line = line + " {#c-%s}" % re.match(r"^## C\.(\d+)", line).group(1)
+            # section ids keep the label's own spelling: C.1 → #c.1 (the
+            # condition C-1 → #c-1 would otherwise collide)
+            line = line + " {#c.%s}" % re.match(r"^## C\.(\d+)", line).group(1)
         out.append(line)
         i += 1
     return "\n".join(out)
@@ -190,7 +196,7 @@ XREF = re.compile(
     r"|Appendix C\.(?P<appcn>\d+)"
     r"|Appendix (?P<app>[A-D])\b"
     r"|\bC\.(?P<csecn>\d+)\b"
-    r"|\bC-(?P<ccondn>\d)[a-d]?(?:–[a-d])?\b"
+    r"|\bC-(?P<ccondn>\d[a-d]?)(?:–[a-d])?\b"
     r"|\bCh (?P<chshort>\d+)\b"
     r"|\((?P<eqn>\d{1,2}\.\d)\)"
     r"|Part (?P<part>[IVX]+)\b"
@@ -215,13 +221,12 @@ def _xref_target(m):
         return app_page.get("C")
     if m.group("appcn") or m.group("csecn"):
         ap = app_page.get("C")
-        return f"{ap}#c-{m.group('appcn') or m.group('csecn')}" if ap else None
+        return f"{ap}#c.{m.group('appcn') or m.group('csecn')}" if ap else None
     if m.group("ccondn"):
+        # each condition has its own anchor on its defining bullet;
+        # a range like C-2a–d points at the first of the range
         ap = app_page.get("C")
-        if not ap:
-            return None
-        # C-2a–d are formalized in section C.1; C-0, C-1, C-3 in C.2
-        return f"{ap}#c-1" if m.group("ccondn") == "2" else f"{ap}#c-2"
+        return f"{ap}#c-{m.group('ccondn')}" if ap else None
     for g in ("ch", "chshort"):
         if m.group(g):
             return ch_page.get(int(m.group(g)))
@@ -263,7 +268,7 @@ def linkify(text, current=None):
         elif fence or s.startswith("#"):
             out.append(line)
         else:
-            mo = re.match(r"^(?:>\s*)?\[\]\{#([\w-]+)\}", line)
+            mo = re.match(r"^(?:>\s*|-\s+)?\[\]\{#([\w.-]+)\}", line)
             own_id[0] = mo.group(1) if mo else None
             out.append(XREF.sub(repl, line))
     return "\n".join(out)
