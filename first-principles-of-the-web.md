@@ -713,7 +713,7 @@ Read the relational column twice: the highest pre-web score in the book, failing
 
 ## Chapter 14. The Long Way Home
 
-The evidence chapter, written deadpan, because the facts outperform commentary. The JavaScript ecosystem — following nothing but its own pain gradient, with no exposure to any derivation — has spent a decade converging back toward the proper factorization, one rediscovery at a time, each announced as innovation:
+The evidence chapter, written deadpan, because the facts outperform commentary. The JavaScript ecosystem — with no exposure to any derivation, moved by nothing but its own costs — has spent a decade converging back toward the proper factorization, one rediscovery at a time, each announced as innovation:
 
 - **SSR.** Documents should arrive as documents. The S4 bill — crawlers blind, first paint late — was paid in exactly the predicted currency, and the fix is `present ∘ arrange ∘ select` running on a server, where it had been running since 1993.
 - **Hydration.** The tax with no referent in the theory except as the cost term of the S1 violation: ship the document *and* the program that regenerates it, because the architecture cannot tell them apart. An industry line item for a category error.
@@ -726,7 +726,7 @@ The framing is convergent evolution: when independent lineages under the same se
 
 ```mermaid
 timeline
-    title The gradient climbs, 2013–2026
+    title The convergence, 2013–2026
     2013 : the fused term consolidates — client-side read becomes the default
     2016 : SSR returns — the pipeline re-runs on servers
     2019 : hydration is named — the S1 tax gets a line item
@@ -737,7 +737,7 @@ timeline
 
 *Years mark mainstream arrival, not invention. The axis the figure cannot draw is the one the chapter measures: S1 and S2 recovered; R3 and S4 still ahead.*
 
-Closing observation, stated once and left alone: the gradient recovers S1 and S2 but stalls before R3 and S4 — the two properties that make it *the web* rather than an app platform that happens to use browsers. The stall has a reason: the last mile's benefits accrue to everyone except the vendor walking it. The properties whose payoffs are private return first; the properties whose payoffs are public wait.
+Closing observation, stated once and left alone: the convergence recovers S1 and S2 but stalls before R3 and S4 — the two properties that make it *the web* rather than an app platform that happens to use browsers. The stall has a reason: the last mile's benefits accrue to everyone except the vendor walking it. The properties whose payoffs are private return first; the properties whose payoffs are public wait.
 
 **Column: SPA/JS, revised.**
 
@@ -848,11 +848,11 @@ And because the audit cuts both ways, the register of the book's own open, falsi
 | claim | where | falsified by |
 |---|---|---|
 | the SPA paradigm caps at Web 2.0 | Ch 11 | a fused-architecture deployment whose state is machine-consumable at web scale without a compensating adapter layer |
-| the convergence gradient stalls before R3 and S4 absent new incentives | Ch 14 | a mainstream framework shipping addressable intermediates and global references as defaults |
+| the convergence stalls before R3 and S4 absent new incentives | Ch 14 | a mainstream framework shipping addressable intermediates and global references as defaults |
 | the agent economy converges on generic systems with domains as data | Ch 17 | agent infrastructure stabilizing permanently on per-application protocol servers, adapter counts growing linearly |
 | attribution pressure keeps selecting the fourth position | Prop. 9.2 | a successor standard that discards named graphs |
 
-Retrodictions — quads, the JS gradient — are marked as such where they occur; this table lists only what is still open. Registered July 2026.
+Retrodictions — quads, the JS convergence — are marked as such where they occur; this table lists only what is still open. Registered July 2026.
 
 Closing recursion, with the receipt honored rather than claimed. The canonical edition of this book — under construction, as the preface discloses — is a dataspace on Chapter 15's machine: propositions as resources, dependencies as typed links, figures as live queries, this table as the home page. When you read it there, the final step of the argument will be an act rather than a sentence: QED, dereferenced.
 
