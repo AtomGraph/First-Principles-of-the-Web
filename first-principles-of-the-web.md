@@ -10,31 +10,11 @@
 
 ## Preface
 
-This book makes one claim and spends its entire length making that claim checkable.
-
 The claim: there is exactly one way to build applications that are *of* the web rather than merely *on* it, and it is data-centric, declarative, and graph-based. "Exactly one" is meant relative to rules the web itself imposes — the book derives the rules, and each comes with a stated exit and the exit's price. Everything else — the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains — is either a partial rediscovery of this way or a detour from it.
 
-That is a bold claim, and bold claims are cheap. The industry produces them weekly. So this book is structured differently from an argument: it is structured as a derivation. Every statement in it is one of three things — a definition taken verbatim from the web's own specifications, a proposition that follows from previous statements, or an observation you can verify against deployed reality. If you find a statement that is none of the three, the book has a bug, and I would like a report.
+The book is structured as a derivation, and every statement in it is one of three things: a definition quoted from the web's own specifications, a proposition that follows from previous statements, or an observation you can verify against deployed reality. If you find a statement that is none of the three, the book has a bug, and I would like a report. Method, notation, and reading tracks are in Appendix A.
 
-I am not going to try to persuade you. Persuasion is what you need when you don't have a proof. Instead, I will define what a web application is — using only definitions the web already ships with — and then derive, step by step, what its parts must look like. You will arrive at a specific data model, a specific kind of query, a specific kind of transformation, before I ever name them. Then comes the reveal: the structure you just derived was standardized decades ago. You have been carrying its name around the whole time, probably with a vague sense that it "failed in the nineties."
-
-It didn't fail. It was early, and then it was abandoned for reasons this book will also derive — because the honest version of this story has to explain why the wrong thing won. Not because the industry is stupid — because improper architecture is locally cheap and globally expensive: fusing things together is always less work *today*, and the costs land on caches, crawlers, integrators, and the future. For thirty years the future could wait. Now that software agents are trying to *read* the web and finding only rendered pixels and private APIs, the invoice has arrived. The timing of this book is not an accident.
-
-One more thing, and it matters. This book is built to practice what it derives. The canonical edition is designed as a linked-data application in which every proposition is a dereferenceable resource, every dependency between propositions a typed link, and every figure a live query against the book's own dataset; the printed edition is then, in the book's own notation, a projection of that dataset, transformed and styled. As this draft circulates, that edition is still under construction — a receipt the book owes and intends to present. The thesis demands the form: if the book cannot eventually exist as its own instance, the thesis has a bug.
-
-Receipts, as I like to say.
-
----
-
-## How to Read This Book
-
-**The argument.** Every statement in this book is one of three things: a definition quoted from a deployed web specification (RFC 3986, RFC 9110 and its caching companion RFC 9111, and — after the reveal — the W3C recommendations), a proposition that cites only earlier propositions, or an observation you can check against the deployed web. I get no axioms of my own. A fourth category corroborates without ever serving as premise: *witnesses* — documents that stated as norms what this book derives as theorems; strike them all and no proof changes. And one claim is deliberately unprovable, flagged where it stands: the Transposition Thesis of Chapter 5, the bridge between the formalism and the web itself — secured four ways there and in the appendices, proved never. Attack the bridge, not the theorems; the theorems will hold.
-
-**The shape.** Parts II–III strip the web application as found in the wild and derive what its parts must be; Part V builds the application space back up from the derived parts; the two directions meeting exactly is the book's proof. Part IV, between them, audits what the industry runs instead — no adjectives, only scores, against the seven properties of Part II: three requirements on state (R1–R3), four separations on architecture (S1–S4). By the last chapter the scorecard is complete. The table is the book.
-
-**The formalism.** Nothing beyond first-year material, and if you have ever read a type signature you have read every formula here: `×` is a tuple, `→` a function, `𝒫(Fact)` a `Set<Fact>` — the crib is Appendix A. `⟦·⟧` is always someone else's semantics, cited from its spec. Proofs fold: the claim stays in the text, the argument opens on demand. Results carry names — the analysis theorem, the delta normal form, the erasure argument — because prose argues by name; the numbers exist so the appendix can argue by label. You can skip every formula and follow the prose. The formulas are there so that you don't have to trust it.
-
-**Three tracks.** In a hurry: the page after this one, then Chapters 3, 8, and 18. Building things: add Chapters 7, 14, and 16. Refereeing: Chapter 5 and Appendix C, where the load-bearing walls are.
+One more thing. This book is built to practice what it derives: its canonical edition is designed as a linked-data application in which every proposition is a dereferenceable resource — an instance of its own thesis. As this draft circulates, that edition is under construction: a receipt the book owes. Receipts, as I like to say.
 
 ---
 
@@ -46,7 +26,7 @@ Strip any page — a newspaper, a dashboard — and the same skeleton emerges: s
 
 Ask what `State` must be, and the web itself answers. It must host any domain. It must compose across parties who have never met — which forces merging by union, over facts that carry their own meaning. Its names must work globally. The smallest fact meeting all three requirements is a triple of identifiers, and any minimal model meeting them is isomorphic to sets of triples under union. That is a theorem, with numbered exits for dissenters.
 
-The reveal: what you just derived is RDF, SPARQL, XSLT, and CSS — standardized between 1996 and 2014, then abandoned rather than refuted. The audit: everything the industry runs instead fails a named requirement and pays for the failure with a compensating industry. The invoice: software agents now need exactly the property the industry declined — machine-consumable state — and the compensating machinery is assembling in real time, at industry scale.
+The reveal: what you just derived is RDF, SPARQL, XSLT, and CSS — standardized between 1996 and 2014, then abandoned rather than refuted. The audit: everything the industry runs instead fails a named requirement and pays for the failure with a compensating industry; by the last chapter, one table carries every score. The invoice: software agents now need exactly the property the industry declined — machine-consumable state — and the compensating machinery is assembling in real time, at industry scale.
 
 If the derivation holds, the next web needs no inventing; it waits to be occupied. The rest of this book is the proof, the prices, and the receipts.
 
@@ -525,7 +505,7 @@ Then the sentence the whole book exists to earn:
 
 Whatever you believed about the semantic web when you opened this book — too academic, too complicated, died in the nineties — you derived it yourself from three requirements you could not reject. The technologies were not designed by committee enthusiasm and in search of a problem; they occupy a position that was *forced*, and the people who standardized them in 1999 had arrived where it points. The only thing that failed in the nineties was the tooling — and the timing.
 
-**Theorem 8.3 (Synthesis).** The stack realizes the entire space of proper factorizations: SPARQL is complete for the selections, XSLT-over-canon for the arrangements, CSS for presentation, and S4 holds by construction because query results and graphs are dereferenceable resources. *With one honest caveat — the completeness class for `arrange` must exclude smuggling: the right condition is genericity, invariance under URI renaming — data-drivenness stated as mathematics, and AWWW §2.5's URI opacity, quantified. Appendix C.8 makes it exact.* Analysis said every application has the form; Synthesis says the stack fills the form. The pincer closes. This meeting point is the proof the preface promised.
+**Theorem 8.3 (Synthesis).** The stack realizes the entire space of proper factorizations: SPARQL is complete for the selections, XSLT-over-canon for the arrangements, CSS for presentation, and S4 holds by construction because query results and graphs are dereferenceable resources. *With one honest caveat — the completeness class for `arrange` must exclude smuggling: the right condition is genericity, invariance under URI renaming — data-drivenness stated as mathematics, and AWWW §2.5's URI opacity, quantified. Appendix C.8 makes it exact.* Analysis said every application has the form; Synthesis says the stack fills the form. The pincer closes. This meeting point is the book's proof.
 
 ---
 
@@ -808,7 +788,7 @@ The reference implementation ships exactly this: applications as importable data
 
 ## Chapter 17. The Agent Era
 
-The invoice arrives. Software agents are trying to read the web, and what they find is what Part IV measured: rendered pixels and private APIs. The industry's response is a compensating industry assembling itself in real time — scraping harnesses, headless browsers, and a per-application protocol server bolted onto every system that wants to be machine-legible. Read that list against Chapter 11's price sheet: it is the S4 violation, remediated one adapter at a time, at industry scale, exactly as the model prices it. The machine-readable web is being retrofitted at the margin because it was declined at the core — Chapter 9's maintenance failure, collecting interest.
+Improper architecture is locally cheap and globally expensive: fusing is always less work *today*, and the costs land on caches, crawlers, integrators, and the future. For thirty years the future could wait. Now the invoice arrives: software agents are trying to read the web, and what they find is what Part IV measured: rendered pixels and private APIs. The industry's response is a compensating industry assembling itself in real time — scraping harnesses, headless browsers, and a per-application protocol server bolted onto every system that wants to be machine-legible. Read that list against Chapter 11's price sheet: it is the S4 violation, remediated one adapter at a time, at industry scale, exactly as the model prices it. The machine-readable web is being retrofitted at the margin because it was declined at the core — Chapter 9's maintenance failure, collecting interest.
 
 The arithmetic of that compensating industry is the integration industry's arithmetic at a new scale. `N` agents meeting `M` applications through bespoke adapters need on the order of `N × M` integrations. The moment state shares one model and one query semantics, the count collapses to `N + M` — each side implements the common substrate once. Every generation of middleware has re-learned this sum. The agent era re-learns it with `N` growing by the month: the per-application protocol server, the emerging convention as this draft circulates, is the `N × M` answer shipped in real time; the derived stack is the `N + M` answer, shipped since 1999.
 
@@ -822,7 +802,7 @@ The question that ends the chapter, put to any agent directly: *is it more effic
 
 ## Chapter 18. The Next Web
 
-The audit table, completed — Appendix B, one page, every cell carrying a chapter's score, one column with no failures. The table is the book, as How to Read promised; this chapter reads it forward.
+The audit table, completed — Appendix B, one page, every cell carrying a chapter's score, one column with no failures. The table is the book, as the opening argument promised; this chapter reads it forward.
 
 Web 3.0, defined rather than vibed: `read` transparent all the way down — S1–S4 at every layer, R1–R3 at the substrate — for humans *and* machines, which Chapter 17 reduced to one audience. Every earlier use of the term gestured; the table lets this one point.
 
@@ -853,7 +833,15 @@ And if you put the book down short of that edition, the derivation folds to a se
 
 # Appendices
 
-## A. Notation and reading order
+## A. Method, notation, and reading order
+
+Persuasion is what you need when you don't have a proof, so this book runs on apparatus, and the apparatus has rules. A statement's sources come in the three kinds the preface names — spec definitions, earlier propositions, checkable observations — and a fourth category corroborates without ever serving as premise: *witnesses*, documents that stated as norms what this book derives as theorems; strike them all and no proof changes. One claim is deliberately unprovable, flagged where it stands: the Transposition Thesis of Chapter 5, the bridge between the formalism and the web itself — secured four ways there and in the appendices, proved never. Attack the bridge, not the theorems; the theorems will hold.
+
+The shape of the whole: Parts II–III strip the web application as found and derive what its parts must be; Part V builds the application space back from the derived parts; the two directions meeting exactly is the book's proof. Part IV, between them, audits what the industry runs instead — no editorializing, only scores against Part II's seven properties: three requirements on state (R1–R3), four separations on architecture (S1–S4).
+
+If you have ever read a type signature, you have read every formula in this book — `×` is a tuple, `→` a function; the crib below translates the rest. Proofs fold: the claim stays in the text, the argument opens on demand. Results carry names, because prose argues by name; the numbers let the appendices argue by label.
+
+Three tracks, if you are choosing a path: in a hurry — the opening pages, then Chapters 3, 8, and 18; building things — add Chapters 7, 14, and 16; refereeing — Chapter 5 and Appendix C, where the load-bearing walls are.
 
 Sets, tuples, total functions, and composition `∘` — first-year material, as promised. `I` is the set of URIs (RFC 3986); `V` a set of atomic literal values disjoint from `I`; `𝒫` powerset; `∖` set difference; `⊔` disjoint combination of independently asserted structures. `⟦·⟧` is a denotation function and always someone else's: cited from the governing specification, never defined here. `t` names the arrange term (S2), so time is written `τ`. The numbered apparatus: R1–R4 are requirements on state; S1–S4 separation properties of a factorization; C-conditions the formalizations in Appendix C; propositions are chapter-numbered. Reading order: Parts I–III linearly; Part IV in any order after Chapter 8; Part V after Part II suffices. The formulas are skippable and the prose carries every argument; the formulas make the prose auditable.
 
@@ -894,7 +882,7 @@ And the named results, so prose and apparatus can find each other:
 | the bill for anonymity | Prop. 9.1 | Ch 9 |
 | the erasure argument | Prop. 9.2 | Ch 9 |
 | nothing else to vary | Prop. 16.1 | Ch 16 |
-| the Transposition Thesis | a thesis, deliberately unnumbered | Ch 5; How to Read |
+| the Transposition Thesis | a thesis, deliberately unnumbered | Ch 5; Appendix A |
 
 ## B. The Properness Table
 
@@ -1030,7 +1018,7 @@ Together with the analysis theorem (C.5): every windowed `read` has the form, an
 
 ## D. References
 
-The spec concordance: the book's external dependency list, and deliberately its only one — followed by the witnesses, the candidates, and the works the audit examines, kept in separate ledgers per How to Read.
+The spec concordance: the book's external dependency list, and deliberately its only one — followed by the witnesses, the candidates, and the works the audit examines, kept in separate ledgers per the discipline of Appendix A.
 
 *Axioms — definitions used as premises:*
 
@@ -1095,7 +1083,7 @@ Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, 
 
 | Part | Status |
 |---|---|
-| Preface, How to Read | drafted |
+| Preface, The Argument in One Page | drafted — front door trimmed to claim + argument (reader feedback, 2026-08-01); method merged into Appendix A |
 | Ch 1, 2 | drafted |
 | Ch 3 | drafted; screenshot exhibits captured (Guardian + Grafana wind farm, 2026-07-24) |
 | Ch 4, 5 | drafted — the core; 4.5 (the document in time) added |
@@ -1107,5 +1095,5 @@ Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, 
 | Ch 15–18 | drafted (LinkedDataHub as reference implementation; WebID/WAC; RDF/POST; reconstruction exhibit pending) |
 | Appendices A, B, D | drafted — audit table complete, concordance tabled |
 | Appendix C | complete — C.1–C.8: representation, arity (with scope note), uniqueness, independence, analysis, timelines, homomorphism, synthesis/genericity |
-| Securing apparatus | Transposition Thesis + table + CRDT corroboration (Ch 5); bridge methodology (How to Read); prediction registry (Ch 18); prior-art sweep 2026-07-30 — uniqueness NOVEL, arity re-scoped as Peirce re-derivation with Löwenheim/Quine answered (C.2 scope note), prior-art ledger in App D. Second sweep done 2026-08-01: CALM, CRDTs, genericity, Parr — neighbors, not preempts; all cited in App D. Pending: mechanization of C.1–C.8 |
+| Securing apparatus | Transposition Thesis + table + CRDT corroboration (Ch 5); bridge methodology (Appendix A); prediction registry (Ch 18); prior-art sweep 2026-07-30 — uniqueness NOVEL, arity re-scoped as Peirce re-derivation with Löwenheim/Quine answered (C.2 scope note), prior-art ledger in App D. Second sweep done 2026-08-01: CALM, CRDTs, genericity, Parr — neighbors, not preempts; all cited in App D. Pending: mechanization of C.1–C.8 |
 | Figures | mermaid: Ch 3 strips, Ch 4 pipeline + timelines, Ch 6 crossing, Ch 7 centerfold, Ch 8 square, Ch 14 timeline; Ch 2 brackets table. Screenshot strips 0–3 in `first-principles-figures/` (reproducible: `strips.cjs`). Pending: Ch 15 reconstruction exhibit |
