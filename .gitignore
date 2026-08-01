@@ -3,3 +3,6 @@
 _quarto.yml
 _book/
 .quarto/
+
+/.quarto/
+**/*.quarto_ipynb

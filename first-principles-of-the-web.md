@@ -166,6 +166,10 @@ flowchart TB
 
 *Two maximally different sites, three strips, one skeleton — the exhibits above, as a schematic.*
 
+<div class="fp-exhibit" data-exhibit="strip"></div>
+
+*Interactive exhibit (online edition): the strip, performed rather than photographed — the dashboard rebuilt live, each layer removed and restored in place.*
+
 Two examples prove nothing about all websites; the strips are illustration. The universal claim is Chapter 4's theorem, quantifying over every `read` at once. This chapter makes you feel it; the next one proves it.
 
 ---
@@ -335,11 +339,19 @@ State = 𝒫(I × I × (I ∪ V))
 
 Chapter 3's exhibit already wrote facts in this shape without saying so. The dashboard's strip-2 block was one entity and two attributes — two facts, exactly: `(⟨…#panel-14⟩, title, "Current Power")` and `(⟨…#panel-14⟩, value, "15.5 kW")`. Entity in `I`, attribute in `I`, value in `V`. The exhibit was the theorem, photographed early.
 
+<div class="fp-exhibit" data-exhibit="merge"></div>
+
+*Interactive exhibit (online edition): two parties who have never met. Edit either side, shuffle, duplicate — the union absorbs everything except new facts, and (5.1) is something you fail to break rather than something you believe.*
+
 **Theorem 5.4 (Uniqueness).** Any arity-minimal state model satisfying R1–R3 is isomorphic to (5.3). *(Proof: Appendix C. The proof is an assembly of 5.1–5.3: R2 forces the set-of-atomic-facts shape and union-merge; R1 with minimality forces arity three; R3 forces positions one and two into `I`.)*
 
 Sit with what this theorem does to the word "only" in this book's thesis. "The only native way" sounds like rhetoric; Theorem 5.4 makes it a statement with an escape clause, and the escape clause is the trap. To reject the conclusion you must reject a requirement, and each rejection has a name. Reject R1 and your model can't host the web's content. Reject R2 and your data needs a coordinator — a central schema authority, which is to say: you have built a silo. Reject R3 and your data cannot refer beyond itself — a silo again, by the other door. Reject minimality and you widen the tuple — a door left deliberately ajar; Chapter 9 walks through it with R4. Every alternative data model the industry runs on will be located, in Part IV, at one of the first three exits.
 
 We are not done deriving — the same pattern now runs once more, one level up, quickly. `select` needs a minimal algebra over `𝒫(Fact)`: match a fact pattern with variables; join matches; union alternatives; project variables out. Each operation is forced by a page you can point at (any master–detail page is a join; any search page is a pattern). `write`, by (5.1), reduces to two sets: facts added and facts removed — the *delta*, and nothing else, because there is nothing else a set can do. Keep these in your pocket. They are about to become recognizable.
+
+<div class="fp-exhibit" data-exhibit="select"></div>
+
+*Interactive exhibit (online edition): the algebra, exercised — patterns with variables, joined and projected over the state merged above. One preset only answers because the merge happened: it joins the operator's facts to the contractor's.*
 
 ---
 
@@ -371,6 +383,10 @@ The three properties `canon` must have — deterministic, lossless, structure-fr
 For ground states, order the atoms lexicographically by their three positions and emit one block per subject. The map is a function because a total order on tuples exists; lossless because the atom set is recoverable by reading the blocks back; structure-free because the order is defined by the atoms alone, never by their provenance or grouping. States with unnamed entities need a canonical labeling first; that labeling exists, is standardized, and is billed in Chapter 9. ∎
 
 </details>
+
+<div class="fp-exhibit" data-exhibit="canon"></div>
+
+*Interactive exhibit (online edition): shuffle the input as many times as patience allows — `canon` does not move. Change an atom and it moves exactly as far as the atom requires.*
 
 The seam is not a research problem. Remember that phrasing; it returns in Chapter 9 with teeth.
 
@@ -408,6 +424,10 @@ With `D⁻`, `D⁺` as defined, `(S ∖ D⁻) ∪ D⁺ = write(r, S)` by set ext
 Two sets. That is the entire theory of mutation over a fact-set model, and I want to linger on how strange that should feel to anyone who has worked a day in this industry, because mutation is where our ceremony lives: object-relational mappers, migration frameworks, state managers, undo stacks, reconciliation engines. Every one of these is machinery for computing or applying change over a model in which change has no normal form. Trees are the instructive case: two trees have no canonical difference, so deciding what "changed" is a heuristic — the virtual DOM's diffing engine is an industry monument to this, a runtime spent recovering approximately what (7.1) gives exactly, by subtraction. Sets subtract. The model that R2 forced for merging turns out to hand us mutation's normal form as a by-product; union and difference are one algebra.
 
 On the running example: the wind gusts, and the panel's `value` moves. The delta is `D⁻ = {(⟨…#panel-14⟩, value, "15.5 kW")}` and `D⁺ = {(⟨…#panel-14⟩, value, "16.1 kW")}` — two one-element sets, and that, transport included, is the entire update.
+
+<div class="fp-exhibit" data-exhibit="delta"></div>
+
+*Interactive exhibit (online edition): the gust, applied — edit the two sets and apply them against the live state. Apply the same delta twice and watch nothing happen: sets subtract, and they also shrug.*
 
 And note what a delta is made of: fact-sets. Change is data in the same model as the state it changes — no second model, no change-description language with semantics of its own to invent. Chapter 5 ended by putting the delta in your pocket; Chapter 8 will name what the industry standardized it as.
 
@@ -505,6 +525,10 @@ Then the sentence the whole book exists to earn:
 **You have already accepted RDF. You did it in Chapter 5, before I told you its name.**
 
 Whatever you believed about the semantic web when you opened this book — too academic, too complicated, died in the nineties — you derived it yourself from three requirements you could not reject. The technologies were not designed by committee enthusiasm and in search of a problem; they occupy a position that was *forced*, and the people who standardized them in 1999 had arrived where it points. The only thing that failed in the nineties was the tooling — and the timing.
+
+<div class="fp-exhibit" data-exhibit="reveal"></div>
+
+*Interactive exhibit (online edition): Chapter 5's state, Chapter 5's algebra, Chapter 7's delta, under one switch — the derivation's notation on one side, Turtle, SPARQL, and SPARQL Update on the other. Nothing is recomputed. Everything is renamed.*
 
 **Theorem 8.3 (Synthesis).** The stack realizes the entire space of proper factorizations: SPARQL is complete for the selections, XSLT-over-canon for the arrangements, CSS for presentation, and S4 holds by construction because query results and graphs are dereferenceable resources. *With one honest caveat — the completeness class for `arrange` must exclude smuggling: the right condition is genericity, invariance under URI renaming — data-drivenness stated as mathematics, and AWWW §2.5's URI opacity, quantified. Appendix C.8 makes it exact.* Analysis said every application has the form; Synthesis says the stack fills the form. The pincer closes. This meeting point is the book's proof.
 
@@ -759,6 +783,10 @@ The reflex has a Recommendation-grade instance: the Linked Data Platform (2015),
 This chapter is where the book's existence proof enters as evidence. The architecture has a reference implementation — **LinkedDataHub**, open source, in production for years — and the online edition of this book is being built on it, the receipt the preface owes. Disclosure, once for the chapter: the implementation and the RDF/POST spec are the author's. The point of an existence proof one can install is that belief is optional.
 
 The chapter's exhibit mirrors Chapter 3's, deliberately. The two sites we stripped are rebuilt as dataspaces: the strip-2 fact lists loaded as state, a small ontology per domain — articles and sections for one, panels and readings for the other — one `select` term per window, an `arrange` term per layout, a stylesheet per look. Front page and dashboard become two declarative packages over the same generic machine, the domain living entirely in data. Chapter 3 computed the factorization by hand; this chapter runs it forward, on the same material. Analysis and synthesis meet on worked examples. *(Exhibit pending, as Chapter 3's once was.)*
+
+<div class="fp-exhibit" data-exhibit="pipeline"></div>
+
+*Interactive exhibit (online edition): a miniature of the pending exhibit. The two datasets from Chapter 3 under one generic engine — swap the data, the selection, the term, or the stylesheet, and the factors you did not touch hold still. The full-scale reconstruction runs the real stack; this one runs the derivation.*
 
 ## Chapter 16. Generic Software
 

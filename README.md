@@ -20,6 +20,7 @@ If you find a statement that is neither a spec definition, a proposition citing 
 | `first-principles-figures/` | the Chapter 3 exhibits (screenshot strips) and [`strips.cjs`](first-principles-figures/strips.cjs), the pipeline that reproduces them |
 | [`formal-model-of-dynamic-web-documents.md`](formal-model-of-dynamic-web-documents.md) | the book's earliest formal ancestor, preserved as source material |
 | `split.py` | build-time projection: splits the source into a [Quarto](https://quarto.org/) book (chapters, parts, config) |
+| `exhibits.js`, `exhibits.css` | the online edition's interactive exhibits — dependency-free; in the source they sit as invisible stubs with captions, so the GitHub rendering stays clean |
 | `.github/workflows/publish.yml` | renders and publishes the book on every push |
 
 Everything book-shaped — the chapter pages, the config — is generated at build time and never committed. In the book's own notation, the published site is a projection of the source: `read = present ∘ arrange ∘ select`, where `split.py` is the arrange term.
