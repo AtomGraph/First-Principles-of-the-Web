@@ -143,6 +143,9 @@ if status:
 
 yml = """project:
   type: book
+  resources:
+    - exhibits.js
+    - exhibits.css
 
 book:
   title: "First Principles of the Web"
@@ -164,6 +167,10 @@ format:
     toc: true
     number-sections: false
     code-overflow: wrap
+    include-in-header:
+      text: |
+        <link rel="stylesheet" href="exhibits.css">
+        <script defer src="exhibits.js"></script>
 """
 (ROOT / "_quarto.yml").write_text(yml, encoding="utf-8")
 
