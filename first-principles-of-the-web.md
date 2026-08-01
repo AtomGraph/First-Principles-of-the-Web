@@ -319,7 +319,7 @@ Each left cell is deployed and citable — RFC 9111 carries the middle two, AWWW
 
 **R3 — Global reference.** A fact on one site can be about an entity described on another; the web's entire value proposition is that things link. Therefore names *inside* facts need global scope. The web possesses exactly one global naming system — `I`, the URIs from Chapter 1 — and inventing a second one would itself violate R2 (two parties' private naming schemes collide on merge). So references in facts are drawn from `I`. And note what R3 does and does not ask: names must be global; nothing requires that they dereference. That they *can* — that the naming system and the web's address system are one — is the construction's gift, and Chapter 15 pays the toll that gift charges.
 
-Now the question with a genuinely satisfying answer: what is the smallest self-contained fact? And "smallest" is not an aesthetic preference. Every position a fact carries beyond need is a position whose use independent parties must somehow agree on, and agreement is what R2 forbids — minimality is coordination-avoidance at the level of shape. When a genuine requirement funds an extra position, the derivation will grant it; Chapter 9 does exactly that.
+Now the question with a genuinely satisfying answer: what is the smallest self-contained fact? And "smallest" is not an aesthetic preference. Every position a fact carries beyond need is a position whose use independent parties must somehow agree on, and agreement is what R2 forbids — minimality is R2, applied to the shape of the fact itself. When a genuine requirement funds an extra position, the derivation will grant it; Chapter 9 does exactly that.
 
 **Prop. 5.2 (Arity).** The minimal self-contained fact is a triple.
 
@@ -524,7 +524,7 @@ Then the sentence the whole book exists to earn:
 
 **You have already accepted RDF. You did it in Chapter 5, before I told you its name.**
 
-Whatever you believed about the semantic web when you opened this book — too academic, too complicated, died in the nineties — you derived it yourself from three requirements you could not reject. The technologies were not designed by committee enthusiasm and in search of a problem; they occupy a position that was *forced*, and the people who standardized them in 1999 had arrived where it points. The only thing that failed in the nineties was the tooling — and the timing.
+Whatever you believed about the semantic web when you opened this book — too academic, too complicated, died in the nineties — you derived it yourself from three requirements you could not reject. The technologies were not a committee's enthusiasm in search of a problem; they occupy a position that was *forced*, and the people who standardized them in 1999 had arrived where it points. The only thing that failed in the nineties was the tooling — and the timing.
 
 <div class="fp-exhibit" data-exhibit="reveal"></div>
 
@@ -675,7 +675,7 @@ The concession: Wasm as a *leaf* — a codec, a physics kernel, a solver inside 
 
 ## Chapter 13. Pre-Web Paradigms
 
-The unifying observation: relational databases, object orientation, ORMs, imperative languages, and MVC all predate the web, and each fails the derived requirements at one identifiable joint — which is *why* each drags a compensating industry behind it at the web boundary. The industries are the measurement: nobody funds a bridge across a gap that isn't there.
+The unifying observation: relational databases, object orientation, ORMs, imperative languages, and MVC all predate the web, and each fails the derived requirements at one identifiable seam — which is *why* each drags a compensating industry behind it at the web boundary. The industries are the measurement: nobody funds a bridge across a gap that isn't there.
 
 **Relational.** The audit's strongest guest. Inside one database the model scores where nothing else pre-web does: relational algebra is denotational — S2-grade semantics decades before the web — and the query/storage separation is genuine S1 discipline. The failure is R3, and it is total: keys are database-scoped, so reference stops at the connection string, and two databases that never coordinated share no name for anything — which drags R2 down with it, since composition then requires a schema authority. The compensating industry is integration itself: every pair of silos bridged by hand, per pair, forever.
 
@@ -709,7 +709,7 @@ These are not outdated because they are old — HTTP is old. They are *pre-web* 
 | S3 | ~ — within one vendor's dialect | ~ — behind interfaces, within one runtime |
 | S4 | ✗ — no value addressable from outside | ✗ |
 
-Read the relational column twice: the highest pre-web score in the book, failing on exactly the machine-spanning properties. The diagnosis follows the scores — a correct answer to the single-machine question, asked the other question.
+Read the relational column twice: the highest pre-web score in the book, failing on exactly the machine-spanning properties. The diagnosis follows the scores — a correct answer to the single-machine question, put to the machine-spanning one.
 
 ## Chapter 14. The Long Way Home
 
