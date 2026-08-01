@@ -5,6 +5,8 @@
 **Martynas Jusevičius — DRAFT 0.1**
 *[martynas@atomgraph.com](mailto:martynas@atomgraph.com) · [atomgraph.com](https://atomgraph.com) · [GitHub](https://github.com/namedgraph) · [X](https://x.com/namedgraph)*
 
+<img src="first-principles-figures/title-the-thing.svg" alt="A graph of linked nodes, projected through a narrow aperture, resolving into a rendered page" class="fp-frontispiece" width="460" />
+
 > *Status: all eighteen chapters and Appendices A–D in prose, with exhibits, scored audit columns, and full proofs (C.1–C.8); the Chapter 15 reconstruction exhibit, mechanization, and the online edition are under construction. Full ledger in the Draft-status table at the end. Feedback is most valuable on R1–R3, the arity argument, and the Transposition Thesis (Chapter 5, Appendix C) — if something is smuggled, it is there.*
 
 ---
@@ -34,6 +36,8 @@ If the derivation holds, the next web needs no inventing; it waits to be occupie
 ---
 
 # Part I — The Object
+
+<img src="first-principles-figures/part1-the-object.svg" alt="A transparent rounded object; an arrow carries a document out, and a second arrow curves back in" class="fp-frontispiece" width="440" />
 
 ## Chapter 1. What the Web Is
 
@@ -95,6 +99,8 @@ This chapter carries no proof weight; it is motivation, and it is honest about t
 # Part II — The Derivation
 
 *Part I defined a web application as two functions and refused to say what `State` is. This part earns the answer: the factorization every `read` admits, the properties that make it real, and the forcing of `State` itself.*
+
+<img src="first-principles-figures/part2-the-derivation.svg" alt="A page exploded into four tilted layers: styled, wireframed, rows, and a bare row of sorted blocks" class="fp-frontispiece" width="440" />
 
 ## Chapter 3. Stripping the Page
 
@@ -484,6 +490,8 @@ flowchart LR
 
 *The derivation is complete — a data model, an algebra, a crossing, a write side — and none of it has been named. This part names it. The names are decades old.*
 
+<img src="first-principles-figures/part3-the-reveal.svg" alt="A blank nameplate lifting away from a finished lattice of connected nodes" class="fp-frontispiece" width="440" />
+
 ## Chapter 8. It Already Exists
 
 Everything in Part II was derived from three RFC-level definitions and three requirements. No W3C recommendation has been cited; no vocabulary from any data-model community has appeared. Now:
@@ -579,6 +587,8 @@ Four deltas, then. Two belong to the model, priced in logic and complexity, and 
 *Part II derived seven properties; Part III showed that one stack satisfies all of them. This part scores everything else the industry runs.*
 
 *Every chapter in this part ends by filling in one column of the same table. Rows: R1 R2 R3 · S1 S2 S3 S4. Editorializing is banned in this part; the scores talk.*
+
+<img src="first-principles-figures/part4-the-audit.svg" alt="A ledger grid of checks, crosses, and tildes; the first column is checks all the way down" class="fp-frontispiece" width="440" />
 
 ## Chapter 10. Brackets
 
@@ -755,6 +765,8 @@ Asymptotic, incomplete, and in the predicted order.
 # Part V — The Construction
 
 *One column of the audit has no failures. This part builds with it: the application space, its economics, its era, and the web they add up to.*
+
+<img src="first-principles-figures/part5-the-construction.svg" alt="Chains of three linked dots composing upward from a level foundation; the next tier is outlined, empty" class="fp-frontispiece" width="440" />
 
 ## Chapter 15. Building Up
 

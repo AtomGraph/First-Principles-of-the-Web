@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img">
+  <title>A scorecard: one column with no failures</title>
+  <defs>
+    <g id="ck" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-8 0 L-2 7 L9 -7"/>
+    </g>
+    <g id="xx" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round">
+      <path d="M-7 -7 L7 7 M7 -7 L-7 7"/>
+    </g>
+    <g id="td" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round">
+      <path d="M-9 2 q4.5 -10 9 -2 q4.5 8 9 -2"/>
+    </g>
+  </defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- the ledger card -->
+    <rect x="140" y="64" width="440" height="352" rx="10" fill="#ffffff" stroke="#1b1e22" stroke-width="2.5"/>
+    <!-- the clean column -->
+    <rect x="214" y="107" width="58" height="308" rx="0" fill="#e3eef7" stroke="none"/>
+    <!-- unnamed column headers -->
+    <g stroke="#d8dce1" stroke-width="2">
+      <rect x="225" y="79" width="36" height="12" rx="6" stroke="#005a9c"/>
+      <rect x="286" y="79" width="36" height="12" rx="6"/>
+      <rect x="347" y="79" width="36" height="12" rx="6"/>
+      <rect x="409" y="79" width="36" height="12" rx="6"/>
+      <rect x="470" y="79" width="36" height="12" rx="6"/>
+      <rect x="531" y="79" width="36" height="12" rx="6"/>
+    </g>
+    <!-- grid -->
+    <g stroke="#d8dce1" stroke-width="1.5">
+      <path d="M141 148 L579 148"/>
+      <path d="M141 190 L579 190"/>
+      <path d="M141 274 L579 274"/>
+      <path d="M141 316 L579 316"/>
+      <path d="M141 358 L579 358"/>
+      <path d="M273 107 L273 415"/>
+      <path d="M334 107 L334 415"/>
+      <path d="M396 107 L396 415"/>
+      <path d="M457 107 L457 415"/>
+      <path d="M518 107 L518 415"/>
+    </g>
+    <g stroke="#5a6270" stroke-width="1.5">
+      <path d="M141 106 L579 106"/>
+      <path d="M141 232 L579 232"/>
+      <path d="M212 65 L212 415"/>
+    </g>
+    <!-- row stubs -->
+    <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" fill="#5a6270" stroke="none">
+      <text x="164" y="132">R1</text>
+      <text x="164" y="174">R2</text>
+      <text x="164" y="216">R3</text>
+      <text x="164" y="258">S1</text>
+      <text x="164" y="300">S2</text>
+      <text x="164" y="342">S3</text>
+      <text x="164" y="384">S4</text>
+    </g>
+    <!-- the scores talk: clean column -->
+    <g color="#005a9c">
+      <use href="#ck" x="243" y="127"/>
+      <use href="#ck" x="243" y="169"/>
+      <use href="#ck" x="243" y="211"/>
+      <use href="#ck" x="243" y="253"/>
+      <use href="#ck" x="243" y="295"/>
+      <use href="#ck" x="243" y="337"/>
+      <use href="#ck" x="243" y="379"/>
+    </g>
+    <!-- everything else the industry runs -->
+    <g color="#5a6270">
+      <use href="#ck" x="304" y="127"/>
+      <use href="#xx" x="304" y="169"/>
+      <use href="#td" x="304" y="211"/>
+      <use href="#xx" x="304" y="253"/>
+      <use href="#xx" x="304" y="295"/>
+      <use href="#ck" x="304" y="337"/>
+      <use href="#xx" x="304" y="379"/>
+      <use href="#xx" x="365" y="127"/>
+      <use href="#xx" x="365" y="169"/>
+      <use href="#xx" x="365" y="211"/>
+      <use href="#td" x="365" y="253"/>
+      <use href="#ck" x="365" y="295"/>
+      <use href="#xx" x="365" y="337"/>
+      <use href="#xx" x="365" y="379"/>
+      <use href="#ck" x="427" y="127"/>
+      <use href="#td" x="427" y="169"/>
+      <use href="#xx" x="427" y="211"/>
+      <use href="#xx" x="427" y="253"/>
+      <use href="#td" x="427" y="295"/>
+      <use href="#xx" x="427" y="337"/>
+      <use href="#ck" x="427" y="379"/>
+      <use href="#xx" x="488" y="127"/>
+      <use href="#ck" x="488" y="169"/>
+      <use href="#xx" x="488" y="211"/>
+      <use href="#ck" x="488" y="253"/>
+      <use href="#xx" x="488" y="295"/>
+      <use href="#td" x="488" y="337"/>
+      <use href="#xx" x="488" y="379"/>
+      <use href="#td" x="549" y="127"/>
+      <use href="#xx" x="549" y="169"/>
+      <use href="#ck" x="549" y="211"/>
+      <use href="#xx" x="549" y="253"/>
+      <use href="#xx" x="549" y="295"/>
+      <use href="#xx" x="549" y="337"/>
+      <use href="#td" x="549" y="379"/>
+    </g>
+  </g>
+</svg>

@@ -349,6 +349,7 @@ yml = """project:
   resources:
     - exhibits.js
     - exhibits.css
+    - "first-principles-figures/*.svg"
 
 book:
   title: "First Principles of the Web"
@@ -366,7 +367,7 @@ book:
 
 format:
   html:
-    theme: cosmo
+    theme: [cosmo, editorial.scss]
     toc: true
     number-sections: false
     code-overflow: wrap
