@@ -15,7 +15,7 @@ The claim: there is exactly one way to build applications that are *of* the web 
 
 The book is structured as a derivation, and every statement in it is one of three things: a definition quoted from the web's own specifications, a proposition that follows from previous statements, or an observation you can verify against deployed reality. If you find a statement that is none of the three, the book has a bug, and I would like a report. Method, notation, and reading tracks are in Appendix A.
 
-One more thing. This book is built to practice what it derives: its canonical edition is designed as a linked-data application in which every proposition is a dereferenceable resource — an instance of its own thesis. As this draft circulates, that edition is under construction: a receipt the book owes. Receipts, as I like to say.
+One more thing. This book is built to practice what it derives: its canonical edition is designed as a linked-data application in which every proposition is a dereferenceable resource — an instance of its own thesis. As this draft circulates, that edition is under construction: a receipt the book owes.
 
 ---
 
@@ -198,13 +198,13 @@ flowchart LR
 
 **Prop. 4.2 (Existence, trivial).** Every `read` factors as (4.1). *Proof:* let `select` and `present` be identities up to retyping and stuff the entire application into `arrange`. ∎
 
-Proposition 4.2 is true and worthless, and I state it precisely so we can see *why* it is worthless: a factorization tells you nothing unless the factors are genuinely separate. The entire content of "declarative architecture" — a phrase the industry uses as a mood — cashes out as four checkable properties of a factorization. This is the book's central definition.
+Proposition 4.2 is stated for what its proof shows: a factorization always exists, so the bare existence of one carries no information. The information is in whether the factors are genuinely separate. Definition 4.3 states that separation as four checkable properties — what "declarative architecture" means, once it is required to mean anything checkable. It is the book's central definition.
 
 **Definition 4.3.** A factorization (select, arrange, present) is **proper** iff:
 
 **S1 — Obliviousness.** Each factor communicates with the next only through its output. `arrange` sees data, never the request. `present` sees a tree, never the data. No side channels: `arrange` and `present` are constant in `Req` and `State` except through their arguments.
 
-**S2 — Declarativity.** Each factor is the *meaning of a term in a language* — there exist languages Q, X, S with independently defined semantics such that `select = ⟦q⟧`, `arrange = ⟦t⟧`, `present = ⟦s⟧`. This is what "declarative" means once you cash it out: the meaning of the query does not depend on the stylesheet, because each language's semantics is closed.
+**S2 — Declarativity.** Each factor is the *meaning of a term in a language* — there exist languages Q, X, S with independently defined semantics such that `select = ⟦q⟧`, `arrange = ⟦t⟧`, `present = ⟦s⟧`. This is what "declarative" means, made precise: the meaning of the query does not depend on the stylesheet, because each language's semantics is closed.
 
 **S3 — Substitutability.** Replace any factor with another term of its language and you still have a web application; the change is confined to that factor's concern.
 
@@ -319,7 +319,7 @@ Each left cell is deployed and citable — RFC 9111 carries the middle two, AWWW
 
 **R3 — Global reference.** A fact on one site can be about an entity described on another; the web's entire value proposition is that things link. Therefore names *inside* facts need global scope. The web possesses exactly one global naming system — `I`, the URIs from Chapter 1 — and inventing a second one would itself violate R2 (two parties' private naming schemes collide on merge). So references in facts are drawn from `I`. And note what R3 does and does not ask: names must be global; nothing requires that they dereference. That they *can* — that the naming system and the web's address system are one — is the construction's gift, and Chapter 15 pays the toll that gift charges.
 
-Now the question with a genuinely satisfying answer: what is the smallest self-contained fact? And "smallest" is not an aesthetic preference. Every position a fact carries beyond need is a position whose use independent parties must somehow agree on, and agreement is what R2 forbids — minimality is R2, applied to the shape of the fact itself. When a genuine requirement funds an extra position, the derivation will grant it; Chapter 9 does exactly that.
+Now the question whose answer the derivation forces: what is the smallest self-contained fact? And "smallest" is not an aesthetic preference. Every position a fact carries beyond need is a position whose use independent parties must somehow agree on, and agreement is what R2 forbids — minimality is R2, applied to the shape of the fact itself. When a genuine requirement funds an extra position, the derivation will grant it; Chapter 9 does exactly that.
 
 **Prop. 5.2 (Arity).** The minimal self-contained fact is a triple.
 
@@ -345,7 +345,7 @@ Chapter 3's exhibit already wrote facts in this shape without saying so. The das
 
 **Theorem 5.4 (Uniqueness).** Any arity-minimal state model satisfying R1–R3 is isomorphic to (5.3). *(Proof: Appendix C. The proof is an assembly of 5.1–5.3: R2 forces the set-of-atomic-facts shape and union-merge; R1 with minimality forces arity three; R3 forces positions one and two into `I`.)*
 
-Sit with what this theorem does to the word "only" in this book's thesis. "The only native way" sounds like rhetoric; Theorem 5.4 makes it a statement with an escape clause, and the escape clause is the trap. To reject the conclusion you must reject a requirement, and each rejection has a name. Reject R1 and your model can't host the web's content. Reject R2 and your data needs a coordinator — a central schema authority, which is to say: you have built a silo. Reject R3 and your data cannot refer beyond itself — a silo again, by the other door. Reject minimality and you widen the tuple — a door left deliberately ajar; Chapter 9 walks through it with R4. Every alternative data model the industry runs on will be located, in Part IV, at one of the first three exits.
+Note what this theorem does to the word "only" in this book's thesis. "The only native way" sounds like rhetoric; Theorem 5.4 makes it a statement with an escape clause, and the escape clause is the trap. To reject the conclusion you must reject a requirement, and each rejection has a name. Reject R1 and your model can't host the web's content. Reject R2 and your data needs a coordinator — a central schema authority, which is to say: you have built a silo. Reject R3 and your data cannot refer beyond itself — a silo again, by the other door. Reject minimality and you widen the tuple — a door left deliberately ajar; Chapter 9 walks through it with R4. Every alternative data model the industry runs on will be located, in Part IV, at one of the first three exits.
 
 We are not done deriving — the same pattern now runs once more, one level up, quickly. `select` needs a minimal algebra over `𝒫(Fact)`: match a fact pattern with variables; join matches; union alternatives; project variables out. Each operation is forced by a page you can point at (any master–detail page is a join; any search page is a pattern). `write`, by (5.1), reduces to two sets: facts added and facts removed — the *delta*, and nothing else, because there is nothing else a set can do. Keep these in your pocket. They are about to become recognizable.
 
@@ -421,13 +421,13 @@ With `D⁻`, `D⁺` as defined, `(S ∖ D⁻) ∪ D⁺ = write(r, S)` by set ext
 
 </details>
 
-Two sets. That is the entire theory of mutation over a fact-set model, and I want to linger on how strange that should feel to anyone who has worked a day in this industry, because mutation is where our ceremony lives: object-relational mappers, migration frameworks, state managers, undo stacks, reconciliation engines. Every one of these is machinery for computing or applying change over a model in which change has no normal form. Trees are the instructive case: two trees have no canonical difference, so deciding what "changed" is a heuristic — the virtual DOM's diffing engine is an industry monument to this, a runtime spent recovering approximately what (7.1) gives exactly, by subtraction. Sets subtract. The model that R2 forced for merging turns out to hand us mutation's normal form as a by-product; union and difference are one algebra.
+Two sets. That is the entire theory of mutation over a fact-set model. Measure that against what the industry maintains for mutation: object-relational mappers, migration frameworks, state managers, undo stacks, reconciliation engines. Every one of these is machinery for computing or applying change over a model in which change has no normal form. Trees are the instructive case: two trees have no canonical difference, so deciding what "changed" is a heuristic — the virtual DOM's diffing engine is an industry monument to this, a runtime spent recovering approximately what (7.1) gives exactly, by subtraction. Sets subtract. The model that R2 forced for merging turns out to hand us mutation's normal form as a by-product; union and difference are one algebra.
 
 On the running example: the wind gusts, and the panel's `value` moves. The delta is `D⁻ = {(⟨…#panel-14⟩, value, "15.5 kW")}` and `D⁺ = {(⟨…#panel-14⟩, value, "16.1 kW")}` — two one-element sets, and that, transport included, is the entire update.
 
 <div class="fp-exhibit" data-exhibit="delta"></div>
 
-*Interactive exhibit (online edition): the gust, applied — edit the two sets and apply them against the live state. Apply the same delta twice and watch nothing happen: sets subtract, and they also shrug.*
+*Interactive exhibit (online edition): the gust, applied — edit the two sets and apply them against the live state. Apply the same delta twice and watch nothing happen: sets subtract, and re-application is a no-op.*
 
 And note what a delta is made of: fact-sets. Change is data in the same model as the state it changes — no second model, no change-description language with semantics of its own to invent. Chapter 5 ended by putting the delta in your pocket; Chapter 8 will name what the industry standardized it as.
 
@@ -453,7 +453,7 @@ pattern + bindings   →  (D⁻, D⁺)                          (change)
 
 The consequence is economic as much as formal: the write side adds no expressive machinery. Whoever can query can update; an implementation obtains its update language by running its pattern matcher with the arguments swapped; and when Part III proves the read side complete, the write side will inherit the result through this symmetry. Compare, once more, the industry's arrangement: a query language, a separate mutation API, a migration DSL, a client-side state manager — four vocabularies for one algebra.
 
-**Prop. 7.4 (Interactivity, decomposed).** Now the trump card. "Real applications are interactive." Very well: by independent evolution (Prop. 4.5) the document is `doc(r, τ) = read_τ(r, S(τ))` — a value with exactly five inputs: the request `r`, the state `S(τ)`, and the three factor terms. So every interaction the web has ever shipped is one of exactly five moves:
+**Prop. 7.4 (Interactivity, decomposed).** The objection's strongest form: "real applications are interactive." By independent evolution (Prop. 4.5) the document is `doc(r, τ) = read_τ(r, S(τ))` — a value with exactly five inputs: the request `r`, the state `S(τ)`, and the three factor terms. So every interaction the web has ever shipped is one of exactly five moves:
 
 1. **navigate** — a new `r`: link, filter, page, search. The term unchanged; the argument different.
 2. **write** — `S` advances by a delta (7.1): submit, edit, delete.
@@ -506,7 +506,7 @@ The mapping is exhibited as a function φ and shown to be a *homomorphism*, not 
 <details>
 <summary><i>How the check runs — clause by clause against a denotational spec.</i></summary>
 
-`φ(select(p, S)) = ⟦sparql(p)⟧(φ(S))` — checkable clause by clause against the SPARQL algebra, which — a rarity among web specs, shared mainly with XQuery's Formal Semantics — is written denotationally and makes the check possible. Full proof: Appendix C. Contrast, in a pointed aside, specs that define no formal semantics and reap a decade of implementer disagreement.
+`φ(select(p, S)) = ⟦sparql(p)⟧(φ(S))` — checkable clause by clause against the SPARQL algebra, which — a rarity among web specs, shared mainly with XQuery's Formal Semantics — is written denotationally and makes the check possible. Full proof: Appendix C. Contrast the specs that define no formal semantics and reap a decade of implementer disagreement.
 
 </details>
 
@@ -833,7 +833,7 @@ The question that ends the chapter, put to any agent directly: *is it more effic
 
 The audit table, completed — Appendix B, one page, every cell carrying a chapter's score, one column with no failures. The table is the book, as the opening argument promised; this chapter reads it forward.
 
-Web 3.0, defined rather than vibed: `read` transparent all the way down — S1–S4 at every layer, R1–R3 at the substrate — for humans *and* machines, which Chapter 17 reduced to one audience. Every earlier use of the term gestured; the table lets this one point.
+Web 3.0, defined: `read` transparent all the way down — S1–S4 at every layer, R1–R3 at the substrate — for humans *and* machines, which Chapter 17 reduced to one audience. Every earlier use of the term gestured; the table lets this one point.
 
 Read the eras through the one variable this book has tracked. Web 1.0: `read` transparent, over documents — declarative, addressable, indexable, the properties that beat every contemporary in Chapter 1's history. Web 2.0: `write` arrives, and with it the fused term — the application stays on the web only at its rendered surface, and state disappears behind `read`. Web 3.0, on this definition, adds no third invention: it is the first era's one virtue extended to the layer the second era hid. Chapter 2's lateral churn was two decades spent inside era two; the vertical direction was open the whole time, and Part II proved it had exactly one shape.
 
@@ -937,7 +937,7 @@ Notes, one per line where a cell needs it. XML's R3 and S4 are `~` for namespace
 
 Chapter 5 argued in prose; a proof needs the requirements as mathematics. The translation is itself the honest step: every choice below is a numbered condition with its one-line justification from the web, so that rejecting one is a precise act rather than a suspicion. The audit table already tells you what each rejection costs.
 
-Fix `I`, the URIs (RFC 3986), and `V`, a set of atomic literal values disjoint from `I`. A **state model** is a pair `(M, ⊕)`: a set of states and a composition. R2 — composition among parties who have never communicated — cashes out as four laws:
+Fix `I`, the URIs (RFC 3986), and `V`, a set of atomic literal values disjoint from `I`. A **state model** is a pair `(M, ⊕)`: a set of states and a composition. R2 — composition among parties who have never communicated — formalizes as four laws:
 
 - **(C-2a) Totality.** `⊕` is defined on every pair of states. Composing may never require a compatibility check, because checking is coordinating.
 - **(C-2b) Order-freedom.** `⊕` is associative and commutative. States arrive from independent parties in no agreed order; if order mattered, the order would have to be agreed.
@@ -1043,7 +1043,7 @@ Two boundaries, stated rather than buried. First, the correspondence is proved o
 
 *Synthesis.* Let `(select, arrange, present)` be any proper factorization whose `arrange = T ∘ canon` with `T` computable and generic. Realize the three factors in the deployed stack: the selection is a term of the derived algebra, hence by the homomorphism (C.7) a SPARQL term evaluating identically; `canon` exists and is deterministic (Prop. 6.2, RDFC-1.0 for the unnamed); `T` is a computable tree-to-tree function and XSLT is computationally complete on trees, so a term `t` with `⟦t⟧ = T` exists — genericity is preserved by writing `t` without URI literals outside `V₀`, and the free-theorem clause above is the check that nothing was smuggled; `present` is a stylesheet by S2's own requirement. S4 holds because in the deployed stack every stage value is a resource: the graph, the query result, the document each dereference (Graph Store Protocol; SPARQL protocol; HTTP). So the stack realizes the factorization — and only proper ones: a non-generic `arrange` fails the definition just given, which is the "excluding smuggling" caveat of Chapter 8, now a clause rather than a caution.
 
-Together with the analysis theorem (C.5): every windowed `read` has the form, and the stack fills the form. This section is the click. ∎
+Together with the analysis theorem (C.5): every windowed `read` has the form, and the stack fills the form. This section is where the halves meet. ∎
 
 ## D. References
 
