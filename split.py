@@ -73,6 +73,82 @@ while i < len(lines):
         continue
     i += 1
 
+# ---- cross-references: label → page map, applied at write time.
+# The source stays plain markdown; the links exist only in the projection,
+# like the chapter files themselves. Self-references are left unlinked.
+
+ch_page = {}
+part_page = {}
+for _pn, (_ptitle, _pintro, _pchapters) in enumerate(parts, start=1):
+    m = re.match(r"Part ([IVX]+)", _ptitle)
+    if m:
+        part_page[m.group(1)] = f"part{_pn}.html"
+    for _ct, _cb in _pchapters:
+        m = re.match(r"Chapter (\d+)\.\s*(.*)", _ct)
+        _slug = re.sub(r"[^a-z0-9]+", "-", m.group(2).lower()).strip("-")
+        ch_page[int(m.group(1))] = f"ch{int(m.group(1)):02d}-{_slug}.html"
+
+app_page = {}
+if appendices:
+    for _l in appendices:
+        if _l.startswith("## "):
+            _t = _l[3:].strip()
+            _slug = re.sub(r"[^a-z0-9]+", "-", _t.split(". ", 1)[-1].lower()).strip("-")
+            app_page[_t[0]] = f"appendix-{_t[0].lower()}-{_slug}.html"
+
+XREF = re.compile(
+    r"Chapters (?P<chlist>\d+(?:,\s*\d+)*,?\s*and\s+\d+)"
+    r"|Chapter (?P<ch>\d+)"
+    r"|(?:(?:Prop|Props|Thm|Def)\.?|Theorem|Definition|Proposition) (?P<pch>\d+)\.\d+"
+    r"|Lemma (?P<lemc>C)\.\d+"
+    r"|Appendix (?P<appc>C)\.\d+"
+    r"|Appendix (?P<app>[A-D])\b"
+    r"|\b(?P<csec>C)\.\d+\b"
+    r"|\b(?P<ccond>C)-\d[a-d]?(?:–[a-d])?\b"
+    r"|\bCh (?P<chshort>\d+)\b"
+    r"|\((?P<eqch>\d{1,2})\.\d\)"
+    r"|Part (?P<part>[IVX]+)\b"
+)
+
+def _xref_target(m):
+    for g in ("ch", "pch", "chshort", "eqch"):
+        if m.group(g):
+            return ch_page.get(int(m.group(g)))
+    if m.group("lemc") or m.group("appc") or m.group("csec") or m.group("ccond"):
+        return app_page.get("C")
+    if m.group("app"):
+        return app_page.get(m.group("app"))
+    if m.group("part"):
+        return part_page.get(m.group("part"))
+    return None
+
+def linkify(text, current=None):
+    """Wrap chapter/proposition/appendix references in muted <a class="xref">
+    links. Skips fenced code blocks and headings; leaves self-references plain."""
+    def repl(m):
+        if m.group("chlist"):
+            def one(nm):
+                t = ch_page.get(int(nm.group(0)))
+                if not t or t == current:
+                    return nm.group(0)
+                return f'<a class="xref" href="{t}">{nm.group(0)}</a>'
+            return "Chapters " + re.sub(r"\d+", one, m.group("chlist"))
+        target = _xref_target(m)
+        if not target or target == current:
+            return m.group(0)
+        return f'<a class="xref" href="{target}">{m.group(0)}</a>'
+    out, fence = [], False
+    for line in text.split("\n"):
+        s = line.lstrip()
+        if s.startswith("```"):
+            fence = not fence
+            out.append(line)
+        elif fence or s.startswith("#"):
+            out.append(line)
+        else:
+            out.append(XREF.sub(repl, line))
+    return "\n".join(out)
+
 def promote(body):
     """Within a chapter file the chapter title is h1, so ### becomes h2."""
     return [re.sub(r"^### ", "## ", l) for l in body]
@@ -85,7 +161,9 @@ def strip_rules(body):
     return out
 
 def write(name, title, body):
-    content = f"# {title}\n\n" + "\n".join(strip_rules(promote(body))).strip() + "\n"
+    text = linkify("\n".join(strip_rules(promote(body))).strip(),
+                   current=name.replace(".qmd", ".html"))
+    content = f"# {title}\n\n" + text + "\n"
     (ROOT / name).write_text(content, encoding="utf-8")
     return name
 
@@ -98,6 +176,7 @@ for title, body in front:
 index_body = "\n".join(l for l in index if l.strip() != "---" or True)
 # drop the h1 title line — _quarto.yml carries the book title
 index_body = re.sub(r"^# .*\n", "", index_body, count=1)
+index_body = linkify(index_body, current="index.html")
 (ROOT / "index.qmd").write_text(index_body.strip() + "\n", encoding="utf-8")
 
 yml_chapters = ["  chapters:", "    - index.qmd"]
