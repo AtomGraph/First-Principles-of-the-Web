@@ -3,6 +3,7 @@
 ### *Graphs are not the thing, they are the thing that gets us to the thing*
 
 **Martynas Jusevičius — DRAFT 0.1**
+*[martynas@atomgraph.com](mailto:martynas@atomgraph.com) · [atomgraph.com](https://atomgraph.com) · [GitHub](https://github.com/namedgraph) · [X](https://x.com/namedgraph)*
 
 > *Status: all eighteen chapters and Appendices A–D in prose, with exhibits, scored audit columns, and full proofs (C.1–C.8); the Chapter 15 reconstruction exhibit, mechanization, and the online edition are under construction. Full ledger in the Draft-status table at the end. Feedback is most valuable on R1–R3, the arity argument, and the Transposition Thesis (Chapter 5, Appendix C) — if something is smuggled, it is there.*
 

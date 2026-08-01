@@ -147,7 +147,10 @@ yml = """project:
 book:
   title: "First Principles of the Web"
   subtitle: "Graphs are not the thing, they are the thing that gets us to the thing"
-  author: "Martynas Jusevičius"
+  author:
+    - name: "Martynas Jusevičius"
+      email: "martynas@atomgraph.com"
+      url: "https://atomgraph.com"
   repo-url: https://github.com/AtomGraph/First-Principles-of-the-Web
   repo-actions: [issue]
   search: true
