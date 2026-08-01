@@ -96,26 +96,135 @@ if appendices:
             _slug = re.sub(r"[^a-z0-9]+", "-", _t.split(". ", 1)[-1].lower()).strip("-")
             app_page[_t[0]] = f"appendix-{_t[0].lower()}-{_slug}.html"
 
+# Every numbered result gets a fragment id in the projection — propositions
+# as addressable resources, one hash short of the canonical edition.
+RESULT_LINE = re.compile(
+    r"^(?P<pre>(?:>\s*)?)\*\*(?P<kind>Prop(?:osition)?|Props|Thm|Theorem|Def(?:inition)?|Lemma)\.?"
+    r"\s+(?P<num>C?\.?\d+(?:\.\d+)?)"
+)
+RS_LINE = re.compile(r"^(?P<pre>(?:>\s*)?)\*\*(?P<rs>[RS][1-4]) — ")
+EQ_NUM = re.compile(r"\((\d+\.\d+)\)\s*$")
+KIND_ID = {"prop": "prop", "props": "prop", "proposition": "prop",
+           "thm": "thm", "theorem": "thm", "def": "def", "definition": "def",
+           "lemma": "lemma"}
+
+def result_id(m):
+    return KIND_ID[m.group("kind").lower()] + "-" + m.group("num").lower().replace(".", "-")
+
+res_page = {}   # "4.2" → (page, "prop-4-2"); first statement wins, restatements don't
+eq_page = {}    # "5.1" → (page, "eq-5-1")
+
+def _scan_registry(body_lines, page):
+    fence = False
+    for line in body_lines:
+        if line.lstrip().startswith("```"):
+            fence = not fence
+            continue
+        if fence:
+            m = EQ_NUM.search(line)
+            if m:
+                eq_page.setdefault(m.group(1), (page, "eq-" + m.group(1).replace(".", "-")))
+            continue
+        m = RESULT_LINE.match(line)
+        if m:
+            res_page.setdefault(m.group("num"), (page, result_id(m)))
+
+for _pt, _in, _chs in parts:
+    for _ct, _cb in _chs:
+        m = re.match(r"Chapter (\d+)\.", _ct)
+        _scan_registry(_cb, ch_page[int(m.group(1))])
+if appendices:
+    _asubs, _cur = {}, None
+    for _l in appendices:
+        if _l.startswith("## "):
+            _cur = _l[3]
+            _asubs.setdefault(_cur, [])
+        elif _cur:
+            _asubs[_cur].append(_l)
+    for _k, _ls in _asubs.items():
+        if _k in app_page:
+            _scan_registry(_ls, app_page[_k])
+
+def add_anchors(text):
+    """Mint fragment ids: an invisible span on each numbered result and each
+    R/S requirement, an id attribute on C.N section headings, and an id'd div
+    around each numbered-equation code block."""
+    lines, out, i = text.split("\n"), [], 0
+    while i < len(lines):
+        line = lines[i]
+        if line.lstrip().startswith("```"):
+            j = i + 1
+            while j < len(lines) and not lines[j].lstrip().startswith("```"):
+                j += 1
+            num = None
+            for l in lines[i + 1:j]:
+                m = EQ_NUM.search(l)
+                if m:
+                    num = m.group(1)
+                    break
+            if num:
+                out.append("::: {#eq-%s}" % num.replace(".", "-"))
+                out.extend(lines[i:j + 1])
+                out.append(":::")
+            else:
+                out.extend(lines[i:j + 1])
+            i = j + 1
+            continue
+        m = RESULT_LINE.match(line)
+        m2 = RS_LINE.match(line) if not m else None
+        if m:
+            line = m.group("pre") + "[]{#%s}" % result_id(m) + line[len(m.group("pre")):]
+        elif m2:
+            line = m2.group("pre") + "[]{#%s}" % m2.group("rs").lower() + line[len(m2.group("pre")):]
+        elif re.match(r"^## C\.\d+ ", line):
+            line = line + " {#c-%s}" % re.match(r"^## C\.(\d+)", line).group(1)
+        out.append(line)
+        i += 1
+    return "\n".join(out)
+
 XREF = re.compile(
     r"Chapters (?P<chlist>\d+(?:,\s*\d+)*,?\s*and\s+\d+)"
     r"|Chapter (?P<ch>\d+)"
-    r"|(?:(?:Prop|Props|Thm|Def)\.?|Theorem|Definition|Proposition) (?P<pch>\d+)\.\d+"
-    r"|Lemma (?P<lemc>C)\.\d+"
-    r"|Appendix (?P<appc>C)\.\d+"
+    r"|(?:(?:Prop|Props|Thm|Def)\.?|Theorem|Definition|Proposition) (?P<pch>\d+)\.(?P<psub>\d+)"
+    r"|Lemma (?P<lemc>C\.\d+)"
+    r"|Appendix C\.(?P<appcn>\d+)"
     r"|Appendix (?P<app>[A-D])\b"
-    r"|\b(?P<csec>C)\.\d+\b"
-    r"|\b(?P<ccond>C)-\d[a-d]?(?:–[a-d])?\b"
+    r"|\bC\.(?P<csecn>\d+)\b"
+    r"|\bC-(?P<ccondn>\d)[a-d]?(?:–[a-d])?\b"
     r"|\bCh (?P<chshort>\d+)\b"
-    r"|\((?P<eqch>\d{1,2})\.\d\)"
+    r"|\((?P<eqn>\d{1,2}\.\d)\)"
     r"|Part (?P<part>[IVX]+)\b"
 )
 
 def _xref_target(m):
-    for g in ("ch", "pch", "chshort", "eqch"):
+    if m.group("pch"):
+        key = m.group("pch") + "." + m.group("psub")
+        if key in res_page:
+            p, f = res_page[key]
+            return f"{p}#{f}"
+        return ch_page.get(int(m.group("pch")))
+    if m.group("eqn"):
+        if m.group("eqn") in eq_page:
+            p, f = eq_page[m.group("eqn")]
+            return f"{p}#{f}"
+        return ch_page.get(int(m.group("eqn").split(".")[0]))
+    if m.group("lemc"):
+        if m.group("lemc") in res_page:
+            p, f = res_page[m.group("lemc")]
+            return f"{p}#{f}"
+        return app_page.get("C")
+    if m.group("appcn") or m.group("csecn"):
+        ap = app_page.get("C")
+        return f"{ap}#c-{m.group('appcn') or m.group('csecn')}" if ap else None
+    if m.group("ccondn"):
+        ap = app_page.get("C")
+        if not ap:
+            return None
+        # C-2a–d are formalized in section C.1; C-0, C-1, C-3 in C.2
+        return f"{ap}#c-1" if m.group("ccondn") == "2" else f"{ap}#c-2"
+    for g in ("ch", "chshort"):
         if m.group(g):
             return ch_page.get(int(m.group(g)))
-    if m.group("lemc") or m.group("appc") or m.group("csec") or m.group("ccond"):
-        return app_page.get("C")
     if m.group("app"):
         return app_page.get(m.group("app"))
     if m.group("part"):
@@ -124,7 +233,10 @@ def _xref_target(m):
 
 def linkify(text, current=None):
     """Wrap chapter/proposition/appendix references in muted <a class="xref">
-    links. Skips fenced code blocks and headings; leaves self-references plain."""
+    links. Skips fenced code blocks and headings; a reference to the page it
+    sits on stays plain unless it can point to a fragment, and the statement
+    of a result never links to its own anchor."""
+    own_id = [None]
     def repl(m):
         if m.group("chlist"):
             def one(nm):
@@ -134,18 +246,25 @@ def linkify(text, current=None):
                 return f'<a class="xref" href="{t}">{nm.group(0)}</a>'
             return "Chapters " + re.sub(r"\d+", one, m.group("chlist"))
         target = _xref_target(m)
-        if not target or target == current:
+        if not target:
+            return m.group(0)
+        page, _, frag = target.partition("#")
+        if page == current and not frag:
+            return m.group(0)
+        if frag and frag == own_id[0]:
             return m.group(0)
         return f'<a class="xref" href="{target}">{m.group(0)}</a>'
     out, fence = [], False
     for line in text.split("\n"):
         s = line.lstrip()
-        if s.startswith("```"):
-            fence = not fence
+        if s.startswith("```") or s.startswith(":::"):
+            fence = not fence if s.startswith("```") else fence
             out.append(line)
         elif fence or s.startswith("#"):
             out.append(line)
         else:
+            mo = re.match(r"^(?:>\s*)?\[\]\{#([\w-]+)\}", line)
+            own_id[0] = mo.group(1) if mo else None
             out.append(XREF.sub(repl, line))
     return "\n".join(out)
 
@@ -161,8 +280,8 @@ def strip_rules(body):
     return out
 
 def write(name, title, body):
-    text = linkify("\n".join(strip_rules(promote(body))).strip(),
-                   current=name.replace(".qmd", ".html"))
+    text = add_anchors("\n".join(strip_rules(promote(body))).strip())
+    text = linkify(text, current=name.replace(".qmd", ".html"))
     content = f"# {title}\n\n" + text + "\n"
     (ROOT / name).write_text(content, encoding="utf-8")
     return name
