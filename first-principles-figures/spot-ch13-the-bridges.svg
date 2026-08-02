@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 60 660 320" role="img">
+  <title>Hand-built bridges between silos; no bridge where there is no gap</title>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- ground -->
+    <path d="M45 356 L680 356" stroke="#5a6270" stroke-width="1.5"/>
+    <!-- the silos -->
+    <g stroke="#1b1e22" stroke-width="2.2" fill="#ffffff">
+      <path d="M60 356 L60 128 A35 22 0 0 1 130 128 L130 356 Z"/>
+      <path d="M180 356 L180 100 A35 22 0 0 1 250 100 L250 356 Z"/>
+      <path d="M300 356 L300 138 A35 22 0 0 1 370 138 L370 356 Z"/>
+      <path d="M420 356 L420 112 A35 22 0 0 1 490 112 L490 356 Z"/>
+    </g>
+    <!-- the compensating industry -->
+    <g stroke="#5a6270" stroke-width="1.8">
+      <path d="M130 198 L180 192"/>
+      <path d="M130 208 L180 202"/>
+      <path d="M141 207 L141 197"/>
+      <path d="M154 205 L154 195"/>
+      <path d="M167 204 L167 194"/>
+      <path d="M250 148 Q275 170 300 150"/>
+      <path d="M250 160 Q275 182 300 162"/>
+      <path d="M262 156 L262 166"/>
+      <path d="M275 159 L275 170"/>
+      <path d="M288 156 L288 166"/>
+      <path d="M370 238 L420 228"/>
+      <path d="M370 246 L420 236"/>
+      <path d="M381 244 L381 236"/>
+      <path d="M394 242 L394 234"/>
+      <path d="M407 240 L407 232"/>
+      <path d="M130 298 L300 248"/>
+      <path d="M130 306 L300 256"/>
+      <path d="M163 297 L165 288"/>
+      <path d="M197 287 L199 278"/>
+      <path d="M231 277 L233 268"/>
+      <path d="M265 267 L267 258"/>
+      <path d="M490 190 L522 186"/>
+      <path d="M490 198 L518 194"/>
+      <path d="M522 186 L526 196"/>
+    </g>
+    <!-- the gap that isn't there -->
+    <rect x="558" y="350" width="100" height="9" rx="2" fill="#005a9c" stroke="none"/>
+    <g stroke="#1b1e22" stroke-width="2.2" fill="#ffffff">
+      <path d="M570 350 L570 232 A18 14 0 0 1 606 232 L606 350 Z"/>
+      <path d="M610 350 L610 226 A18 14 0 0 1 646 226 L646 350 Z"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="80 115 450 300" role="img">
+  <title>Abandoned rather than refuted: read the dates</title>
+  <defs>
+    <g id="vol">
+      <rect x="0" y="0" width="44" height="172" rx="3" fill="#ffffff" stroke="#1b1e22" stroke-width="2.2"/>
+      <rect x="3" y="8" width="38" height="16" fill="#e3eef7" stroke="none"/>
+      <rect x="3" y="148" width="38" height="16" fill="#e3eef7" stroke="none"/>
+      <path d="M3 30 L41 30" stroke="#d8dce1" stroke-width="1.5" fill="none"/>
+      <path d="M3 142 L41 142" stroke="#d8dce1" stroke-width="1.5" fill="none"/>
+    </g>
+  </defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- the shelf -->
+    <path d="M120 340 L490 340" stroke="#1b1e22" stroke-width="2.5"/>
+    <g stroke="#5a6270" stroke-width="2">
+      <path d="M162 342 L162 360 L180 342"/>
+      <path d="M448 342 L448 360 L430 342"/>
+    </g>
+    <!-- the standards, shelved -->
+    <use href="#vol" x="165" y="168"/>
+    <use href="#vol" x="213" y="168"/>
+    <use href="#vol" x="261" y="168"/>
+    <use href="#vol" x="309" y="168"/>
+    <use href="#vol" x="357" y="168"/>
+    <use href="#vol" x="405" y="168"/>
+    <!-- the dates -->
+    <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="18" fill="#5a6270" text-anchor="middle" stroke="none">
+      <text transform="translate(194 254) rotate(-90)">1996</text>
+      <text transform="translate(242 254) rotate(-90)">1998</text>
+      <text transform="translate(290 254) rotate(-90)">1999</text>
+      <text transform="translate(338 254) rotate(-90)">2004</text>
+      <text transform="translate(386 254) rotate(-90)">2008</text>
+      <text transform="translate(434 254) rotate(-90)">2014</text>
+    </g>
+    <!-- the unlabeled shelf label -->
+    <rect x="277" y="347" width="56" height="15" rx="4" fill="#ffffff" stroke="#005a9c" stroke-width="2"/>
+    <path d="M290 355 q4 -5 8 0 t8 0 t8 0" stroke="#5a6270" stroke-width="1.5"/>
+  </g>
+</svg>
