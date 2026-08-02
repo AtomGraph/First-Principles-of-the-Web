@@ -183,6 +183,8 @@ Two examples prove nothing about all websites; the strips are illustration. The 
 
 ## Chapter 4. The Factorization
 
+### The pipeline
+
 Chapter 3's strips, read as function types:
 
 ```
@@ -207,6 +209,8 @@ flowchart LR
 
 Proposition 4.2 is stated for what its proof shows: a factorization always exists, so the bare existence of one carries no information. The information is in whether the factors are genuinely separate. Definition 4.3 states that separation as four checkable properties — what "declarative architecture" means, once it is required to mean anything checkable. It is the book's central definition.
 
+### Properness
+
 **Definition 4.3.** A factorization (select, arrange, present) is **proper** iff:
 
 **S1 — Obliviousness.** Each factor communicates with the next only through its output. `arrange` sees data, never the request. `present` sees a tree, never the data. No side channels: `arrange` and `present` are constant in `Req` and `State` except through their arguments.
@@ -223,6 +227,8 @@ Three of these properties were written down by the web's own architects — as a
 
 The payoff of S4 is immediate and measurable, and it is [Fielding's](https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm) payoff: HTTP caching per stage rather than per page; crawlability of *data* rather than of renderings; intermediaries; independent evolution of the layers. The last of these will harden from a phrase into a proposition before the chapter ends. Every one will reappear in Part IV, as an itemized cost, paid by every architecture that forfeits it.
 
+### The analysis theorem
+
 **Prop. 4.4 (Analysis theorem).** Every `read` whose output depends on `State` only through some finite part admits a proper factorization.
 
 <details>
@@ -233,6 +239,8 @@ Define `select(r, S)` as the minimal fragment of S on which `read(r, ·)` actual
 </details>
 
 Proposition 4.4 is what Chapter 3 was illustrating: stripping a real page is *computing its proper factorization by hand*, and the theorem guarantees the exercise terminates for every site — including every site not yet built.
+
+### The debt to Fielding
 
 The debt to Fielding runs deeper than the payoff list. REST was the last serious attempt to *derive* web architecture rather than fashion it — constraints applied stepwise, properties earned per constraint — the method this book inherits and pushes to theorem grade. But REST constrains the conversation and leaves the vocabulary open: it says how representations must transfer — statelessly, cacheably, through a uniform interface — and declines, deliberately, to say what a representation or the state behind it must *be*. That open question is this book's subject. Chapter 5 closes it, and the closure was unavailable to REST's own method in 2000: the answer had been standardized only the year before, and the pressure that makes it visible — machines reading the web — was two decades out. Read this book as the second half of a derivation whose first half Fielding wrote.
 
@@ -249,6 +257,8 @@ His deepest constraint is also his least defined: the **uniform interface** — 
 | hypermedia as the engine of application state | the five moves — every transition a link in the document |
 
 </details>
+
+### The four timelines
 
 Definition 4.3 has one more consequence to give, and it can be collected now at no cost. Nothing in this chapter has mentioned time. HTTP has. A representation, per RFC 9110 §3.2, reflects "a past, current, or desired state of a given resource" — state *at a time*. And the protocol ships an apparatus whose only job is telling a resource's representation at one moment from its representation at another: `Last-Modified` and `ETag` (RFC 9110 §8.8), and the caching calculus built on them (RFC 9111). The web's own specifications already treat the document as a sequence of states; the axiom comes ready-made. Index the moving parts — writing `τ` for time, since `t` is taken:
 
@@ -298,6 +308,8 @@ One thread left dangling, on purpose: `select` selects *from State*, and State i
 
 We need `State` to stop being abstract. But I am not allowed to choose its structure — the method of this book forbids taste. Structure must be *forced*, and it will be forced by three requirements. Each comes from the web itself, not from me.
 
+### The three requirements
+
 **R1 — Universality.** The web hosts every application domain there is or will be. Therefore `State` must encode arbitrary application state, with no domain structure baked in. *(Source: the observable web. Try to name the domain the web is "for.")*
 
 **R2 — Coordination-free composition.** The web has no central schema authority — by design; decentralization is what "world wide" means. Therefore state held by independent parties who have never communicated must be composable. Composition without coordination has laws: it must accept any two states (checking compatibility is coordinating), in any order (agreeing an order is coordinating), with duplicates free (tracking copies is coordinating). And it preserves meaning only if the things composed are *self-contained* — a fact must carry its full meaning with it, because no surrounding structure survives a merge. Those four laws leave exactly one composition, and Appendix C proves it — set union:
@@ -328,6 +340,8 @@ Each left cell is deployed and citable — RFC 9111 carries the middle two, AWWW
 
 **R3 — Global reference.** A fact on one site can be about an entity described on another; the web's entire value proposition is that things link. Therefore names *inside* facts need global scope. The web possesses exactly one global naming system — `I`, the URIs from Chapter 1 — and inventing a second one would itself violate R2 (two parties' private naming schemes collide on merge). So references in facts are drawn from `I`. And note what R3 does and does not ask: names must be global; nothing requires that they dereference. That they *can* — that the naming system and the web's address system are one — is the construction's gift, and Chapter 15 pays the toll that gift charges.
 
+### The smallest fact
+
 Now the question whose answer the derivation forces: what is the smallest self-contained fact? And "smallest" is not an aesthetic preference. Every position a fact carries beyond need is a position whose use independent parties must somehow agree on, and agreement is what R2 forbids — minimality is R2, applied to the shape of the fact itself. When a genuine requirement funds an extra position, the derivation will grant it; Chapter 9 does exactly that.
 
 **Prop. 5.2 (Arity).** The minimal self-contained fact is a triple.
@@ -352,9 +366,13 @@ Chapter 3's exhibit already wrote facts in this shape without saying so. The das
 
 *Interactive exhibit (online edition): two parties who have never met. Edit either side, shuffle, duplicate — the union absorbs everything except new facts, and (5.1) is something you fail to break rather than something you believe.*
 
+### The uniqueness theorem
+
 **Theorem 5.4 (Uniqueness).** Any arity-minimal state model satisfying R1–R3 is isomorphic to (5.3). *(Proof: Appendix C. The proof is an assembly of 5.1–5.3: R2 forces the set-of-atomic-facts shape and union-merge; R1 with minimality forces arity three; R3 forces positions one and two into `I`.)*
 
 Note what this theorem does to the word "only" in this book's thesis. "The only native way" sounds like rhetoric; Theorem 5.4 makes it a statement with an escape clause, and the escape clause is the trap. To reject the conclusion you must reject a requirement, and each rejection has a name. Reject R1 and your model can't host the web's content. Reject R2 and your data needs a coordinator — a central schema authority, which is to say: you have built a silo. Reject R3 and your data cannot refer beyond itself — a silo again, by the other door. Reject minimality and you widen the tuple — a door left deliberately ajar; Chapter 9 walks through it with R4. Every alternative data model the industry runs on will be located, in Part IV, at one of the first three exits.
+
+### Selection and the delta
 
 We are not done deriving — the same pattern now runs once more, one level up, quickly. `select` needs a minimal algebra over `𝒫(Fact)`: match a fact pattern with variables; join matches; union alternatives; project variables out. Each operation is forced by a page you can point at (any master–detail page is a join; any search page is a pattern). `write`, by (5.1), reduces to two sets: facts added and facts removed — the *delta*, and nothing else, because there is nothing else a set can do. Keep these in your pocket. They are about to become recognizable.
 
@@ -415,6 +433,8 @@ flowchart LR
 
 Definition 1.1 has a second component, and with it comes the strongest objection to everything so far. Documents can be declarative — nobody defends imperative newspapers. Applications, the objection runs, are different: they change things, they respond, and change is where declarative architectures go to die. This chapter takes the objection at full strength and dismantles it in four propositions. Nothing from the read pipeline needs to be taken back; the write side is the factorization's mirror image, and the smaller of the two.
 
+### The delta normal form
+
 Start where Chapter 5 left the state: `State = 𝒫(Fact)`, merge is union. What can change about a set? Elements leave; elements arrive. There is no third thing.
 
 **Prop. 7.1 (Delta normal form).** Every state change factors as a pair of fact-sets — a *delta*:
@@ -442,6 +462,8 @@ On the running example: the wind gusts, and the panel's `value` moves. The delta
 
 And note what a delta is made of: fact-sets. Change is data in the same model as the state it changes — no second model, no change-description language with semantics of its own to invent. Chapter 5 ended by putting the delta in your pocket; Chapter 8 will name what the industry standardized it as.
 
+### Forms, run backwards
+
 **Prop. 7.2 (Forms are inverse transforms).** The read pipeline ends at a human; the write side begins at one. The instrument is a form: a tree, part of a document, rendered by `present` like everything else, whose fields stand where a fact pattern's variables stand. Submission binds the fields; a bound pattern is a set of facts; mark each set "remove" or "add" and you are holding (7.1)'s delta:
 
 ```
@@ -455,6 +477,8 @@ Two jobs meet in a form, and they must not be conflated. *Construction* — whic
 
 For the justification, view source on any HTML form since 1993. Field names are attribute names; `method` names the unsafe verb; the form is a fact pattern wearing input boxes. The web has shipped the inverse transform beside the forward one from the beginning.
 
+### One algebra, both directions
+
 **Prop. 7.3 (One algebra, both directions).** Chapter 5's selection algebra — pattern, join, union, project — is the write side's algebra too. A pattern with free variables *selects* the facts that match; the same pattern with its variables bound *denotes* the facts of a delta. Selection finds what is; the delta says what shall be; the syntax between them is one syntax.
 
 ```
@@ -463,6 +487,8 @@ pattern + bindings   →  (D⁻, D⁺)                          (change)
 ```
 
 The consequence is economic as much as formal: the write side adds no expressive machinery. Whoever can query can update; an implementation obtains its update language by running its pattern matcher with the arguments swapped; and when Part III proves the read side complete, the write side will inherit the result through this symmetry. Compare, once more, the industry's arrangement: a query language, a separate mutation API, a migration DSL, a client-side state manager — four vocabularies for one algebra.
+
+### The five moves
 
 **Prop. 7.4 (Interactivity, decomposed).** The objection's strongest form: "real applications are interactive." By independent evolution (Prop. 4.5) the document is `doc(r, τ) = read_τ(r, S(τ))` — a value with exactly five inputs: the request `r`, the state `S(τ)`, and the three factor terms. So every interaction the web has ever shipped is one of exactly five moves:
 
@@ -475,6 +501,8 @@ The consequence is economic as much as formal: the write side adds no expressive
 Moves 2–5 are independent evolution's four timelines; move 1 is the request, which Chapter 4 already ruled out of the application. There is no sixth move because there is no sixth input — that is what the typing means, and it is 4.5 doing the counting. Interactivity *is* the factorization, exercised. Fusion adds no move to this list; what it buys is the freedom to make the moves without saying which component they touch. Part IV will price that freedom.
 
 One honest concession remains, and it too should be met at full strength: latency. The operational complaint is the round trip — a keystroke should not cross an ocean to move a cursor. Granted. But look at what the complaint actually asks for: that the factors be *evaluated near the user* — not that they be fused. And mobility of evaluation is precisely what S2 already secured. A term whose semantics is closed evaluates the same everywhere; ship `q`, `t`, `s` to the client and run them there, against a local replica of the selected data, and the architecture has not changed by one proposition — the same terms, the same factors, a different machine. What cannot travel this way is a fused `read`: an opaque program can only be shipped whole and trusted blind, and shipping opaque programs to browsers is a bet the web has already graded once (Chapter 12). Declarative terms are portable because they mean the same thing everywhere — S2, read as a deployment strategy.
+
+### The centerfold
 
 The pipeline is now complete in both directions, and it closes:
 
@@ -554,7 +582,9 @@ Whatever you believed about the semantic web when you opened this book — too a
 
 Chapter 8 closed the argument from both ends, and that invites suspicion: a derivation that lands exactly on a deployed stack looks retrofitted until its misses are on the table. This chapter is the table. The isomorphism is not exact. There are two deltas between the model Part II forced and the standard Part III named, and two more between the standard and the platform that ships it. Each is located, priced, and — twice — turned into a prediction. Part IV applies the same standard to everyone else's models.
 
-**Delta one: the unnamed.** RDF permits facts about entities with no name — blank nodes — and nothing in Chapter 5 forced them: the derivation minted a fresh URI wherever it needed an entity, because minting is the web's free lunch. So blank nodes are surplus, and the surplus has a precise reading. A graph containing `_:b` asserts *that something exists* with these properties; RDF's own semantics says exactly this — simple entailment treats blank nodes as existential variables. The extension is well-motivated. Entities routinely exist before anyone names them — every form not yet submitted, every observation not yet reconciled, describes a something — and a model that forbade the unnamed would fail R1 at the margins of every domain.
+### Delta one: the unnamed
+
+RDF permits facts about entities with no name — blank nodes — and nothing in Chapter 5 forced them: the derivation minted a fresh URI wherever it needed an entity, because minting is the web's free lunch. So blank nodes are surplus, and the surplus has a precise reading. A graph containing `_:b` asserts *that something exists* with these properties; RDF's own semantics says exactly this — simple entailment treats blank nodes as existential variables. The extension is well-motivated. Entities routinely exist before anyone names them — every form not yet submitted, every observation not yet reconciled, describes a something — and a model that forbade the unnamed would fail R1 at the margins of every domain.
 
 Now the price, and it can be stated exactly.
 
@@ -569,7 +599,9 @@ Blank nodes are scoped to their graph, so composition must standardize them apar
 
 That is the bill for anonymity, and it falls exactly on the party that chose anonymity: name your entities and state composes by set arithmetic; leave them unnamed and composition becomes theorem-proving in miniature, payable precisely at the seam where Chapter 6 put `canon`. The web's grain shows through the formalism: the URI is what makes merging cheap. The deployed stack's own list idiom itemizes the bill: an ordered collection encoded as a chain of unnamed cells pays the anonymity price at every link, and the derivation's grain — order booked as a rank fact per member, Chapter 3's lead story — wears better than the chain that mimics a data structure. Order is the recurring case: state it as facts and it merges like facts; fold it into shape and it is taxed like shape.
 
-**Delta two: the fourth position.** The web demands one requirement Chapter 5 never imposed. R1–R3 govern facts about the world; the web also traffics in *claims* — the same fact asserted by one source and disputed by another, provenance, retraction, trust. Call it **R4 — attribution**: facts about who asserts facts.
+### Delta two: the fourth position
+
+The web demands one requirement Chapter 5 never imposed. R1–R3 govern facts about the world; the web also traffics in *claims* — the same fact asserted by one source and disputed by another, provenance, retraction, trust. Call it **R4 — attribution**: facts about who asserts facts.
 
 **Prop. 9.2.** The arity-minimal state model satisfying R1–R4 is `𝒫(I × Fact)` — quads.
 
@@ -582,9 +614,15 @@ Union erases contribution: C-2d says `atoms(s ⊕ s′) = atoms(s) ∪ atoms(s�
 
 Here the delta becomes a prediction. The 1999 core standardized triples; the deployed stack then grew exactly the fourth position — named graphs, RDF datasets, TriG, standardized 2014, the graph name a URI, so that attribution itself dereferences. A derivation that merely matched the 1999 core could be numerology; a derivation whose first missing requirement generates the standard's own later extension is tracking the constraint, not the artifact. Honesty about the prediction's scope: the position arrived, and the standard declined to fix what the graph name *means*; the semantics is argued about still. The prediction is structural, and claimed as nothing more. (The contrast is annotation syntaxes that re-serialize what reification already expressed — convenience, and convenience is honest, but expressiveness is a property and syntax is not; the audit table scores properties.)
 
-**Delta three: the unoccupied seam.** The deployed stack's `arrange` story — canonical serialization plus declarative tree transformation — was built, standardized, shipped in every browser, then frozen at its 1999 revision for a quarter of a century and, as this draft circulates, scheduled for removal from the platform outright. Note what this delta is made of. Nothing was missing; everything was abandoned. The gap in the modern web is abandoned technology: a maintenance failure rather than a research problem — a far more damning finding, and the practical thesis of this book. Chapter 6 promised this sentence would return with evidence, and the evidence is this: every property Part II proved is purchasable for the cost of maintaining software that already existed, and the platform declined the expense while funding, many times over, the compensating machinery Part IV will price.
+### Delta three: the unoccupied seam
 
-**Delta four: the write-side last mile.** Forms run backwards want submissions that denote deltas (Prop. 7.2), and the REC stack stops one step short: SPARQL Update carries the delta, but HTML forms speak `application/x-www-form-urlencoded`, and no recommendation bridges the two. The bridge exists as a community spec — [RDF/POST](https://atomgraph.github.io/RDF-POST/), which flattens the triple positions into form keys (`su`, `pu`, `ou`, `ol`, …) so that a plain HTML form, with no script, submits a graph. It invents nothing: an encoding of the derived model into the form media type the web already ships — composition, not creation. Its non-standardization is the write side's most conspicuous open seam. (Disclosure: the spec is maintained by the author's company, building on Sergei Egorov's original draft. Chapter 15 shows it at work.)
+The deployed stack's `arrange` story — canonical serialization plus declarative tree transformation — was built, standardized, shipped in every browser, then frozen at its 1999 revision for a quarter of a century and, as this draft circulates, scheduled for removal from the platform outright. Note what this delta is made of. Nothing was missing; everything was abandoned. The gap in the modern web is abandoned technology: a maintenance failure rather than a research problem — a far more damning finding, and the practical thesis of this book. Chapter 6 promised this sentence would return with evidence, and the evidence is this: every property Part II proved is purchasable for the cost of maintaining software that already existed, and the platform declined the expense while funding, many times over, the compensating machinery Part IV will price.
+
+### Delta four: the write-side last mile
+
+Forms run backwards want submissions that denote deltas (Prop. 7.2), and the REC stack stops one step short: SPARQL Update carries the delta, but HTML forms speak `application/x-www-form-urlencoded`, and no recommendation bridges the two. The bridge exists as a community spec — [RDF/POST](https://atomgraph.github.io/RDF-POST/), which flattens the triple positions into form keys (`su`, `pu`, `ou`, `ol`, …) so that a plain HTML form, with no script, submits a graph. It invents nothing: an encoding of the derived model into the form media type the web already ships — composition, not creation. Its non-standardization is the write side's most conspicuous open seam. (Disclosure: the spec is maintained by the author's company, building on Sergei Egorov's original draft. Chapter 15 shows it at work.)
+
+### The ledger, open
 
 Four deltas, then. Two belong to the model, priced in logic and complexity, and both resolve in the model's favor — one as a motivated extension with a computable bill, one as a prediction the standards later honored. Two belong to the platform, and owe their existence to neglect: one to abandonment, one to a bridge never standardized. None touches the derivation: no proposition of Part II is weakened by anything in this inventory. A theory spends credibility where its misses are hidden and earns it where they are itemized. The ledger is open; now we audit everyone else's.
 
@@ -784,6 +822,8 @@ Asymptotic, incomplete, and in the predicted order.
 
 ## Chapter 15. Building Up
 
+### The dataspace
+
 The synthesis direction, walked constructively — the synthesis theorem as a build log. Start with the derived atoms and compose a working application space, defining each layer by what Part II forced and each concrete technology by the factor it inhabits. What the synthesis yields needs a name, and the name should do for state what "website" did for documents. Call it a **dataspace**: one party's stake in the data web — the unit of publication, ownership, and federation. A website serves documents under an origin; a dataspace serves *state* under an origin — documents included, since documents are projections of it, and machines invited, since the state itself dereferences. (The database literature has used the word for pay-as-you-go integration — Franklin, Halevy, and Maier, 2005; the sense here is the web-native one.) The definition, four components and no more:
 
 ```
@@ -792,25 +832,35 @@ Dataspace = Origin × Ontology × SPARQL endpoint × Stylesheet
 
 Read-write linked data at every document under the origin; one namespace ontology declaring what the domain *is*; one endpoint projecting the same state; one declarative rendering with override-based extension. Internal storage — file, memory, triplestore — is invisible to consumers, as S1 demands. Federation is the union law: merge, and be done.
 
+### The price of alignment
+
 Merge, and be done — and Chapter 5's scope note now comes due, because this is the sentence it protects. The objection, at full strength: *union is cheap; alignment is not.* Two dataspaces describe the same turbine; each minted its own name, because minting is free; the union holds two disconnected descriptions and joins nothing. Two ontologies cover one domain and share no term. The merge laws guaranteed mechanics, never convergence — so the integration cost the model claimed to dissolve has, says the objection, merely moved. The objection is granted: the cost moved. And where it moved is the entire economics, because the cost itself is universal — no model makes strangers agree on names, alignment is not a property a data model can possess — so the discriminating question is never whether alignment costs, but what you hold before paying, and what payment buys.
 
 Before paying: the unaligned union is well-formed state — both descriptions present, queryable, published, rendered by the base term (C.8); a *not yet joined*, where every other column of the audit offers a *cannot merge* (two JSON documents do not compose at all; two schemas, no better). After paying: an alignment is one more fact — an equivalence, a subclass, a subproperty, in the shape of (5.3) — attributed to its asserter by the fourth position (Prop. 9.2), retractable as a delta (Prop. 7.1), composable by union like everything else; a mapping published once is paid once, web-wide, against the integration industry's version of the same knowledge, a join buried per pair in pipeline code — unattributable, unshareable, priced N × M forever. Even the failure mode improves. The identity link the literature rightly distrusts — the careless equivalence, propagating error through every join it touches — is here a visible error with an asserter and an inverse; the pipeline's version of the same mistake has neither, nor even a name, because nothing outside the pipeline can see it.
 
 And convergence has a deployed existence proof at full web scale. Vocabularies converge the way the document web converged: by adoption, not negotiation — publish, dereference, reuse, the same unilateral move as linking to a page whose owner was never asked. [Schema.org](https://schema.org/) spread across tens of millions of sites in exactly this shape, because consumers with reach — the search engines — priced the alignment worth making. Alignment follows demand; that is this book's economics in miniature. It is also the honest reading of the nineties, sharpened from Chapter 8: a substrate whose payoff is machine consumption, standardized twenty years before machines consumed, left every cost of convergence unpriced — not refuted, unfunded. Chapter 17 is the demand side arriving. Nothing in the model waits on it; everything in the economics did.
 
+### The build log
+
 The ontology is the component the derivation predicts and the industry outsources to code: the domain, stated as facts. It is state like any other — classes and properties in the shape of (5.3), composed by the same law: a dataspace's ontology *imports* the vocabularies it builds on, and import is union applied to schema. Everything downstream reads it as data. Forms are constructed from it (Chapter 7's construction half: read the patterns, render inputs); selections range over it; layouts match on it. Ontology-driven is data-driven one level up, and it is what makes the generic engine generic: the domain travels in the state, so nothing domain-shaped remains to be hardcoded.
 
 The build log, factor by factor. **State:** a triplestore behind the Graph Store Protocol, one named graph per document — the erasure argument's fourth position (Prop. 9.2) earning its keep as an address: the graph name is the document URI, so attribution and location coincide. **Domain:** a namespace ontology per dataspace, importing the vocabularies it builds on — imports resolve by union, because vocabulary is data and composes like it. **Select:** a SPARQL endpoint per dataspace; S4 holds because query results and graphs are resources with URIs of their own. **Arrange:** XSLT over the canonical serialization — Chapter 6's seam occupied, in two layers: a base stylesheet that names no vocabulary and renders any state, and per-vocabulary overrides layered on by the language's import mechanism — S3's substitution, performed in daily practice. The layered term treats specially exactly what the dataspace's ontology declares — C.8's relative genericity, deployed — and unmatched state falls back to the base rendering rather than to nothing: every graph renders; declared vocabulary renders better. **Present:** CSS, in continuous service since 1996. **Write:** HTML forms encoding graphs (the bridge below), deltas carried as SPARQL Update — the delta normal form's two sets, on the wire. And independent evolution shows up as operations rather than theory: data, layout, and style invalidate independently, per factor, cache entry by cache entry — the four timelines, running as infrastructure.
 
+### Names and addresses
+
 One more confrontation arrives with the first `GET`: the web's oldest identity crisis, filed at the TAG as [httpRange-14](https://www.w3.org/2001/tag/issues.html#httpRange-14) — what does dereferencing the name of a *thing* return, when the thing is a turbine rather than a page? A decade of argument produced a resolution (a `2xx` response entails an information resource; redirect with `303` or use a fragment for everything else), a note (*Cool URIs for the Semantic Web*), a reopening, and a deployed practice that largely ignores all of it. The model built in this book has a shorter account. Names and addresses are different roles, typed apart since Chapter 4: a URI in a fact position *names* (R3); a URI addressing a projection *locates* (S4). The practical question then computes rather than debates: dereferencing a name returns `read(name, S)` — the projection of the state about the named entity, a description document. Whether that document's address coincides with the name, differs by a fragment, or differs by a redirect is a wire-level encoding of the two roles, and the architecture is indifferent to the choice. Only the collision is real: pun name and address onto one string and statements about the thing share a subject with statements about its description — a data-discipline cost, priceable like Chapter 9's deltas and avoidable by either non-punning exit.
 
 The exhibits already took both exits without instruction. The Guardian's entities pun innocently — an article is an information resource, so its name and address coincide with nothing lost. The wind farm's panels are fragments — `#panel-14` — names one hash away from the document that describes them. The reference implementation takes the fragment exit as its convention: an entity is a fragment of the document that describes it, one `GET` serves both, and the name differs from the address by exactly `#`. The crisis, relocated: a typing discipline the model already draws, plus an encoding choice the deployment already made.
+
+### Composition, not creation
 
 Three seams lack recommendations: identity, access control, and the form-native write. The first two have candidates with running code, and both fill their seam with the model itself. [WebID](https://www.w3.org/2005/Incubator/webid/spec/) — incubated at the W3C since 2005, never advanced to Recommendation — makes an identity a URI whose dereference is a profile: an agent is an entity, its identity a graph, authentication a proof that the keyholder and the profile agree. [WebAccessControl](https://www.w3.org/wiki/WebAccessControl) — an ontology grown on the W3C wiki, since adopted by [Solid](https://solidproject.org/) — states permissions as facts: who, which mode, over what, so an ACL is data in the same state model it guards. Identity and authorization collapse into the substrate they protect — Chapter 16's thesis arriving early — and the reference implementation below runs both. For the third seam, Chapter 9's bridge — [RDF/POST](https://atomgraph.github.io/RDF-POST/) — slots a plain HTML form into the write side: field names are triple positions (`su`, `pu`, `ou`, `ol`, …), the submission is a graph, no script anywhere. Specified, not standardized; and by design an encoding rather than an invention — no new model, no new protocol, the shape of a fact written into the form media type the web already ships.
 
 Note what this part has *not* contained, because the absence is the finding: no proposal for a new standard. Part III showed the read side complete by 2014; the write side's last mile is an encoding of what already ships; the remaining seams have candidates that compose deployed pieces. Nothing here waits on a working group. The community's long reflex — meeting every gap with a new specification — aims at the wrong layer, and Chapter 9 already scored one instance of it. After the reveal, the remaining work was never specification. It was combination: an implementation that assembles the standards in the shape the derivation forces. Composition, not creation, one level up — the doctrine that governed RDF/POST, governing the whole construction.
 
 The reflex has a Recommendation-grade instance: the Linked Data Platform (2015), which claimed this book's exact slot — a read-write Linked Data architecture — at the interaction layer. Its addition to the already-standardized Graph Store Protocol is the *container* — a server-side collection with protocol-managed membership. But a container is a canned selection: a query frozen into the interface, arriving after SPARQL had already made every collection open-ended — any members, by any pattern, composed at request time. A canned collection is what a traditional API endpoint is, and LDP standardized the endpoint as a Recommendation. Subtract the containers and nothing remains that the Graph Store Protocol does not already do. A specification that adds interface where query semantics sufficed is the wrong-layer reflex in its purest form: the gap was never in the protocols; it was in the implementations that never combined what the protocols already offered.
+
+### The existence proof
 
 This chapter is where the book's existence proof enters as evidence. The architecture has a reference implementation — **[LinkedDataHub](https://atomgraph.github.io/LinkedDataHub/)**, open source, in production for years — and the online edition of this book is being built on it, keeping the promise the preface made. Disclosure, once for the chapter: the implementation and the RDF/POST spec are the author's. The point of an existence proof one can install is that belief is optional.
 
@@ -821,6 +871,8 @@ The chapter's exhibit mirrors Chapter 3's, deliberately. The two sites we stripp
 *Interactive exhibit (online edition): a miniature of the pending exhibit. The two datasets from Chapter 3 under one generic engine — swap the data, the selection, the term, or the stylesheet, and the factors you did not touch hold still. The full-scale reconstruction runs the real stack; this one runs the derivation.*
 
 ## Chapter 16. Generic Software
+
+### Specialized by data
 
 The derivation, converted into economics. Start from a corollary the apparatus gives for free:
 
@@ -835,6 +887,8 @@ By S2, each factor is the denotation of a term; by Theorem 5.4, the state model 
 
 The sentence that proposition licenses: the difference between a CMS, a CRM, and an ERP is data. Each is a UI layer around CRUD over a domain model; the domain model is facts (5.3), the UI is `⟦t⟧` and `⟦s⟧`, and CRUD is `read` and `write` — Definition 1.1 and Prop. 7.1, which HTTP already implements. One application can serve every domain, specialized by data rather than by code.
 
+### The browser and the spreadsheet
+
 The web has already run this experiment once, and the result was so successful it became invisible: the browser. One client for every website — nobody writes a per-site browser, and nobody marvels at that, which measures how completely the uniform interface won at the document layer. Chapter 4 typed the four clauses that bought it, and generic software is their payoff, collected layer by layer: generic caches, generic crawlers, one generic renderer. The payoff stopped where the uniformity stopped. Behind every `GET` the verbs are shared and the state is bespoke, so the client that is generic in transfer stays bespoke in understanding — one adapter per API, the arithmetic Chapter 17 will total. The question this chapter answers is why the generic browser never got its sibling one level down, and the answer is that nothing was missing except the state model Chapter 5 derived.
 
 The claim has a second existence proof, older than the web. The spreadsheet is the most successful generic application in history: one engine, every domain there is, specialized by data — no vendor ships an accounting spreadsheet and a separate logistics spreadsheet; users pour the domain in as rows and formulas. The industry has had half a century to notice what this proves, and the spreadsheet's own limits explain why it could prove no more: cell references are sheet-local (R3), two workbooks have no merge (R2), and the world's operational data lives in a million silos named `final_v2.xlsx`. The derived stack is the spreadsheet's economics with the web's properties — the same generic engine, with names that cross files and states that compose. Each proof carries half the claim: the browser is generic with the web's properties, at the document grain; the spreadsheet is generic over domains, with none of the web's properties. The application this chapter describes is their intersection — and the intersection was sitting in the standards all along.
@@ -843,9 +897,15 @@ The claim has a second existence proof, older than the web. The spreadsheet is t
 
 The idea has also failed before, and the failure instructs. Model-driven architecture promised applications generated from models, and broke on its own compiler: the model was translated into code, the code drifted from the model, and the model retired into documentation — S2 severed at the first generation step. The generic engine makes no such translation. The ontology is never compiled into the application; it *is* the application's data, interpreted at runtime like everything else, so nothing drifts because nothing is copied. The difference between generation and interpretation is the difference between MDA's grave and Chapter 15's build log.
 
+### A codebase is a liability
+
 The economics follow. A codebase is a liability, not an asset — behavior held equal, every line is another place to be wrong — so the system achieving equal behavior with less code is the better system, and the generic system achieves it with *no domain code at all*. Domain functionality becomes a declarative package: an ontology and a stylesheet pair, imported into a running application. Installation is not a deployment but a merge: the package is data, so adding it is a union, and removing it is a delta — it uninstalls the way it installed. And the pair carries its own well-formedness check: by C.8's relativization, the stylesheet may treat specially only names the ontology and its imports declare — footprint inside signature, read off the term — so a package either declares the vocabulary it renders or is caught smuggling it. Chapter 12 audited the binary-delivery web; this is its constructive alternative: behavior defined by data, shipped as data, revocable as data.
 
+### Who computes
+
 One objection lands here with real force, and it deserves the treatment latency got in Chapter 7: *real domains compute.* A payroll run turns timesheets into pay; an allocation turns orders into reservations; an invoice's total is nobody's keystroke. If the engine houses no domain code, who computes? Definition 1.1 answered before the question arose: it types what the application *is* — `read` and `write` — and says nothing about who calls it. Chapter 7's caller was a human holding a form; a computation is another caller — an agent that reads, computes, and submits its conclusion through the same `write`, in the same normal form, reviewable and invertible like every delta (Chapter 17 turns exactly that reviewability into the governance story). The derivation step even has a declarative carrier on the shelf: Prop. 7.3's change direction — pattern plus bindings yields a delta — with the bindings drawn from the state rather than a form is precisely a rule, *assert what follows from what holds*, and the deployed stack already ships it as an update term whose delta is computed by its own query. One algebra, both directions, no human in the loop. What lacks a recommendation is *when* such a term runs — schedule, trigger, threshold: the orchestration seam, open like identity and access in Chapter 15, and like them awaiting convention rather than invention. So the domain's logic divides without remainder: validation is a predicate on deltas (Chapter 7 drew that line), derivation is an update term over the ontology, and whatever imperative computation remains — the solver, the optimizer, Chapter 12's leaf — runs behind a caller, submitting deltas like everyone else: a guest of the architecture, never a tenant of the engine.
+
+### The incentives
 
 Why, then, does every domain still get its own codebase? Chapter 13 supplied the mental models; the incentives supply the motive. Generic software commoditizes its vendor: a domain application's defense is precisely its bespoke code, and an industry that charges rent on that code will not derive the uniqueness theorem on its own initiative — the theorem dissolves the asset. So the corollary's adoption path runs through the demand side, and Chapter 17 names the demand: users never itemized the cost of bespoke code; agents count it per call.
 
