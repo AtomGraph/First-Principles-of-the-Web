@@ -473,7 +473,7 @@ One honest concession remains, and it too should be met at full strength: latenc
 The pipeline is now complete in both directions, and it closes:
 
 ```mermaid
-%%| column: page
+%%| column: page-right
 flowchart LR
     S(["State"]) --> sel[["select"]] --> D(["Data"]) --> arr[["arrange"]] --> T(["Tree"]) --> pres[["present"]] --> Doc(["Doc"])
     Doc --> H(["reader"])
@@ -739,7 +739,7 @@ The evidence chapter, written deadpan, because the facts outperform commentary. 
 The framing is convergent evolution: when independent lineages under the same selection pressure keep evolving the same eye, optics has one answer. The lineages here had no contact with the derivation; they had contact with the costs, and the costs are the derivation's predictions.
 
 ```mermaid
-%%| column: page
+%%| column: page-right
 %%{init: {'theme':'base','themeVariables':{'fontFamily':'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif','textColor':'#1b1e22','lineColor':'#5a6270','cScale0':'#e3eef7','cScale1':'#f4f1e9','cScale2':'#e3eef7','cScale3':'#f4f1e9','cScale4':'#e3eef7','cScale5':'#f4f1e9','cScaleLabel0':'#1b1e22','cScaleLabel1':'#1b1e22','cScaleLabel2':'#1b1e22','cScaleLabel3':'#1b1e22','cScaleLabel4':'#1b1e22','cScaleLabel5':'#1b1e22','cScaleInv0':'#b9cfe4','cScaleInv1':'#d9d3c5','cScaleInv2':'#b9cfe4','cScaleInv3':'#d9d3c5','cScaleInv4':'#b9cfe4','cScaleInv5':'#d9d3c5'}}}%%
 timeline
     title The convergence, 2013–2026
