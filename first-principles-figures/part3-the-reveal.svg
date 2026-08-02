@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="98.5 47.5 570 380" role="img">
+  <title>A blank nameplate lifting away from an object that was already built</title>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- leaders: where the plate sat until now -->
+    <g stroke="#d8dce1" stroke-width="1.8" stroke-dasharray="3 7">
+      <path d="M355 148 L316 212"/>
+      <path d="M512 124 L410 212"/>
+    </g>
+    <!-- the nameplate, lifting -->
+    <g transform="translate(430 110) rotate(-9)">
+      <rect x="-80" y="-24" width="160" height="48" rx="8" fill="#ffffff" stroke="#1b1e22" stroke-width="2.5"/>
+      <path d="M-52 2 q10 -14 20 0 t20 0 t20 0 t20 0" stroke="#5a6270" stroke-width="2"/>
+    </g>
+    <!-- the object, complete before it was named -->
+    <g stroke="#1b1e22" stroke-width="2">
+      <path d="M265 308 L313 225"/>
+      <path d="M313 225 L408 225"/>
+      <path d="M408 225 L455 308"/>
+      <path d="M455 308 L408 390"/>
+      <path d="M408 390 L313 390"/>
+      <path d="M313 390 L265 308"/>
+      <path d="M265 308 L338 300"/>
+      <path d="M313 225 L338 300"/>
+      <path d="M338 300 L390 316"/>
+      <path d="M390 316 L455 308"/>
+      <path d="M390 316 L408 390"/>
+      <path d="M338 300 L313 390"/>
+    </g>
+    <g stroke="#1b1e22" stroke-width="2" fill="#e3eef7">
+      <circle cx="265" cy="308" r="11"/>
+      <circle cx="455" cy="308" r="11"/>
+      <circle cx="408" cy="390" r="11"/>
+      <circle cx="313" cy="390" r="11"/>
+      <circle cx="338" cy="300" r="11"/>
+      <circle cx="390" cy="316" r="11"/>
+    </g>
+    <!-- the nodes the plate no longer covers -->
+    <g stroke="#1b1e22" stroke-width="2" fill="#005a9c">
+      <circle cx="313" cy="225" r="11"/>
+      <circle cx="408" cy="225" r="11"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,111 @@
+/*-- scss:defaults --*/
+
+// Body serif: EB Garamond (variable 400–800 + italics + real small caps).
+// Overriding $web-font-path also drops cosmo's Source Sans Pro download.
+$fp-serif: "EB Garamond", Garamond, Georgia, "Times New Roman", serif;
+$web-font-path: "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap";
+
+// paper & ink (harmonized with exhibits.css custom properties)
+$body-bg: #fffdf9;                  // warm white; exhibit #fff cards read as lifted panels
+$body-color: #1b1e22;               // == exhibits --fp-ink
+$headings-color: #141619;
+
+// type — NOTE: $font-size-root deliberately untouched (17px);
+// rem-sized exhibits/sidebar/TOC keep their current pixel sizes.
+$font-family-base: $fp-serif;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, "Helvetica Neue", Arial, sans-serif;   // UI voice, no webfont
+$font-size-base: 1.25rem;           // 21.25px — Garamond's small x-height needs it
+$line-height-base: 1.65;
+$paragraph-margin-bottom: 1.25rem;
+
+// headlines: bold serif, tight leading
+$headings-font-family: $fp-serif;
+$headings-font-weight: 700;
+$headings-line-height: 1.12;
+$h1-font-size: 2.4rem;
+$h2-font-size: 1.6rem;
+$h3-font-size: 1.25rem;
+$h4-font-size: 1.1rem;
+
+// links — variable drives sidebar/TOC active state; article links restyled in rules
+$link-color: #005a9c;               // == exhibits --fp-accent
+$link-hover-color: #003f6e;
+$link-decoration: underline;
+
+// code / blockquote
+$code-font-size: 0.78em;            // mono runs large next to Garamond
+$code-color: #1b1e22;               // kill cosmo's pink
+$blockquote-font-size: 1em;
+
+// reading measure via Quarto's page grid
+$grid-body-width: 720px;            // text column ≈ 669px ≈ The Atlantic's 665px
+
+/*-- scss:rules --*/
+
+// Drop cap + small-caps opening line (The Atlantic treatment), CSS-only.
+// First <p> that is a direct child of main.content — exhibits can't match.
+main.content > p:first-of-type::first-letter {
+  float: left; font-size: 5.4em; line-height: 0.8;
+  padding: 0.04em 0.08em 0 0; font-weight: 400;
+}
+main.content > p:first-of-type::first-line {
+  font-variant: small-caps;         // EB Garamond has true small caps
+  letter-spacing: 0.02em;
+}
+
+// Article links: ink with understated underline; accent on hover.
+// a.xref keeps its dotted treatment from exhibits.css.
+main.content a:not(.xref):not(.fp-exhibit *) {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  text-decoration-color: rgba(27, 30, 34, 0.4);
+}
+main.content a:not(.xref):not(.fp-exhibit *):hover {
+  color: #005a9c; text-decoration-color: currentColor;
+}
+
+// Site chrome stays sans (serif would cascade from body otherwise)
+#quarto-header, .quarto-secondary-nav, .quarto-page-breadcrumbs,
+#quarto-sidebar, #quarto-margin-sidebar, .sidebar nav[role="doc-toc"],
+.page-navigation, .nav-page, .nav-footer,
+#quarto-search, .aa-Panel, .quarto-title-meta {
+  font-family: $font-family-sans-serif;
+}
+#quarto-sidebar { line-height: 1.4; }
+.sidebar-title { font-family: $fp-serif; font-weight: 700; }  // masthead voice
+.sidebar nav[role="doc-toc"] > .h2 {                          // "On this page"
+  text-transform: uppercase; letter-spacing: 0.08em;
+  font-size: 0.7rem; color: #5a6270;                          // == --fp-muted
+}
+
+// Title block (chapter, part, appendix, index pages share it)
+#title-block-header .title { font-size: 2.7rem; line-height: 1.06; letter-spacing: -0.01em; }
+#title-block-header { margin-bottom: 2.2rem; padding-bottom: 1.2rem;
+  border-bottom: 1px solid #e7e2d8; }
+#title-block-header .subtitle { font-style: italic; color: #5a6270; }
+
+// Quarto hardcodes h2 { font-weight: 600 } — variable alone can't win
+h1, h2, h3, h4 { font-weight: 700; }
+main.content h2 { margin-top: 2.6rem; border-bottom: 1px solid #e7e2d8; }
+main.content h3 { margin-top: 2rem; }
+
+// Propositions live in blockquotes — Quarto mutes them gray; restore ink
+main.content blockquote.blockquote {
+  color: inherit; border-left: 3px solid #d9d3c5;
+  padding: 0.1rem 1.5rem 0.1rem 1.1rem; margin: 1.6rem 0;
+}
+
+// Code blocks (numbered equations are plain fences) — modest mono
+main.content pre:not(.fp-out) { font-size: 0.75em; line-height: 1.55; }
+
+// Tables (Appendix B properness table): sans data voice, hairlines
+main.content table:not(.fp-exhibit *) {
+  font-family: $font-family-sans-serif; font-size: 0.85rem;
+}
+main.content table:not(.fp-exhibit *) thead th {
+  text-transform: uppercase; letter-spacing: 0.06em;
+  font-size: 0.72rem; font-weight: 600; color: #5a6270;
+  border-bottom: 1px solid #b9b3a4;
+}

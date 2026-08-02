@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img">
+  <title>A page peeled into four layers, down to the bare skeleton</title>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- guides through the corners of the stack -->
+    <g stroke="#d8dce1" stroke-width="1.8" stroke-dasharray="2 7">
+      <path d="M190 140 L190 410"/>
+      <path d="M515 122 L515 392"/>
+    </g>
+    <!-- State: one block per entity, sorted, no nesting -->
+    <g transform="translate(190 410) matrix(0.76667 -0.19333 0.79167 0.33333 0 0)">
+      <rect x="0" y="0" width="300" height="120" fill="#ffffff" stroke="#1b1e22" stroke-width="2" vector-effect="non-scaling-stroke"/>
+      <g stroke="#005a9c" stroke-width="2" vector-effect="non-scaling-stroke">
+        <rect x="25" y="40" width="50" height="40" fill="#ffffff" vector-effect="non-scaling-stroke"/>
+        <rect x="90" y="40" width="50" height="40" fill="#ffffff" vector-effect="non-scaling-stroke"/>
+        <rect x="155" y="40" width="50" height="40" fill="#ffffff" vector-effect="non-scaling-stroke"/>
+        <rect x="220" y="40" width="50" height="40" fill="#ffffff" vector-effect="non-scaling-stroke"/>
+      </g>
+    </g>
+    <!-- Selection: the rows that made it onto the page -->
+    <g transform="translate(190 320) matrix(0.76667 -0.19333 0.79167 0.33333 0 0)">
+      <rect x="0" y="0" width="300" height="120" fill="#ffffff" stroke="#1b1e22" stroke-width="2" vector-effect="non-scaling-stroke"/>
+      <g stroke="#5a6270" stroke-width="2" vector-effect="non-scaling-stroke">
+        <path d="M20 24 L280 24"/>
+        <path d="M20 48 L220 48"/>
+        <path d="M20 72 L260 72"/>
+        <path d="M20 96 L200 96"/>
+      </g>
+    </g>
+    <!-- Arrangement: the same layout, wireframed -->
+    <g transform="translate(190 230) matrix(0.76667 -0.19333 0.79167 0.33333 0 0)">
+      <rect x="0" y="0" width="300" height="120" fill="#ffffff" stroke="#1b1e22" stroke-width="2" vector-effect="non-scaling-stroke"/>
+      <g stroke="#5a6270" stroke-width="2" vector-effect="non-scaling-stroke">
+        <rect x="20" y="12" width="260" height="22"/>
+        <rect x="20" y="46" width="120" height="58"/>
+        <rect x="160" y="46" width="120" height="58"/>
+      </g>
+    </g>
+    <!-- Style: the page as shipped -->
+    <g transform="translate(190 140) matrix(0.76667 -0.19333 0.79167 0.33333 0 0)">
+      <rect x="0" y="0" width="300" height="120" fill="#ffffff" stroke="#1b1e22" stroke-width="2" vector-effect="non-scaling-stroke"/>
+      <g fill="#e3eef7" stroke="none">
+        <rect x="20" y="12" width="260" height="22"/>
+        <rect x="20" y="46" width="120" height="58"/>
+        <rect x="160" y="46" width="120" height="58"/>
+      </g>
+    </g>
+    <!-- layer names: the book's own words -->
+    <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" fill="#5a6270" stroke="none">
+      <text x="545" y="127">Style</text>
+      <text x="545" y="217">Arrangement</text>
+      <text x="545" y="307">Selection</text>
+      <text x="545" y="397">State</text>
+    </g>
+  </g>
+</svg>

@@ -5,7 +5,7 @@
 **Martynas Jusevičius — DRAFT 0.1**
 *[martynas@atomgraph.com](mailto:martynas@atomgraph.com) · [atomgraph.com](https://atomgraph.com) · [GitHub](https://github.com/namedgraph) · [X](https://x.com/namedgraph)*
 
-> *Status: all eighteen chapters and Appendices A–D in prose, with exhibits, scored audit columns, and full proofs (C.1–C.8); the Chapter 15 reconstruction exhibit, mechanization, and the online edition are under construction. Full ledger in the Draft-status table at the end. Feedback is most valuable on R1–R3, the arity argument, and the Transposition Thesis (Chapter 5, Appendix C) — if something is smuggled, it is there.*
+<img src="first-principles-figures/title-the-thing.svg" alt="A graph of linked nodes, projected through a narrow aperture, resolving into a rendered page" class="fp-frontispiece" width="460" />
 
 ---
 
@@ -34,6 +34,8 @@ If the derivation holds, the next web needs no inventing; it waits to be occupie
 ---
 
 # Part I — The Object
+
+<img src="first-principles-figures/part1-the-object.svg" alt="A transparent rounded object; an arrow carries a document out, and a second arrow curves back in" class="fp-frontispiece" width="440" />
 
 ## Chapter 1. What the Web Is
 
@@ -82,6 +84,8 @@ You can hate XSLT's syntax all you want. Syntax is not a property. In ten years 
 
 Real innovation is vertical: new layers, new semantics, new abstractions on top of what already works. That is how the web was designed to grow, and this book will show — formally — that the vertical direction was available the entire time. Imagine where we would be if those twenty years had been spent building upward.
 
+<img src="first-principles-figures/spot-ch02-the-ladder.svg" alt="Angle brackets and curly brackets riding a closed loop of track, beside an unused ladder that leaves the top of the frame" class="fp-spot" width="420" />
+
 This chapter carries no proof weight; it is motivation, and it is honest about that. But it plants the question the derivation will answer: if the XML→JSON migration was lateral, what would *vertical* have looked like? To answer that we need to know what the layers actually are. So let's find out — by taking a web page apart.
 
 | 1999 | 2019 |
@@ -95,6 +99,8 @@ This chapter carries no proof weight; it is motivation, and it is honest about t
 # Part II — The Derivation
 
 *Part I defined a web application as two functions and refused to say what `State` is. This part earns the answer: the factorization every `read` admits, the properties that make it real, and the forcing of `State` itself.*
+
+<img src="first-principles-figures/part2-the-derivation.svg" alt="A page exploded into four tilted layers: styled, wireframed, rows, and a bare row of sorted blocks" class="fp-frontispiece" width="440" />
 
 ## Chapter 3. Stripping the Page
 
@@ -371,6 +377,8 @@ t                        the sole locus of graph→tree structural choice
 
 `canon` is the graph wearing tree clothing — one block per entity, sorted, no nesting, no sugar. *All* structural decisions (what nests under what, what becomes a section versus a sidebar) move into the declarative term `t`, where S2 can hold. The historically hard case — facts about unnamed entities — has a standardized deterministic answer as of 2024 (canonicalization of blank node labels; the reveal chapter will name the spec).
 
+<img src="first-principles-figures/spot-ch06-tree-clothing.svg" alt="A graph of connected nodes fitted with a tree-shaped coat, beside a rack of differently shaped tree coats" class="fp-spot" width="420" />
+
 And you have already seen `canon`'s output. Strip 2 *is* it: the dashboard reduced to sorted blocks, one per panel, `title` and `value` beneath. The exhibit's format was never a design choice for the figure — it was the canonical serialization, arrived at by stripping.
 
 The three properties `canon` must have — deterministic, lossless, structure-free — are satisfiable, and cheaply:
@@ -484,6 +492,8 @@ flowchart LR
 
 *The derivation is complete — a data model, an algebra, a crossing, a write side — and none of it has been named. This part names it. The names are decades old.*
 
+<img src="first-principles-figures/part3-the-reveal.svg" alt="A blank nameplate lifting away from a finished lattice of connected nodes" class="fp-frontispiece" width="440" />
+
 ## Chapter 8. It Already Exists
 
 Everything in Part II was derived from three RFC-level definitions and three requirements. No W3C recommendation has been cited; no vocabulary from any data-model community has appeared. Now:
@@ -500,6 +510,8 @@ Everything in Part II was derived from three RFC-level definitions and three req
 | `present` | CSS | 1996 |
 
 Before the function, read the dates. Every row predates this draft — most by decades — and none appears anywhere in Parts I–II: the derivation's premises are the RFC layer only, so the match in this table is a check the reader performs, not a construction the author arranged. The columns meet at right angles: the left side is forced by three requirements, the right side was shipped by working groups, and the table asserts they are the same objects.
+
+<img src="first-principles-figures/spot-ch08-the-dates.svg" alt="Six reference volumes on a shelf, spines stamped with years, bindings unopened" class="fp-spot" width="420" />
 
 The mapping is exhibited as a function φ and shown to be a *homomorphism*, not a coincidence of shapes: the operations commute with the translation (Prop 8.2).
 
@@ -579,6 +591,8 @@ Four deltas, then. Two belong to the model, priced in logic and complexity, and 
 *Part II derived seven properties; Part III showed that one stack satisfies all of them. This part scores everything else the industry runs.*
 
 *Every chapter in this part ends by filling in one column of the same table. Rows: R1 R2 R3 · S1 S2 S3 S4. Editorializing is banned in this part; the scores talk.*
+
+<img src="first-principles-figures/part4-the-audit.svg" alt="A ledger grid of checks, crosses, and tildes; the first column is checks all the way down" class="fp-frontispiece" width="440" />
 
 ## Chapter 10. Brackets
 
@@ -677,6 +691,8 @@ The concession: Wasm as a *leaf* — a codec, a physics kernel, a solver inside 
 
 The unifying observation: relational databases, object orientation, ORMs, imperative languages, and MVC all predate the web, and each fails the derived requirements at one identifiable seam — which is *why* each drags a compensating industry behind it at the web boundary. The industries are the measurement: nobody funds a bridge across a gap that isn't there.
 
+<img src="first-principles-figures/spot-ch13-the-bridges.svg" alt="Four tall silos joined by improvised plank bridges, a rope bridge, and a leaning ladder; two silos on a shared foundation stand apart, unbridged" class="fp-spot" width="420" />
+
 **Relational.** The audit's strongest guest. Inside one database the model scores where nothing else pre-web does: relational algebra is denotational — S2-grade semantics decades before the web — and the query/storage separation is genuine S1 discipline. The failure is R3, and it is total: keys are database-scoped, so reference stops at the connection string, and two databases that never coordinated share no name for anything — which drags R2 down with it, since composition then requires a schema authority. The compensating industry is integration itself: every pair of silos bridged by hand, per pair, forever.
 
 **Object orientation.** Encapsulation is the deliberate fusion of state and behavior — R1 inverted: state exists in order to be hidden. Objects are designed neither to merge nor to be referenced from outside their runtime; identity is a pointer. The compensating industries: serialization frameworks and DTO layers — machinery for re-extracting the state the paradigm hid, every time it must travel.
@@ -750,11 +766,15 @@ Closing observation, stated once and left alone: the convergence recovers S1 and
 
 Asymptotic, incomplete, and in the predicted order.
 
+<img src="first-principles-figures/spot-ch14-long-way-home.svg" alt="A dashed path leaving the front door of a house, wandering past hills, mountains, and a lake, and stopping just short of the door beside it" class="fp-spot" width="420" />
+
 ---
 
 # Part V — The Construction
 
 *One column of the audit has no failures. This part builds with it: the application space, its economics, its era, and the web they add up to.*
+
+<img src="first-principles-figures/part5-the-construction.svg" alt="Chains of three linked dots composing upward from a level foundation; the next tier is outlined, empty" class="fp-frontispiece" width="440" />
 
 ## Chapter 15. Building Up
 
@@ -780,7 +800,7 @@ Note what this part has *not* contained, because the absence is the finding: no 
 
 The reflex has a Recommendation-grade instance: the Linked Data Platform (2015), which claimed this book's exact slot — a read-write Linked Data architecture — at the interaction layer. Its addition to the already-standardized Graph Store Protocol is the *container* — a server-side collection with protocol-managed membership. But a container is a selection wearing protocol clothing: a canned query, frozen into the interface, arriving after SPARQL had already made every collection open-ended — any members, by any pattern, composed at request time. A canned collection is what a traditional API endpoint is, and LDP standardized the endpoint in Recommendation dress. Subtract the containers and nothing remains that the Graph Store Protocol does not already do. A specification that adds interface where query semantics sufficed is the wrong-layer reflex in its purest form: the gap was never in the protocols; it was in the implementations that never combined what the protocols already offered.
 
-This chapter is where the book's existence proof enters as evidence. The architecture has a reference implementation — **LinkedDataHub**, open source, in production for years — and the online edition of this book is being built on it, keeping the promise the preface made. Disclosure, once for the chapter: the implementation and the RDF/POST spec are the author's. The point of an existence proof one can install is that belief is optional.
+This chapter is where the book's existence proof enters as evidence. The architecture has a reference implementation — **[LinkedDataHub](https://atomgraph.github.io/LinkedDataHub/)**, open source, in production for years — and the online edition of this book is being built on it, keeping the promise the preface made. Disclosure, once for the chapter: the implementation and the RDF/POST spec are the author's. The point of an existence proof one can install is that belief is optional.
 
 The chapter's exhibit mirrors Chapter 3's, deliberately. The two sites we stripped are rebuilt as dataspaces: the strip-2 fact lists loaded as state, a small ontology per domain — articles and sections for one, panels and readings for the other — one `select` term per window, an `arrange` term per layout, a stylesheet per look. Front page and dashboard become two declarative packages over the same generic machine, the domain living entirely in data. Chapter 3 computed the factorization by hand; this chapter runs it forward, on the same material. Analysis and synthesis meet on worked examples. *(Exhibit pending, as Chapter 3's once was.)*
 
@@ -807,6 +827,8 @@ The web has already run this experiment once, and the result was so successful i
 
 The claim has a second existence proof, older than the web. The spreadsheet is the most successful generic application in history: one engine, every domain there is, specialized by data — no vendor ships an accounting spreadsheet and a separate logistics spreadsheet; users pour the domain in as rows and formulas. The industry has had half a century to notice what this proves, and the spreadsheet's own limits explain why it could prove no more: cell references are sheet-local (R3), two workbooks have no merge (R2), and the world's operational data lives in a million silos named `final_v2.xlsx`. The derived stack is the spreadsheet's economics with the web's properties — the same generic engine, with names that cross files and states that compose. Each proof carries half the claim: the browser is generic with the web's properties, at the document grain; the spreadsheet is generic over domains, with none of the web's properties. The application this chapter describes is their intersection — and the intersection was sitting in the standards all along.
 
+<img src="first-principles-figures/spot-ch16-the-empty-frame.svg" alt="Two oval portraits, a browser window and a spreadsheet grid, above an empty picture frame hanging on its hook" class="fp-spot" width="420" />
+
 The idea has also failed before, and the failure instructs. Model-driven architecture promised applications generated from models, and broke on its own compiler: the model was translated into code, the code drifted from the model, and the model retired into documentation — S2 severed at the first generation step. The generic engine makes no such translation. The ontology is never compiled into the application; it *is* the application's data, interpreted at runtime like everything else, so nothing drifts because nothing is copied. The difference between generation and interpretation is the difference between MDA's grave and Chapter 15's build log.
 
 The economics follow. A codebase is a liability, not an asset — behavior held equal, every line is another place to be wrong — so the system achieving equal behavior with less code is the better system, and the generic system achieves it with *no domain code at all*. Domain functionality becomes a declarative package: an ontology and a stylesheet pair, imported into a running application, installed without a deployment — data, so it composes by union like everything else, and uninstalls the same way. Chapter 12 audited the binary-delivery web; this is its constructive alternative: behavior defined by data, shipped as data, revocable as data.
@@ -818,6 +840,8 @@ The reference implementation ships exactly this: applications as importable data
 ## Chapter 17. The Agent Era
 
 Improper architecture is locally cheap and globally expensive: fusing is always less work *today*, and the costs land on caches, crawlers, integrators, and the future. For thirty years the future could wait. Now the bill arrives: software agents are trying to read the web, and what they find is what Part IV measured: rendered pixels and private APIs. The industry's response is a compensating industry assembling itself in real time — scraping harnesses, headless browsers, and a per-application protocol server bolted onto every system that wants to be machine-legible. Read that list against Chapter 11's price sheet: it is the S4 violation, remediated one adapter at a time, at industry scale, exactly as the model prices it. The machine-readable web is being retrofitted at the margin because it was declined at the core — Chapter 9's maintenance failure, collecting interest.
+
+<img src="first-principles-figures/spot-ch17-the-gallery.svg" alt="A robot leans over a velvet rope, magnifying glass raised, to study a framed picture of a document hanging in a gallery" class="fp-spot" width="420" />
 
 The arithmetic of that compensating industry is the integration industry's arithmetic at a new scale. `N` agents meeting `M` applications through bespoke adapters need on the order of `N × M` integrations. The moment state shares one model and one query semantics, the count collapses to `N + M` — each side implements the common substrate once. Every generation of middleware has re-learned this sum. The agent era re-learns it with `N` growing by the month: the per-application protocol server, the emerging convention as this draft circulates, is the `N × M` answer shipped in real time; the derived stack is the `N + M` answer, shipped since 1999.
 
@@ -1109,6 +1133,8 @@ Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, 
 ---
 
 ## Draft status
+
+> *All eighteen chapters and Appendices A–D in prose, with exhibits, scored audit columns, and full proofs (C.1–C.8); the Chapter 15 reconstruction exhibit, mechanization, and the online edition are under construction. Feedback is most valuable on R1–R3, the arity argument, and the Transposition Thesis (Chapter 5, Appendix C) — if something is smuggled, it is there.*
 
 | Part | Status |
 |---|---|

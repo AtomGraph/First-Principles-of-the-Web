@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 40 500 400" role="img">
+  <title>The ancestors, and the frame that waits one level down</title>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- picture rail -->
+    <path d="M80 52 L540 52" stroke="#d8dce1" stroke-width="2"/>
+    <!-- hanging wires -->
+    <g stroke="#5a6270" stroke-width="1.5">
+      <path d="M158 52 L185 60 L212 52"/>
+      <path d="M408 52 L435 60 L462 52"/>
+    </g>
+    <!-- ancestor one: the browser -->
+    <ellipse cx="185" cy="162" rx="88" ry="104" stroke="#1b1e22" stroke-width="2.6"/>
+    <ellipse cx="185" cy="162" rx="76" ry="92" stroke="#1b1e22" stroke-width="1.6"/>
+    <g>
+      <rect x="130" y="112" width="110" height="90" rx="7" fill="#ffffff" stroke="#1b1e22" stroke-width="2"/>
+      <path d="M130 134 L240 134" stroke="#1b1e22" stroke-width="1.5"/>
+      <g fill="#5a6270" stroke="none">
+        <circle cx="142" cy="123" r="2.5"/>
+        <circle cx="153" cy="123" r="2.5"/>
+        <circle cx="164" cy="123" r="2.5"/>
+      </g>
+      <g stroke="#d8dce1" stroke-width="5">
+        <path d="M142 152 L228 152"/>
+        <path d="M142 168 L206 168"/>
+      </g>
+      <rect x="142" y="180" width="64" height="14" rx="3" fill="#e3eef7" stroke="none"/>
+    </g>
+    <!-- ancestor two: the spreadsheet -->
+    <ellipse cx="435" cy="162" rx="88" ry="104" stroke="#1b1e22" stroke-width="2.6"/>
+    <ellipse cx="435" cy="162" rx="76" ry="92" stroke="#1b1e22" stroke-width="1.6"/>
+    <g>
+      <rect x="380" y="112" width="110" height="90" fill="#ffffff" stroke="#1b1e22" stroke-width="2"/>
+      <g stroke="#d8dce1" stroke-width="1.5">
+        <path d="M407 112 L407 202"/>
+        <path d="M434 112 L434 202"/>
+        <path d="M461 112 L461 202"/>
+        <path d="M380 130 L490 130"/>
+        <path d="M380 148 L490 148"/>
+        <path d="M380 166 L490 166"/>
+        <path d="M380 184 L490 184"/>
+      </g>
+      <rect x="408" y="149" width="26" height="17" fill="#e3eef7" stroke="none"/>
+      <rect x="435" y="167" width="26" height="17" fill="#e3eef7" stroke="none"/>
+    </g>
+    <!-- blank nameplates -->
+    <g stroke="#1b1e22" stroke-width="1.8" fill="#ffffff">
+      <rect x="160" y="284" width="50" height="13" rx="4"/>
+      <rect x="410" y="284" width="50" height="13" rx="4"/>
+    </g>
+    <g stroke="#5a6270" stroke-width="1.5">
+      <path d="M170 291 q4 -5 8 0 t8 0 t8 0"/>
+      <path d="M420 291 q4 -5 8 0 t8 0 t8 0"/>
+    </g>
+    <!-- one level down: the frame that waits -->
+    <g stroke="#005a9c" stroke-width="2">
+      <circle cx="310" cy="296" r="3.5" fill="#005a9c"/>
+      <path d="M255 320 L310 298 L365 320"/>
+    </g>
+    <rect x="250" y="320" width="120" height="92" stroke="#1b1e22" stroke-width="2.6"/>
+    <rect x="259" y="329" width="102" height="74" stroke="#1b1e22" stroke-width="1.6"/>
+  </g>
+</svg>

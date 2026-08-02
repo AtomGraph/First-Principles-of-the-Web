@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 60 620 330" role="img">
+  <title>The graph wearing tree clothing; other trees wait on the rack</title>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- ground -->
+    <path d="M55 368 L620 368" stroke="#5a6270" stroke-width="1.5"/>
+    <!-- coat rack -->
+    <g stroke="#1b1e22" stroke-width="2.2">
+      <path d="M130 368 L130 102"/>
+      <circle cx="130" cy="97" r="4.5"/>
+      <path d="M130 340 L104 368"/>
+      <path d="M130 340 L156 368"/>
+      <path d="M130 116 L88 128"/>
+      <path d="M130 116 L172 126"/>
+    </g>
+    <!-- many trees: the coats not chosen -->
+    <g stroke="#5a6270" stroke-width="2">
+      <path d="M88 128 L88 142"/>
+      <path d="M88 142 L64 288 L112 288 Z"/>
+      <path d="M172 126 L172 140"/>
+      <path d="M172 140 L144 210 L156 210 L132 282 L212 282 L188 210 L200 210 Z"/>
+    </g>
+    <!-- fitting pedestal -->
+    <g stroke="#1b1e22" stroke-width="2">
+      <ellipse cx="440" cy="352" rx="98" ry="14" fill="#ffffff"/>
+      <path d="M342 352 L342 362"/>
+      <path d="M538 352 L538 362"/>
+      <path d="M342 362 A98 14 0 0 0 538 362"/>
+    </g>
+    <!-- the coat being fitted -->
+    <g stroke="#1b1e22" stroke-width="2.5">
+      <path d="M442 128 L518 338"/>
+      <path d="M366 338 L518 338"/>
+      <path d="M442 128 L366 338" stroke-dasharray="6 6"/>
+    </g>
+    <!-- the graph, the same underneath any of them -->
+    <g stroke="#1b1e22" stroke-width="2">
+      <path d="M408 190 L462 168"/>
+      <path d="M462 168 L482 240"/>
+      <path d="M482 240 L430 268"/>
+      <path d="M430 268 L386 242"/>
+      <path d="M386 242 L408 190"/>
+      <path d="M444 214 L408 190"/>
+      <path d="M444 214 L482 240"/>
+      <path d="M444 214 L430 268"/>
+    </g>
+    <g stroke="#1b1e22" stroke-width="2" fill="#005a9c">
+      <circle cx="408" cy="190" r="9"/>
+      <circle cx="462" cy="168" r="9"/>
+      <circle cx="482" cy="240" r="9"/>
+      <circle cx="430" cy="268" r="9"/>
+      <circle cx="386" cy="242" r="9"/>
+      <circle cx="444" cy="214" r="9"/>
+    </g>
+  </g>
+</svg>

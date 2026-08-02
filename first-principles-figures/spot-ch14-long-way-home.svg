@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 60 660 330" role="img">
+  <title>The long way home, still a few steps short</title>
+  <defs>
+    <marker id="lah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#005a9c"/>
+    </marker>
+  </defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- the landscape -->
+    <g stroke="#d8dce1" stroke-width="2">
+      <path d="M60 330 Q120 258 200 330"/>
+      <path d="M200 178 L248 108 L296 178"/>
+      <path d="M270 178 L318 132 L366 178"/>
+      <ellipse cx="565" cy="190" rx="52" ry="16" fill="#e3eef7"/>
+    </g>
+    <!-- the house -->
+    <g stroke="#1b1e22" stroke-width="2.4" fill="#ffffff">
+      <rect x="318" y="268" width="88" height="62"/>
+      <path d="M310 268 L362 224 L414 268 Z"/>
+    </g>
+    <rect x="330" y="292" width="15" height="38" fill="#e3eef7" stroke="#1b1e22" stroke-width="2"/>
+    <rect x="379" y="292" width="15" height="38" fill="#e3eef7" stroke="#005a9c" stroke-width="2.2"/>
+    <!-- the decade -->
+    <path d="M337 334 C300 356 220 360 170 348 C110 334 96 300 110 276 C124 240 150 210 190 196 C150 170 160 120 210 100 C230 84 300 84 340 96 C420 112 470 130 520 150 C560 162 610 170 630 196 C648 230 640 270 610 300 C570 330 520 344 470 348 L452 350" stroke="#5a6270" stroke-width="2" stroke-dasharray="4 7"/>
+    <!-- the last mile, still ahead -->
+    <path d="M452 350 C436 350 424 346 414 341" stroke="#005a9c" stroke-width="2.4" stroke-dasharray="4 7" marker-end="url(#lah)"/>
+    <!-- mile markers -->
+    <g stroke="#5a6270" stroke-width="2">
+      <path d="M176 340 L176 352"/>
+      <path d="M104 250 L104 262"/>
+      <path d="M322 82 L322 94"/>
+      <path d="M596 150 L596 162"/>
+      <path d="M474 358 L474 370"/>
+    </g>
+    <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="15" fill="#5a6270" text-anchor="middle" stroke="none">
+      <text x="176" y="370">2013</text>
+      <text x="104" y="282">2016</text>
+      <text x="322" y="76">2019</text>
+      <text x="596" y="144">2022</text>
+      <text x="474" y="386">2026</text>
+    </g>
+  </g>
+</svg>
