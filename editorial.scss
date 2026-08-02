@@ -38,20 +38,26 @@ $code-font-size: 0.78em;            // mono runs large next to Garamond
 $code-color: #1b1e22;               // kill cosmo's pink
 $blockquote-font-size: 1em;
 
+// mermaid diagrams — harmonized with exhibits.css custom properties.
+// Cluster fill/stroke can't be set here (Quarto derives them from
+// $mermaid-fg-color by lightening); see the :root override in rules.
+$mermaid-edge-color: #5a6270;       // == --fp-muted
+$mermaid-node-bg-color: #e3eef7;    // == --fp-accent-soft
+$mermaid-node-fg-color: #005a9c;    // node borders == --fp-accent
+$mermaid-label-fg-color: #1b1e22;   // node/edge text: ink, not cosmo blue
+$mermaid-label-bg-color: #fffdf9;   // edge-label chips on paper
+
 // reading measure via Quarto's page grid
 $grid-body-width: 720px;            // text column ≈ 669px ≈ The Atlantic's 665px
 
 /*-- scss:rules --*/
 
-// Drop cap + small-caps opening line (The Atlantic treatment), CSS-only.
-// First <p> that is a direct child of main.content — exhibits can't match.
-main.content > p:first-of-type::first-letter {
-  float: left; font-size: 5.4em; line-height: 0.8;
-  padding: 0.04em 0.08em 0 0; font-weight: 400;
-}
-main.content > p:first-of-type::first-line {
-  font-variant: small-caps;         // EB Garamond has true small caps
-  letter-spacing: 0.02em;
+// Mermaid cluster boxes: Quarto computes these two by lightening the ink
+// foreground, which lands on dark slate. Paper tint + hairline instead.
+// User rules compile after Quarto's :root emission, so this wins.
+:root {
+  --mermaid-fg-color--lightest: #f4f1e9;  // cluster fill
+  --mermaid-fg-color--lighter: #d9d3c5;   // cluster stroke
 }
 
 // Article links: ink with understated underline; accent on hover.
@@ -108,4 +114,21 @@ main.content table:not(.fp-exhibit *) thead th {
   text-transform: uppercase; letter-spacing: 0.06em;
   font-size: 0.72rem; font-weight: 600; color: #5a6270;
   border-bottom: 1px solid #b9b3a4;
+  white-space: nowrap;              // "XML stack (10)" must not orphan "XML"
 }
+
+// Part-page chapter lists (nav emitted by split.py under the frontispiece)
+nav.fp-part-toc {
+  margin: 3rem auto 0; max-width: 26rem;
+  border-top: 1px solid #e7e2d8; padding-top: 1.6rem;
+}
+nav.fp-part-toc a {
+  display: flex; gap: 1rem; align-items: baseline;
+  padding: 0.35rem 0; color: inherit; text-decoration: none;
+  font-size: 1.05em; line-height: 1.4;
+}
+nav.fp-part-toc a span {
+  font-variant: small-caps; letter-spacing: 0.04em;
+  color: #5a6270; white-space: nowrap;
+}
+nav.fp-part-toc a:hover { color: #005a9c; }
