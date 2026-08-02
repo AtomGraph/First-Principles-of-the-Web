@@ -8,7 +8,7 @@
 
 ## Preface
 
-The claim: there is exactly one way to build applications that are *of* the web rather than merely *on* it, and it is data-centric, declarative, and graph-based. "Exactly one" is meant relative to rules the web itself imposes — the book derives the rules, and shows what rejecting each one costs. Everything else — the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains — gets scored against those rules in Part IV; the book's finding, stated here and earned there, is that each is a partial rediscovery of this way or a detour from it.
+The claim: there is exactly one way to build applications that are *of* the web rather than merely *on* it, and it is data-centric, declarative, and graph-based. "Exactly one" is meant relative to rules the web itself imposes — the book derives the rules, and shows what rejecting each one costs. Everything else — the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains — gets scored against those rules in Part IV; the book's finding, stated here and argued there, is that each is a partial rediscovery of this way or a detour from it.
 
 The book is structured as a derivation, and every statement in it is one of three things: a definition quoted from the web's own specifications, a proposition that follows from previous statements, or an observation you can verify against deployed reality. If you find a statement that is none of the three, the book has a bug, and I would like a report. Method, notation, and reading tracks are in Appendix A.
 
@@ -97,7 +97,7 @@ This chapter carries no proof weight; it is motivation, and claims to be nothing
 
 # Part II — The Derivation
 
-*Part I defined a web application as two functions and refused to say what `State` is. This part earns the answer: the factorization every `read` admits, the properties that make it real, and the forcing of `State` itself.*
+*Part I defined a web application as two functions and refused to say what `State` is. This part derives the answer: the factorization every `read` admits, the properties that make it real, and the forcing of `State` itself.*
 
 <img src="first-principles-figures/part2-the-derivation.svg" alt="A page exploded into four tilted layers: styled, wireframed, rows, and a bare row of sorted blocks" class="fp-frontispiece" width="440" />
 
@@ -242,7 +242,7 @@ Proposition 4.4 is what Chapter 3 was illustrating: stripping a real page is *co
 
 ### The debt to Fielding
 
-The debt to Fielding runs deeper than the payoff list. REST was the last serious attempt to *derive* web architecture rather than fashion it — constraints applied stepwise, properties earned per constraint — the method this book inherits and pushes to theorem grade. But REST constrains the conversation and leaves the vocabulary open: it says how representations must transfer — statelessly, cacheably, through a uniform interface — and declines, deliberately, to say what a representation or the state behind it must *be*. That open question is this book's subject. Chapter 5 closes it, and the closure was unavailable to REST's own method in 2000: the answer had been standardized only the year before, and the pressure that makes it visible — machines reading the web — was two decades out. Read this book as the second half of a derivation whose first half Fielding wrote.
+The debt to Fielding runs deeper than the payoff list. REST was the last serious attempt to *derive* web architecture rather than fashion it — constraints applied stepwise, properties induced per constraint — the method this book inherits and pushes to theorem grade. But REST constrains the conversation and leaves the vocabulary open: it says how representations must transfer — statelessly, cacheably, through a uniform interface — and declines, deliberately, to say what a representation or the state behind it must *be*. That open question is this book's subject. Chapter 5 closes it, and the closure was unavailable to REST's own method in 2000: the answer had been standardized only the year before, and the pressure that makes it visible — machines reading the web — was two decades out. Read this book as the second half of a derivation whose first half Fielding wrote.
 
 His deepest constraint is also his least defined: the **uniform interface** — in Fielding's own accounting the central feature that distinguishes the web from every prior architecture, delivered as four clauses of prose (§5.1.5) and never formalized. "Uniform" is the quantifier: one signature for every application — which is why Definition 1.1 could open this book by fitting every web application ever built, and why Part V can close it with one application for every domain. The interface was always uniform; the state beneath it was not. Chapter 5 is what finishing the thought costs.
 
@@ -564,7 +564,7 @@ flowchart LR
 
 *Prop. 8.2. Two paths, one result: translate then query, or query then translate. The square commutes — the mapping is a homomorphism, not a pun.*
 
-Then the sentence the whole book exists to earn:
+Then the sentence the whole book has been building toward:
 
 **You have already accepted RDF. You did it in Chapter 5, before I told you its name.**
 
@@ -624,7 +624,7 @@ Forms run backwards want submissions that denote deltas (Prop. 7.2), and the REC
 
 ### The ledger, open
 
-Four deltas, then. Two belong to the model, priced in logic and complexity, and both resolve in the model's favor — one as a motivated extension with a computable bill, one as a prediction the standards later honored. Two belong to the platform, and owe their existence to neglect: one to abandonment, one to a bridge never standardized. None touches the derivation: no proposition of Part II is weakened by anything in this inventory. A theory spends credibility where its misses are hidden and earns it where they are itemized. The ledger is open; now we audit everyone else's.
+Four deltas, then. Two belong to the model, priced in logic and complexity, and both resolve in the model's favor — one as a motivated extension with a computable cost, one as a prediction the standards later honored. Two belong to the platform, and owe their existence to neglect: one to abandonment, one to a bridge never standardized. None touches the derivation: no proposition of Part II is weakened by anything in this inventory. A theory spends credibility where its misses are hidden and earns it where they are itemized. The ledger is open; now we audit everyone else's.
 
 ---
 
@@ -773,7 +773,7 @@ Read the relational column twice: the highest pre-web score in the book, failing
 
 The evidence chapter: the JavaScript ecosystem — with no exposure to any derivation, moved by nothing but its own costs — has spent a decade converging back toward the proper factorization, one rediscovery at a time:
 
-- **SSR.** Documents should arrive as documents. The S4 bill — crawlers blind, first paint late — was paid in exactly the predicted currency, and the fix is `present ∘ arrange ∘ select` running on a server, where it had been running since 1993.
+- **SSR.** Documents should arrive as documents. The S4 tax — crawlers blind, first paint late — was paid in exactly the predicted currency, and the fix is `present ∘ arrange ∘ select` running on a server, where it had been running since 1993.
 - **Hydration.** The S1 tax, given its industry name: ship the document *and* the program that regenerates it, because the architecture cannot tell them apart. An industry line item for a category error.
 - **Islands.** The principle of least power, rederived from the costs: most of the page needs no program, so most of the page stops being one.
 - **React Server Components.** `select`, surgically extracted back out of the fused term, fifteen years after fusion; its wire format a bespoke, non-addressable serialization of precisely the intermediate value S4 says should have a URI. The factor returned; its resource did not.
@@ -1095,7 +1095,7 @@ Each countermodel is one of Chapter 5's exits, its non-redundancy now proved: re
 
 ### C.5 The analysis theorem (Prop. 4.4)
 
-Formalize the hypothesis first. *Finite dependence*: for every request `r` there is a finite set `K(r) ⊆ Fact` — a window — with `read(r, S) = read(r, S ∩ K(r))` for all states `S`. This is what "depends on `State` only through some finite part" means, and it is where the theorem earns its scope: a `read` that inspects the whole infinite state at once has no window and gets no factorization. Deployed reads have windows — a response is finite, computed in finite time from finitely many facts.
+Formalize the hypothesis first. *Finite dependence*: for every request `r` there is a finite set `K(r) ⊆ Fact` — a window — with `read(r, S) = read(r, S ∩ K(r))` for all states `S`. This is what "depends on `State` only through some finite part" means, and it is what sets the theorem's scope: a `read` that inspects the whole infinite state at once has no window and gets no factorization. Deployed reads have windows — a response is finite, computed in finite time from finitely many facts.
 
 Choose, for each `r`, an inclusion-minimal window (one exists inside any window by finiteness; when several minimal windows exist, fix any — the construction below works for every choice, so the choice is immaterial). Chapter 4's sketch said "the minimal fragment"; the honest article is "a minimal fragment, fixed henceforth."
 
