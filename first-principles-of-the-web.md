@@ -8,7 +8,7 @@
 
 ## Preface
 
-The claim: there is exactly one way to build applications that are *of* the web rather than merely *on* it, and it is data-centric, declarative, and graph-based. "Exactly one" is meant relative to rules the web itself imposes — the book derives the rules, and shows what rejecting each one costs. Everything else — the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains — is either a partial rediscovery of this way or a detour from it.
+The claim: there is exactly one way to build applications that are *of* the web rather than merely *on* it, and it is data-centric, declarative, and graph-based. "Exactly one" is meant relative to rules the web itself imposes — the book derives the rules, and shows what rejecting each one costs. Everything else — the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains — gets scored against those rules in Part IV; the book's finding, stated here and earned there, is that each is a partial rediscovery of this way or a detour from it.
 
 The book is structured as a derivation, and every statement in it is one of three things: a definition quoted from the web's own specifications, a proposition that follows from previous statements, or an observation you can verify against deployed reality. If you find a statement that is none of the three, the book has a bug, and I would like a report. Method, notation, and reading tracks are in Appendix A.
 
@@ -24,7 +24,7 @@ Strip any page — a newspaper, a dashboard — and the same skeleton emerges: s
 
 Ask what `State` must be, and the requirements come from the web itself. `State` must host any domain. It must compose across parties who have never met — which forces merging by union, over facts that carry their own meaning. Its names must work globally. The smallest fact meeting all three requirements is a triple — two global names and a value that may itself be one — and any minimal model meeting them is isomorphic to sets of triples under union. The uniqueness is a theorem; to reject its conclusion you must reject one of the requirements.
 
-The reveal: the structure just derived is RDF, SPARQL, XSLT, and CSS — standardized between 1996 and 2014, then abandoned rather than refuted. The audit: everything the industry runs instead fails a named requirement and pays for the failure with a compensating industry; by the last chapter, one table carries every score. The bill: software agents now need exactly the property the industry never adopted — machine-consumable state — and the compensating machinery is assembling in real time, at industry scale.
+The reveal: the structure just derived is RDF, SPARQL, XSLT, and CSS — standardized between 1996 and 2014, then abandoned — rather than refuted, the book will argue. The audit: everything the industry runs instead fails a named requirement and pays for the failure with a compensating industry; by the last chapter, one table carries every score. The bill: software agents now need exactly the property the industry never adopted — machine-consumable state — and the compensating machinery is assembling in real time, at industry scale.
 
 If the derivation holds, the next web needs no inventing; it waits to be occupied. The rest of this book is the proof, the prices, and the evidence.
 
@@ -77,11 +77,11 @@ The chapter closes with a reading of the web's history that the rest of the book
 
 There is a term worth repurposing for what has happened to web technology over the last twenty years: **lateral churn**. It is the kind of activity that looks like innovation but isn't.
 
-Since the early 2000s, the web community has executed the largest format migration in its history: XML to JSON. Two decades of rewritten APIs, retired toolchains, retrained developers. And what changed? We replaced one set of brackets with another. The data model underneath — a tree of nested containers — is conceptually identical. What we *lost* is quantifiable: namespaces, a standard schema language, a standard query language (XPath), a standard transformation language (XSLT), addressability into documents. The industry's largest migration was orthogonal to every property that matters, and its tooling delta was strictly negative.
+Since the early 2000s, the web community has executed the largest format migration in its history: XML to JSON. Two decades of rewritten APIs, retired toolchains, retrained developers. And what changed? We replaced one set of brackets with another. The data model underneath — a tree of nested containers — is conceptually identical. What we *lost* is quantifiable: namespaces, a standard schema language, a standard query language (XPath), a standard transformation language (XSLT), addressability into documents. The industry's largest migration was orthogonal to every property this book will derive, and its tooling delta was strictly negative; Chapter 10 re-runs the verdict as a measurement, once the properties exist to measure with.
 
 You can hate XSLT's syntax all you want. Syntax is not a property. Most JavaScript frameworks of 2010 have already been retired; XSLT, frozen at its 1999 revision, still runs in every browser as this draft circulates. Standardized declarative semantics buys a lifespan that no framework's API surface can.
 
-Real innovation is vertical: new layers, new semantics, new abstractions on top of what already works. That is how the web was designed to grow, and this book will show — formally — that the vertical direction was available the entire time. Imagine where we would be if those twenty years had been spent building upward.
+Real innovation is vertical: new layers, new semantics, new abstractions on top of what already works. That is how the web was designed to grow, and this book will show — formally — that the vertical direction was available the entire time.
 
 <img src="first-principles-figures/spot-ch02-the-ladder.svg" alt="Angle brackets and curly brackets riding a closed loop of track, beside an unused ladder that leaves the top of the frame" class="fp-spot" width="420" />
 
@@ -632,7 +632,7 @@ Four deltas, then. Two belong to the model, priced in logic and complexity, and 
 
 *Part II derived seven properties; Part III showed that one stack satisfies all of them. This part scores everything else the industry runs.*
 
-*Every chapter in this part ends by filling in one column of the same table. Rows: R1 R2 R3 · S1 S2 S3 S4. Editorializing is banned in this part; the scores talk.*
+*Every chapter in this part ends by filling in one column of the same table. Rows: R1 R2 R3 · S1 S2 S3 S4. Editorializing is banned in this part; the scores talk. A verdict here is rejected only by striking a row — R1–R3 exit through Theorem 5.4, S1–S4 through Proposition 4.4 — so disagreement belongs with the requirements, never with the technologies.*
 
 <img src="first-principles-figures/part4-the-audit.svg" alt="A ledger grid of checks, crosses, and tildes; the first column is checks all the way down" class="fp-frontispiece" width="440" />
 
@@ -693,7 +693,7 @@ The single-page application, audited. In the book's terms its architecture is th
 
 **The R-properties.** R1 holds; a program holds any state in memory. R2 and R3 fail together: component state merges by nothing — state-synchronization libraries are the compensating industry — and references are pointers, machine-local by definition.
 
-The corollary that names the chapter: **the SPA is the un-web** — HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. And a prediction, labeled as one: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state, and the paradigm's defining move is hiding state behind `read`. Chapter 14 measures the industry's own retreat from this position; Chapter 17 presents the bill that arrived in the meantime.
+The corollary that names the chapter: **the SPA is the un-web** — HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. The corollary adds nothing to the column: rejecting it means rejecting a score, and each score names the property to take it up with. And a prediction, labeled as one: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state, and the paradigm's defining move is hiding state behind `read`. Chapter 14 measures the industry's own retreat from this position; Chapter 17 presents the bill that arrived in the meantime.
 
 **Column: SPA/JS.**
 
@@ -933,7 +933,7 @@ The audit table, completed — Appendix B, one page, every cell carrying a chapt
 
 Web 3.0, defined: `read` transparent all the way down — S1–S4 at every layer, R1–R3 at the substrate — for humans *and* machines, which Chapter 17 reduced to one audience. Every earlier use of the term gestured; the table lets this one point.
 
-Read the eras through the one variable this book has tracked. Web 1.0: `read` transparent, over documents — declarative, addressable, indexable, the properties that beat every contemporary in Chapter 1's history. Web 2.0: `write` arrives, and with it the fused term — the application stays on the web only at its rendered surface, and state disappears behind `read`. Web 3.0, on this definition, adds no third invention: it is the first era's one virtue extended to the layer the second era hid. Chapter 2's lateral churn was two decades spent inside era two; the vertical direction was open the whole time, and Part II proved it had exactly one shape.
+Read the eras through the one variable this book has tracked. Web 1.0: `read` transparent, over documents — declarative, addressable, indexable, the properties that beat every contemporary in Chapter 1's history. Web 2.0: `write` arrives, and with it the fused term — the application stays on the web only at its rendered surface, and state disappears behind `read`. Web 3.0, on this definition, adds no third invention: it is the first era's one virtue extended to the layer the second era hid. Chapter 2's lateral churn was two decades spent inside era two; the vertical direction was open the whole time, and Part II proved it had exactly one shape. What the preface could only announce, the table now carries: the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains — each located, column by column, as a partial rediscovery of this way or a detour from it.
 
 What it buys the end user, because the end user was always the point. Navigate and drill into any data without knowing a query language — the five moves are interface primitives, and none of them requires a programmer. Fork and augment running applications declaratively — S3 as a user right rather than a vendor courtesy, exercised by substituting a term, never by rebuilding a bundle. Federate without asking permission — the union law requires none; merge is the whole protocol.
 
