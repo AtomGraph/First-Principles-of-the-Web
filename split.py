@@ -284,9 +284,12 @@ def strip_rules(body):
         out.pop()
     return out
 
-def write(name, title, body):
+def write(name, title, body, tail=""):
     text = add_anchors("\n".join(strip_rules(promote(body))).strip())
     text = linkify(text, current=name.replace(".qmd", ".html"))
+    if tail:
+        # raw HTML appended after linkify — "Chapter N" inside it stays literal
+        text += "\n\n" + tail
     content = f"# {title}\n\n" + text + "\n"
     (ROOT / name).write_text(content, encoding="utf-8")
     return name
@@ -308,7 +311,15 @@ part_no = 0
 for part_title, intro, chapters in parts:
     part_no += 1
     pfile = f"part{part_no}.qmd"
-    write(pfile, part_title, intro)
+    part_toc = ['<nav class="fp-part-toc">']
+    for ch_title, _cb in chapters:
+        m = re.match(r"Chapter (\d+)\.\s*(.*)", ch_title)
+        part_toc.append(
+            f'  <a href="{ch_page[int(m.group(1))]}">'
+            f"<span>Chapter {m.group(1)}</span> {m.group(2)}</a>"
+        )
+    part_toc.append("</nav>")
+    write(pfile, part_title, intro, tail="\n".join(part_toc))
     yml_chapters.append(f"    - part: {pfile}")
     yml_chapters.append("      chapters:")
     for ch_title, body in chapters:
@@ -341,8 +352,9 @@ if appendices:
         write(fname, re.sub(r"^[A-Z]\.\s+", "", t), b)
         app_files.append(fname)
 if status:
+    # back matter, not apparatus — keep it out of the lettered appendix sequence
     write("status.qmd", "Draft status", status)
-    app_files.append("status.qmd")
+    yml_chapters.append("    - status.qmd")
 
 yml = """project:
   type: book
@@ -360,6 +372,10 @@ book:
       url: "https://atomgraph.com"
   repo-url: https://github.com/AtomGraph/First-Principles-of-the-Web
   repo-actions: [issue]
+  site-url: https://atomgraph.github.io/First-Principles-of-the-Web/
+  favicon: first-principles-figures/favicon.svg
+  open-graph: true
+  twitter-card: true
   search: true
 """ + "\n".join(yml_chapters) + """
   appendices:

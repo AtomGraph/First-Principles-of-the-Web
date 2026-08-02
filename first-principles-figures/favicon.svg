@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
+  <title>First Principles of the Web</title>
+  <!-- paper tile so the mark survives dark browser tabs -->
+  <rect width="64" height="64" rx="14" fill="#fffdf9"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#1b1e22" stroke-width="3">
+      <path d="M16 20 L34 32"/>
+      <path d="M13 44 L34 32"/>
+      <path d="M16 20 L13 44"/>
+      <path d="M34 32 L56 32"/>
+    </g>
+    <g stroke="#1b1e22" stroke-width="3" fill="#e3eef7">
+      <circle cx="16" cy="20" r="6.5"/>
+      <circle cx="13" cy="44" r="6.5"/>
+      <circle cx="34" cy="32" r="6.5"/>
+    </g>
+    <!-- aperture -->
+    <g stroke="#1b1e22" stroke-width="4">
+      <path d="M45 12 L45 25"/>
+      <path d="M45 39 L45 52"/>
+    </g>
+    <!-- the thing, resolved -->
+    <circle cx="56" cy="32" r="4.5" fill="#005a9c" stroke="none"/>
+  </g>
+</svg>
