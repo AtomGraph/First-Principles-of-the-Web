@@ -99,11 +99,11 @@ One decision remains before the stripping starts, and it is a control on the exp
 
 ---
 
-# Part II — The Derivation
+# Part II — The Analysis
 
 *Part I defined a web application as two functions and refused to say what `State` is. This part derives the answer: the factorization every `read` admits, the properties that make it real, and the forcing of `State` itself.*
 
-<img src="first-principles-figures/part2-the-derivation.svg" alt="A page exploded into four tilted layers: styled, wireframed, rows, and a bare row of sorted blocks" class="fp-frontispiece" width="440" />
+<img src="first-principles-figures/part2-the-analysis.svg" alt="A page exploded into four tilted layers: styled, wireframed, rows, and a bare row of sorted blocks" class="fp-frontispiece" width="440" />
 
 ## Chapter 3. Stripping the Page
 
@@ -834,11 +834,11 @@ Asymptotic, incomplete, and in the predicted order.
 
 ---
 
-# Part V — The Construction
+# Part V — The Synthesis
 
 *One column of the audit has no failures. This part builds with it: the application space, its economics, its era, and the web they add up to.*
 
-<img src="first-principles-figures/part5-the-construction.svg" alt="Chains of three linked dots composing upward from a level foundation; the next tier is outlined, empty" class="fp-frontispiece" width="440" />
+<img src="first-principles-figures/part5-the-synthesis.svg" alt="Chains of three linked dots composing upward from a level foundation; the next tier is outlined, empty" class="fp-frontispiece" width="440" />
 
 ## Chapter 15. Building Up
 
