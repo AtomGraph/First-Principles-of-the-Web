@@ -251,7 +251,7 @@ The debt to Fielding runs deeper than the property list. REST was the last serio
 His deepest constraint is also his least defined: the **uniform interface** — in Fielding's own estimation the central feature that distinguishes the web from every prior architecture, delivered as four clauses of prose (§5.1.5) and never formalized. "Uniform" is the quantifier: one signature for every application — which is why Definition 1.1 could open this book by fitting every web application ever built, and why Part V can close it with one application for every domain. The interface was always uniform; the state beneath it was not. Chapter 5 is what finishing the thought costs.
 
 <details>
-<summary><i>The four clauses, typed — one per component. (Borrows names from Chapter 7; return here after the centerfold.)</i></summary>
+<summary><i>The four clauses, typed — one per component. (Borrows names from Chapter 7; return here after the pipeline closes.)</i></summary>
 
 | Fielding's clause (§5.1.5) | typed here as |
 |---|---|
@@ -506,7 +506,7 @@ Moves 2–5 are independent evolution's four timelines; move 1 is the request, w
 
 One honest concession remains, and it too should be met at full strength: latency. The operational complaint is the round trip — a keystroke should not cross an ocean to move a cursor. Granted. But look at what the complaint actually asks for: that the factors be *evaluated near the user* — not that they be fused. And mobility of evaluation is precisely what S2 already secured. A term whose semantics is closed evaluates the same everywhere; ship `q`, `t`, `s` to the client and run them there, against a local replica of the selected data, and the architecture has not changed by one proposition — the same terms, the same factors, a different machine. What cannot travel this way is a fused `read`: an opaque program can only be shipped whole and trusted blind, and shipping opaque programs to browsers is an experiment the web has already scored once (Chapter 12). Declarative terms are portable because they mean the same thing everywhere — S2, read as a deployment strategy.
 
-### The centerfold
+### The closed pipeline
 
 The pipeline is now complete in both directions, and it closes:
 
@@ -520,7 +520,7 @@ flowchart LR
     delta -- "(S ∖ D⁻) ∪ D⁺" --> S
 ```
 
-*The centerfold. State becomes document by three factors; the document meets a human; the human's answer is a delta; the delta is the next state — and `τ` ticks (4.5). Every arrow is a numbered proposition. Everything before this figure derives it; everything after measures the world against it.*
+*The closed pipeline. State becomes document by three factors; the document meets a human; the human's answer is a delta; the delta is the next state — and `τ` ticks (4.5). Every arrow is a numbered proposition. Everything before this figure derives it; everything after measures the world against it.*
 
 ---
 
@@ -586,7 +586,7 @@ Whatever you believed about the semantic web when you opened this book — too a
 
 Chapter 8 put both halves of the argument into theorem form — every application has the derived form; the deployed standards fill it — and that invites suspicion: a derivation that lands exactly on a deployed stack looks retrofitted until its mismatches are on the table. This chapter puts them there. The isomorphism is not exact. There are two mismatches between the model Part II forced and the standard Part III named, and two more between the standard and the platform that ships it. Each is located, measured, and — twice — turned into a prediction. Part IV applies the same standard to everyone else's models.
 
-### Mismatch one: the unnamed
+### Mismatch one: the unnamed entities
 
 RDF permits facts about entities with no name — blank nodes — and nothing in Chapter 5 forced them: the derivation minted a fresh URI wherever it needed an entity, because minting is the web's free lunch. So blank nodes are surplus, and the surplus has a precise reading. A graph containing `_:b` asserts *that something exists* with these properties; RDF's own semantics says exactly this — simple entailment treats blank nodes as existential variables. The extension is well-motivated. Entities routinely exist before anyone names them — every form not yet submitted, every observation not yet reconciled, describes a something — and a model that forbade the unnamed would fail R1 at the margins of every domain.
 
@@ -618,7 +618,7 @@ Union erases contribution: C-2d says `atoms(s ⊕ s′) = atoms(s) ∪ atoms(s�
 
 Here the mismatch becomes a prediction. The 1999 core standardized triples; the deployed stack then grew exactly the fourth position — named graphs, RDF datasets, TriG, standardized 2014, the graph name a URI, so that attribution itself dereferences. A derivation that merely matched the 1999 core could be numerology; a derivation whose first missing requirement generates the standard's own later extension is tracking the constraint, not the artifact. Honesty about the prediction's scope: the position arrived, and the standard declined to fix what the graph name *means*; the semantics is argued about still. The prediction is structural, and claimed as nothing more. (The contrast is annotation syntaxes that re-serialize what reification already expressed — convenience, and convenience is honest, but expressiveness is a property and syntax is not; the audit table scores properties.)
 
-### Mismatch three: the unoccupied seam
+### Mismatch three: the abandoned seam
 
 The deployed stack's `arrange` story — canonical serialization plus declarative tree transformation — was built, standardized, shipped in every browser, then frozen at its 1999 revision for a quarter of a century and, as this draft circulates, scheduled for removal from the platform outright. Note what this mismatch is made of. Nothing was missing; everything was abandoned. The gap in the modern web is abandoned technology: a maintenance failure rather than a research problem — and the practical thesis of this book. Chapter 6 promised this sentence would return with evidence, and the evidence is this: every property Part II proved is available for the cost of maintaining software that already existed, and the platform declined that maintenance while building, many times over, the compensating machinery Part IV will measure. And the freeze is the platform's, not the language's: XSLT 3.0 (2017) runs in every current browser through [SaxonJS](https://www.saxonica.com/html/saxonjs/index.html), whose [IXSL extension](https://www.saxonica.com/saxonjs/documentation3/index.html#!ixsl-extension) binds browser events to template rules — Chapter 7's mobility of evaluation, deployed, with interactivity still declarative at the term. The maintenance the platform dropped, a vendor shoulders from userland.
 
@@ -626,9 +626,9 @@ The deployed stack's `arrange` story — canonical serialization plus declarativ
 
 Forms run backwards want submissions that denote deltas (Prop. 7.2), and the REC stack stops one step short: SPARQL Update carries the delta, but HTML forms speak `application/x-www-form-urlencoded`, and no recommendation bridges the two. The bridge exists as a community spec — [RDF/POST](https://atomgraph.github.io/RDF-POST/), which flattens the triple positions into form keys (`su`, `pu`, `ou`, `ol`, …) so that a plain HTML form, with no script, submits a graph. It invents nothing: an encoding of the derived model into the form media type the web already ships. Its non-standardization is the write side's most conspicuous open seam. (Disclosure: the spec is maintained by the author's company, building on Sergei Egorov's original draft. Chapter 15 shows it at work.)
 
-### The ledger, open
+### The inventory
 
-Four mismatches, then. Two belong to the model, measured in logic and complexity, and both resolve in the model's favor — one as a motivated extension with a computable cost, one as a prediction the standards later honored. Two belong to the platform, and owe their existence to neglect: one to abandonment, one to a bridge never standardized. None touches the derivation: no proposition of Part II is weakened by anything in this inventory. A theory loses credibility where its mismatches are hidden and gains it where they are on the table. The ledger is open; now we audit everyone else's.
+Four mismatches, then. Two belong to the model, measured in logic and complexity, and both resolve in the model's favor — one as a motivated extension with a computable cost, one as a prediction the standards later honored. Two belong to the platform, and owe their existence to neglect: one to abandonment, one to a bridge never standardized. None touches the derivation: no proposition of Part II is weakened by anything in this inventory. A theory loses credibility where its mismatches are hidden and gains it where they are on the table. Ours are; now we audit everyone else's.
 
 ---
 
@@ -1248,7 +1248,7 @@ Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, 
 | Ch 3 | drafted; screenshot exhibits captured (Guardian + Grafana wind farm, 2026-07-24) |
 | Ch 4, 5 | drafted — the core; 4.5 (the document in time) added |
 | Ch 6 | drafted — Prop 6.2 added |
-| Ch 7 | drafted, incl. centerfold figure |
+| Ch 7 | drafted, incl. closed-pipeline figure |
 | Ch 9 | drafted — Props 9.1/9.2 with inline proofs |
 | Ch 8 | drafted — mapping table + dates paragraph |
 | Ch 10–14 | drafted — every column scored; Ch 10 opens with the migration story + coinage, Ch 11/12 closing lines, Ch 14 figure order (flow pass 2026-08-03) |
@@ -1256,4 +1256,4 @@ Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, 
 | Appendices A, B, D | drafted — audit table complete, concordance tabled |
 | Appendix C | complete — C.1–C.8: representation, arity (with scope note), uniqueness, independence, analysis, timelines, homomorphism, synthesis/genericity |
 | Securing apparatus | Transposition Thesis + table + CRDT corroboration (Ch 5); bridge methodology (Appendix A); prediction registry (Ch 18); prior-art sweep 2026-07-30 — uniqueness NOVEL, arity re-scoped as Peirce re-derivation with Löwenheim/Quine answered (C.2 scope note), prior-art ledger in App D. Second sweep done 2026-08-01: CALM, CRDTs, genericity, Parr — neighbors, not preempts; all cited in App D. C.8 relativized 2026-08-02 (generic base + declared overrides, coverage refinement, the two doors). Hardening items 2–5 landed 2026-08-02: alignment confrontation (Ch 5 scope note, Ch 15 head-on, Ch 8 reread), computation as caller + orchestration seam (Ch 16), the standing connection (Ch 1), order as data (Ch 3, Ch 6, Ch 9). Prose pass 2026-08-02 (reader feedback): tone softened at 7 sites, 8 repetition cuts, S1/S4 tax coined, Ch 18 lens handover, SaxonJS/IXSL referenced (Ch 9, 15, App D). Flow pass 2026-08-03: method chapter (Ch 2: analysis and synthesis; Pappus/Newton witnesses in App D), lateral churn merged into Ch 10, Ch 8's Parts I–II claim repaired (CSS carve-out, Ch 6 de-named), seams stitched (5→6, 12→13, 13→14), endings squared (Ch 6, 11, 12, 14, 15, 16); Parts II/V renamed to The Analysis/The Synthesis; Chs 6, 9, 11, 14 retitled for directness. Pending: mechanization of C.1–C.8 |
-| Figures | mermaid: Ch 3 strips, Ch 4 pipeline + timelines, Ch 6 crossing, Ch 7 centerfold, Ch 8 square, Ch 14 timeline; Ch 10 brackets table. Screenshot strips 0–3 in `first-principles-figures/` (reproducible: `strips.cjs`). Pending: Ch 15 reconstruction exhibit |
+| Figures | mermaid: Ch 3 strips, Ch 4 pipeline + timelines, Ch 6 crossing, Ch 7 closed pipeline, Ch 8 square, Ch 14 timeline; Ch 10 brackets table. Screenshot strips 0–3 in `first-principles-figures/` (reproducible: `strips.cjs`). Pending: Ch 15 reconstruction exhibit |
