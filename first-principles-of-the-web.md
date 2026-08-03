@@ -47,10 +47,18 @@ I     the set of URIs                                    (RFC 3986)
 There are requests, which are built from identifiers:
 
 ```
-Req = I × Method × Headers                               (RFC 9110)
+Req = I × Method × Headers × Body                        (RFC 9110)
 ```
 
-And there are documents — the things a user agent displays. Call that domain `Doc`, and leave its internals alone for now.
+The body may be empty — the empty body is a body, the way an empty set is a set — and on safe requests it almost always is; what it is for, the unsafe methods are about to show. (RFC 9110's own name for it is *content* — a word this book will need for something else, so the older wire name stays.)
+
+Responses come back the same shape — RFC 9110 defines one message form for both directions, a status code standing where the method and target stood:
+
+```
+Resp = Status × Headers × Body                           (RFC 9110)
+```
+
+Of the response, the model keeps only what its body carries. The body itself is octets; a header names their format (`Content-Type`), and the format's specification — not this book — defines how they parse. `Doc` lives on the parsed side of that line: the document, the thing a user agent displays. Call that domain `Doc`, and leave its internals alone for now. The envelope around it — the status code, the response headers — is how a document travels, ages, and caches: transfer machinery, and Definition 1.1 will not mention it.
 
 **Definition 1.1.** A *web application* is a pair of functions:
 
@@ -59,7 +67,7 @@ read  : Req × State → Doc
 write : Req × State → State
 ```
 
-This is HTTP restated. `read` is what the safe methods do — `GET` takes a request and the current state of the world and produces a document. `write` is what the unsafe methods do — `POST`, `PUT`, `PATCH`, `DELETE` take a request and a state and produce a new state. Every web application you have ever used, from a static homepage to the heaviest single-page monster, implements these two functions, because HTTP gives it no other way to be an application on the web. The framework it was built in is an implementation detail of Definition 1.1.
+This is HTTP restated. `read` is what the safe methods do — `GET` takes a request and the current state of the world and produces a document. `write` is what the unsafe methods do — `POST`, `PUT`, `PATCH`, `DELETE` take a request and a state and produce a new state, the request's body carrying what the change should be. The body belongs to the write side: on a safe request it has no defined meaning (RFC 9110 §9.3.1), and `read` ignores it — `read`'s output travels in the *response's* body instead. Like `Doc`, `Body` stays opaque for now; Chapter 7 says what fills it. Every web application you have ever used, from a static homepage to the heaviest single-page monster, implements these two functions, because HTTP gives it no other way to be an application on the web. The framework it was built in is an implementation detail of Definition 1.1.
 
 Notice what the definition does *not* say. It does not say what `State` is. That omission is deliberate, and it is the engine of this book. Definition 1.1 is a question stated as a definition: *what must State be?* Parts II and III are the answer, and the answer will be forced, not chosen.
 
@@ -460,7 +468,7 @@ On the running example: the wind gusts, and the panel's `value` moves. The delta
 
 *Interactive exhibit (online edition): the gust, applied — edit the two sets and apply them against the live state. Apply the same delta twice and watch nothing happen: sets subtract, and re-application is a no-op.*
 
-And note what a delta is made of: fact-sets. Change is data in the same model as the state it changes — no second model, no change-description language with semantics of its own to invent. Chapter 5 ended by putting the delta in your pocket; Chapter 8 will name what the industry standardized it as.
+And note what a delta is made of: fact-sets. Change is data in the same model as the state it changes — no second model, no change-description language with semantics of its own to invent. Chapter 5 ended by putting the delta in your pocket; the delta is what fills the request's `Body` from Chapter 1, and Chapter 8 will name what the industry standardized it as.
 
 ### Forms, run backwards
 
@@ -1160,7 +1168,7 @@ The spec concordance: the book's external dependency list, and deliberately its 
 | definition | source | first used |
 |---|---|---|
 | `I` — URI syntax; decentralized minting via the authority component | [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986) | Ch 1; C.2 |
-| `Req`; the safe/unsafe method split | [RFC 9110 §9](https://www.rfc-editor.org/rfc/rfc9110#section-9) | Def. 1.1 |
+| `Req`, `Resp` — the message form; the safe/unsafe method split | [RFC 9110 §6](https://www.rfc-editor.org/rfc/rfc9110#section-6), [§9](https://www.rfc-editor.org/rfc/rfc9110#section-9) | Def. 1.1 |
 | representations reflect resource state over time | [RFC 9110 §3.2](https://www.rfc-editor.org/rfc/rfc9110#section-3.2) | Ch 4 (`τ`) |
 | validators `Last-Modified`, `ETag` | [RFC 9110 §8.8](https://www.rfc-editor.org/rfc/rfc9110#section-8.8) | Prop. 4.5 |
 | the caching calculus | [RFC 9111](https://www.rfc-editor.org/rfc/rfc9111) | Prop. 4.5, corollary |
