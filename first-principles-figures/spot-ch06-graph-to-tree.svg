@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="25 85 630 315" role="img">
-  <title>One graph, two of its many trees; the twice-claimed node nests once and is referenced once</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 70 460 412" role="img">
+  <title>One graph, two of its many trees; d nests under one parent per tree and the other parent's edge becomes a reference</title>
   <defs>
     <marker id="gte-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
       <path d="M0 0 L10 5 L0 10 z" fill="#1b1e22"/>
@@ -12,82 +12,74 @@
     </marker>
   </defs>
   <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <!-- the graph: d claimed by both b and c -->
+    <!-- the graph: a diamond, d claimed by both b and c -->
     <g stroke="#1b1e22" stroke-width="2" marker-end="url(#gte-ink)">
-      <path d="M142 126 L94 188"/>
-      <path d="M159 126 L205 179"/>
-      <path d="M93 211 L131 263"/>
-      <path d="M206 200 L150 264"/>
-      <path d="M224 201 L271 258"/>
-      <path d="M270 280 L215 339"/>
+      <path d="M124 150 L82 218"/>
+      <path d="M136 150 L178 218"/>
+      <path d="M81 240 L119 302"/>
+      <path d="M179 240 L141 302"/>
     </g>
     <!-- the crossing: one graph, more trees than these -->
     <g stroke="#5a6270" stroke-width="1.8" stroke-dasharray="2 6">
-      <path d="M316 218 Q348 180 381 154" marker-end="url(#gte-fan)"/>
-      <path d="M316 240 Q348 278 381 296" marker-end="url(#gte-fan)"/>
+      <path d="M240 240 Q272 190 302 152" marker-end="url(#gte-fan)"/>
+      <path d="M240 258 Q272 308 302 343" marker-end="url(#gte-fan)"/>
     </g>
     <!-- tree one: d nests under b; c keeps a reference -->
     <g stroke="#1b1e22" stroke-width="2.4">
-      <path d="M412 139 L458 116"/>
-      <path d="M411 151 L459 179"/>
-      <path d="M483 110 L527 110"/>
-      <path d="M483 185 L527 185"/>
-      <path d="M553 185 L597 185"/>
+      <path d="M403 104 L362 156"/>
+      <path d="M417 104 L458 156"/>
+      <path d="M355 177 L355 218"/>
     </g>
-    <path d="M480 175 Q500 148 529 123" stroke="#005a9c" stroke-width="2.2" stroke-dasharray="5 5" marker-end="url(#gte-ref)"/>
-    <!-- tree two: d nests under c; the siblings trade places -->
+    <path d="M454 172 Q415 210 373 224" stroke="#005a9c" stroke-width="2.2" stroke-dasharray="5 5" marker-end="url(#gte-ref)"/>
+    <!-- tree two: d nests under c; b keeps a reference -->
     <g stroke="#1b1e22" stroke-width="2.4">
-      <path d="M412 294 L458 271"/>
-      <path d="M411 306 L459 334"/>
-      <path d="M482 261 L528 244"/>
-      <path d="M482 269 L528 286"/>
-      <path d="M553 290 L597 290"/>
+      <path d="M403 299 L362 351"/>
+      <path d="M417 299 L458 351"/>
+      <path d="M465 372 L465 413"/>
     </g>
-    <path d="M478 329 Q512 295 531 253" stroke="#005a9c" stroke-width="2.2" stroke-dasharray="5 5" marker-end="url(#gte-ref)"/>
-    <!-- the nodes, the same six every time -->
+    <path d="M366 367 Q405 405 447 419" stroke="#005a9c" stroke-width="2.2" stroke-dasharray="5 5" marker-end="url(#gte-ref)"/>
+    <!-- d ringed in every panel: the same twice-claimed node -->
+    <g stroke="#005a9c" stroke-width="1.5">
+      <circle cx="130" cy="320" r="16.5"/>
+      <circle cx="355" cy="235" r="16.5"/>
+      <circle cx="465" cy="430" r="16.5"/>
+    </g>
+    <!-- the nodes, the same four every time -->
     <g stroke="#1b1e22" stroke-width="2" fill="#005a9c">
-      <circle cx="150" cy="115" r="12"/>
-      <circle cx="85" cy="200" r="12"/>
-      <circle cx="215" cy="190" r="12"/>
-      <circle cx="140" cy="275" r="12"/>
-      <circle cx="280" cy="270" r="12"/>
-      <circle cx="205" cy="350" r="12"/>
-      <circle cx="400" cy="145" r="12"/>
-      <circle cx="470" cy="110" r="12"/>
-      <circle cx="470" cy="185" r="12"/>
-      <circle cx="540" cy="110" r="12"/>
-      <circle cx="540" cy="185" r="12"/>
-      <circle cx="610" cy="185" r="12"/>
-      <circle cx="400" cy="300" r="12"/>
-      <circle cx="470" cy="265" r="12"/>
-      <circle cx="470" cy="340" r="12"/>
-      <circle cx="540" cy="240" r="12"/>
-      <circle cx="540" cy="290" r="12"/>
-      <circle cx="610" cy="290" r="12"/>
+      <circle cx="130" cy="140" r="12"/>
+      <circle cx="75" cy="230" r="12"/>
+      <circle cx="185" cy="230" r="12"/>
+      <circle cx="130" cy="320" r="12"/>
+      <circle cx="410" cy="95" r="12"/>
+      <circle cx="355" cy="165" r="12"/>
+      <circle cx="465" cy="165" r="12"/>
+      <circle cx="355" cy="235" r="12"/>
+      <circle cx="410" cy="290" r="12"/>
+      <circle cx="355" cy="360" r="12"/>
+      <circle cx="465" cy="360" r="12"/>
+      <circle cx="465" cy="430" r="12"/>
     </g>
     <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="middle" stroke="none">
-      <text x="150" y="119.5">a</text>
-      <text x="85" y="204.5">b</text>
-      <text x="215" y="194.5">c</text>
-      <text x="140" y="279.5">d</text>
-      <text x="280" y="274.5">e</text>
-      <text x="205" y="354.5">f</text>
-      <text x="400" y="149.5">a</text>
-      <text x="470" y="114.5">b</text>
-      <text x="470" y="189.5">c</text>
-      <text x="540" y="114.5">d</text>
-      <text x="540" y="189.5">e</text>
-      <text x="610" y="189.5">f</text>
-      <text x="400" y="304.5">a</text>
-      <text x="470" y="269.5">c</text>
-      <text x="470" y="344.5">b</text>
-      <text x="540" y="244.5">d</text>
-      <text x="540" y="294.5">e</text>
-      <text x="610" y="294.5">f</text>
+      <text x="130" y="144.5">a</text>
+      <text x="75" y="234.5">b</text>
+      <text x="185" y="234.5">c</text>
+      <text x="130" y="324.5">d</text>
+      <text x="410" y="99.5">a</text>
+      <text x="355" y="169.5">b</text>
+      <text x="465" y="169.5">c</text>
+      <text x="355" y="239.5">d</text>
+      <text x="410" y="294.5">a</text>
+      <text x="355" y="364.5">b</text>
+      <text x="465" y="364.5">c</text>
+      <text x="465" y="434.5">d</text>
+    </g>
+    <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#5a6270" text-anchor="middle" stroke="none">
+      <text x="130" y="352">two parents</text>
+      <text x="436" y="208" text-anchor="start">reference</text>
     </g>
     <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="15" fill="#5a6270" text-anchor="middle" stroke="none">
-      <text x="182" y="391">one graph</text>
-      <text x="505" y="391">many trees</text>
+      <text x="130" y="462">one graph</text>
+      <text x="410" y="462">many trees …</text>
     </g>
   </g>
 </svg>
