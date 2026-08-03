@@ -402,7 +402,7 @@ t                        the sole locus of graph→tree structural choice
 
 `canon` is the graph wearing tree clothing — one block per entity, sorted, no nesting, no sugar. *All* structural decisions (what nests under what, what becomes a section versus a sidebar) move into the declarative term `t`, where S2 can hold — display order included: `canon`'s sort is deliberately meaningless, and an order that carries meaning, Chapter 3's lead story, arrives as data and is honored by `t`, never smuggled in the sequence of blocks. The historically hard case — facts about unnamed entities — has a standardized deterministic answer as of 2024 (a canonical labeling; the reveal chapter will name the spec).
 
-<img src="first-principles-figures/spot-ch06-tree-clothing.svg" alt="A graph of connected nodes fitted with a tree-shaped coat, beside a rack of differently shaped tree coats" class="fp-spot" width="420" />
+<img src="first-principles-figures/spot-ch06-graph-to-tree.svg" alt="The same six nodes drawn once as a graph and twice as trees: the node with two parents nests under one parent and is reached by a dashed reference from the other, and the two trees order their siblings differently" class="fp-spot" width="420" />
 
 And you have already seen `canon`'s output. Strip 2 *is* it: the dashboard reduced to sorted blocks, one per panel, `title` and `value` beneath. The exhibit's format was never a design choice for the figure — it was the canonical serialization, arrived at by stripping.
 
