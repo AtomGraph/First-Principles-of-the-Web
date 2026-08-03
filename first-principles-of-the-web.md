@@ -386,7 +386,7 @@ We are not done deriving — the same pattern now runs once more, one level up, 
 
 ---
 
-## Chapter 6. The One Type-Crossing
+## Chapter 6. From Graph to Tree
 
 Look at the pipeline's types: `State` and `Data` are *graphs* — facts whose references form arbitrary many-to-many webs. `Tree` and `Doc` are *trees* — documents are hierarchical, and so is human reading. The pipeline crosses from graph to tree exactly once, inside `arrange`.
 
@@ -582,7 +582,7 @@ Whatever you believed about the semantic web when you opened this book — too a
 
 ---
 
-## Chapter 9. The Deltas
+## Chapter 9. The Mismatches
 
 Chapter 8 closed the argument from both ends, and that invites suspicion: a derivation that lands exactly on a deployed stack looks retrofitted until its misses are on the table. This chapter is the table. The isomorphism is not exact. There are two deltas between the model Part II forced and the standard Part III named, and two more between the standard and the platform that ships it. Each is located, measured, and — twice — turned into a prediction. Part IV applies the same standard to everyone else's models.
 
@@ -690,7 +690,7 @@ The right column arrived a quarter century late where it arrived at all: a stand
 
 The opening question — *and what changed?* — now has a measured answer: the migration changed brackets, shed tooling, and moved not one property. Lateral, by the numbers.
 
-## Chapter 11. The Un-Web
+## Chapter 11. The Single-Page Application
 
 The single-page application, audited. In the book's terms its architecture is the trivial factorization of Chapter 4 (Prop. 4.2), deployed at industry scale. `select` and `present` shrink to near-identities; the application is stuffed into one term that computes all of `read`. Fetching, state management, templating, and styling decisions interleave in one program, delivered as one bundle.
 
@@ -709,7 +709,7 @@ The single-page application, audited. In the book's terms its architecture is th
 
 **The R-properties.** R1 holds; a program holds any state in memory. R2 and R3 fail together: component state merges by nothing — state-synchronization libraries are the compensating industry — and references are pointers, machine-local by definition.
 
-The corollary that names the chapter: **the SPA is the un-web** — HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. The corollary adds nothing to the column: rejecting it means rejecting a score, and each score names the property to take it up with. And a prediction, labeled as one: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state, and the paradigm's defining move is hiding state behind `read`. Chapter 14 measures the industry's own retreat from this position; Chapter 17 records what arrived in the meantime.
+The corollary: **the SPA is the un-web** — HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. The corollary adds nothing to the column: rejecting it means rejecting a score, and each score names the property to take it up with. And a prediction, labeled as one: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state, and the paradigm's defining move is hiding state behind `read`. Chapter 14 measures the industry's own retreat from this position; Chapter 17 records what arrived in the meantime.
 
 **Column: SPA/JS.**
 
@@ -789,7 +789,7 @@ These are not outdated because they are old — HTTP is old. They are *pre-web* 
 
 Read the relational column twice: the highest pre-web score in the book, failing on exactly the machine-spanning properties. The diagnosis follows the scores — a correct answer to the single-machine question, put to the machine-spanning one. The scores are settled; the industry is not — and what a decade of these costs moved it to do is the audit's last chapter.
 
-## Chapter 14. The Long Way Home
+## Chapter 14. The Convergence
 
 The evidence chapter: the JavaScript ecosystem — with no exposure to any derivation, moved by nothing but its own costs — has spent a decade converging back toward the proper factorization, one rediscovery at a time:
 
@@ -819,7 +819,7 @@ timeline
 
 One closing observation: the convergence recovers S1 and S2 but stalls before R3 and S4 — the two properties that make it *the web* rather than an app platform that happens to use browsers. The stall has a reason: the last mile helps everyone except the vendor walking it. The properties that reward the vendor privately return first; the properties that reward the public wait.
 
-<img src="first-principles-figures/spot-ch14-long-way-home.svg" alt="A dashed path leaving the front door of a house, wandering past hills, mountains, and a lake, and stopping just short of the door beside it" class="fp-spot" width="420" />
+<img src="first-principles-figures/spot-ch14-the-convergence.svg" alt="A dashed path leaving the front door of a house, wandering past hills, mountains, and a lake, and stopping just short of the door beside it" class="fp-spot" width="420" />
 
 **Column: SPA/JS, revised.**
 
@@ -1255,5 +1255,5 @@ Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, 
 | Ch 15–18 | drafted (LinkedDataHub as reference implementation; WebID/WAC; RDF/POST; reconstruction exhibit pending) |
 | Appendices A, B, D | drafted — audit table complete, concordance tabled |
 | Appendix C | complete — C.1–C.8: representation, arity (with scope note), uniqueness, independence, analysis, timelines, homomorphism, synthesis/genericity |
-| Securing apparatus | Transposition Thesis + table + CRDT corroboration (Ch 5); bridge methodology (Appendix A); prediction registry (Ch 18); prior-art sweep 2026-07-30 — uniqueness NOVEL, arity re-scoped as Peirce re-derivation with Löwenheim/Quine answered (C.2 scope note), prior-art ledger in App D. Second sweep done 2026-08-01: CALM, CRDTs, genericity, Parr — neighbors, not preempts; all cited in App D. C.8 relativized 2026-08-02 (generic base + declared overrides, coverage refinement, the two doors). Hardening items 2–5 landed 2026-08-02: alignment confrontation (Ch 5 scope note, Ch 15 head-on, Ch 8 reread), computation as caller + orchestration seam (Ch 16), the standing connection (Ch 1), order as data (Ch 3, Ch 6, Ch 9). Prose pass 2026-08-02 (reader feedback): tone softened at 7 sites, 8 repetition cuts, S1/S4 tax coined, Ch 18 lens handover, SaxonJS/IXSL referenced (Ch 9, 15, App D). Flow pass 2026-08-03: method chapter (Ch 2: analysis and synthesis; Pappus/Newton witnesses in App D), lateral churn merged into Ch 10, Ch 8's Parts I–II claim repaired (CSS carve-out, Ch 6 de-named), seams stitched (5→6, 12→13, 13→14), endings squared (Ch 6, 11, 12, 14, 15, 16). Pending: mechanization of C.1–C.8 |
+| Securing apparatus | Transposition Thesis + table + CRDT corroboration (Ch 5); bridge methodology (Appendix A); prediction registry (Ch 18); prior-art sweep 2026-07-30 — uniqueness NOVEL, arity re-scoped as Peirce re-derivation with Löwenheim/Quine answered (C.2 scope note), prior-art ledger in App D. Second sweep done 2026-08-01: CALM, CRDTs, genericity, Parr — neighbors, not preempts; all cited in App D. C.8 relativized 2026-08-02 (generic base + declared overrides, coverage refinement, the two doors). Hardening items 2–5 landed 2026-08-02: alignment confrontation (Ch 5 scope note, Ch 15 head-on, Ch 8 reread), computation as caller + orchestration seam (Ch 16), the standing connection (Ch 1), order as data (Ch 3, Ch 6, Ch 9). Prose pass 2026-08-02 (reader feedback): tone softened at 7 sites, 8 repetition cuts, S1/S4 tax coined, Ch 18 lens handover, SaxonJS/IXSL referenced (Ch 9, 15, App D). Flow pass 2026-08-03: method chapter (Ch 2: analysis and synthesis; Pappus/Newton witnesses in App D), lateral churn merged into Ch 10, Ch 8's Parts I–II claim repaired (CSS carve-out, Ch 6 de-named), seams stitched (5→6, 12→13, 13→14), endings squared (Ch 6, 11, 12, 14, 15, 16); Parts II/V renamed to The Analysis/The Synthesis; Chs 6, 9, 11, 14 retitled for directness. Pending: mechanization of C.1–C.8 |
 | Figures | mermaid: Ch 3 strips, Ch 4 pipeline + timelines, Ch 6 crossing, Ch 7 centerfold, Ch 8 square, Ch 14 timeline; Ch 10 brackets table. Screenshot strips 0–3 in `first-principles-figures/` (reproducible: `strips.cjs`). Pending: Ch 15 reconstruction exhibit |
