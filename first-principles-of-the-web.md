@@ -427,7 +427,7 @@ flowchart LR
     C -- "⟦t⟧: the sole locus of structural choice" --> Tr(["Tree"])
 ```
 
-*The one type-crossing, tamed. A relation (one graph, many trees) becomes a function followed by a term: `canon` chooses nothing, `t` chooses everything — and `t` lives in a language, where S2 can hold.*
+*The graph→tree crossing, tamed. A relation (one graph, many trees) becomes a function followed by a term: `canon` chooses nothing, `t` chooses everything — and `t` lives in a language, where S2 can hold.*
 
 The seam is not a research problem. Remember that sentence; Chapter 9 will repeat it with evidence.
 
