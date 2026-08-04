@@ -857,9 +857,16 @@ An origin is not a fifth kind of name. RFC 6454 computes it *from* the URI — s
 Dataspace = (o, ont, e, x)      o ∈ O;   ont, e, x ∈ I∣o   (15.1)
 ```
 
-In words, in order: read-write linked data at every document under the origin; a namespace ontology `ont` declaring what the domain *is*; a SPARQL endpoint `e` projecting the same state; a stylesheet `x` — declarative rendering, extended by override. Internal storage — file, memory, triplestore — is invisible to consumers, as S1 demands.
+| name | component | in words |
+|---|---|---|
+| `o` | the origin | read-write linked data at every document under it |
+| `ont` | the ontology | what the domain *is*, stated as one namespace |
+| `e` | the SPARQL endpoint | the same state, projected by query |
+| `x` | the stylesheet | declarative rendering, extended by override |
 
-Behind the four names stands one state `S`, in the shape of Prop. 9.2 — quads, curried into a family of graphs: `S(u)` is the graph named `u`, and every graph name is a document URI under `o`. The gloss above is then four laws, each an earlier result arriving at deployment grain.
+Internal storage — file, memory, triplestore — has no row: invisible to consumers, as S1 demands.
+
+Behind the four names stands one state `S`, in the shape of Prop. 9.2 — quads, curried into a family of graphs: `S(u)` is the graph named `u`, and every graph name is a document URI under `o`. The gloss column is then four laws, each an earlier result arriving at deployment grain.
 
 **Documents.** For every document URI `u`: `select(u, S) = S(u)` — dereference is graph lookup, the fourth position serving as the address (Prop. 9.2); `read(u, S)` is defined (S4); `write` accepts a delta there — `S′(u) = (S(u) ∖ D⁻) ∪ D⁺` (Prop. 7.1). And the obligation that makes the data *linked*: every name under `o` occurring in a fact position of `S` has `read(name, S)` defined — mint a name only if you serve its description. AWWW §3.5 asked for this as a SHOULD; (15.1) holds it as a condition of being a dataspace at all.
 
