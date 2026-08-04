@@ -95,6 +95,23 @@ Stated in advance, then, so the reader can hold the book to it: the analysis, if
 
 The shape of the book follows from the method. Part II is the analysis: first performed by hand on real pages, then re-run as theorems that quantify over every page, including the ones not yet built. Part V is the synthesis: the application space rebuilt from the derived parts and nothing else. Between them, the book does what the method obligates — holds the derived structure up against the world, scores everything the industry runs instead, and tables every mismatch.
 
+```mermaid
+flowchart TB
+    subgraph AN ["analysis · Part II"]
+        direction LR
+        Doc1(["Doc"]) --> strip[["strip"]] --> St1(["State"])
+    end
+    subgraph SY ["synthesis · Part V"]
+        direction LR
+        St2(["State"]) --> build[["build"]] --> Doc2(["Doc"])
+    end
+    AN -- "necessity" --> P(["the two directions meet exactly<br/>— the proof"])
+    SY -- "sufficiency" --> P
+    P -. "where the halves miss" .-> M["mismatches, tabled · Chapter 9 / Part IV"]
+```
+
+*The method of this chapter, and the shape of the book. Analysis (Part II) strips the observable `Doc` inward to the hidden `State` — necessity; synthesis (Part V) builds `State` back out to a full `Doc` space — sufficiency. Where the two meet exactly is the proof, and it happens twice: in theorems (Chapter 8) and in running code (Chapter 15). Where the halves miss, the gap is not hidden but tabled — Chapter 9's one job.*
+
 One decision remains before the stripping starts, and it is a control on the experiment: which pages to strip. Two, at least — one page's layers prove nothing beyond that page — and the honest pair is the most different pair available, because whatever survives the removals in *both* is unlikely to be an accident of either. So: a newspaper front page — written by a handful of editors on an editorial rhythm, read by millions — and a wind-farm dashboard — written continuously by machines, read by one operator on shift. Different domain, different audience, opposite rhythms of `read` and `write`; under Definition 1.1, one signature. If these two reduce to the same skeleton, everything between them likely does too. Print both. Now take one apart.
 
 ---
@@ -635,6 +652,22 @@ Four mismatches, then:
 | the abandoned seam | the platform | abandonment — maintenance, never research |
 | the write-side last mile | the platform | a bridge specified, never standardized |
 
+```mermaid
+flowchart TB
+    Model(["Model — what Part II forced"])
+    Standard(["Standard — what Part III named"])
+    Platform(["Platform — what ships (the browser)"])
+
+    Model === Standard === Platform
+
+    Model -. "belongs to the model" .-> m1["unnamed entities · Prop. 9.1<br/>a motivated extension"]
+    Model -. "belongs to the model" .-> m2["fourth position · Prop. 9.2<br/>a prediction, later honored"]
+    Platform -. "belongs to the platform" .-> m3["the abandoned seam<br/>maintenance, never research"]
+    Platform -. "belongs to the platform" .-> m4["write-side last mile<br/>a bridge specified, never standardized"]
+```
+
+*The four mismatches, placed. The derivation meets the world across two seams: the **model** (Part II) against the **standard** (Part III), and the standard against the **platform** that ships it. The two model-side mismatches (Props. 9.1–9.2) are the model's surplus met by the standard — a motivated extension and a prediction later honored; the two platform-side are maintenance failures, not research problems. None weakens a proposition of Part II.*
+
 None touches the derivation: no proposition of Part II is weakened by anything in this inventory. A theory loses credibility where its mismatches are hidden and gains it where they are on the table. Ours are; now we audit everyone else's.
 
 ---
@@ -910,7 +943,18 @@ The build log, factor by factor:
 | select | a SPARQL endpoint per dataspace | S4: query results and graphs are resources with URIs of their own |
 | arrange | XSLT over the canonical serialization — a base stylesheet naming no vocabulary, per-vocabulary overrides layered by the language's import mechanism | Chapter 6's seam occupied; S3's substitution, performed in daily practice |
 | present | CSS | in continuous service since 1996 |
-| write | HTML forms encoding graphs (the bridge below), deltas carried as SPARQL Update | the delta normal form's two sets, on the wire |
+| write | HTML forms encoding graphs (the bridge below), written through the Graph Store Protocol's unsafe methods | Chapter 1's unsafe methods at graph grain — each such request a SPARQL Update by the protocol's own definition, the delta's two sets on the wire |
+
+```mermaid
+%%| column: page-right
+flowchart LR
+    S(["S · dataset"]) --> e[["SPARQL (e)"]] --> D(["Data"]) --> x[["XSLT (x)"]] --> T(["Tree"]) --> css[["CSS"]] --> Doc(["Doc · webpage"])
+    Doc --> form[["HTML form"]] --> delta(["(D⁻, D⁺)"])
+    delta --> upd[["Graph Store Protocol<br/>unsafe methods<br/>≡ SPARQL Update"]]
+    upd -- "S′(u) = (S(u) ∖ D⁻) ∪ D⁺" --> S
+```
+
+*The build log as a picture — (4.1) at deployment grain, closed as in Chapter 7. Along the read spine the endpoint `e` runs `select` (SPARQL), the stylesheet `x` runs `arrange` (XSLT, `⟦t⟧ ∘ canon`), CSS runs `present` — (15.1)'s components bound to deployed standards. The return arrow is the write side: a form (the bridge below) yields a delta `(D⁻, D⁺)` (Prop. 7.1), written through the Graph Store Protocol's unsafe methods — each a SPARQL Update by the protocol's own definition. Under S4 every rounded node is a web resource with a URI of its own.*
 
 The arrange row carries the most machinery, and it repays a closer look. The layered term treats specially exactly what the dataspace's ontology declares — C.8's relative genericity, deployed — and unmatched state falls back to the base rendering rather than to nothing: every graph renders; declared vocabulary renders better. The stylesheets share their templates across the wire: one library, imported by a server-side stylesheet that emits documents and a browser-side one that binds events — Saxon runs the first, SaxonJS with IXSL the second; two processors, one set of terms. Chapter 7's portability of terms, running. The convergence shares rendering code too, by running the same framework on both sides (Chapter 14's hydration); here the sides share templates without sharing an engine, because the language's semantics is closed. And independent evolution shows up as operations rather than theory: data, layout, and style invalidate independently, per factor, cache entry by cache entry — the four timelines, running as infrastructure.
 
@@ -939,6 +983,22 @@ The chapter's exhibit mirrors Chapter 3's, deliberately. The two sites we stripp
 Federation needs a client, and the derivation says so before any implementation does. R3 put foreign names inside local facts; at deployment grain, following one is dereferencing another party's `read`, and a window over another party's state is `⟦q⟧` posed to another party's endpoint. Consuming dataspaces is therefore not a feature an application adds; it is the other half of the architecture, and a dataspace that only serves is a leaf. So a reference implementation has a forced shape: both halves — a server publishing the four components, a client consuming anyone's.
 
 Both halves in one implementation enable a test no bespoke system can run: point the implementation at itself. Two instances, two origins; one browses, queries, and writes against the other. Every capability crosses the wire or fails visibly — no in-process shortcut exists for a demo to lean on. This is the strategy itself, not a stunt: interoperating with itself is how the implementation does federation, instance meeting instance as strangers, the first federation its own. And the move is not circular, because S2 leaves nothing private to be circular with: what crosses the wire is terms of closed languages — data, query, delta, arrangement — so the surface where the two instances meet is the specifications' surface, and none of the four components offers a side channel to agree over. The standards process proves interoperability with two independent implementations; a reference implementation proves it with two instances of itself — weaker as evidence, earlier by years, and honest exactly as long as the wire carries only spec-terms. A second implementation joins by implementing the same denotations: the door self-federation proves open is the door strangers walk through.
+
+```mermaid
+sequenceDiagram
+    participant A as Instance A (client half)
+    participant B as Instance B (server half)
+    Note over A,B: point the implementation at itself — two origins, meeting as strangers
+    A->>B: GET u — follow a foreign name (R3)
+    B-->>A: read(u, S) — a document (S4)
+    A->>B: ⟦q⟧ to endpoint e — a window over B's state
+    B-->>A: Data — the solution
+    A->>B: delta (D⁻, D⁺) — RDF/POST form via Graph Store Protocol (≡ SPARQL Update)
+    B-->>A: S′(u) = (S(u) ∖ D⁻) ∪ D⁺ (Prop. 7.1)
+    Note over A,B: every capability crosses the wire — no in-process shortcut
+```
+
+*The federation test, drawn. Each instance runs both halves; here Instance A's client consumes Instance B's server across three exchanges — dereference a foreign name (R3) for a document (S4), pose `⟦q⟧` to the endpoint `e` for a window, submit a delta (Prop. 7.1) as an RDF/POST form through the Graph Store Protocol's unsafe methods (a SPARQL Update by the protocol's definition). Because S2 leaves nothing private, the meeting surface is the specifications' surface alone: point the implementation at itself and every capability crosses the wire or fails visibly.*
 
 The document web bootstrapped exactly this way. The first server and the first browser came from the same hands and interoperated with each other before there was anyone else to interoperate with — and that browser was an editor: the write side present at the origin, then lost for a generation. The pattern, one level down: a server+client pair whose self-interoperability is the first running instance of a protocol anyone may join.
 
