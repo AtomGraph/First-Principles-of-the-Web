@@ -859,11 +859,13 @@ O        the set of origins                               (RFC 6454)
 I∣o      the URIs under origin o
 ```
 
-An origin is not a fifth kind of name. RFC 6454 computes it *from* the URI — scheme, host, port — so `O` is a quotient of `I`: the namespace falls into regions, one per party, and "one party's stake" acquires a type. The other three components are names inside the region, because on the web every published thing is a name:
+An origin is not a fifth kind of name. RFC 6454 computes it *from* the URI — scheme, host, port — so `O` is a quotient of `I`: the namespace falls into regions, one per party, and "one party's stake" acquires a type. The other three components are names inside the region, because on the web every published thing is a name. The definition does not change; it acquires types:
 
 ```
-Dataspace = (o, ont, e, x)      o ∈ O;   ont, e, x ∈ I∣o   (15.1)
+(o, ont, e, x) ∈ O × I∣o × I∣o × I∣o                       (15.1)
 ```
+
+An origin, and three names in its region — ontology, endpoint, stylesheet, in the product's order.
 
 Behind the four names stands one state `S`, in the shape of Prop. 9.2 — quads, curried into a family of graphs: `S(u)` is the graph named `u`, and every graph name is a document URI under `o`. The gloss above is then four laws, each an earlier result arriving at deployment grain.
 
