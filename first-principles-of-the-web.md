@@ -844,28 +844,20 @@ Asymptotic, incomplete, and in the predicted order.
 
 ### The dataspace
 
-The synthesis direction, walked constructively — the synthesis theorem as a build log. Start with the derived atoms and compose a working application space, defining each layer by what Part II forced and each concrete technology by the factor it inhabits. What the synthesis yields needs a name, and the name should do for state what "website" did for documents. Call it a **dataspace**: one party's stake in the data web — the unit of publication, ownership, and federation. A website serves documents under an origin; a dataspace serves *state* under an origin — documents included, since documents are projections of it, and machines invited, since the state itself dereferences. (The database literature has used the word for pay-as-you-go integration — Franklin, Halevy, and Maier, 2005; the sense here is the web-native one.) The definition, four components and no more:
-
-```
-Dataspace = Origin × Ontology × SPARQL endpoint × Stylesheet
-```
-
-Read-write linked data at every document under the origin; one namespace ontology declaring what the domain *is*; one endpoint projecting the same state; one declarative rendering with override-based extension. Internal storage — file, memory, triplestore — is invisible to consumers, as S1 demands.
-
-The definition should not stay prose when every component already has a type. One primitive is missing from Part II, and the web ships it — Chapter 1's pattern, holding one last time:
+The synthesis direction, walked constructively — the synthesis theorem as a build log. Start with the derived atoms and compose a working application space, defining each layer by what Part II forced and each concrete technology by the factor it inhabits. What the synthesis yields needs a name, and the name should do for state what "website" did for documents. Call it a **dataspace**: one party's stake in the data web — the unit of publication, ownership, and federation. A website serves documents under an origin; a dataspace serves *state* under an origin — documents included, since documents are projections of it, and machines invited, since the state itself dereferences. (The database literature has used the word for pay-as-you-go integration — Franklin, Halevy, and Maier, 2005; the sense here is the web-native one.) The definition needs one primitive Part II never used, and the web ships it — Chapter 1's pattern, holding one last time:
 
 ```
 O        the set of origins                               (RFC 6454)
 I∣o      the URIs under origin o
 ```
 
-An origin is not a fifth kind of name. RFC 6454 computes it *from* the URI — scheme, host, port — so `O` is a quotient of `I`: the namespace falls into regions, one per party, and "one party's stake" acquires a type. The other three components are names inside the region, because on the web every published thing is a name. The definition does not change; it acquires types:
+An origin is not a fifth kind of name. RFC 6454 computes it *from* the URI — scheme, host, port — so `O` is a quotient of `I`: the namespace falls into regions, one per party, and "one party's stake" acquires a type. The definition, four components and no more — an origin, and three names in its region, because on the web every published thing is a name:
 
 ```
-(o, ont, e, x) ∈ O × I∣o × I∣o × I∣o                       (15.1)
+Dataspace = (o, ont, e, x)      o ∈ O;   ont, e, x ∈ I∣o   (15.1)
 ```
 
-An origin, and three names in its region — ontology, endpoint, stylesheet, in the product's order.
+In words, in order: read-write linked data at every document under the origin; a namespace ontology `ont` declaring what the domain *is*; a SPARQL endpoint `e` projecting the same state; a stylesheet `x` — declarative rendering, extended by override. Internal storage — file, memory, triplestore — is invisible to consumers, as S1 demands.
 
 Behind the four names stands one state `S`, in the shape of Prop. 9.2 — quads, curried into a family of graphs: `S(u)` is the graph named `u`, and every graph name is a document URI under `o`. The gloss above is then four laws, each an earlier result arriving at deployment grain.
 
