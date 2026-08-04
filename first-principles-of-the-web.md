@@ -126,6 +126,8 @@ One decision remains before the stripping starts, and it is a control on the exp
 
 The two pages are on the table — the newspaper front page and the wind-farm dashboard, as different a pair as Chapter 2 could find. Strip them, one layer at a time, and watch the same skeleton emerge from both. The exhibits below do exactly that, to real pages: the Guardian's international front page and a Grafana wind-farm monitoring dashboard, captured on the same morning.
 
+<img src="first-principles-figures/spot-ch03-two-pages-one-skeleton.svg" alt="A newspaper column and an analytics dashboard side by side, each draining down into one shared row of sorted blocks" class="fp-spot" width="420" />
+
 ![Strip 0 — the pages as shipped](first-principles-figures/strip-0-full.png)
 
 *The starting material. One page is paper-white and editorial, the other black and numerical; they share, apparently, nothing.*
@@ -173,6 +175,8 @@ Three strips, and both of our maximally different sites have reduced to the same
 ```
 Doc = (Style, (Arrangement, (Selection, State)))
 ```
+
+<img src="first-principles-figures/spot-ch03-the-nesting.svg" alt="Four nested rounded frames from outermost to innermost, the smallest at the centre highlighted" class="fp-spot" width="420" />
 
 ```mermaid
 flowchart TB
@@ -244,6 +248,8 @@ Proposition 4.2 matters for what its proof shows: a factorization always exists,
 
 S1–S3 could describe any well-factored program. S4 is the web condition: the factorization itself goes public, *exposed through the web's own reference mechanism*. An application satisfying S1–S4 is part of the web at every layer, not only at its rendered surface.
 
+The dashboard makes it concrete: `select` pulls the panel's `title` and `value`, `arrange` nests them into a card, `present` themes the card. S4 is the property you can check by hand — each of those three intermediate values has its own URL, and a GET returns it as data, before it is ever a page.
+
 Three of these properties were written down by the web's own architects — as advice. [*Architecture of the World Wide Web, Volume One*](https://www.w3.org/TR/webarch/) (W3C Recommendation, 2004; hereafter AWWW) names the separation of content, presentation, and interaction a good practice (§4.3), orthogonal and composable specifications a principle (§5.1), and asks URI owners to provide representations of their resources (§3.5) — S4's demand, minus the intermediates. All of it stated as SHOULD, because a recommendation can do no more than recommend. Hold that until Proposition 4.4: what the TAG could only advise, the derivation forces. The norms were theorems all along. AWWW is a witness here, never a premise: assuming §4.3 would be assuming this chapter's conclusion, and the method forbids that.
 
 The payoff of S4 is immediate and measurable, and it is [Fielding's](https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm) list: HTTP caching per stage rather than per page; crawlability of *data* rather than of renderings; intermediaries; independent evolution of the layers. The last of these will harden from a phrase into a proposition before the chapter ends. Every one will reappear in Part IV, scored against every architecture that forfeits it.
@@ -292,6 +298,8 @@ doc(r, τ) = read_τ(r, S(τ))                    what the user agent renders
 Four components can move: the state `S(τ)` and the three factors. Each movement has a name you already know. The state advances when someone writes — Chapter 7's whole subject. A factor changes only one way — by substituting its term (that is S3 read temporally): the selection when a query is revised and redeployed, the arrangement when a layout switches or a template ships, the presentation when the theme changes. And one thing that looks like movement is not: a user paging forward or tightening a filter changes nothing in the application. The filter travels in `r`, and `select` is the same term evaluated at a new argument. A model that time-indexes the selection to accommodate a mouse click has confused the function with its argument — I know, because an earlier formalism of this chapter did exactly that. The four timelines belong to the application; navigation belongs to the request.
 
 **Prop. 4.5 (Independent evolution).** In a proper factorization, the document's evolution decomposes into four independent timelines, one per component `(S, select, arrange, present)`: a change to any one component changes the document without requiring a change to, or the participation of, any other. In the fused factorization of Prop. 4.2 there is one component and therefore one timeline: every change, of whatever kind, is a change to the whole.
+
+On the dashboard, that independence is one line of daily practice: ship a new theme and the panel data never re-fetches — `present` moved on its own timeline while `S`, `select`, and `arrange` stayed put on theirs.
 
 <details>
 <summary><i>Dependencies — S1 confines, S2 closes, S3 substitutes; proof in Appendix C.</i></summary>
@@ -396,6 +404,15 @@ Chapter 3's exhibit already wrote facts in this shape without saying so. The das
 ### Selection and the delta
 
 We are not done deriving — the same pattern now runs once more, one level up, quickly. `select` needs a minimal algebra over `𝒫(Fact)`: match a fact pattern with variables; join matches; union alternatives; project variables out. Each operation is forced by a page you can point at (any master–detail page is a join; any search page is a pattern). `write`, by (5.1), reduces to two sets: facts added and facts removed — the *delta*. Both reappear in Part III under their deployed names. And notice what the theorem has done to the pipeline's types: `State` is now a graph — facts whose references point anywhere — while every document Chapter 3 stripped was a tree. Somewhere between them, the shape must change. That is Chapter 6.
+
+A join, by hand. The operator holds `panel-14 title "Current Power"`; the contractor holds `turbine-3 feeds panel-14`. Merged, the pattern
+
+```
+?turbine  feeds  ?panel
+?panel    title  ?name
+```
+
+returns one row — `?turbine = turbine-3`, `?panel = panel-14`, `?name = "Current Power"` — and the row exists only because the two parties' facts were merged first. Match, join, project: the algebra on one page.
 
 <div class="fp-exhibit" data-exhibit="select"></div>
 
@@ -587,7 +604,7 @@ flowchart LR
 
 **You have already accepted RDF. You did it in Chapter 5, before I told you its name.**
 
-Whatever you believed about the semantic web when you opened this book — too academic, too complicated, died in the nineties — you derived it yourself from three requirements you could not reject. The technologies were not a committee's enthusiasm in search of a problem; they occupy a position that was *forced*, and the people who standardized them in 1999 had arrived where it points. What failed in the nineties was not the position. The tooling failed, and the timing did: the substrate is built for machine consumption, and the machines were twenty years out — a reading Chapter 15 grounds in demand.
+Whatever you believed about the semantic web when you opened this book — too academic, too complicated, died in the nineties — you derived it yourself from three requirements you can reject only at a cost each one names. The technologies were not a committee's enthusiasm in search of a problem; they occupy a position that was *forced*, and the people who standardized them in 1999 had arrived where it points. What failed in the nineties was not the position. The tooling failed, and the timing did: the substrate is built for machine consumption, and the machines were twenty years out — a reading Chapter 15 grounds in demand.
 
 <div class="fp-exhibit" data-exhibit="reveal"></div>
 
@@ -918,6 +935,8 @@ Behind the four names stands one state `S`, in the shape of Prop. 9.2 — quads,
 
 **Total rendering.** `x` dereferences to the arrange term — a base that names no vocabulary, overrides layered by the language's own import mechanism — generic in C.8's sense: every graph renders; declared vocabulary renders better.
 
+One entity makes the four concrete: GET `…/panel-14` returns the graph of facts about that panel; POST a form there applies a delta — `(D⁻, D⁺)` — to the same graph; and the endpoint answers any query that ranges over it. One state, three doors, each an HTTP request you can make by hand.
+
 Note what (15.1) omits: `S` is not a component. The store the gloss just called invisible appears nowhere in the tuple, so invisibility holds by construction rather than by discipline — S1, lifted from factor to system. Two deployments with the same four projections are the same dataspace.
 
 And the union law returns with its one proof obligation discharged by the types (C.9): distinct origins are disjoint regions of `I`, so two dataspaces' graph names never collide, and the union of their states is again well-formed — every document still under exactly one origin, attribution surviving the merge because the fourth position carries it. Federation is the union law: merge, and be done.
@@ -1069,7 +1088,7 @@ The audit table, completed — Appendix B, one page, every cell carrying a chapt
 
 Web 3.0, defined: `read` transparent all the way down — S1–S4 at every layer, R1–R3 at the substrate — for humans *and* machines, which Chapter 17 reduced to one audience. Every earlier use of the term gestured; the table lets this one point.
 
-Read the eras through the one variable this book has tracked. Web 1.0: `read` transparent, over documents — declarative, addressable, indexable, the properties that beat every contemporary in Chapter 1's history. Web 2.0: `write` arrives, and with it the fused term — the application stays on the web only at its rendered surface, and state disappears behind `read`. Web 3.0, on this definition, adds no third invention: it is the first era's one virtue extended to the layer the second era hid. Chapter 10's lateral churn was two decades spent inside era two; the vertical direction was open the whole time, and Part II proved it had exactly one shape. What the preface could only announce, the table now carries: the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains — each located, column by column, as a partial rediscovery of this way or a detour from it.
+Read the eras through the one variable this book has tracked. Web 1.0: `read` transparent, over documents — declarative, addressable, indexable, the properties that beat every contemporary in Chapter 1's history. Web 2.0: `write` arrives, and with it the fused term — the application stays on the web only at its rendered surface, and state disappears behind `read`. Web 3.0, on this definition, adds no third invention: it is the first era's one virtue extended to the layer the second era hid. Chapter 10's lateral churn was two decades spent inside era two; the vertical direction was open the whole time, and Part II proved that under the three requirements it had exactly one shape. What the preface could only announce, the table now carries: the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains — each located, column by column, as a partial rediscovery of this way or a detour from it.
 
 What it gives the end user, because the end user was always the point. Navigate and drill into any data without knowing a query language — the five moves are interface primitives, and none of them requires a programmer. Fork and augment running applications declaratively — S3 as a user right rather than a vendor courtesy, exercised by substituting a term, never by rebuilding a bundle. Federate without asking permission — the union law requires none; merge is the whole protocol.
 
@@ -1092,7 +1111,7 @@ Closing recursion. The canonical edition of this book — under construction, as
 
 And if you put the book down short of that edition, what it leaves behind is a handful of lenses you will find yourself using unbidden. You will strip pages on sight — style, arrangement, selection peeling away from any screen, the skeleton showing through. You will sort announcements with one question — *which property moved?* — and recognize lateral churn before the keynote ends. You will find the crossing in every framework you evaluate: somewhere inside it a graph becomes a tree, and the framework is its strategy for that moment. You will watch a deploy invalidate a cache and know which of the four timelines moved — and which three the fusion invalidated with it. And when you meet a scraping harness, an adapter layer, a reconciliation engine, you will read it as compensating machinery: some property, somewhere upstream, gone unadopted.
 
-Beneath the lenses, the sentence: strip any page and the same skeleton appears; the web's own constraints force what it must be made of; and what they force was standardized before the question was fashionable. The next web needs no inventing; it waits to be occupied.
+Beneath the lenses, the sentence: strip any page and the same skeleton appears; three requirements the web already meets force what it must be made of; and what they force was standardized before the question was fashionable. The next web needs no inventing; it waits to be occupied.
 
 ---
 
@@ -1100,7 +1119,7 @@ Beneath the lenses, the sentence: strip any page and the same skeleton appears; 
 
 ## A. Method, notation, and reading order
 
-Persuasion is what you need when you don't have a proof, so this book runs on apparatus, and the apparatus has rules. A statement's sources come in the three kinds the preface names — spec definitions, earlier propositions, checkable observations — and a fourth category corroborates without ever serving as premise: *witnesses*, documents that stated as norms what this book derives as theorems; strike them all and no proof changes. One claim is deliberately unprovable, flagged where it stands: the Transposition Thesis of Chapter 5, the bridge between the formalism and the web itself — secured four ways there and in the appendices, proved never. Disagreement belongs at the bridge; the theorems are unconditional.
+Persuasion is what you need when you don't have a proof, so this book runs on apparatus, and the apparatus has rules. A statement's sources come in the three kinds the preface names — spec definitions, earlier propositions, checkable observations — and a fourth category corroborates without ever serving as premise: *witnesses*, documents that stated as norms what this book derives as theorems; strike them all and no proof changes. One claim is deliberately unprovable, flagged where it stands: the Transposition Thesis of Chapter 5, the bridge between the formalism and the web itself — secured four ways there and in the appendices, proved never. Disagreement belongs at the bridge; given the requirements, the theorems add no premise of their own.
 
 The shape of the whole is Chapter 2's method, run at book length — analysis and synthesis, in the geometers' sense: Parts II–III strip the web application as found and derive what its parts must be; Part V builds the application space back from the derived parts; the two directions meeting exactly is the book's proof. Part IV, between them, audits what the industry runs instead — no editorializing, only scores against Part II's seven properties: three requirements on state (R1–R3), four separations on architecture (S1–S4).
 
