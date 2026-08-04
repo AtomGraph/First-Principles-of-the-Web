@@ -626,7 +626,16 @@ Forms run backwards want submissions that denote deltas (Prop. 7.2), and the REC
 
 ### The inventory
 
-Four mismatches, then. Two belong to the model, measured in logic and complexity, and both resolve in the model's favor — one as a motivated extension with a computable cost, one as a prediction the standards later honored. Two belong to the platform, and owe their existence to neglect: one to abandonment, one to a bridge never standardized. None touches the derivation: no proposition of Part II is weakened by anything in this inventory. A theory loses credibility where its mismatches are hidden and gains it where they are on the table. Ours are; now we audit everyone else's.
+Four mismatches, then:
+
+| mismatch | belongs to | resolves as |
+|---|---|---|
+| the unnamed entities (Prop. 9.1) | the model | a motivated extension, its cost computable — and billed to whoever chose anonymity |
+| the fourth position (Prop. 9.2) | the model | a prediction the standards later honored |
+| the abandoned seam | the platform | abandonment — maintenance, never research |
+| the write-side last mile | the platform | a bridge specified, never standardized |
+
+None touches the derivation: no proposition of Part II is weakened by anything in this inventory. A theory loses credibility where its mismatches are hidden and gains it where they are on the table. Ours are; now we audit everyone else's.
 
 ---
 
@@ -892,7 +901,18 @@ And convergence has a deployed existence proof at full web scale. Vocabularies c
 
 The ontology is the component the derivation predicts and the industry outsources to code: the domain, stated as facts. It is state like any other — classes and properties in the shape of (5.3), composed by the same law: a dataspace's ontology *imports* the vocabularies it builds on, and import is union applied to schema. Everything downstream reads it as data. Forms are constructed from it (Chapter 7's construction half: read the patterns, render inputs); selections range over it; layouts match on it. Ontology-driven is data-driven one level up, and it is what makes the generic engine generic: the domain travels in the state, so nothing domain-shaped remains to be hardcoded.
 
-The build log, factor by factor. **State:** a triplestore behind the Graph Store Protocol, one named graph per document — the erasure argument's fourth position (Prop. 9.2) pulling its weight as an address: the graph name is the document URI, so attribution and location coincide. **Domain:** a namespace ontology per dataspace, importing the vocabularies it builds on — imports resolve by union, because vocabulary is data and composes like it. **Select:** a SPARQL endpoint per dataspace; S4 holds because query results and graphs are resources with URIs of their own. **Arrange:** XSLT over the canonical serialization — Chapter 6's seam occupied, in two layers: a base stylesheet that names no vocabulary and renders any state, and per-vocabulary overrides layered on by the language's import mechanism — S3's substitution, performed in daily practice. The layered term treats specially exactly what the dataspace's ontology declares — C.8's relative genericity, deployed — and unmatched state falls back to the base rendering rather than to nothing: every graph renders; declared vocabulary renders better. The stylesheets share their templates across the wire: one library, imported by a server-side stylesheet that emits documents and a browser-side one that binds events — Saxon runs the first, SaxonJS with IXSL the second; two processors, one set of terms. Chapter 7's portability of terms, running. The convergence shares rendering code too, by running the same framework on both sides (Chapter 14's hydration); here the sides share templates without sharing an engine, because the language's semantics is closed. **Present:** CSS, in continuous service since 1996. **Write:** HTML forms encoding graphs (the bridge below), deltas carried as SPARQL Update — the delta normal form's two sets, on the wire. And independent evolution shows up as operations rather than theory: data, layout, and style invalidate independently, per factor, cache entry by cache entry — the four timelines, running as infrastructure.
+The build log, factor by factor:
+
+| factor | occupied by | the derived result, deployed |
+|---|---|---|
+| state | a triplestore behind the Graph Store Protocol, one named graph per document | the fourth position (Prop. 9.2) as an address: the graph name is the document URI — attribution and location coincide |
+| domain | a namespace ontology per dataspace, importing the vocabularies it builds on | imports resolve by union — vocabulary is data and composes like it |
+| select | a SPARQL endpoint per dataspace | S4: query results and graphs are resources with URIs of their own |
+| arrange | XSLT over the canonical serialization — a base stylesheet naming no vocabulary, per-vocabulary overrides layered by the language's import mechanism | Chapter 6's seam occupied; S3's substitution, performed in daily practice |
+| present | CSS | in continuous service since 1996 |
+| write | HTML forms encoding graphs (the bridge below), deltas carried as SPARQL Update | the delta normal form's two sets, on the wire |
+
+The arrange row carries the most machinery, and it repays a closer look. The layered term treats specially exactly what the dataspace's ontology declares — C.8's relative genericity, deployed — and unmatched state falls back to the base rendering rather than to nothing: every graph renders; declared vocabulary renders better. The stylesheets share their templates across the wire: one library, imported by a server-side stylesheet that emits documents and a browser-side one that binds events — Saxon runs the first, SaxonJS with IXSL the second; two processors, one set of terms. Chapter 7's portability of terms, running. The convergence shares rendering code too, by running the same framework on both sides (Chapter 14's hydration); here the sides share templates without sharing an engine, because the language's semantics is closed. And independent evolution shows up as operations rather than theory: data, layout, and style invalidate independently, per factor, cache entry by cache entry — the four timelines, running as infrastructure.
 
 ### Names and addresses
 
