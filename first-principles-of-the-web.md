@@ -248,6 +248,8 @@ Proposition 4.2 matters for what its proof shows: a factorization always exists,
 
 S1–S3 could describe any well-factored program. S4 is the web condition: the factorization itself goes public, *exposed through the web's own reference mechanism*. An application satisfying S1–S4 is part of the web at every layer, not only at its rendered surface.
 
+The dashboard makes it concrete: `select` pulls the panel's `title` and `value`, `arrange` nests them into a card, `present` themes the card. S4 is the property you can check by hand — each of those three intermediate values has its own URL, and a GET returns it as data, before it is ever a page.
+
 Three of these properties were written down by the web's own architects — as advice. [*Architecture of the World Wide Web, Volume One*](https://www.w3.org/TR/webarch/) (W3C Recommendation, 2004; hereafter AWWW) names the separation of content, presentation, and interaction a good practice (§4.3), orthogonal and composable specifications a principle (§5.1), and asks URI owners to provide representations of their resources (§3.5) — S4's demand, minus the intermediates. All of it stated as SHOULD, because a recommendation can do no more than recommend. Hold that until Proposition 4.4: what the TAG could only advise, the derivation forces. The norms were theorems all along. AWWW is a witness here, never a premise: assuming §4.3 would be assuming this chapter's conclusion, and the method forbids that.
 
 The payoff of S4 is immediate and measurable, and it is [Fielding's](https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm) list: HTTP caching per stage rather than per page; crawlability of *data* rather than of renderings; intermediaries; independent evolution of the layers. The last of these will harden from a phrase into a proposition before the chapter ends. Every one will reappear in Part IV, scored against every architecture that forfeits it.
@@ -296,6 +298,8 @@ doc(r, τ) = read_τ(r, S(τ))                    what the user agent renders
 Four components can move: the state `S(τ)` and the three factors. Each movement has a name you already know. The state advances when someone writes — Chapter 7's whole subject. A factor changes only one way — by substituting its term (that is S3 read temporally): the selection when a query is revised and redeployed, the arrangement when a layout switches or a template ships, the presentation when the theme changes. And one thing that looks like movement is not: a user paging forward or tightening a filter changes nothing in the application. The filter travels in `r`, and `select` is the same term evaluated at a new argument. A model that time-indexes the selection to accommodate a mouse click has confused the function with its argument — I know, because an earlier formalism of this chapter did exactly that. The four timelines belong to the application; navigation belongs to the request.
 
 **Prop. 4.5 (Independent evolution).** In a proper factorization, the document's evolution decomposes into four independent timelines, one per component `(S, select, arrange, present)`: a change to any one component changes the document without requiring a change to, or the participation of, any other. In the fused factorization of Prop. 4.2 there is one component and therefore one timeline: every change, of whatever kind, is a change to the whole.
+
+On the dashboard, that independence is one line of daily practice: ship a new theme and the panel data never re-fetches — `present` moved on its own timeline while `S`, `select`, and `arrange` stayed put on theirs.
 
 <details>
 <summary><i>Dependencies — S1 confines, S2 closes, S3 substitutes; proof in Appendix C.</i></summary>
@@ -400,6 +404,15 @@ Chapter 3's exhibit already wrote facts in this shape without saying so. The das
 ### Selection and the delta
 
 We are not done deriving — the same pattern now runs once more, one level up, quickly. `select` needs a minimal algebra over `𝒫(Fact)`: match a fact pattern with variables; join matches; union alternatives; project variables out. Each operation is forced by a page you can point at (any master–detail page is a join; any search page is a pattern). `write`, by (5.1), reduces to two sets: facts added and facts removed — the *delta*. Both reappear in Part III under their deployed names. And notice what the theorem has done to the pipeline's types: `State` is now a graph — facts whose references point anywhere — while every document Chapter 3 stripped was a tree. Somewhere between them, the shape must change. That is Chapter 6.
+
+A join, by hand. The operator holds `panel-14 title "Current Power"`; the contractor holds `turbine-3 feeds panel-14`. Merged, the pattern
+
+```
+?turbine  feeds  ?panel
+?panel    title  ?name
+```
+
+returns one row — `?turbine = turbine-3`, `?panel = panel-14`, `?name = "Current Power"` — and the row exists only because the two parties' facts were merged first. Match, join, project: the algebra on one page.
 
 <div class="fp-exhibit" data-exhibit="select"></div>
 
@@ -921,6 +934,8 @@ Behind the four names stands one state `S`, in the shape of Prop. 9.2 — quads,
 **Domain as data.** `S(ont)` is schema in the shape of (5.3); imports resolve by union.
 
 **Total rendering.** `x` dereferences to the arrange term — a base that names no vocabulary, overrides layered by the language's own import mechanism — generic in C.8's sense: every graph renders; declared vocabulary renders better.
+
+One entity makes the four concrete: GET `…/panel-14` returns the graph of facts about that panel; POST a form there applies a delta — `(D⁻, D⁺)` — to the same graph; and the endpoint answers any query that ranges over it. One state, three doors, each an HTTP request you can make by hand.
 
 Note what (15.1) omits: `S` is not a component. The store the gloss just called invisible appears nowhere in the tuple, so invisibility holds by construction rather than by discipline — S1, lifted from factor to system. Two deployments with the same four projections are the same dataspace.
 
