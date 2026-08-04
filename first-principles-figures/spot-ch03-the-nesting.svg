@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 20 420 350" role="img">
+  <title>Four nested frames — style wraps arrangement wraps selection wraps state — the state the irreducible core at the centre</title>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- outer: Style -->
+    <rect x="40" y="40" width="380" height="300" rx="16" stroke="#1b1e22" stroke-width="2.2"/>
+    <!-- Arrangement -->
+    <rect x="82" y="80" width="296" height="220" rx="14" stroke="#5a6270" stroke-width="2"/>
+    <!-- Selection -->
+    <rect x="124" y="120" width="212" height="140" rx="12" stroke="#5a6270" stroke-width="2"/>
+    <!-- State: the irreducible core, in accent -->
+    <rect x="174" y="158" width="112" height="64" rx="10" fill="#e3eef7" stroke="#005a9c" stroke-width="2.6"/>
+    <!-- labels, each in its own band -->
+    <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" text-anchor="middle" stroke="none">
+      <text x="230" y="63" font-size="15" fill="#5a6270">Style</text>
+      <text x="230" y="103" font-size="15" fill="#5a6270">Arrangement</text>
+      <text x="230" y="143" font-size="15" fill="#5a6270">Selection</text>
+      <text x="230" y="196" font-size="16" fill="#005a9c">State</text>
+    </g>
+  </g>
+</svg>

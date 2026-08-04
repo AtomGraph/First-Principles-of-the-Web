@@ -126,6 +126,8 @@ One decision remains before the stripping starts, and it is a control on the exp
 
 The two pages are on the table — the newspaper front page and the wind-farm dashboard, as different a pair as Chapter 2 could find. Strip them, one layer at a time, and watch the same skeleton emerge from both. The exhibits below do exactly that, to real pages: the Guardian's international front page and a Grafana wind-farm monitoring dashboard, captured on the same morning.
 
+<img src="first-principles-figures/spot-ch03-two-pages-one-skeleton.svg" alt="A newspaper column and an analytics dashboard side by side, each draining down into one shared row of sorted blocks" class="fp-spot" width="420" />
+
 ![Strip 0 — the pages as shipped](first-principles-figures/strip-0-full.png)
 
 *The starting material. One page is paper-white and editorial, the other black and numerical; they share, apparently, nothing.*
@@ -173,6 +175,8 @@ Three strips, and both of our maximally different sites have reduced to the same
 ```
 Doc = (Style, (Arrangement, (Selection, State)))
 ```
+
+<img src="first-principles-figures/spot-ch03-the-nesting.svg" alt="Four nested rounded frames from outermost to innermost, the smallest at the centre highlighted" class="fp-spot" width="420" />
 
 ```mermaid
 flowchart TB
@@ -587,7 +591,7 @@ flowchart LR
 
 **You have already accepted RDF. You did it in Chapter 5, before I told you its name.**
 
-Whatever you believed about the semantic web when you opened this book — too academic, too complicated, died in the nineties — you derived it yourself from three requirements you could not reject. The technologies were not a committee's enthusiasm in search of a problem; they occupy a position that was *forced*, and the people who standardized them in 1999 had arrived where it points. What failed in the nineties was not the position. The tooling failed, and the timing did: the substrate is built for machine consumption, and the machines were twenty years out — a reading Chapter 15 grounds in demand.
+Whatever you believed about the semantic web when you opened this book — too academic, too complicated, died in the nineties — you derived it yourself from three requirements you can reject only at a cost each one names. The technologies were not a committee's enthusiasm in search of a problem; they occupy a position that was *forced*, and the people who standardized them in 1999 had arrived where it points. What failed in the nineties was not the position. The tooling failed, and the timing did: the substrate is built for machine consumption, and the machines were twenty years out — a reading Chapter 15 grounds in demand.
 
 <div class="fp-exhibit" data-exhibit="reveal"></div>
 
@@ -1069,7 +1073,7 @@ The audit table, completed — Appendix B, one page, every cell carrying a chapt
 
 Web 3.0, defined: `read` transparent all the way down — S1–S4 at every layer, R1–R3 at the substrate — for humans *and* machines, which Chapter 17 reduced to one audience. Every earlier use of the term gestured; the table lets this one point.
 
-Read the eras through the one variable this book has tracked. Web 1.0: `read` transparent, over documents — declarative, addressable, indexable, the properties that beat every contemporary in Chapter 1's history. Web 2.0: `write` arrives, and with it the fused term — the application stays on the web only at its rendered surface, and state disappears behind `read`. Web 3.0, on this definition, adds no third invention: it is the first era's one virtue extended to the layer the second era hid. Chapter 10's lateral churn was two decades spent inside era two; the vertical direction was open the whole time, and Part II proved it had exactly one shape. What the preface could only announce, the table now carries: the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains — each located, column by column, as a partial rediscovery of this way or a detour from it.
+Read the eras through the one variable this book has tracked. Web 1.0: `read` transparent, over documents — declarative, addressable, indexable, the properties that beat every contemporary in Chapter 1's history. Web 2.0: `write` arrives, and with it the fused term — the application stays on the web only at its rendered surface, and state disappears behind `read`. Web 3.0, on this definition, adds no third invention: it is the first era's one virtue extended to the layer the second era hid. Chapter 10's lateral churn was two decades spent inside era two; the vertical direction was open the whole time, and Part II proved that under the three requirements it had exactly one shape. What the preface could only announce, the table now carries: the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains — each located, column by column, as a partial rediscovery of this way or a detour from it.
 
 What it gives the end user, because the end user was always the point. Navigate and drill into any data without knowing a query language — the five moves are interface primitives, and none of them requires a programmer. Fork and augment running applications declaratively — S3 as a user right rather than a vendor courtesy, exercised by substituting a term, never by rebuilding a bundle. Federate without asking permission — the union law requires none; merge is the whole protocol.
 
@@ -1092,7 +1096,7 @@ Closing recursion. The canonical edition of this book — under construction, as
 
 And if you put the book down short of that edition, what it leaves behind is a handful of lenses you will find yourself using unbidden. You will strip pages on sight — style, arrangement, selection peeling away from any screen, the skeleton showing through. You will sort announcements with one question — *which property moved?* — and recognize lateral churn before the keynote ends. You will find the crossing in every framework you evaluate: somewhere inside it a graph becomes a tree, and the framework is its strategy for that moment. You will watch a deploy invalidate a cache and know which of the four timelines moved — and which three the fusion invalidated with it. And when you meet a scraping harness, an adapter layer, a reconciliation engine, you will read it as compensating machinery: some property, somewhere upstream, gone unadopted.
 
-Beneath the lenses, the sentence: strip any page and the same skeleton appears; the web's own constraints force what it must be made of; and what they force was standardized before the question was fashionable. The next web needs no inventing; it waits to be occupied.
+Beneath the lenses, the sentence: strip any page and the same skeleton appears; three requirements the web already meets force what it must be made of; and what they force was standardized before the question was fashionable. The next web needs no inventing; it waits to be occupied.
 
 ---
 
@@ -1100,7 +1104,7 @@ Beneath the lenses, the sentence: strip any page and the same skeleton appears; 
 
 ## A. Method, notation, and reading order
 
-Persuasion is what you need when you don't have a proof, so this book runs on apparatus, and the apparatus has rules. A statement's sources come in the three kinds the preface names — spec definitions, earlier propositions, checkable observations — and a fourth category corroborates without ever serving as premise: *witnesses*, documents that stated as norms what this book derives as theorems; strike them all and no proof changes. One claim is deliberately unprovable, flagged where it stands: the Transposition Thesis of Chapter 5, the bridge between the formalism and the web itself — secured four ways there and in the appendices, proved never. Disagreement belongs at the bridge; the theorems are unconditional.
+Persuasion is what you need when you don't have a proof, so this book runs on apparatus, and the apparatus has rules. A statement's sources come in the three kinds the preface names — spec definitions, earlier propositions, checkable observations — and a fourth category corroborates without ever serving as premise: *witnesses*, documents that stated as norms what this book derives as theorems; strike them all and no proof changes. One claim is deliberately unprovable, flagged where it stands: the Transposition Thesis of Chapter 5, the bridge between the formalism and the web itself — secured four ways there and in the appendices, proved never. Disagreement belongs at the bridge; given the requirements, the theorems add no premise of their own.
 
 The shape of the whole is Chapter 2's method, run at book length — analysis and synthesis, in the geometers' sense: Parts II–III strip the web application as found and derive what its parts must be; Part V builds the application space back from the derived parts; the two directions meeting exactly is the book's proof. Part IV, between them, audits what the industry runs instead — no editorializing, only scores against Part II's seven properties: three requirements on state (R1–R3), four separations on architecture (S1–S4).
 
