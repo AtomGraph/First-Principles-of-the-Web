@@ -346,7 +346,7 @@ Each left cell is deployed and citable — RFC 9111 carries the middle two, AWWW
 
 ### The smallest fact
 
-Now the question: what is the smallest self-contained fact? And "smallest" is not an aesthetic preference. Every position a fact carries beyond need is a position whose use independent parties must somehow agree on, and agreement is what R2 forbids — minimality is R2, applied to the shape of the fact itself. When a genuine requirement justifies an extra position, the derivation will grant it; Chapter 9 does exactly that.
+The question now is the smallest self-contained fact, and "smallest" is not an aesthetic preference. Every position a fact carries beyond need is a position whose use independent parties must somehow agree on, and agreement is what R2 forbids — minimality is R2, applied to the shape of the fact itself. When a genuine requirement justifies an extra position, the derivation will grant it; Chapter 9 does exactly that.
 
 **Prop. 5.2 (Arity).** The minimal self-contained fact is a triple.
 
@@ -760,7 +760,7 @@ S1 through S4, zero by construction: the terminal state of fusion, scored.
 
 ## Chapter 13. Pre-Web Paradigms
 
-Three columns of failures, and the pattern repeats — which raises the question the scores cannot answer: where do architectures that fail this way keep coming from? Not from the web. The unifying observation: relational databases, object orientation, ORMs, imperative languages, and MVC all predate the web, and each fails the derived requirements at one identifiable seam — which is *why* each drags a compensating industry behind it at the web boundary. The industries are the measurement: nobody builds a bridge across a gap that isn't there.
+Three columns of failures, and the pattern repeats. The scores cannot say where architectures that fail this way keep coming from — the unifying observation can: not from the web. Relational databases, object orientation, ORMs, imperative languages, and MVC all predate the web, and each fails the derived requirements at one identifiable seam — which is *why* each drags a compensating industry behind it at the web boundary. The industries are the measurement: nobody builds a bridge across a gap that isn't there.
 
 <img src="first-principles-figures/spot-ch13-the-bridges.svg" alt="Four tall silos joined by improvised plank bridges, a rope bridge, and a leaning ladder; two silos on a shared foundation stand apart, unbridged" class="fp-spot" width="420" />
 
@@ -979,7 +979,7 @@ The economics follow. A codebase is a liability, not an asset — behavior held 
 
 The reference implementation ships exactly this: applications as importable datasets, administered by an application defined in the same terms it administers. Chapter 15's exhibit rebuilds a newspaper and a dashboard on one machine; this chapter's claim is that the rebuild generalizes — the two reconstructions are datasets for the same generic engine, and the book's online edition, the promise still outstanding, is a third.
 
-### Who computes
+### Computation on the write side
 
 One objection lands here with real force, and it deserves the treatment latency got in Chapter 7: *real domains compute.* A payroll run turns timesheets into pay; an allocation turns orders into reservations; an invoice's total is nobody's keystroke. If the engine houses no domain code, who computes? Definition 1.1 answered before the question arose: it types what the application *is* — `read` and `write` — and says nothing about who calls it. Chapter 7's caller was a human holding a form; a computation is another caller — an agent that reads, computes, and submits its conclusion through the same `write`, in the same normal form, reviewable and invertible like every delta (Chapter 17 turns exactly that reviewability into the governance story). The derivation step even has a declarative carrier on the shelf. Take Prop. 7.3's change direction — pattern plus bindings yields a delta — and draw the bindings from the state instead of a form: that is a rule, *assert what follows from what holds*. The deployed stack already ships it as an update term whose delta is computed by its own query. One algebra, both directions, no human in the loop. What lacks a recommendation is *when* such a term runs — schedule, trigger, threshold: the orchestration seam, open like identity and access in Chapter 15, and like them awaiting convention rather than invention. So the domain's logic divides without remainder: validation is a predicate on deltas (Chapter 7 drew that line), derivation is an update term over the ontology, and whatever imperative computation remains — the solver, the optimizer, Chapter 12's leaf — runs behind a caller, submitting deltas like everyone else — outside the engine, never inside it.
 
