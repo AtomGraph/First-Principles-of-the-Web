@@ -12,7 +12,7 @@ The claim: there is exactly one way to build applications that are *of* the web 
 
 The book is structured as a derivation, and every statement in it is one of three things: a definition quoted from the web's own specifications, a proposition that follows from previous statements, or an observation you can verify against deployed reality. If you find a statement that is none of the three, the book has a bug, and I would like a report. The method itself is Chapter 2's subject; notation and reading tracks are in Appendix A.
 
-One more thing. This book is built to practice what it derives: its canonical edition is designed as a linked-data application in which every proposition is a dereferenceable resource — an instance of its own thesis. As this draft circulates, that edition is under construction: a promise the book has yet to keep.
+One more thing. This book is built to practice what it derives: its canonical edition is designed as a linked-data application in which every proposition is a dereferenceable resource — an instance of its own thesis. As of this writing, that edition is under construction: a promise the book has yet to keep.
 
 ---
 
@@ -50,7 +50,7 @@ There are requests, which are built from identifiers:
 Req = I × Method × Headers × Body                        (RFC 9110)
 ```
 
-The body may be empty — the empty body is a body, the way an empty set is a set — and on safe requests it almost always is; the unsafe methods are about to show what it is for. (RFC 9110's own name for it is *content* — a word this book will need for something else, so the older wire name stays.)
+The body may be empty — the empty body is a body, the way an empty set is a set — and on safe requests it almost always is. The unsafe methods are about to show what it is for. (RFC 9110's own name for it is *content* — a word this book will need for something else, so the older wire name stays.)
 
 Responses come back the same shape — RFC 9110 defines one message form for both directions, a status code standing where the method and target stood:
 
@@ -240,7 +240,7 @@ Proposition 4.2 matters for what its proof shows: a factorization always exists,
 
 **S1 — Obliviousness.** Each factor communicates with the next only through its output. `arrange` sees data, never the request. `present` sees a tree, never the data. No side channels: `arrange` and `present` are constant in `Req` and `State` except through their arguments.
 
-**S2 — Declarativity.** Each factor is the *meaning of a term in a language* — there exist languages Q, X, S with independently defined semantics such that `select = ⟦q⟧`, `arrange = ⟦t⟧`, `present = ⟦s⟧`. This is what "declarative" means, made precise: the meaning of the query does not depend on the stylesheet, because each language's semantics is closed.
+**S2 — Declarativity.** Each factor is the *meaning of a term in a language* — there exist three languages, one per factor, with independently defined semantics such that `select = ⟦q⟧`, `arrange = ⟦t⟧`, `present = ⟦s⟧` for terms `q`, `t`, `s`. This is what "declarative" means, made precise: the meaning of the query does not depend on the stylesheet, because each language's semantics is closed.
 
 **S3 — Substitutability.** Replace any factor with another term of its language and you still have a web application; the change is confined to that factor's concern.
 
@@ -295,7 +295,7 @@ read_τ = present_τ ∘ arrange_τ ∘ select_τ      the application, over tim
 doc(r, τ) = read_τ(r, S(τ))                    what the user agent renders
 ```
 
-Four components can move: the state `S(τ)` and the three factors. Each movement has a name you already know. The state advances when someone writes — Chapter 7's whole subject. A factor changes only one way: by substituting its term — this is S3, read over time. The selection changes when a query is revised and redeployed, the arrangement when a layout switches or a template ships, the presentation when the theme changes. And one thing that looks like movement is not: a user paging forward or tightening a filter changes nothing in the application. The filter travels in `r`, and `select` is the same term evaluated at a new argument. A model that makes the selection depend on time just to handle a mouse click has confused the function with its argument — I know, because an earlier version of this chapter did exactly that. The four timelines belong to the application; navigation belongs to the request.
+Four components can move: the state `S(τ)` and the three factors. Each movement has a name you already know. The state advances when someone writes — Chapter 7's whole subject. A factor changes only one way: by substituting its term — this is S3, read over time. The selection changes when a query is revised and redeployed, the arrangement when a layout switches or a template ships, the presentation when the theme changes. And one thing that looks like movement is not: a user paging forward or tightening a filter changes nothing in the application. The filter travels in `r`, and `select` is the same term evaluated at a new argument. A model that makes the selection depend on time just to handle a mouse click has confused the function with its argument — a natural mistake, since the notation invites it. The four timelines belong to the application; navigation belongs to the request.
 
 **Prop. 4.5 (Independent evolution).** In a proper factorization, the document's evolution decomposes into four independent timelines, one per component `(S, select, arrange, present)`: a change to any one component changes the document without requiring a change to, or the participation of, any other. In the fused factorization of Prop. 4.2 there is one component and therefore one timeline: every change, of whatever kind, is a change to the whole.
 
@@ -399,7 +399,7 @@ Chapter 3's exhibit already wrote facts in this shape without saying so. The das
 
 **Theorem 5.4 (Uniqueness).** Any arity-minimal state model satisfying R1–R3 is isomorphic to (5.3). *(Proof: Appendix C. The proof is an assembly of 5.1–5.3: R2 forces the set-of-atomic-facts shape and union-merge; R1 with minimality forces arity three; R3 forces positions one and two into `I`.)*
 
-"The only native way" sounds like rhetoric; Theorem 5.4 makes it a statement with an escape clause, and the escape clause is the trap: to reject the conclusion you must reject a requirement, and each rejection has a name. Reject R1 and your model can't host the web's content. Reject R2 and your data needs a coordinator — a central schema authority, which is to say: you have built a silo. Reject R3 and your data cannot refer beyond itself — a silo again, by the other door. Reject minimality and you widen the tuple — a door left deliberately ajar; Chapter 9 walks through it with a fourth requirement, attribution. Every alternative data model the industry runs on will be located, in Part IV, at one of the first three exits.
+That this is the only native way sounds like rhetoric; Theorem 5.4 makes it a statement with an escape clause, and the escape clause is the trap: to reject the conclusion you must reject a requirement, and each rejection has a name. Reject R1 and your model can't host the web's content. Reject R2 and your data needs a coordinator — a central schema authority, which is to say: you have built a silo. Reject R3 and your data cannot refer beyond itself — a silo again, by the other door. Reject minimality and you widen the tuple — a door left deliberately ajar; Chapter 9 walks through it with a fourth requirement, attribution. Every alternative data model the industry runs on will be located, in Part IV, at one of the first three exits.
 
 ### Selection and the delta
 
@@ -428,7 +428,7 @@ Every web framework in history is a strategy for this one crossing. That is a th
 
 ```
 arrange = ⟦t⟧ ∘ canon
-canon : Data ↣ Tree      canonical, deterministic, structure-free
+canon : Data ↣ Tree      deterministic, lossless, structure-free
 t                        the sole locus of graph→tree structural choice
 ```
 
@@ -572,14 +572,14 @@ Everything in Part II was derived from three RFC-level definitions and three req
 |---|---|---|
 | `Fact = I × I × (I ∪ V)` | RDF triple (subject, predicate, object) | 1999 / RDF 1.1 2014 |
 | `State = 𝒫(Fact)`, merge = ∪ | RDF graph; graph merge | ibid. |
-| selection algebra (pattern, join, union, project) | SPARQL algebra (BGP, Join, Union, Project) | SPARQL 1.1 §18 |
+| selection algebra (pattern, join, union, project) | SPARQL algebra, §18 (BGP, Join, Union, Project) | 2013 |
 | delta `(D⁻, D⁺)` | SPARQL Update (`DELETE`/`INSERT`) | 2013 |
 | dereferencing `select` results (S4) | Linked Data; Graph Store Protocol | 2006 / 2013 |
 | `canon` | canonical RDF/XML; RDFC-1.0 for blank nodes | 2004 / 2024 |
 | `⟦t⟧ : Tree → Tree` after canon | XSLT | 1999 / 3.0 2017 |
 | `present` | CSS | 1996 |
 
-Read the dates first. Every row predates this draft, most by decades, and none appears anywhere in Parts I–II — one conceded exception: Chapter 3 turns CSS off by name, the act every reader knows it by. The derivation's premises are the RFC layer only, so the match in this table is a check the reader performs, not a construction the author arranged. The columns are independent: the left side is forced by three requirements, the right side was shipped by working groups, and the table asserts they are the same objects.
+Read the dates first. Every row predates this book, most by decades, and none appears anywhere in Parts I–II — one conceded exception: Chapter 3 turns CSS off by name, the act every reader knows it by. The derivation's premises are the RFC layer only, so the match in this table is a check the reader performs, not a construction the author arranged. The columns are independent: the left side is forced by three requirements, the right side was shipped by working groups, and the table asserts they are the same objects.
 
 <img src="first-principles-figures/spot-ch08-the-dates.svg" alt="Six reference volumes on a shelf, spines stamped with years, bindings unopened" class="fp-spot" width="420" />
 
@@ -616,7 +616,7 @@ Whatever you believed about the semantic web when you opened this book — too a
 
 ## Chapter 9. The Mismatches
 
-Chapter 8 put both halves of the argument into theorem form — every application has the derived form; the deployed standards fill it — and that invites suspicion: a derivation that lands exactly on a deployed stack looks retrofitted until its mismatches are on the table. This chapter puts them there. The isomorphism is not exact. There are two mismatches between the model Part II forced and the standard Part III named, and two more between the standard and the platform that ships it. Each is located, measured, and — twice — turned into a prediction. Part IV applies the same standard to everyone else's models.
+Chapter 8 put both halves of the argument into theorem form: every application has the derived form, and the deployed standards fill it. That invites suspicion — a derivation that lands exactly on a deployed stack looks retrofitted until its mismatches are on the table. This chapter puts them there. The isomorphism is not exact. There are two mismatches between the model Part II forced and the standard Part III named, and two more between the standard and the platform that ships it. Each is located, measured, and — twice — turned into a prediction. Part IV applies the same standard to everyone else's models.
 
 ### Mismatch one: the unnamed entities
 
@@ -652,7 +652,7 @@ Here the mismatch becomes a prediction. The 1999 core standardized triples; the 
 
 ### Mismatch three: the abandoned seam
 
-Chapter 6's crossing needs two pieces: a canonical serialization and a declarative tree-transformation language. The deployed stack had both, and the transformation language was standardized in 1999 and shipped in every browser. The platform then froze it at that 1999 revision for a quarter of a century and, as this draft circulates, is scheduled to remove it outright. So this mismatch is not a gap in the standards: the technology existed, and the platform stopped maintaining it. That is why Chapter 6 could say the seam is not a research problem — closing it requires no invention, only the upkeep of software that already existed. The platform declined the upkeep, and the industry built, many times over, the compensating machinery Part IV will measure. Generalized, that is the book's practical thesis: what separates the modern web from the derived one is abandoned technology — a maintenance failure, not a research problem. And the failure is the platform's, not the language's: XSLT 3.0 (2017) runs in every current browser through [SaxonJS](https://www.saxonica.com/html/saxonjs/index.html), whose [IXSL extension](https://www.saxonica.com/saxonjs/documentation3/index.html#!ixsl-extension) binds browser events to template rules — Chapter 7's mobility of evaluation, deployed, with interactivity still declarative. From userland, a vendor performs the maintenance the platform dropped.
+Chapter 6's crossing needs two pieces: a canonical serialization and a declarative tree-transformation language. The deployed stack had both, and the transformation language was standardized in 1999 and shipped in every browser. The platform then froze it at that 1999 revision for a quarter of a century and, as of this writing, is scheduled to remove it outright. So this mismatch is not a gap in the standards: the technology existed, and the platform stopped maintaining it. That is why Chapter 6 could say the seam is not a research problem — closing it requires no invention, only the upkeep of software that already existed. The platform declined the upkeep, and the industry built, many times over, the compensating machinery Part IV will measure. Generalized, that is the book's practical thesis: what separates the modern web from the derived one is abandoned technology — a maintenance failure, not a research problem. And the failure is the platform's, not the language's: XSLT 3.0 (2017) runs in every current browser through [SaxonJS](https://www.saxonica.com/html/saxonjs/index.html), whose [IXSL extension](https://www.saxonica.com/saxonjs/documentation3/index.html#!ixsl-extension) binds browser events to template rules — Chapter 7's mobility of evaluation, deployed, with interactivity still declarative. From userland, a vendor performs the maintenance the platform dropped.
 
 ### Mismatch four: the write-side last mile
 
@@ -729,7 +729,7 @@ Both formats are one model. An XML document and a JSON document are ordered labe
 | intra-document addressing | fragments + XPointer | JSON Pointer — RFC 6901, 2013 |
 | vocabulary scoping | Namespaces, 1999 | — |
 
-The right column arrived a quarter century late where it arrived at all: a standardized query language in 2024, twenty-five years after XPath; transformation and vocabulary scoping with no entry. The migration's tooling delta was negative for two decades and remains negative today. And longevity ran the other way: most JavaScript frameworks of 2010 have already been retired; XSLT, frozen at its 1999 revision, still runs in every browser as this draft circulates.
+The right column arrived a quarter century late where it arrived at all: a standardized query language in 2024, twenty-five years after XPath; transformation and vocabulary scoping with no entry. The migration's tooling delta was negative for two decades and remains negative today. And longevity ran the other way: most JavaScript frameworks of 2010 have already been retired; XSLT, frozen at its 1999 revision, still runs in every browser as of this writing.
 
 **The S-properties of the deployment style.** REST's genuine inheritance from HTTP survives in the scores: resources carry URIs, so S4 earns partial credit at the resource grain — and stops there, because values inside a representation cannot link onward, so the data ends at every document boundary. The style's own definition requires hypermedia links (Fielding 2000, §5.1.5); the deployments that adopted the style's name discarded the requirement. Query and transformation semantics are implementation-defined (S2 ✗); substituting a component means renegotiating a bespoke contract per pair of parties (S3 ~); every payload ships arrangement and data fused (S1 ~ — the endpoint separates, the representation does not).
 
@@ -754,6 +754,8 @@ The single-page application, audited. In the book's terms its architecture is th
 **S1.** State is threaded through the term — component state, stores, caches, props — with no factor boundary anywhere; the style's own architecture diagrams draw the threading as a feature. ✗
 
 **S2.** The term is imperative, so its meaning is defined by execution order. The failure is in principle rather than in implementation. Def. 4.3 requires each factor to denote a term in a language with closed semantics; an imperative program's meaning is the trace of its execution. No discipline within the paradigm can repair this, because the paradigm *is* the choice of trace over denotation. ✗
+
+**S3.** No factor can be replaced without rewriting the term as a whole. Substitutability needs a factor boundary to swap across, and S1 showed there is none: state, selection, arrangement, and presentation are one program, so changing any concern means editing that program, not substituting a term of a language. ✗
 
 **S4.** No intermediate value has a URI. The data behind a rendered view cannot be addressed, cached by intermediaries, indexed, or linked. Chapter 3's exhibit filed the evidence in passing: stripping style from the dashboard left chrome, because the curves were pixels on a canvas — the state invisible even to the application's own document. ✗
 
@@ -792,7 +794,7 @@ One step separates this column from the last. Chapter 11's fused term still emit
 
 The historical control has already run. Compiled programs delivered through the page, executing in a VM, rendering into a rectangle the web could not see into: the description fits 1996 as well as it fits today, and then it was called Java applets. The web's declarative documents outlived them. The principle of least power was the reason then and is the reason now (the TAG finding [*The Rule of Least Power*](https://www.w3.org/2001/tag/doc/leastPower.html), 2006 — not, as often assumed, part of AWWW).
 
-The concession: Wasm as a *leaf* — a codec, a physics kernel, a solver inside one factor of a proper factorization — is useful and harmless, because computation inside a factor leaves every property intact; the factor's boundary is still a declarative term. The objection is to computation *replacing* the factorization, not to computation itself. Black-box binaries served by corporations invert the property that let every reader of the early web become an author by viewing source; the inversion is the business model.
+The concession: Wasm as a *leaf* — a codec, a physics kernel, a solver inside one factor of a proper factorization — is useful and harmless, because computation inside a factor leaves every property intact. The factor's boundary is still a declarative term. The objection is to computation *replacing* the factorization, not to computation itself. Black-box binaries served by corporations invert the property that let every reader of the early web become an author by viewing source; the inversion is the business model.
 
 **Column: Wasm.**
 
@@ -810,7 +812,7 @@ S1 through S4, zero by construction: the terminal state of fusion, scored.
 
 ## Chapter 13. Pre-Web Paradigms
 
-Three columns of failures, and the pattern repeats. The scores cannot say where architectures that fail this way keep coming from. One observation can: they do not come from the web. Relational databases, object orientation, ORMs, imperative languages, and MVC all predate the web, and each fails the derived requirements at one identifiable seam — which is *why* each drags a compensating industry behind it at the web boundary. The industries are the measurement: nobody builds a bridge across a gap that isn't there.
+Three columns of failures — the bracket stacks (Chapter 10), the single-page application (Chapter 11), and the applet (Chapter 12) — and the pattern repeats. The scores cannot say where architectures that fail this way keep coming from. One observation can: they do not come from the web. Relational databases, object orientation, ORMs, imperative languages, and MVC all predate the web, and each fails the derived requirements at one identifiable seam — which is *why* each drags a compensating industry behind it at the web boundary. The industries are the measurement: nobody builds a bridge across a gap that isn't there.
 
 <img src="first-principles-figures/spot-ch13-the-bridges.svg" alt="Four tall silos joined by improvised plank bridges, a rope bridge, and a leaning ladder; two silos on a shared foundation stand apart, unbridged" class="fp-spot" width="420" />
 
@@ -855,7 +857,7 @@ The evidence chapter: the JavaScript ecosystem — with no exposure to any deriv
 - **SSR.** Documents should arrive as documents. The S4 tax — crawlers blind, first paint late — landed exactly as predicted, and the fix is `present ∘ arrange ∘ select` running on a server, where it had been running since 1993.
 - **Hydration.** The S1 tax, given its industry name: ship the document *and* the program that regenerates it, because the architecture cannot tell them apart. An industry term for a category error.
 - **Islands.** The principle of least power, rederived from the costs: most of the page needs no program, so most of the page stops being one.
-- **React Server Components.** RSC pulls `select` back out of the fused term, fifteen years after fusion. But its wire format is a bespoke, non-addressable serialization of exactly the intermediate value S4 says should have a URI. The factor returned; its resource did not.
+- **React Server Components.** RSC pulls `select` back out of the fused term, ten years after fusion. But its wire format is a bespoke, non-addressable serialization of exactly the intermediate value S4 says should have a URI. The factor returned; its resource did not.
 - **GraphQL.** Declarative queries over a graph model returning projections — `select` and R1 rebuilt, without global identifiers, so it stops at the silo wall exactly where the missing R3 predicts: federation works within one organization and no further. Its column is scored in Appendix B.
 - **HTMX and the hypermedia revival.** The same convergence arriving from the opposite shore: documents, links, and forms — Chapter 7's instrument — argued back into fashion on their original merits.
 
@@ -903,7 +905,7 @@ Asymptotic, incomplete, and in the predicted order.
 
 ### The dataspace
 
-This chapter runs the synthesis direction constructively — the synthesis theorem as a build log. Start with the derived atoms and compose a working application space, defining each layer by what Part II forced and each concrete technology by the factor it inhabits. What the synthesis yields needs a name, and the name should do for state what "website" did for documents. Call it a **dataspace**: one party's stake in the data web — the unit of publication, ownership, and federation. A website serves documents under an origin; a dataspace serves *state* under an origin — documents included, since documents are projections of it, and machines invited, since the state itself dereferences. (The database literature has used the word for pay-as-you-go integration — Franklin, Halevy, and Maier, 2005; the sense here is the web-native one.) The definition needs one primitive Part II never used, and the web ships it — Chapter 1's pattern, holding one last time:
+This chapter runs the synthesis direction constructively — the synthesis theorem as a build log. Start with the derived atoms and compose a working application space, defining each layer by what Part II forced and each concrete technology by the factor it inhabits. What the synthesis yields needs a name, and the name should do for state what "website" did for documents. Call it a **dataspace**: one party's stake in the data web — the unit of publication, ownership, and federation. A website serves documents under an origin; a dataspace serves *state* under an origin. Documents are included, since they are projections of it; machines are invited, since the state itself dereferences. (The database literature has used the word for pay-as-you-go integration — Franklin, Halevy, and Maier, 2005; the sense here is the web-native one.) The definition needs one primitive Part II never used, and the web ships it — Chapter 1's pattern, holding one last time:
 
 ```
 O        the set of origins                               (RFC 6454)
@@ -1066,7 +1068,7 @@ One objection lands here with real force, and it deserves the treatment latency 
 
 ### The incentives
 
-Why, then, does every domain still get its own codebase? Chapter 13 supplied the mental models; the incentives supply the motive. Generic software commoditizes its vendor: a domain application's defense is precisely its bespoke code, and an industry that charges rent on that code will not derive the uniqueness theorem on its own initiative — the theorem dissolves the asset. So the corollary's adoption path runs through the demand side, and Chapter 18 names the demand: users never counted the cost of bespoke code; agents count it per call.
+Why, then, does every domain still get its own codebase? Chapter 13 supplied the mental models; the incentives supply the motive. Generic software commoditizes its vendor: a domain application's defense is precisely its bespoke code, and an industry that charges rent on that code will not derive this corollary on its own initiative — the corollary dissolves the asset. So the corollary's adoption path runs through the demand side, and Chapter 18 names the demand: users never counted the cost of bespoke code; agents count it per call.
 
 ## Chapter 18. The Agent Era
 
@@ -1074,7 +1076,7 @@ Improper architecture is locally cheap and globally expensive: fusing is always 
 
 <img src="first-principles-figures/spot-ch17-the-gallery.svg" alt="A robot leans over a velvet rope, magnifying glass raised, to study a framed picture of a document hanging in a gallery" class="fp-spot" width="420" />
 
-The arithmetic of that compensating industry is the integration industry's arithmetic at a new scale. `N` agents meeting `M` applications through bespoke adapters need on the order of `N × M` integrations. The moment state shares one model and one query semantics, the count collapses to `N + M` — each side implements the common substrate once. Every generation of middleware has re-learned this sum. The agent era re-learns it with `N` growing by the month: the per-application protocol server, the emerging convention as this draft circulates, is the `N × M` answer shipped in real time; the derived stack is the `N + M` answer, shipped since 1999.
+The arithmetic of that compensating industry is the integration industry's arithmetic at a new scale. `N` agents meeting `M` applications through bespoke adapters need on the order of `N × M` integrations. The moment state shares one model and one query semantics, the count collapses to `N + M` — each side implements the common substrate once. Every generation of middleware has re-learned this sum. The agent era re-learns it with `N` growing by the month: the per-application protocol server, the emerging convention as of this writing, is the `N × M` answer shipped in real time; the derived stack is the `N + M` answer, shipped since 1999.
 
 Underneath runs the grounding problem. Statistical models interpolate, and interpolation hallucinates; what agents need beneath them is a substrate whose answers are computed rather than guessed — fact-sets with a formal query semantics are that substrate, and Part III named the deployed one. The hybrid has a specific shape. The model interprets the long tail — the rare, one-off cases. What proves valuable there gets promoted into the governed core, so integration becomes something you accumulate rather than redo: every promoted fact composes by union, and stays.
 
@@ -1129,7 +1131,7 @@ If you have ever read a type signature, you have read every formula in this book
 
 Three tracks, if you are choosing a path: in a hurry — the opening pages, then Chapters 3, 8, and 19; building things — add Chapters 7, 14, and 17; refereeing — Chapter 5 and Appendix C, where the load-bearing walls are.
 
-Sets, tuples, total functions, and composition `∘` — first-year material, as promised. `I` is the set of URIs (RFC 3986); `O` the set of origins (RFC 6454), `I∣o` the URIs under origin `o`; `V` a set of atomic literal values disjoint from `I`; `𝒫` powerset; `∖` set difference; `⊔` disjoint combination of independently asserted structures. `⟦·⟧` is a denotation function and always someone else's: cited from the governing specification, never defined here. `t` names the arrange term (S2), so time is written `τ`. The numbered apparatus: R1–R4 are requirements on state; S1–S4 separation properties of a factorization; C-conditions the formalizations in Appendix C; propositions are chapter-numbered. Reading order: Parts I–III linearly; Part IV in any order after Chapter 8; Part V after Part II suffices. The formulas are skippable and the prose carries every argument; the formulas make the prose auditable.
+Sets, tuples, total functions, and composition `∘` — first-year material, as promised. `I` is the set of URIs (RFC 3986); `O` the set of origins (RFC 6454), `I∣o` the URIs under origin `o`; `V` a set of atomic literal values disjoint from `I`; `𝒫` powerset; `∖` set difference; `⊔` disjoint combination of independently asserted structures. `⟦·⟧` is a denotation function and always someone else's: cited from the governing specification, never defined here. `t` names the arrange term (S2), so time is written `τ`. The numbered apparatus: R1–R3 are the requirements on state, with R4 (attribution) added in Chapter 9; S1–S4 separation properties of a factorization; C-conditions the formalizations in Appendix C; propositions are chapter-numbered. Reading order: Parts I–III linearly; Part IV in any order after Chapter 8; Part V after Part II suffices. The formulas are skippable and the prose carries every argument; the formulas make the prose auditable.
 
 The symbol crib, for readers who live in code:
 
@@ -1175,9 +1177,9 @@ And the named results, so prose and apparatus can find each other:
 
 ## B. The Properness Table
 
-The complete audit. Each column cites the chapter that scores it; in the online edition every cell links to its proposition and this table is the home page.
+The complete audit. Each column cites the chapter that scores it; in the online edition every cell links to its proposition and this table is the home page. Rows are the seven derived properties (R1–R3 on state, S1–S4 on architecture); `✓` satisfied, `~` partial, `✗` failed; a parenthetical cites the scoring proposition.
 
-| | Relational (13) | OOP/ORM (13) | XML stack (10) | JSON/REST (10) | SPA/JS (11) | Wasm (12) | GraphQL (14) | Derived stack (8, 15) |
+| Property | Relational (13) | OOP/ORM (13) | XML stack (10) | JSON/REST (10) | SPA/JS (11) | Wasm (12) | GraphQL (14) | Derived stack (8, 15) |
 |---|---|---|---|---|---|---|---|---|
 | R1 | ✓ | ~ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ (5.4) |
 | R2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ (5.1) |
@@ -1388,21 +1390,19 @@ Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, 
 
 ## Draft status
 
-> *All nineteen chapters and Appendices A–D in prose, with exhibits, scored audit columns, and full proofs (C.1–C.8); the Chapter 16 reconstruction exhibit, mechanization, and the online edition are under construction. Feedback is most valuable on R1–R3, the arity argument, and the Transposition Thesis (Chapter 5, Appendix C) — if something is smuggled, it is there.*
+> *All nineteen chapters and Appendices A–D are drafted in prose, with exhibits, scored audit columns, and full proofs (C.1–C.8). Under construction: the Chapter 16 reconstruction exhibit, the mechanization of the proofs, and the online edition. Feedback is most valuable on R1–R3, the arity argument, and the Transposition Thesis (Chapter 5, Appendix C) — if something is smuggled, it is there.*
 
 | Part | Status |
 |---|---|
-| Preface, The Argument in One Page | drafted — front door trimmed to claim + argument (reader feedback, 2026-08-01); method merged into Appendix A |
-| Ch 1, 2 | drafted — Ch 2 is the method chapter (analysis and synthesis); transparency history restored to Ch 1's close; lateral churn merged into Ch 10 (flow pass 2026-08-03) |
-| Ch 3 | drafted; screenshot exhibits captured (Guardian + Grafana wind farm, 2026-07-24) |
-| Ch 4, 5 | drafted — the core; 4.5 (the document in time) added |
-| Ch 6 | drafted — canon existence prop added; framework claim demoted to unnumbered thesis 2026-08-04 |
-| Ch 7 | drafted, incl. closed-pipeline figure |
-| Ch 9 | drafted — Props 9.1/9.2 with inline proofs |
-| Ch 8 | drafted — mapping table + dates paragraph |
-| Ch 10–14 | drafted — every column scored; Ch 10 opens with the migration story + coinage, Ch 11/12 closing lines, Ch 14 figure order (flow pass 2026-08-03) |
-| Ch 15–19 | drafted (LinkedDataHub as reference implementation; WebID/WAC; RDF/POST; reconstruction exhibit pending) |
-| Appendices A, B, D | drafted — audit table complete, concordance tabled |
-| Appendix C | complete — C.1–C.8: representation, arity (with scope note), uniqueness, independence, analysis, timelines, homomorphism, synthesis/genericity |
-| Securing apparatus | Transposition Thesis + table + CRDT corroboration (Ch 5); bridge methodology (Appendix A); prediction registry (Ch 18); prior-art sweep 2026-07-30 — uniqueness NOVEL, arity re-scoped as Peirce re-derivation with Löwenheim/Quine answered (C.2 scope note), prior-art ledger in App D. Second sweep done 2026-08-01: CALM, CRDTs, genericity, Parr — neighbors, not preempts; all cited in App D. C.8 relativized 2026-08-02 (generic base + declared overrides, coverage refinement, the two doors). Hardening items 2–5 landed 2026-08-02: alignment confrontation (Ch 5 scope note, Ch 15 head-on, Ch 8 reread), computation as caller + orchestration seam (Ch 16), the standing connection (Ch 1), order as data (Ch 3, Ch 6, Ch 9). Prose pass 2026-08-02 (reader feedback): tone softened at 7 sites, 8 repetition cuts, S1/S4 tax coined, Ch 18 lens handover, SaxonJS/IXSL referenced (Ch 9, 15, App D). Flow pass 2026-08-03: method chapter (Ch 2: analysis and synthesis; Pappus/Newton witnesses in App D), lateral churn merged into Ch 10, Ch 8's Parts I–II claim repaired (CSS carve-out, Ch 6 de-named), seams stitched (5→6, 12→13, 13→14), endings squared (Ch 6, 11, 12, 14, 15, 16); Parts II/V renamed to The Analysis/The Synthesis; Chs 6, 9, 11, 14 retitled for directness. Plain-argument pass 2026-08-03: Mismatch three rewritten stepwise; meta-narration and compressed antitheses removed at 14 sites (Ch 4, 5, 8, 9, 14, 15, 16, 17). Sentence sweep 2026-08-04: 16 rewrites — garden paths untangled, overloaded sentences split, vague referents cut (Preface, Ch 2, 6, 7, 8, 9, 11, 13, 15, 16, 18, App B) — plus register flags cleared (pocket idiom ×2, gift, guest/tenant, fronted inversions ×2). Readability pass 2026-08-04: whole-book structural sweep — subjects rejoined to verbs and stacked dash/colon clauses split, imported metaphors and personified apparatus removed (chemistry analogy, biology decoration, 'curried', 'numerology', 'free lunch', 'monument', 'grave', finance verbs), verbless fragments given verbs, dropped connectives and vague referents restored; formal vocabulary and cross-references preserved. Pending: mechanization of C.1–C.8 |
-| Figures | mermaid: Ch 3 strips, Ch 4 pipeline + timelines, Ch 6 crossing, Ch 7 closed pipeline, Ch 8 square, Ch 14 timeline; Ch 10 brackets table. Screenshot strips 0–3 in `first-principles-figures/` (reproducible: `strips.cjs`). Pending: Ch 16 reconstruction exhibit |
+| Preface, The Argument in One Page | drafted |
+| Ch 1, 2 | drafted |
+| Ch 3 | drafted; screenshot exhibits captured |
+| Ch 4, 5 | drafted — the core of the analysis |
+| Ch 6, 7 | drafted, with figures |
+| Ch 8, 9 | drafted — the reveal and the mismatches |
+| Ch 10–14 | drafted — every audit column scored |
+| Ch 15–19 | drafted — LinkedDataHub as reference implementation; reconstruction exhibit pending |
+| Appendices A, B, D | drafted |
+| Appendix C | complete — C.1–C.8; mechanization pending |
+| Rigor & prior art | uniqueness, arity, and genericity checked against prior work; corroborations and the full prior-art ledger are in Appendix D |
+| Figures | mermaid diagrams and screenshot strips complete; Chapter 16 reconstruction exhibit pending |
