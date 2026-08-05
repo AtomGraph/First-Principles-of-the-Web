@@ -387,6 +387,8 @@ format:
     toc: true
     number-sections: false
     code-overflow: wrap
+    filters:
+      - abbr.lua
     include-in-header:
       text: |
         <link rel="stylesheet" href="exhibits.css">
