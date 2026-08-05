@@ -208,6 +208,8 @@ Two examples prove nothing about all websites; the strips are illustration. The 
 
 ## Chapter 4. The Factorization
 
+Chapter 3 stripped two pages by hand and called the result illustration; this chapter proves the universal claim. The strips become the factors of a typed pipeline; a definition — properness — separates real factorizations from trivial ones; and the analysis theorem guarantees that every `read` admits a proper one. The chapter closes with the method's debt to Fielding and with the four timelines a proper factorization gives the document.
+
 ### The pipeline
 
 Chapter 3's strips, read as function types:
@@ -903,9 +905,11 @@ Asymptotic, incomplete, and in the predicted order.
 
 ## Chapter 15. Building Up
 
+This chapter runs the synthesis direction constructively — the synthesis theorem as a build log. Start with the derived atoms and compose a working application space, defining each layer by what Part II forced and each concrete technology by the factor it inhabits.
+
 ### The dataspace
 
-This chapter runs the synthesis direction constructively — the synthesis theorem as a build log. Start with the derived atoms and compose a working application space, defining each layer by what Part II forced and each concrete technology by the factor it inhabits. What the synthesis yields needs a name, and the name should do for state what "website" did for documents. Call it a **dataspace**: one party's stake in the data web — the unit of publication, ownership, and federation. A website serves documents under an origin; a dataspace serves *state* under an origin. Documents are included, since they are projections of it; machines are invited, since the state itself dereferences. (The database literature has used the word for pay-as-you-go integration — Franklin, Halevy, and Maier, 2005; the sense here is the web-native one.) The definition needs one primitive Part II never used, and the web ships it — Chapter 1's pattern, holding one last time:
+What the synthesis yields needs a name, and the name should do for state what "website" did for documents. Call it a **dataspace**: one party's stake in the data web — the unit of publication, ownership, and federation. A website serves documents under an origin; a dataspace serves *state* under an origin. Documents are included, since they are projections of it; machines are invited, since the state itself dereferences. (The database literature has used the word for pay-as-you-go integration — Franklin, Halevy, and Maier, 2005; the sense here is the web-native one.) The definition needs one primitive Part II never used, and the web ships it — Chapter 1's pattern, holding one last time:
 
 ```
 O        the set of origins                               (RFC 6454)
@@ -981,9 +985,11 @@ The arrange row carries the most machinery, and it deserves a closer look. The l
 
 ## Chapter 16. No New Standard
 
+The build log ran on deployed standards end to end, and this chapter shows that nothing more is needed. Three questions remain — how names relate to addresses, how the seams no Recommendation covers get filled, and what shape federation forces on a reference implementation — and each resolves by composing pieces that already ship. No new standard is proposed; the chapter closes with the existence proof, an implementation that runs the assembly.
+
 ### Names and addresses
 
-A further confrontation arrives with the first `GET`: the web's oldest identity crisis, filed at the TAG as [httpRange-14](https://www.w3.org/2001/tag/issues.html#httpRange-14) — what does dereferencing the name of a *thing* return, when the thing is a turbine rather than a page? A decade of W3C argument produced a `303`-or-fragment resolution, a note (*Cool URIs for the Semantic Web*), a reopening, and a deployed practice that largely ignores all of it. The model here has a shorter account. Names and addresses are different roles, typed apart since Chapter 4: a URI in a fact position *names* (R3); a URI addressing a projection *locates* (S4). So the question computes rather than debates. Dereferencing a name returns `read(name, S)`, a description of the named entity. Its address may coincide with the name, differ by a fragment, or differ by a redirect — a wire-level encoding the architecture is indifferent to. Only the collision is real. Put the name and the address on one string, and statements about the thing share a subject with statements about its description. That is a data-discipline cost — measurable, like Chapter 9's mismatches — and keeping the two apart, either way, avoids it.
+The first question arrives with the first `GET`: the web's oldest identity crisis, filed at the TAG as [httpRange-14](https://www.w3.org/2001/tag/issues.html#httpRange-14) — what does dereferencing the name of a *thing* return, when the thing is a turbine rather than a page? A decade of W3C argument produced a `303`-or-fragment resolution, a note (*Cool URIs for the Semantic Web*), a reopening, and a deployed practice that largely ignores all of it. The model here has a shorter account. Names and addresses are different roles, typed apart since Chapter 4: a URI in a fact position *names* (R3); a URI addressing a projection *locates* (S4). So the question computes rather than debates. Dereferencing a name returns `read(name, S)`, a description of the named entity. Its address may coincide with the name, differ by a fragment, or differ by a redirect — a wire-level encoding the architecture is indifferent to. Only the collision is real. Put the name and the address on one string, and statements about the thing share a subject with statements about its description. That is a data-discipline cost — measurable, like Chapter 9's mismatches — and keeping the two apart, either way, avoids it.
 
 The exhibits took both exits without instruction. The Guardian's articles collapse the two harmlessly — an article *is* an information resource — while the wind farm's panels sit one hash away as fragments (`#panel-14`). That fragment is the exit the reference implementation adopts as its convention: one `GET` serves entity and description alike. The crisis, relocated: a typing discipline the model already draws, plus an encoding choice the deployment already made.
 
@@ -1031,9 +1037,11 @@ This chapter is where the book's existence proof enters as evidence. The archite
 
 ## Chapter 17. Generic Software
 
+This chapter converts the derivation into economics. A one-line corollary collapses every domain application into one generic engine specialized by data; the browser and the spreadsheet are the existence proofs; and the consequences follow — domain functionality shipped as data, computation arriving through the same `write`, and the incentives that keep bespoke code in place.
+
 ### Specialized by data
 
-This chapter converts the derivation into economics. Start from a corollary the apparatus yields at once:
+Start from a corollary the apparatus yields at once:
 
 **Prop. 17.1.** Two proper applications over (5.3) differ only in their terms and their state.
 
