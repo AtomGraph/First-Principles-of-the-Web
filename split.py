@@ -100,10 +100,10 @@ if appendices:
 # as addressable resources, one hash short of the canonical edition.
 RESULT_LINE = re.compile(
     r"^(?P<pre>(?:>\s*)?)\*\*(?P<kind>Prop(?:osition)?|Props|Thm|Theorem|Def(?:inition)?|Lemma)\.?"
-    r"\s+(?P<num>C?\.?\d+(?:\.\d+)?)"
+    r"\s+(?P<num>B?\.?\d+(?:\.\d+)?)"
 )
 RS_LINE = re.compile(r"^(?P<pre>(?:>\s*)?)\*\*(?P<rs>[RS][1-4]) — ")
-COND_LINE = re.compile(r"^(?P<pre>-\s+)\*\*\((?P<cond>C-\d[a-d]?)\)")
+COND_LINE = re.compile(r"^(?P<pre>-\s+)\*\*\((?P<cond>B-\d[a-d]?)\)")
 EQ_NUM = re.compile(r"\((\d+\.\d+)\)\s*$")
 KIND_ID = {"prop": "prop", "props": "prop", "proposition": "prop",
            "thm": "thm", "theorem": "thm", "def": "def", "definition": "def",
@@ -180,10 +180,10 @@ def add_anchors(text):
             line = m2.group("pre") + "[]{#%s}" % m2.group("rs").lower() + line[len(m2.group("pre")):]
         elif m3:
             line = m3.group("pre") + "[]{#%s}" % m3.group("cond").lower() + line[len(m3.group("pre")):]
-        elif re.match(r"^## C\.\d+ ", line):
-            # section ids keep the label's own spelling: C.1 → #c.1 (the
-            # condition C-1 → #c-1 would otherwise collide)
-            line = line + " {#c.%s}" % re.match(r"^## C\.(\d+)", line).group(1)
+        elif re.match(r"^## B\.\d+ ", line):
+            # section ids keep the label's own spelling: B.1 → #b.1 (the
+            # condition B-1 → #b-1 would otherwise collide)
+            line = line + " {#b.%s}" % re.match(r"^## B\.(\d+)", line).group(1)
         out.append(line)
         i += 1
     return "\n".join(out)
@@ -192,11 +192,11 @@ XREF = re.compile(
     r"Chapters (?P<chlist>\d+(?:,\s*\d+)*,?\s*and\s+\d+)"
     r"|Chapter (?P<ch>\d+)"
     r"|(?:(?:Prop|Props|Thm|Def)\.?|Theorem|Definition|Proposition) (?P<pch>\d+)\.(?P<psub>\d+)"
-    r"|Lemma (?P<lemc>C\.\d+)"
-    r"|Appendix C\.(?P<appcn>\d+)"
-    r"|Appendix (?P<app>[A-D])\b"
-    r"|\bC\.(?P<csecn>\d+)\b"
-    r"|\bC-(?P<ccondn>\d[a-d]?)(?:–[a-d])?\b"
+    r"|Lemma (?P<lemc>B\.\d+)"
+    r"|Appendix B\.(?P<appcn>\d+)"
+    r"|Appendix (?P<app>[A-C])\b"
+    r"|\bB\.(?P<csecn>\d+)\b"
+    r"|\bB-(?P<ccondn>\d[a-d]?)(?:–[a-d])?\b"
     r"|\bCh (?P<chshort>\d+)\b"
     r"|\((?P<eqn>\d{1,2}\.\d)\)"
     r"|Part (?P<part>[IVX]+)\b"
@@ -218,15 +218,15 @@ def _xref_target(m):
         if m.group("lemc") in res_page:
             p, f = res_page[m.group("lemc")]
             return f"{p}#{f}"
-        return app_page.get("C")
+        return app_page.get("B")
     if m.group("appcn") or m.group("csecn"):
-        ap = app_page.get("C")
-        return f"{ap}#c.{m.group('appcn') or m.group('csecn')}" if ap else None
+        ap = app_page.get("B")
+        return f"{ap}#b.{m.group('appcn') or m.group('csecn')}" if ap else None
     if m.group("ccondn"):
         # each condition has its own anchor on its defining bullet;
-        # a range like C-2a–d points at the first of the range
-        ap = app_page.get("C")
-        return f"{ap}#c-{m.group('ccondn')}" if ap else None
+        # a range like B-2a–d points at the first of the range
+        ap = app_page.get("B")
+        return f"{ap}#b-{m.group('ccondn')}" if ap else None
     for g in ("ch", "chshort"):
         if m.group(g):
             return ch_page.get(int(m.group(g)))
