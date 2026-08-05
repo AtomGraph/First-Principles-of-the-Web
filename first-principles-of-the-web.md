@@ -135,7 +135,7 @@ The two pages are on the table — the newspaper front page and the wind-farm da
 **Strip the style.** Turn off CSS, switch to reader view, print in monochrome. The page looks different; nothing it *says* changes. So a document factors:
 
 ```
-Doc = (Style, Content)
+Doc = Style × Content
 ```
 
 The justification is already deployed on every device you own: dark mode, print stylesheets, reader view, accessibility themes — style varies while content holds fixed.
@@ -147,7 +147,7 @@ The justification is already deployed on every device you own: dark mode, print 
 **Strip the arrangement.** The same content appears as a table on desktop, a card list on mobile, a chart in the summary view. The facts are identical; their shape as a document differs. So content factors:
 
 ```
-Content = (Arrangement, Data)
+Content = Arrangement × Data
 ```
 
 The justification is every "view toggle" on the web: same data, different tree.
@@ -161,7 +161,7 @@ The justification is every "view toggle" on the web: same data, different tree.
 **Strip the selection.** Every page shows a sliver of something much larger. The article page and the front page draw from the same pool; your dashboard shows this month, but last month exists. So data factors:
 
 ```
-Data = (Selection, State)
+Data = Selection × State
 ```
 
 Pagination, filters, search: deployed proof that the page is a window, not the world.
@@ -173,7 +173,7 @@ Pagination, filters, search: deployed proof that the page is a window, not the w
 Three strips, and both of our maximally different sites have reduced to the same expression:
 
 ```
-Doc = (Style, (Arrangement, (Selection, State)))
+Doc = Style × (Arrangement × (Selection × State))
 ```
 
 <img src="first-principles-figures/spot-ch03-the-nesting.svg" alt="Four nested rounded frames from outermost to innermost, the smallest at the centre highlighted" class="fp-spot" width="420" />
@@ -192,7 +192,7 @@ flowchart TB
         d1 -- "strip arrangement" --> d2(["data"])
         d2 -- "strip selection" --> d3(["state"])
     end
-    p3 -.-> skel["Doc = (Style, (Arrangement, (Selection, State)))"]
+    p3 -.-> skel["Doc = Style × (Arrangement × (Selection × State))"]
     d3 -.-> skel
 ```
 
@@ -290,7 +290,7 @@ His deepest constraint is also his least defined: the **uniform interface**. In 
 Definition 4.3 has one more consequence, and it can be collected now. Nothing in this chapter has mentioned time. HTTP has. A representation, per RFC 9110 §3.2, reflects "a past, current, or desired state of a given resource" — state *at a time*. And the protocol ships an apparatus whose only job is telling a resource's representation at one moment from its representation at another: `Last-Modified` and `ETag` (RFC 9110 §8.8), and the caching calculus built on them (RFC 9111). The web's own specifications already treat the document as a sequence of states; the axiom comes ready-made. Index the moving parts — writing `τ` for time, since `t` is taken:
 
 ```
-S : T → State                                  the world, over time
+S : Time → State                               the world, over time
 read_τ = present_τ ∘ arrange_τ ∘ select_τ      the application, over time
 doc(r, τ) = read_τ(r, S(τ))                    what the user agent renders
 ```
@@ -428,7 +428,7 @@ Every web framework in history is a strategy for this one crossing. That is a th
 
 ```
 arrange = ⟦t⟧ ∘ canon
-canon : Data ↣ Tree      deterministic, lossless, structure-free
+canon : Data → Tree      deterministic, lossless, structure-free
 t                        the sole locus of graph→tree structural choice
 ```
 
@@ -971,7 +971,7 @@ The build log, factor by factor:
 flowchart LR
     S(["S · dataset"]) --> e[["SPARQL (e)"]] --> D(["Data"]) --> x[["XSLT (x)"]] --> T(["Tree"]) --> css[["CSS"]] --> Doc(["Doc · webpage"])
     Doc --> form[["HTML form"]] --> delta(["(D⁻, D⁺)"])
-    delta --> upd[["Graph Store Protocol<br/>unsafe methods<br/>≡ SPARQL Update"]]
+    delta --> upd[["Graph Store Protocol<br/>unsafe methods<br/>same effect as SPARQL Update"]]
     upd -- "S′(u) = (S(u) ∖ D⁻) ∪ D⁺" --> S
 ```
 
@@ -1016,7 +1016,7 @@ sequenceDiagram
     B-->>A: read(u, S) — a document (S4)
     A->>B: ⟦q⟧ to endpoint e — a window over B's state
     B-->>A: Data — the solution
-    A->>B: delta (D⁻, D⁺) — RDF/POST form via Graph Store Protocol (≡ SPARQL Update)
+    A->>B: delta (D⁻, D⁺) — RDF/POST form via Graph Store Protocol (same effect as SPARQL Update)
     B-->>A: S′(u) = (S(u) ∖ D⁻) ∪ D⁺ (Prop. 7.1)
     Note over A,B: every capability crosses the wire — no in-process shortcut
 ```
@@ -1131,7 +1131,7 @@ If you have ever read a type signature, you have read every formula in this book
 
 Three tracks, if you are choosing a path: in a hurry — the opening pages, then Chapters 3, 8, and 19; building things — add Chapters 7, 14, and 17; refereeing — Chapter 5 and Appendix C, where the load-bearing walls are.
 
-Sets, tuples, total functions, and composition `∘` — first-year material, as promised. `I` is the set of URIs (RFC 3986); `O` the set of origins (RFC 6454), `I∣o` the URIs under origin `o`; `V` a set of atomic literal values disjoint from `I`; `𝒫` powerset; `∖` set difference; `⊔` disjoint combination of independently asserted structures. `⟦·⟧` is a denotation function and always someone else's: cited from the governing specification, never defined here. `t` names the arrange term (S2), so time is written `τ`. The numbered apparatus: R1–R3 are the requirements on state, with R4 (attribution) added in Chapter 9; S1–S4 separation properties of a factorization; C-conditions the formalizations in Appendix C; propositions are chapter-numbered. Reading order: Parts I–III linearly; Part IV in any order after Chapter 8; Part V after Part II suffices. The formulas are skippable and the prose carries every argument; the formulas make the prose auditable.
+Sets, tuples, total functions, and composition `∘` — first-year material, as promised. `I` is the set of URIs (RFC 3986); `O` the set of origins (RFC 6454), `I∣o` the URIs under origin `o`; `V` a set of atomic literal values disjoint from `I`; `𝒫` powerset; `∖` set difference; `⊔` disjoint combination of independently asserted structures; `⊕` the merge of two states, which Prop. 9.1 shows is their set union `∪`. `⟦·⟧` is a denotation function and always someone else's: cited from the governing specification, never defined here. `t` names the arrange term (S2), so time is written `τ`. The numbered apparatus: R1–R3 are the requirements on state, with R4 (attribution) added in Chapter 9; S1–S4 separation properties of a factorization; C-conditions the formalizations in Appendix C; propositions are chapter-numbered. Reading order: Parts I–III linearly; Part IV in any order after Chapter 8; Part V after Part II suffices. The formulas are skippable and the prose carries every argument; the formulas make the prose auditable.
 
 The symbol crib, for readers who live in code:
 
@@ -1140,12 +1140,14 @@ The symbol crib, for readers who live in code:
 | `A × B` | a pair: an A and a B | a tuple; a two-field record |
 | `A → B` | function from A to B | `(a: A) => B` |
 | `𝒫(A)` | all sets of As | `Set<A>` |
-| `∪`, `∖` | union, difference | `union()`, `difference()` |
+| `∪`, `∩`, `∖` | union, intersection, difference | `union()`, `intersection()`, `difference()` |
 | `∘` | composition, right to left | `compose(f, g)` |
 | `⟦q⟧` | what `q` means, per its spec | the standard defines what your query returns, not your driver |
+| `s ⊕ s′` | merge two states | set union of their facts (Prop. 9.1) |
 | `s ⊕ s = s` | idempotence | re-merging is a no-op; safe to retry |
 | `(D⁻, D⁺)` | a delta | a diff: deletions, additions |
 | `≅` | isomorphic | same shape; lossless conversion both ways |
+| `≡` | logically equivalent | equal after normalizing — same meaning, maybe different syntax |
 | `τ` | time | a version, a timestamp |
 | `O` | the set of origins | a scheme–host–port triple (RFC 6454) |
 | `I∣o` | the URIs under origin `o` | one party's region of the namespace |
