@@ -36,6 +36,13 @@ If the derivation holds, the next web needs no inventing; it waits to be occupie
 
 ## Chapter 1. What the Web Is
 
+<div class="fp-epigraph">
+
+*Vague but exciting…*
+
+— Mike Sendall, on Tim Berners-Lee's 1989 proposal
+</div>
+
 Nothing in this chapter is mine. That is the point of it.
 
 The web ships with its own definitions, and they are shorter than you probably expect. There are identifiers:
@@ -207,6 +214,13 @@ Two examples prove nothing about all websites; the strips are illustration. The 
 ---
 
 ## Chapter 4. The Factorization
+
+<div class="fp-epigraph">
+
+*REST is defined by four interface constraints: identification of resources; manipulation of resources through representations; self-descriptive messages; and, hypermedia as the engine of application state.*
+
+— Roy T. Fielding, dissertation §5.1.5, 2000
+</div>
 
 Chapter 3 stripped two pages by hand and called the result illustration; this chapter proves the universal claim. The strips become the factors of a typed pipeline; a definition — properness — separates real factorizations from trivial ones; and the analysis theorem guarantees that every `read` admits a proper one. The chapter closes with the method's debt to Roy Fielding — author of the REST dissertation — and with the four timelines a proper factorization gives the document.
 
@@ -426,6 +440,12 @@ returns one row — `?turbine = turbine-3`, `?panel = panel-14`, `?name = "Curre
 
 Look at the pipeline's types: `State` and `Data` are *graphs* — facts whose references form arbitrary many-to-many webs. `Tree` and `Doc` are *trees* — documents are hierarchical, and so is human reading. The pipeline crosses from graph to tree exactly once, inside `arrange`.
 
+<div class="fp-history">
+
+**In the world.** The tension this chapter resolves is older than the web. In 1945 Vannevar Bush blamed our trouble finding anything on "the artificiality of systems of indexing" — records "filed alphabetically or numerically," found "by tracing it down from subclass to subclass" — where the mind instead "operates by association." Ted Nelson put the same objection in capitals in 1974: "EVERYTHING IS DEEPLY INTERTWINGLED. In an important sense there are no 'subjects' at all." Both were describing a graph and refusing the tree. This chapter keeps both — the association is what `State` is; the tree is only what a document must become to cross the wire and be read.
+
+</div>
+
 Every web framework in history is a strategy for this one crossing. That is a thesis, not a theorem — like the Transposition Thesis, flagged where it stands and left unnumbered; Part IV returns to it. But the crossing is not yet well-defined: serialization is a *relation*, not a function — one graph, many trees (orderings, nestings, groupings). The fix is canonicalization:
 
 ```
@@ -619,6 +639,13 @@ Whatever you believed about the semantic web when you opened this book — too a
 ---
 
 ## Chapter 9. The Mismatches
+
+<div class="fp-epigraph">
+
+*RDF is painfully simplistic, but it allows you to work with real-world data and problems that are horribly complicated.*
+
+— Dan Brickley and Libby Miller, foreword to *Validating RDF Data*
+</div>
 
 Chapter 8 put both halves of the argument into theorem form: every application has the derived form, and the deployed standards fill it. That invites suspicion — a derivation that lands exactly on a deployed stack looks retrofitted until its mismatches are on the table. This chapter puts them there. The isomorphism is not exact. There are two mismatches between the model Part II forced and the standard Part III named, and two more between the standard and the platform that ships it. Each is located, measured, and — twice — turned into a prediction. Part IV applies the same standard to everyone else's models.
 
@@ -1107,6 +1134,12 @@ sequenceDiagram
 
 The document web bootstrapped exactly this way. The first server and the first browser came from the same hands and interoperated with each other before there was anyone else to interoperate with — and that browser was an editor: the write side present at the origin, then lost for a generation. The pattern, one level down: a server+client pair whose self-interoperability is the first running instance of a protocol anyone may join.
 
+<div class="fp-history">
+
+**The first instance, dated.** This is not an analogy; it happened. In 1990 the first web server (`info.cern.ch`) and the first browser ran on two NeXT machines at CERN and interoperated with each other before there was a third program in the world to interoperate with. That browser — WorldWideWeb, soon renamed Nexus so the web could keep the name — was also an editor: reading and writing went through one program. The write side was there on day one, then lost for a generation as the read-only browser became the thing everyone shipped. The federation test above is that first day made a permanent requirement.
+
+</div>
+
 ### The existence proof
 
 This chapter is where the book's existence proof enters as evidence. The architecture has a reference implementation — **[LinkedDataHub](https://atomgraph.github.io/LinkedDataHub/)**, open source, in production for years, federating the way the section above requires: instance to instance, its client half consuming what its server half serves — and the online edition of this book is being built on it, keeping the promise the preface made. Disclosure, once for the chapter: the implementation and the RDF/POST spec are the author's. The point of an existence proof one can install is that belief is optional.
@@ -1161,6 +1194,12 @@ Improper architecture is locally cheap and globally expensive: fusing is always 
 <img src="first-principles-figures/spot-ch20-the-gallery.svg" alt="A robot leans over a velvet rope, magnifying glass raised, to study a framed picture of a document hanging in a gallery" class="fp-spot" width="420" />
 
 The arithmetic of that compensating industry is the integration industry's arithmetic at a new scale. `N` agents meeting `M` applications through bespoke adapters need on the order of `N × M` integrations. The moment state shares one model and one query semantics, the count collapses to `N + M` — each side implements the common substrate once. Every generation of middleware has re-learned this sum. The agent era re-learns it with `N` growing by the month: the per-application protocol server, the emerging convention as of this writing, is the `N × M` answer shipped in real time; the derived stack is the `N + M` answer, shipped since 1999.
+
+<div class="fp-history">
+
+**The vision, dated 2001.** The scenario this chapter derives was written as fiction twenty-five years ago. The May 2001 *Scientific American* article "The Semantic Web," by Tim Berners-Lee, James Hendler, and Ora Lassila, opens with Lucy's agent negotiating a course of medical appointments over machine-readable data on her behalf — an agent reading the web, not scraping its pixels. It read as science fiction because the agents did not exist. They exist now. Chapter 8 said the substrate was built for machine consumption and the machines were twenty years out; this is the same clock, run down. What was missing was never the stack — it was the reader, and the reader has arrived.
+
+</div>
 
 Underneath runs the grounding problem. Statistical models interpolate, and interpolation hallucinates; what agents need beneath them is a substrate whose answers are computed rather than guessed — fact-sets with a formal query semantics are that substrate, and Part III named the deployed one. The hybrid has a specific shape. The model interprets the long tail — the rare, one-off cases. What proves valuable there gets promoted into a governed core — the fact-set substrate — so integration becomes something you accumulate rather than redo: every promoted fact composes by union, and stays.
 
@@ -1429,6 +1468,10 @@ Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, 
 - [*Cool URIs for the Semantic Web*](https://www.w3.org/TR/cooluris/), W3C Interest Group Note, 2008 — the deployed encodings (fragment, `303`) of that distinction.
 - Pappus of Alexandria, *Collection*, Book VII — the classical statement of the twin method of analysis and synthesis; Chapter 2's name for the book's shape.
 - I. Newton, *Opticks*, Query 31 — "the Investigation of difficult Things by the Method of Analysis ought ever to precede the Method of Composition"; Chapter 2.
+- T. Berners-Lee, *Information Management: A Proposal* (CERN, 1989) — the origin memo, and Mike Sendall's cover note "vague but exciting"; Chapter 1's epigraph, and the browser-editor bootstrap of Chapter 18.
+- V. Bush, *As We May Think* (The Atlantic, 1945); T. Nelson, *Computer Lib / Dream Machines* (1974) — association over hierarchy, the graph refusing the tree, stated before the web; Chapter 6.
+- T. Berners-Lee, J. Hendler, O. Lassila, *The Semantic Web* (Scientific American, May 2001) — the agent-over-machine-readable-data scenario Chapter 20 derives; written as fiction, now falsifiable.
+- J. E. Labra Gayo, E. Prud'hommeaux, I. Boneva, D. Kontokostas, *Validating RDF Data* (2017), foreword by D. Brickley and L. Miller — Chapter 9's epigraph.
 
 *Candidates — specified, not standardized; Part V's seams:*
 
