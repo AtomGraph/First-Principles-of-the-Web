@@ -1290,9 +1290,17 @@ The wish is old — HyperCard let people reshape a running application in place 
 
 </div>
 
+### One state, many faces
+
+Presentation is its own factor (S1), independent of the facts beneath it, so one body of state renders as many surfaces without the publisher building any of them. The reader who needs large type or high contrast, a screen reader's linear order, another language, a watch-sized screen — each takes the same facts through a different `present` term and receives a document fit for them, none of it a separate site someone maintained. Accessibility stops being a retrofit and personalization stops being surveillance: the state is shared, the rendering is the reader's, and the two were never required to be the same choice. The document web bolted this on — parallel mobile sites, accessibility overlays — precisely because content and presentation were fused; unfuse them and the many faces are free. It was shown once at the presentation layer alone: CSS Zen Garden (2003) dressed a single unchanged HTML document in hundreds of unrecognizably different designs — this independence, demonstrated one factor short of the whole.
+
 ### Reading, not scraping
 
-The agent reads rather than scrapes. It asks, and receives facts, where its predecessors parsed rendered pixels and reverse-engineered private interfaces — the compensating industry Chapter 21 measured, no longer needed. Its answers are computed, not guessed: the substrate returns what is actually held, and each fact arrives with the source that asserted it, so a claim and its provenance travel together, and a fabricated one has nowhere to sit. The move is not new: it is what the 2001 Semantic Web scenario (Chapter 21) assumed all along — an agent that asks for facts and receives them, not one that parses a page pretending to be one.
+The agent reads rather than scrapes. It asks, and receives facts, where its predecessors parsed rendered pixels and reverse-engineered private interfaces — the compensating industry Chapter 21 measured, no longer needed. Its answers are computed, not guessed: the substrate returns what is actually held, not what a model interpolated. The move is not new: it is what the 2001 Semantic Web scenario (Chapter 21) assumed all along — an agent that asks for facts and receives them, not one that parses a page pretending to be one.
+
+### A claim carries its source
+
+Every fact travels with the party that asserted it — the fourth position (Prop. 9.2), the graph's own name, standardized as attribution — so a claim and its provenance are one object and cannot be split in transit: to repeat a fact is to carry who said it, and to doubt one is to have an origin to interrogate. On a web of rendered pixels a fabrication wears the same clothes as a record; on a web of attributed facts it has nowhere to sit, because *who says so?* is answered in the data rather than reconstructed after it. This does not make claims true — attribution is not verification — but it makes them accountable: every assertion names a source that can be queried, corroborated, or impeached, and an agent merging two graphs sees not a blur of prose but exactly which origin contributed which fact. The capability was drawn and then skipped: the Semantic Web stack always sketched *proof* and *trust* as its top layers, and the deployed web built the fact-sets and left those layers for later. Later is when the machines start reading.
 
 ### State stops being scattered
 
@@ -1305,6 +1313,10 @@ What lives today across a dozen unspeaking silos composes, under one model and o
 <iframe src="https://www.youtube.com/embed/xOch5o3MhUg" style="width: 100%; aspect-ratio: 16 / 9; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="David Siegel — Personal Data Locker Vision"></iframe>
 
 </div>
+
+### Data outlives the application
+
+State lives under its owner's origin, not inside the application that happens to render it, so it outlives that application. The service shuts down, the vendor is acquired, the format falls from fashion, the framework is rewritten — and the facts remain where they were, under a name that still resolves, readable by whatever reads next. What dies on the fused web is not only the app but everything entrusted to it: the account closes and its history goes with it, the link rots and the record is gone. Here the code is the mortal part and the data the durable one — the inversion Chapter 19 drew for the enterprise, holding now for a person's life and a civilization's record alike. The principle is old and was mostly honored in the breach: Berners-Lee's *Cool URIs don't change* (1998) asked exactly this of the web and the web mostly declined; a name that resolves to its owner's own current answer is that discipline made structural rather than merely requested.
 
 ### Stating a need
 
@@ -1333,6 +1345,10 @@ A change is a delta — two fact-sets, a thing that can be read before it applie
 ### Memory that outlives the agent
 
 What an agent learns about the party it serves is not the agent's to keep. On the closed web that memory sits sealed in the assistant's own machinery, lost the day it is replaced; here it is state under the served party's origin — plain facts, readable and correctable — so one agent gives way to a better one with nothing forgotten, and the record of what was drawn on and what was produced stays queryable. The question no closed system answers — *why was this done?* — is settled by reading, not by asking the machine to remember. And it reaches the words themselves: the conversation that produced a fact is state like any other — each turn a document, each fact carrying the utterance that triggered it — so the record traces past what was done to the sentence that caused it, portable across whatever model reads it next and narrowed, like every fact, to those permitted to see it. Memory that belongs to the person rather than the tool is the oldest wish in this book's lineage — Vannevar Bush's Memex (Chapter 6) was one form of it; what it lacked, and owner-held state supplies, is a substrate that can actually hold it.
+
+### Applications nobody planned
+
+Because states merge by union without a coordinator (R2) and any stylesheet can be pointed at the result (S3), applications arise from combinations no one arranged. Two dataspaces that never coordinated compose the moment their names meet, and a third party who owns neither can render the join as something new — a view, a tool, an application their authors never imagined and did not have to permit. Value stops requiring a party who planned it: it accrues wherever facts that were apart can be read together. The document web tried this once and lost it — the mashups of the mid-2000s stitched maps and listings and feeds into applications nobody's vendor had shipped, until the APIs metered, siloed, and revoked, and the combinations died at the platforms' discretion. Union revokes nothing: the joins hold because no one owns the seam across them, and the mashup that was a fad becomes the ordinary case.
 
 ### Compounding without a landlord
 
@@ -1577,6 +1593,10 @@ Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, 
 - D. Siegel, *Pull: The Power of the Semantic Web to Transform Your Business* (Portfolio, 2009) — the *personal data locker* (a life held as one owner-controlled graph) and *intentcasting* (structured demand published to a market); Chapter 22's personal dataspace, reached from the demand side. Video: [*Personal Data Locker Vision*](https://www.youtube.com/watch?v=xOch5o3MhUg).
 - D. Searls, *The Intention Economy: When Customers Take Charge* (Harvard Business Review Press, 2012; the term *intention economy* coined 2006) — customers broadcasting qualified intent for vendors to answer (*intentcasting*); Chapter 22's stating-a-need capability, from the demand side. Talk: [*The Intention Economy* book talk, 2012](https://www.youtube.com/watch?v=nVP3qF_HVkA).
 - Apple, *HyperCard* (1987) — a running application reshaped in place, its stacks editable documents, with no rebuild and no redeploy; Chapter 22's live-morphability lineage, wanting only a cross-party substrate.
+- D. Shea, [*CSS Zen Garden*](https://www.csszengarden.com/) (2003) — one unchanged HTML document redressed by hundreds of stylesheets; Chapter 22's presentation independence (S1), demonstrated at the presentation layer alone.
+- The Semantic Web stack (the "layer cake"), W3C, early 2000s — *proof* and *trust* sketched as its top layers and left unbuilt; Chapter 22's provenance capability (R4), the layer the deployed web skipped.
+- T. Berners-Lee, [*Cool URIs don't change*](https://www.w3.org/Provider/Style/URI) (W3C, 1998) — persistence of names asked of the web and mostly declined; Chapter 22's data-outlives-the-application (R3).
+- The mashup era — P. Rademacher's *HousingMaps* (Google Maps × Craigslist, 2005) and *ProgrammableWeb* (2005) — combination without permission, until the APIs metered and re-siloed; Chapter 22's applications-nobody-planned (R2/S3).
 
 *Candidates — specified, not standardized; Part V's seams:*
 
