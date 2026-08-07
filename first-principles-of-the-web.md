@@ -36,6 +36,13 @@ If the derivation holds, the next web needs no inventing; it waits to be occupie
 
 ## Chapter 1. What the Web Is
 
+<div class="fp-epigraph">
+
+*Vague but exciting…*
+
+— Mike Sendall, on Tim Berners-Lee's 1989 proposal
+</div>
+
 Nothing in this chapter is mine. That is the point of it.
 
 The web ships with its own definitions, and they are shorter than you probably expect. There are identifiers:
@@ -207,6 +214,13 @@ Two examples prove nothing about all websites; the strips are illustration. The 
 ---
 
 ## Chapter 4. The Factorization
+
+<div class="fp-epigraph">
+
+*REST is defined by four interface constraints: identification of resources; manipulation of resources through representations; self-descriptive messages; and, hypermedia as the engine of application state.*
+
+— Roy T. Fielding, dissertation §5.1.5, 2000
+</div>
 
 Chapter 3 stripped two pages by hand and called the result illustration; this chapter proves the universal claim. The strips become the factors of a typed pipeline; a definition — properness — separates real factorizations from trivial ones; and the analysis theorem guarantees that every `read` admits a proper one. The chapter closes with the method's debt to Roy Fielding — author of the REST dissertation — and with the four timelines a proper factorization gives the document.
 
@@ -426,6 +440,12 @@ returns one row — `?turbine = turbine-3`, `?panel = panel-14`, `?name = "Curre
 
 Look at the pipeline's types: `State` and `Data` are *graphs* — facts whose references form arbitrary many-to-many webs. `Tree` and `Doc` are *trees* — documents are hierarchical, and so is human reading. The pipeline crosses from graph to tree exactly once, inside `arrange`.
 
+<div class="fp-history">
+
+**In the world.** The tension this chapter resolves is older than the web. In 1945 Vannevar Bush blamed our trouble finding anything on "the artificiality of systems of indexing" — records "filed alphabetically or numerically," found "by tracing it down from subclass to subclass" — where the mind instead "operates by association." Ted Nelson put the same objection in capitals in 1974: "EVERYTHING IS DEEPLY INTERTWINGLED. In an important sense there are no 'subjects' at all." Both were describing a graph and refusing the tree. This chapter keeps both — the association is what `State` is; the tree is only what a document must become to cross the wire and be read.
+
+</div>
+
 Every web framework in history is a strategy for this one crossing. That is a thesis, not a theorem — like the Transposition Thesis, flagged where it stands and left unnumbered; Part IV returns to it. But the crossing is not yet well-defined: serialization is a *relation*, not a function — one graph, many trees (orderings, nestings, groupings). The fix is canonicalization:
 
 ```
@@ -619,6 +639,13 @@ Whatever you believed about the semantic web when you opened this book — too a
 ---
 
 ## Chapter 9. The Mismatches
+
+<div class="fp-epigraph">
+
+*RDF is painfully simplistic, but it allows you to work with real-world data and problems that are horribly complicated.*
+
+— Dan Brickley and Libby Miller, foreword to *Validating RDF Data*
+</div>
 
 Chapter 8 put both halves of the argument into theorem form: every application has the derived form, and the deployed standards fill it. That invites suspicion — a derivation that lands exactly on a deployed stack looks retrofitted until its mismatches are on the table. This chapter puts them there. The isomorphism is not exact. There are two mismatches between the model Part II forced and the standard Part III named, and two more between the standard and the platform that ships it. Each is located, measured, and — twice — turned into a prediction. Part IV applies the same standard to everyone else's models.
 
@@ -1107,6 +1134,12 @@ sequenceDiagram
 
 The document web bootstrapped exactly this way. The first server and the first browser came from the same hands and interoperated with each other before there was anyone else to interoperate with — and that browser was an editor: the write side present at the origin, then lost for a generation. The pattern, one level down: a server+client pair whose self-interoperability is the first running instance of a protocol anyone may join.
 
+<div class="fp-history">
+
+**The first instance, dated.** This is not an analogy; it happened. In 1990 the first web server (`info.cern.ch`) and the first browser ran on two NeXT machines at CERN and interoperated with each other before there was a third program in the world to interoperate with. That browser — WorldWideWeb, soon renamed Nexus so the web could keep the name — was also an editor: reading and writing went through one program. The write side was there on day one, then lost for a generation as the read-only browser became the thing everyone shipped. The federation test above is that first day made a permanent requirement.
+
+</div>
+
 ### The existence proof
 
 This chapter is where the book's existence proof enters as evidence. The architecture has a reference implementation — **[LinkedDataHub](https://atomgraph.github.io/LinkedDataHub/)**, open source, in production for years, federating the way the section above requires: instance to instance, its client half consuming what its server half serves — and the online edition of this book is being built on it, keeping the promise the preface made. Disclosure, once for the chapter: the implementation and the RDF/POST spec are the author's. The point of an existence proof one can install is that belief is optional.
@@ -1146,6 +1179,12 @@ The economics follow. A codebase is a liability, not an asset — behavior held 
 
 The reference implementation ships exactly this: applications as importable datasets, administered by an application defined in the same terms it administers. Chapter 18's exhibit rebuilds a newspaper and a dashboard on one machine; this chapter's claim is that the rebuild generalizes — the two reconstructions are datasets for the same generic engine, and the book's online edition, the promise still outstanding, is a third.
 
+<div class="fp-history">
+
+**In the world.** Enterprise architecture reached this chapter's conclusion from the cost side, without deriving it. Dave McComb's *Software Wasteland* (2018) is a book-length audit of the application-centric mindset — every enterprise rebuilding the same CRUD over its own bespoke model — and its sequel *The Data-Centric Revolution* (2019) prescribes the [data-centric](https://www.semanticarts.com/data-centric/) cure this chapter derives: make the data the fixed point and let one generic substrate be specialized by an evolving model, not by code. Those books argue it from decades of enterprise waste; Proposition 19.1 states the same result as a corollary.
+
+</div>
+
 ### Computation on the write side
 
 One objection lands here with real force, and it deserves the treatment latency got in Chapter 7: *real domains compute.* A payroll run turns timesheets into pay; an allocation turns orders into reservations; an invoice's total is nobody's keystroke. If the engine houses no domain code, who computes? Definition 1.1 answered before the question arose: it types what the application *is* — `read` and `write` — and says nothing about who calls it. Chapter 7's caller was a human holding a form; a computation is another caller — an agent that reads, computes, and submits its conclusion through the same `write`, in the same normal form, reviewable and invertible like every delta (Chapter 20 turns exactly that reviewability into the governance story). The derivation step even has a declarative carrier on the shelf. Take Prop. 7.3's change direction — pattern plus bindings yields a delta — and draw the bindings from the state instead of a form: that is a rule, *assert what follows from what holds*. The deployed stack already ships it as an update term whose delta is computed by its own query. One algebra, both directions, no human in the loop. What lacks a recommendation is *when* such a term runs — schedule, trigger, threshold: the orchestration seam, open like identity and access in Chapter 18, and like them awaiting convention rather than invention. So the domain's logic divides cleanly. Validation is a predicate on deltas (Chapter 7 drew that line). Derivation is an update term over the ontology. And whatever imperative computation remains — the solver, the optimizer, Chapter 12's leaf — runs behind a caller, submitting deltas like everyone else: outside the engine, never inside it.
@@ -1162,11 +1201,19 @@ Improper architecture is locally cheap and globally expensive: fusing is always 
 
 The arithmetic of that compensating industry is the integration industry's arithmetic at a new scale. `N` agents meeting `M` applications through bespoke adapters need on the order of `N × M` integrations. The moment state shares one model and one query semantics, the count collapses to `N + M` — each side implements the common substrate once. Every generation of middleware has re-learned this sum. The agent era re-learns it with `N` growing by the month: the per-application protocol server, the emerging convention as of this writing, is the `N × M` answer shipped in real time; the derived stack is the `N + M` answer, shipped since 1999.
 
+There is an exit built into this arithmetic. An adapter that translates one application into the common model is written once, for everyone — not once per consumer, forever. And it is that rare piece of glue code that retires with honor: the day the application starts serving its own state, the wrapper's answers and the application's answers are the same answers, and nothing downstream notices the handoff. In the meantime it offers a choice the silo never did. You can leave your mail where it is and ask your questions through the wrapper, as if the silo were already part of your world — or you can draw the answers out and keep them, so they go on existing after the account that produced them closes. The same industry that builds compensating machinery around every silo could point that machinery inward, once per silo, and become the bridge.
+
+<div class="fp-history">
+
+**The vision, dated 2001.** The scenario this chapter derives was written as fiction twenty-five years ago. The May 2001 *Scientific American* article "The Semantic Web," by Tim Berners-Lee, James Hendler, and Ora Lassila, opens with Lucy's agent negotiating a course of medical appointments over machine-readable data on her behalf — an agent reading the web, not scraping its pixels. It read as science fiction because the agents did not exist. They exist now. Chapter 8 said the substrate was built for machine consumption and the machines were twenty years out; this is the same clock, run down. What was missing was never the stack — it was the reader, and the reader has arrived.
+
+</div>
+
 Underneath runs the grounding problem. Statistical models interpolate, and interpolation hallucinates; what agents need beneath them is a substrate whose answers are computed rather than guessed — fact-sets with a formal query semantics are that substrate, and Part III named the deployed one. The hybrid has a specific shape. The model interprets the long tail — the rare, one-off cases. What proves valuable there gets promoted into a governed core — the fact-set substrate — so integration becomes something you accumulate rather than redo: every promoted fact composes by union, and stays.
 
 "Machine-consumable" unpacks to nothing new: state with a universal model (R1), a coordination-free merge (R2), global reference (R3), and addressable intermediates (S4). An agent is a user agent. The requirement was sitting in Definition 1.1's type signature all along.
 
-And reading is half of Definition 1.1; the write side serves agents twice over. An agent's change arrives as Chapter 7's delta — two fact-sets, `(D⁻, D⁺)` — which is a *reviewable object*: a human can inspect it before it applies, an audit log can store it verbatim, an operator can invert it by swapping the sets. Compare the alternative on offer: an opaque API call whose effect is whatever the endpoint's code decided, reversible by nothing. Agent autonomy is a governance problem exactly as far as agent actions are opaque, and the delta normal form makes the action a document. Chapter 7 derived it for humans holding forms; it turns out to have been waiting for machines.
+And reading is half of Definition 1.1; the write side serves agents twice over. An agent's change arrives as Chapter 7's delta — two fact-sets, `(D⁻, D⁺)` — which is a *reviewable object*: a human can inspect it before it applies, an audit log can store it verbatim, an operator can invert it by swapping the sets. Compare the alternative on offer: an opaque API call whose effect is whatever the endpoint's code decided, reversible by nothing. Agent autonomy is a governance problem exactly as far as agent actions are opaque, and the delta normal form makes the action a document. And what holds for one change holds for a whole plan of them: an agent's entire intended course — what it will ask, what it will change, what it will do if the first answer disappoints — can be written down as one document and read before any of it runs. You don't audit the agent by trusting its diary. You read the plan. Chapter 7 derived it for humans holding forms; it turns out to have been waiting for machines.
 
 The question that ends the chapter, put to any agent directly: *is it more efficient for you to write a custom system for every domain, or to reuse one generic system and define the domain as data?* The answer is not in doubt. What stands between agents and the second option is the set of human mental models Part IV audited — pre-web paradigms, defended now by habit rather than argument. The web that agents need is the web this book derived — necessarily: both derive from the same requirement, machine-consumable, mergeable, globally referenced state.
 
@@ -1182,7 +1229,7 @@ What it gives the end user, because the end user was always the point. Navigate 
 
 One cost remains, and it needs stating only once. The web can be advanced or it can be lowest-common-denominator friendly, and the book has proven the two goals pull in different directions: Part II derived what advancing requires, Part IV priced what refusing it costs, and Chapter 16 is the ledger between them. Choosing is the reader's business; pricing was the book's.
 
-None of it asks the existing web to stop. Union is additive by definition: a dataspace federates beside what already runs, the governed core grows by promotion (Chapter 20), and every application that stays fused simply keeps carrying the costs Part IV measured. No migration event, no flag day — union does not have one. What the architecture requires is only that the next thing built be built one level down.
+None of this asks the existing web to stop — or even to notice. A silo doesn't have to migrate to be included: wrapped (Chapter 20), it enters a federation as a view of itself, before its vendor has agreed to anything. So the transition has no event. Nobody joins a platform, because there is no platform. What forms instead is a condensation — a cloud of small, private dataspaces, each one detachable from the services it summarizes, from the software that serves it, from the machine it happens to sit on — gathering around the silos until, quietly, the silos become the copy. Union is additive: a dataspace federates beside whatever already runs, and everything that stays fused simply keeps paying the bill Part IV added up. No migration day, no flag day. The architecture asks only that the next thing built be built one level down.
 
 And because the audit cuts both ways, the register of the book's own open, falsifiable claims — dated, each with what would break it:
 
@@ -1197,9 +1244,21 @@ Retrodictions — quads, the JS convergence — are marked as such where they oc
 
 Closing recursion. The canonical edition of this book — under construction, as the preface discloses — is a dataspace on Chapter 18's machine: propositions as resources, dependencies as typed links, figures as live queries, this table as the home page. When you read it there, the final step of the argument will be an act rather than a sentence: QED, dereferenced.
 
-And if you put the book down short of that edition, what it leaves behind is a handful of lenses you will find yourself using unbidden. You will strip pages on sight — style, arrangement, selection peeling away from any screen, the skeleton showing through. You will sort announcements with one question — *which property moved?* — and recognize lateral churn before the keynote ends. You will find the crossing in every framework you evaluate: somewhere inside it a graph becomes a tree, and the framework is its strategy for that moment. You will watch a deploy invalidate a cache and know which of the four timelines moved — and which three the fusion invalidated with it. And when you meet a scraping harness, an adapter layer, a reconciliation engine, you will read it as compensating machinery: some property, somewhere upstream, gone unadopted.
+And if you put the book down here, short of that edition, it still leaves something behind: a set of habits you didn't ask for. You'll catch yourself undressing web pages on sight — the styling falling away, then the layout, then the choice of what to show, until the skeleton of facts stands there in the open. You'll sit through product keynotes sorting every announcement with one uncharitable question — *which property actually moved?* — and mostly none will have, and you'll recognize the churn for what it is. Every framework you evaluate will confess, somewhere inside, the moment its graph becomes a tree, and you'll know the framework is its strategy for that moment. And every scraping harness, adapter layer, and reconciliation engine you meet will read as what it is: machinery built to compensate for a property someone upstream declined to adopt.
 
-Beneath the lenses, the sentence: strip any page and the same skeleton appears; three requirements the web already meets force what it must be made of; and what they force was standardized before the question was fashionable. The next web needs no inventing; it waits to be occupied.
+Those are the lenses, and they read the web that is. Turned forward, they resolve into mornings.
+
+Picture a morning, a few years out. You wake and you do not sift. Overnight, something read your mail, your calendar, the documents you touched yesterday — read them the way you would have, except it didn't log into six places, because there are no longer six places; there is one body of facts about your life, kept where you decided to keep it. What's waiting isn't a pile. It's a short list of decisions: a draft to approve, a garage appointment to pick, a flagged collision between the doctor and the school run. Each item shows its work — what it read, what it concluded, what it wants to change — and each can be undone, because here a change is a thing you can hold and reverse, not something that happened somewhere in someone's code. You start the day deciding instead of gathering.
+
+Return to Lucy — the sister from the 2001 article, the one whose agent books her mother's physical therapy. The scenario had the agent check the mother's insurance, find a well-rated clinic within twenty miles of her home, and negotiate around two siblings' calendars, and it was so vivid that people spent the next twenty-five years citing it — usually with a smirk, because the appointment never got booked. The smirk misreads the failure. Nothing in that story requires a clever machine. It requires that an address, an insurance plan, a clinic's hours, and a Tuesday afternoon be able to sit in the same sentence — and each of them was locked in a different company's basement. The reasoning was never the hard part. Lucy's agent was waiting for the data to be allowed in the same room. On the web this book derived, the room exists, and the errand that defined a research field shrinks to what it always was: a lookup, a subtraction, and a booking.
+
+Your mother's medication list, meanwhile, is hers. She let your agent read it — not by mailing you a password, but by saying so, once, in a sentence her data remembers. When a refill window opens and no appointment exists, your morning list mentions it. If she changes her mind, she unsays it, and the door closes. Nobody at a platform decided this was a feature worth building, because there is no platform: there is her, a fact she stated, and a boundary that holds because boundaries are facts too. The same goes for the smaller questions that used to live in a shoebox or a spreadsheet named `final_v2.xlsx` — which warranties still run, what renews next month, what you and your partner decided in March and on whose word. Your own life becomes something you can ask.
+
+Somewhere in that decade you will fire an assistant — swap one for a better one, the way you've swapped browsers. It will cost you nothing. Everything the old one learned about you — the aisle seat, the sacred Tuesday mornings, which client matters and which only seems to — was never the assistant's property. It was yours, written where you live, and the new one reads it on its first morning and behaves like it has known you for years. Ask either of them *why did you do that* and you get an answer you can check — here is what I read, here is what I changed — instead of an apology and a shrug. When it corrects itself, the old belief isn't papered over; your data remembers what it used to think, and who talked it out of it.
+
+And it scales the way the first web scaled. You keep no copy of a friend's address, to go stale the day she moves; you keep her name, and asking after her returns whatever she currently says about herself, because she is the authority on her own life. Every person who sets up a small corner of this — private where they want, shared where they choose — makes the whole thing more worth joining: the same compounding that once turned a physicist's filing system into the world's front page. Except this time there is no company in the middle collecting rent on the introductions.
+
+Beneath the lenses and the mornings, the sentence this book has been writing since its first page: strip any page and the same skeleton appears; three requirements the web already meets force what it must be made of; and what they force was standardized before the question was fashionable. The next web needs no inventing. It waits to be occupied — and occupation looks like a Tuesday morning.
 
 ---
 
@@ -1429,6 +1488,11 @@ Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, 
 - [*Cool URIs for the Semantic Web*](https://www.w3.org/TR/cooluris/), W3C Interest Group Note, 2008 — the deployed encodings (fragment, `303`) of that distinction.
 - Pappus of Alexandria, *Collection*, Book VII — the classical statement of the twin method of analysis and synthesis; Chapter 2's name for the book's shape.
 - I. Newton, *Opticks*, Query 31 — "the Investigation of difficult Things by the Method of Analysis ought ever to precede the Method of Composition"; Chapter 2.
+- T. Berners-Lee, *Information Management: A Proposal* (CERN, 1989) — the origin memo, and Mike Sendall's cover note "vague but exciting"; Chapter 1's epigraph, and the browser-editor bootstrap of Chapter 18.
+- V. Bush, *As We May Think* (The Atlantic, 1945); T. Nelson, *Computer Lib / Dream Machines* (1974) — association over hierarchy, the graph refusing the tree, stated before the web; Chapter 6.
+- T. Berners-Lee, J. Hendler, O. Lassila, *The Semantic Web* (Scientific American, May 2001) — the agent-over-machine-readable-data scenario Chapter 20 derives and Chapter 21 retells; written as fiction, now falsifiable.
+- J. E. Labra Gayo, E. Prud'hommeaux, I. Boneva, D. Kontokostas, *Validating RDF Data* (2017), foreword by D. Brickley and L. Miller — Chapter 9's epigraph.
+- D. McComb, *Software Wasteland* (Technics, 2018) and *The Data-Centric Revolution* (Technics, 2019) — the [data-centric](https://www.semanticarts.com/data-centric/) case (Semantic Arts) for data over application code; Chapter 19's corollary reached from enterprise waste rather than derivation.
 
 *Candidates — specified, not standardized; Part V's seams:*
 

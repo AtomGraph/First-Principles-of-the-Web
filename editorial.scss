@@ -103,6 +103,29 @@ main.content blockquote.blockquote {
   padding: 0.1rem 1.5rem 0.1rem 1.1rem; margin: 1.6rem 0;
 }
 
+// Chapter epigraphs — an attributed witness quote under the title.
+// Distinct from proposition blockquotes: no left rule, italic, source set right.
+main.content .fp-epigraph {
+  max-width: 32rem; margin: 0 0 2.6rem auto;
+  font-style: italic; color: #5a6270; line-height: 1.5;
+}
+main.content .fp-epigraph p { margin-bottom: 0.4rem; }
+main.content .fp-epigraph p:last-child {          // the attribution line
+  font-style: normal; text-align: right;
+  font-variant: small-caps; letter-spacing: 0.04em;
+  font-size: 0.85em; color: #5a6270;
+}
+
+// Historical asides — witnesses in the book's sense: color, never premise.
+// A tinted panel, visibly outside the derivation. Opens with a bold house-style
+// lead-in (e.g. **In the world.**) so it announces itself in plain Markdown too.
+main.content .fp-history {
+  background: #f7f4ec; border: 1px solid #e7e2d8; border-radius: 3px;
+  padding: 1.1rem 1.4rem; margin: 1.8rem 0; font-size: 0.96em;
+}
+main.content .fp-history > :first-child { margin-top: 0; }
+main.content .fp-history > :last-child  { margin-bottom: 0; }
+
 // Code blocks (numbered equations are plain fences) — modest mono
 main.content pre:not(.fp-out) { font-size: 0.75em; line-height: 1.55; }
 
