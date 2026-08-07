@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="66 112 616 288" role="img">
+  <title>N×M bespoke adapters collapse to N+M through one shared substrate</title>
+  <defs>
+    <marker id="c21-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#5a6270"/>
+    </marker>
+  </defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- LEFT: the tangle, one adapter per pair -->
+    <g stroke="#5a6270" stroke-width="1.5">
+      <path d="M92 150 L235 166"/><path d="M92 150 L235 244"/><path d="M92 150 L235 322"/>
+      <path d="M92 206 L235 166"/><path d="M92 206 L235 244"/><path d="M92 206 L235 322"/>
+      <path d="M92 262 L235 166"/><path d="M92 262 L235 244"/><path d="M92 262 L235 322"/>
+      <path d="M92 318 L235 166"/><path d="M92 318 L235 244"/><path d="M92 318 L235 322"/>
+    </g>
+    <!-- LEFT agents -->
+    <g stroke="#1b1e22" stroke-width="2" fill="#ffffff">
+      <circle cx="92" cy="150" r="11"/><circle cx="92" cy="206" r="11"/>
+      <circle cx="92" cy="262" r="11"/><circle cx="92" cy="318" r="11"/>
+    </g>
+    <!-- LEFT applications -->
+    <g stroke="#1b1e22" stroke-width="2" fill="#ffffff">
+      <path d="M235 196 L235 142 A15 10 0 0 1 265 142 L265 196 Z"/>
+      <path d="M235 274 L235 220 A15 10 0 0 1 265 220 L265 274 Z"/>
+      <path d="M235 352 L235 298 A15 10 0 0 1 265 298 L265 352 Z"/>
+    </g>
+    <!-- the collapse -->
+    <path d="M338 236 L406 236" stroke="#5a6270" stroke-width="2" marker-end="url(#c21-ah)"/>
+    <!-- RIGHT: each side wires the substrate once -->
+    <g stroke="#1b1e22" stroke-width="1.8">
+      <path d="M452 150 L548 236"/><path d="M452 206 L548 236"/>
+      <path d="M452 262 L548 236"/><path d="M452 318 L548 236"/>
+      <path d="M633 166 L548 236"/><path d="M633 244 L548 236"/><path d="M633 322 L548 236"/>
+    </g>
+    <!-- the shared substrate -->
+    <path d="M548 210 L574 236 L548 262 L522 236 Z" fill="#e3eef7" stroke="#005a9c" stroke-width="2.6"/>
+    <circle cx="548" cy="236" r="4" fill="#005a9c" stroke="none"/>
+    <!-- RIGHT agents -->
+    <g stroke="#1b1e22" stroke-width="2" fill="#ffffff">
+      <circle cx="452" cy="150" r="11"/><circle cx="452" cy="206" r="11"/>
+      <circle cx="452" cy="262" r="11"/><circle cx="452" cy="318" r="11"/>
+    </g>
+    <!-- RIGHT applications -->
+    <g stroke="#1b1e22" stroke-width="2" fill="#ffffff">
+      <path d="M633 196 L633 142 A15 10 0 0 1 663 142 L663 196 Z"/>
+      <path d="M633 274 L633 220 A15 10 0 0 1 663 220 L663 274 Z"/>
+      <path d="M633 352 L633 298 A15 10 0 0 1 663 298 L663 352 Z"/>
+    </g>
+    <!-- labels -->
+    <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" text-anchor="middle" stroke="none">
+      <g font-size="14" fill="#5a6270">
+        <text x="92" y="126">N</text><text x="250" y="126">M</text>
+        <text x="452" y="126">N</text><text x="648" y="126">M</text>
+      </g>
+      <text x="163" y="384" font-size="20" fill="#5a6270">N × M</text>
+      <text x="548" y="384" font-size="20" fill="#005a9c">N + M</text>
+    </g>
+  </g>
+</svg>

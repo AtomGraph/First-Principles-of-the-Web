@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="90 84 540 384" role="img">
+  <title>The synthesis converges to one derived core, then reopens into an occupied web</title>
+  <defs>
+    <g id="p6-tri" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-26 12 L0 -14 L26 12"/>
+      <circle cx="-26" cy="12" r="8.5" fill="#e3eef7"/>
+      <circle cx="0" cy="-14" r="8.5" fill="#e3eef7"/>
+      <circle cx="26" cy="12" r="8.5" fill="#e3eef7"/>
+    </g>
+  </defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- union edges: composed down to the core -->
+    <g stroke="#5a6270" stroke-width="1.6">
+      <path d="M270 364 L270 398"/>
+      <path d="M360 364 L360 398"/>
+      <path d="M450 364 L450 398"/>
+      <path d="M270 352 L315 282"/>
+      <path d="M360 352 L315 282"/>
+      <path d="M360 352 L405 282"/>
+      <path d="M450 352 L405 282"/>
+      <path d="M315 282 L360 212"/>
+      <path d="M405 282 L360 212"/>
+    </g>
+    <!-- the core reopening outward, occupied -->
+    <g stroke="#005a9c" stroke-width="1.8">
+      <path d="M360 212 L315 150"/>
+      <path d="M360 212 L405 150"/>
+      <path d="M315 150 L405 150"/>
+    </g>
+    <!-- the direction still open, one tier further out -->
+    <g stroke="#d8dce1" stroke-width="1.8" stroke-dasharray="3 6">
+      <path d="M315 150 L285 108"/>
+      <path d="M405 150 L435 108"/>
+      <path d="M259 120 L285 94 L311 120"/>
+      <circle cx="259" cy="120" r="8.5"/>
+      <circle cx="285" cy="94" r="8.5"/>
+      <circle cx="311" cy="120" r="8.5"/>
+      <path d="M409 120 L435 94 L461 120"/>
+      <circle cx="409" cy="120" r="8.5"/>
+      <circle cx="435" cy="94" r="8.5"/>
+      <circle cx="461" cy="120" r="8.5"/>
+    </g>
+    <!-- the foundation: the column with no failures, laid down -->
+    <rect x="210" y="398" width="300" height="34" rx="7" fill="#e3eef7" stroke="#005a9c" stroke-width="2.5"/>
+    <!-- the synthesis, composed to the derived core -->
+    <g color="#1b1e22">
+      <use href="#p6-tri" x="270" y="352"/>
+      <use href="#p6-tri" x="360" y="352"/>
+      <use href="#p6-tri" x="450" y="352"/>
+      <use href="#p6-tri" x="315" y="282"/>
+      <use href="#p6-tri" x="405" y="282"/>
+      <use href="#p6-tri" x="360" y="212"/>
+    </g>
+    <!-- occupied: the web the core opens back into -->
+    <g color="#005a9c">
+      <use href="#p6-tri" x="315" y="150"/>
+      <use href="#p6-tri" x="405" y="150"/>
+    </g>
+  </g>
+</svg>

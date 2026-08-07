@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 56 600 322" role="img">
+  <title>Private dataspaces condense around the silos until the silos become the copy</title>
+  <defs>
+    <g id="c22-ds" fill="#e3eef7" stroke="#005a9c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-14 8 L0 -14 L14 8 Z" fill="none"/>
+      <circle cx="-14" cy="8" r="4"/>
+      <circle cx="0" cy="-14" r="4"/>
+      <circle cx="14" cy="8" r="4"/>
+    </g>
+  </defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- ground -->
+    <path d="M60 356 L600 356" stroke="#5a6270" stroke-width="1.5"/>
+    <!-- the silos that remain -->
+    <g stroke="#1b1e22" stroke-width="2.2" fill="#ffffff">
+      <path d="M110 356 L110 180 A35 22 0 0 1 180 180 L180 356 Z"/>
+      <path d="M235 356 L235 180 A35 22 0 0 1 305 180 L305 356 Z"/>
+      <path d="M360 356 L360 180 A35 22 0 0 1 430 180 L430 356 Z"/>
+    </g>
+    <!-- the silo that became the copy, faded behind its dataspace -->
+    <path d="M485 356 L485 180 A35 22 0 0 1 555 180 L555 356 Z" stroke="#d8dce1" stroke-width="2" stroke-dasharray="3 5"/>
+    <!-- condensation: the federating cloud -->
+    <g stroke="#5a6270" stroke-width="1.2" stroke-dasharray="2 6">
+      <path d="M150 120 L250 96"/>
+      <path d="M250 96 L410 100"/>
+      <path d="M335 128 L410 100"/>
+      <path d="M410 100 L485 122"/>
+      <path d="M485 122 L548 104"/>
+      <path d="M150 120 L96 140"/>
+      <path d="M250 96 L305 74"/>
+      <path d="M150 120 L145 160"/>
+      <path d="M410 100 L398 160"/>
+      <path d="M548 104 L520 264"/>
+    </g>
+    <!-- the dataspaces, small and private -->
+    <use href="#c22-ds" transform="translate(150 120)"/>
+    <use href="#c22-ds" transform="translate(250 96) scale(0.85)"/>
+    <use href="#c22-ds" transform="translate(335 128) scale(0.7)"/>
+    <use href="#c22-ds" transform="translate(410 100)"/>
+    <use href="#c22-ds" transform="translate(485 122) scale(0.8)"/>
+    <use href="#c22-ds" transform="translate(210 152) scale(0.6)"/>
+    <use href="#c22-ds" transform="translate(96 140) scale(0.7)"/>
+    <use href="#c22-ds" transform="translate(548 104) scale(0.62)"/>
+    <use href="#c22-ds" transform="translate(305 74) scale(0.5)"/>
+    <!-- the one that detached and outlived its silo -->
+    <use href="#c22-ds" transform="translate(520 284) scale(1.3)"/>
+  </g>
+</svg>
