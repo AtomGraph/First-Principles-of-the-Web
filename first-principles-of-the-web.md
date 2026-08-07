@@ -1264,9 +1264,13 @@ What it gives the end user, because the end user was always the point. Navigate 
 
 None of this asks the existing web to stop — or even to notice. A silo doesn't have to migrate to be included: wrapped (Chapter 21), it enters a federation as a view of itself, before its vendor has agreed to anything. So the transition has no event. Nobody joins a platform, because there is no platform. What forms instead is a condensation — a cloud of small, private dataspaces, each one detachable from the services it summarizes, from the software that serves it, from the machine it happens to sit on — gathering around the silos until, quietly, the silos become the copy. Union is additive: a dataspace federates beside whatever already runs, and everything that stays fused simply keeps paying the bill Part IV added up. No migration day, no flag day. The architecture asks only that the next thing built be built one level down.
 
-Read the properties forward, as capabilities rather than columns. Begin with the application itself — on a graph it bends to the reader as no fused page can.
+Read the properties forward, as capabilities rather than columns — in five movements, from the application in the reader's hands out to the network that forms when many build one level down.
 
-### Navigating the graph
+### The application bends
+
+On a graph the application bends to the reader — navigated, re-rendered, reshaped — as no fused page allows.
+
+#### Navigating the graph
 
 Navigation is the first of the five moves (Chapter 7), and on a graph it does what the document web never could. Every relation is a property in the state, so the moves a document web built page by page become primitives of the interface. Narrow a set by its own facts — products in stock, turbines below tolerance — and the filter is a selection, not a screen someone wrote. Follow a relation out of that set and arrive at the set it relates to: from a filtered list of products to the list of their vendors, a set reached from a set rather than a page linked to a page. Chain the two, stepping back when a branch disappoints, and open-ended exploration falls out of moves no one has to name — each intermediate a resource with its own address (S4). The document web stops at the item; the graph does not, which is exactly what navigation would have been all along had state been a graph from the start.
 
@@ -1278,11 +1282,11 @@ Navigation is the first of the five moves (Chapter 7), and on a graph it does wh
 
 </div>
 
-### One state, many faces
+#### One state, many faces
 
 Presentation is its own factor (S1), independent of the facts beneath it, so one body of state renders as many surfaces the publisher never built. The reader who needs large type, a screen reader's linear order, another language, a watch-sized screen — each takes the same facts through a different `present` term and gets a document fit for them. Accessibility stops being a retrofit and personalization stops being surveillance: the state is shared, the rendering is the reader's, and the two were never required to be the same choice. The document web bolted this on — parallel mobile sites, accessibility overlays — because content and presentation were fused. CSS Zen Garden (2003) showed the other way at the presentation layer alone, dressing one unchanged HTML document in hundreds of unrecognizably different designs: this independence, one factor short of the whole.
 
-### A feature is a package
+#### A feature is a package
 
 An application on the derived web is data — a vocabulary and a stylesheet over state (Chapter 19) — so to change what it does is to change data, not code. A feature ships as a *package*: the terms it introduces and the templates that render them, merged into a running application and withdrawn by the reverse delta, asserted and retracted the way any fact is. Nothing recompiles and nothing redeploys, because there is no application-specific code to rebuild — the catalogue becomes a storefront once a checkout package merges, and a catalogue again once it is retracted. And since the change is a delta, the party making it need be neither a programmer nor a person: a human installs from the interface, or an agent submits the same merge (Chapter 7), and the application is a different application one request later. S3 stops being a vendor's release cycle and becomes an ordinary write, open to anyone holding the right to make it.
 
@@ -1294,19 +1298,23 @@ The wish is old — HyperCard let people reshape a running application in place 
 
 </div>
 
-Now the machine that reads it.
+### The machine reads
 
-### Reading, not scraping
+The web's newest reader is a machine; it asks for facts and receives them, each carrying its source.
+
+#### Reading, not scraping
 
 The agent reads rather than scrapes — it asks and receives facts, where its predecessors parsed rendered pixels and reverse-engineered private interfaces, the compensating industry Chapter 21 measured. Its answers are computed, not guessed: the substrate returns what is held, not what a model interpolated. The move is not new — it is what the 2001 Semantic Web scenario (Chapter 21) assumed all along: an agent that asks for facts and receives them, not one that parses a page pretending to be one.
 
-### A claim carries its source
+#### A claim carries its source
 
 Every fact travels with the party that asserted it — the fourth position (Prop. 9.2), the graph's own name — so a claim and its provenance are one object, unsplittable in transit: to repeat a fact is to carry who said it. On a web of rendered pixels a fabrication wears the same clothes as a record; on a web of attributed facts it has nowhere to sit, because *who says so?* is answered in the data, not reconstructed after it. This does not make claims true — attribution is not verification — but it makes them accountable: every assertion names a source to query, corroborate, or impeach, and an agent merging two graphs sees exactly which origin contributed which fact. The Semantic Web stack always sketched *proof* and *trust* as its top layers; the deployed web built the fact-sets and left those for later. Later is when the machines start reading.
 
-Underneath the surface and the reader lies the state — and the change that matters most is whose it is.
+### The data is yours
 
-### State stops being scattered
+Beneath the surface and the reader lies the state, and the change that matters most is whose it is.
+
+#### State stops being scattered
 
 What lives today across a dozen unspeaking silos composes, under one model and one law of merge, into a body of facts a party keeps under its own origin and federates with the origins it trusts. Nothing is copied forward to go stale: a name resolves to its owner's own current answer, the origin being the one authority on itself.
 
@@ -1318,11 +1326,11 @@ What lives today across a dozen unspeaking silos composes, under one model and o
 
 </div>
 
-### What outlives the software
+#### What outlives the software
 
 State lives under its owner's origin, not inside the software that happens to touch it, so it outlives that software — the application and the agent alike. The service shuts down, the vendor is acquired, the framework is rewritten, the assistant is replaced by a better one; the facts remain where they were, under a name that still resolves, readable by whatever reads next. What dies on the fused web is not only the app but everything entrusted to it — the account closes and its history goes with it, the link rots and the record is gone — and what an agent learned about the party it served dies sealed in the assistant's own machinery. Here the code is the mortal part and the data the durable one: an agent gives way to a better one with nothing forgotten, because its memory was state under the served party's origin, never the agent's to keep. The record even reaches the words themselves — the conversation that produced a fact is state like any other, each turn a document carrying the utterance that triggered it — so *why was this done?* is settled by reading, not by asking a machine to remember. The principle is old, mostly honored in the breach: Berners-Lee's *Cool URIs don't change* (1998) asked persistence of the web and the web declined, and Bush's Memex (Chapter 6) wanted a personal store that outlived no session; both wanted what owner-held state supplies — a name that resolves to its owner's own current answer, durable past the software that reads it.
 
-### Permission is a fact
+#### Permission is a fact
 
 What may be read, and by whom, is stated in the same state it governs — narrowed or withdrawn as an ordinary change, with no platform to grant access and none that can revoke it. One party opens a region of its world to another's agent with a single assertion, and the boundary holds at every hop of a query that crosses between them.
 
@@ -1332,9 +1340,11 @@ What may be read, and by whom, is stated in the same state it governs — narrow
 
 </div>
 
-Reading is half of it. The write side turns capability into action.
+### What gets done
 
-### Stating a need
+Reading is half of Definition 1.1; the write side turns capability into action.
+
+#### Stating a need
 
 Search runs one way: a person forms a query and the market's pages answer, each provider having guessed in advance what to publish. Structured state runs it the other way. A need is itself facts — constraints, preferences, the criteria that qualify an answer — so it can be published as a document and read by providers rather than typed into a box and kept. A person states once, in the open, what they want; the parties who can meet it answer, matched against the very facts that generated the request, nothing re-entered and no form filled. Demand stops being a private keystroke and becomes a public, verifiable fact — the write side (Chapter 7) pointed outward.
 
@@ -1344,15 +1354,13 @@ Search runs one way: a person forms a query and the market's pages answer, each 
 
 </div>
 
-### Every action a document
+#### Every action a document
 
 A change is a delta — two fact-sets, readable before it applies and reversible after — where the closed web offered an opaque call reversible by nothing. And a whole intended course, every read and change and branch, can be written down and inspected before a step of it runs. The autonomy that alarms turns out to be the autonomy that can be read.
 
-And once many build this way, the whole becomes more than its origins.
+### The network forms
 
-### The network with no landlord
-
-Because states merge by union without a coordinator (R2) and any stylesheet can be pointed at the result (S3), value arises from combinations no one arranged. Two dataspaces that never coordinated compose the moment their names meet, and a third party who owns neither can render the join as something new — an application their authors never imagined and did not have to permit. The document web tried this once and lost it: the mashups of the mid-2000s stitched maps and listings into applications nobody's vendor had shipped, until the APIs metered and re-siloed and the combinations died at the platforms' discretion. Union revokes nothing — the joins hold because no one owns the seam across them, so the mashup that was a fad becomes the ordinary case. And the loop compounds: each party that publishes a dataspace makes every dataspace federated with it worth more — the network effect that once turned a single physicist's filing system into the world's front page, arriving now at the layer the second era hid, this time with no one in the middle owning the graph or charging rent on the joins. A domain the agent has never seen needs no new system either: it states the domain as facts over the one generic engine, and is done. The choice Chapter 21 put to it — a bespoke system per domain, or one engine with the domain as data — was never really a choice.
+And once many build this way, the whole becomes more than its origins. Because states merge by union without a coordinator (R2) and any stylesheet can be pointed at the result (S3), value arises from combinations no one arranged. Two dataspaces that never coordinated compose the moment their names meet, and a third party who owns neither can render the join as something new — an application their authors never imagined and did not have to permit. The document web tried this once and lost it: the mashups of the mid-2000s stitched maps and listings into applications nobody's vendor had shipped, until the APIs metered and re-siloed and the combinations died at the platforms' discretion. Union revokes nothing — the joins hold because no one owns the seam across them, so the mashup that was a fad becomes the ordinary case. And the loop compounds: each party that publishes a dataspace makes every dataspace federated with it worth more — the network effect that once turned a single physicist's filing system into the world's front page, arriving now at the layer the second era hid, this time with no one in the middle owning the graph or charging rent on the joins. A domain the agent has never seen needs no new system either: it states the domain as facts over the one generic engine, and is done. The choice Chapter 21 put to it — a bespoke system per domain, or one engine with the domain as data — was never really a choice.
 
 So the next web is not built by a consortium or shipped in a release. It is occupied — origin by origin, dataspace by dataspace — by anyone who builds one level down instead of fusing. That is the whole of the work that remains, and it is already under way.
 
