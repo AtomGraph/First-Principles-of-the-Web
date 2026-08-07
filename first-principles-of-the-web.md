@@ -847,7 +847,7 @@ Run the scores. The tag denotes nothing until its class executes, so meaning is 
 
 What shadow DOM does standardize has a name the book has not yet used: encapsulation, state hidden behind a boundary on purpose. Chapter 13 files the paradigm that owns the move, and it is not the web's.
 
-The corollary: **the SPA is the un-web** — HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. The corollary adds nothing to the column: rejecting it means rejecting a score, and each score names the property to take it up with. And a prediction, labeled as one: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state (the definition Chapter 20 makes exact), and the paradigm's defining move is hiding state behind `read`. Chapter 14 measures the industry's own retreat from this position; Chapter 21 records what arrived in the meantime.
+The corollary: **the SPA is the un-web** — HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. The corollary adds nothing to the column: rejecting it means rejecting a score, and each score names the property to take it up with. And a prediction, labeled as one: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state (the definition Chapter 20 makes exact), and the paradigm's defining move is hiding state behind `read`. Chapter 14 measures the industry's own retreat from this position; Chapter 22 records what arrived in the meantime.
 
 **Column: SPA/JS.**
 
@@ -1227,7 +1227,7 @@ The consequence: the difference between a CMS, a CRM, and an ERP is data. Each i
 
 ### Two proofs and a failure
 
-The web has already run this experiment once, and the result was so successful it became invisible: the browser. One client for every website — nobody writes a per-site browser, and nobody marvels at that, which measures how completely the uniform interface won at the document layer. Chapter 4 typed the four clauses that won it, and generic software is their result, arriving layer by layer: generic caches, generic crawlers, one generic renderer. The result stopped where the uniformity stopped. Behind every `GET` the verbs are shared and the state is bespoke, so the client that is generic in transfer stays bespoke in understanding — one adapter per API, the arithmetic Chapter 21 will total. The question this chapter answers is why the generic browser never got its sibling one level down, and the answer is that nothing was missing except the state model Chapter 5 derived.
+The web has already run this experiment once, and the result was so successful it became invisible: the browser. One client for every website — nobody writes a per-site browser, and nobody marvels at that, which measures how completely the uniform interface won at the document layer. Chapter 4 typed the four clauses that won it, and generic software is their result, arriving layer by layer: generic caches, generic crawlers, one generic renderer. The result stopped where the uniformity stopped. Behind every `GET` the verbs are shared and the state is bespoke, so the client that is generic in transfer stays bespoke in understanding — one adapter per API, the arithmetic Chapter 22 will total. The question this chapter answers is why the generic browser never got its sibling one level down, and the answer is that nothing was missing except the state model Chapter 5 derived.
 
 The claim has a second existence proof, older than the web. The spreadsheet is the most successful generic application in history: one engine, every domain there is, specialized by data. No vendor ships an accounting spreadsheet and a separate logistics spreadsheet; users pour the domain in as rows and formulas. The industry has had half a century to notice what this proves. The spreadsheet's own limits explain why it could prove no more: cell references are sheet-local (R3), two workbooks have no merge (R2), and the world's operational data lives in a million silos named `final_v2.xlsx`. The derived stack is the spreadsheet's economics with the web's properties — the same generic engine, with names that cross files and states that compose. Each proof carries half the claim: the browser is generic with the web's properties, at the document grain; the spreadsheet is generic over domains, with none of the web's properties. The application this chapter describes holds both halves at once — generic over domains, with the web's properties — and it was sitting in the standards all along.
 
@@ -1255,7 +1255,7 @@ The reference implementation ships exactly this: applications as importable data
 
 ### Computation on the write side
 
-One objection lands here with real force, and it deserves the treatment latency got in Chapter 7: *real domains compute.* A payroll run turns timesheets into pay; an allocation turns orders into reservations; an invoice's total is nobody's keystroke. If the engine houses no domain code, who computes? Definition 1.1 answered before the question arose: it types what the application *is* — `read` and `write` — and says nothing about who calls it. Chapter 7's caller was a human holding a form. A computation is another caller: an agent that reads, computes, and submits its conclusion through the same `write`, in the same normal form, reviewable and invertible like every delta. Chapter 21 turns exactly that reviewability into the governance story.
+One objection lands here with real force, and it deserves the treatment latency got in Chapter 7: *real domains compute.* A payroll run turns timesheets into pay; an allocation turns orders into reservations; an invoice's total is nobody's keystroke. If the engine houses no domain code, who computes? Definition 1.1 answered before the question arose: it types what the application *is* — `read` and `write` — and says nothing about who calls it. Chapter 7's caller was a human holding a form. A computation is another caller: an agent that reads, computes, and submits its conclusion through the same `write`, in the same normal form, reviewable and invertible like every delta. Chapter 22 turns exactly that reviewability into the governance story.
 
 The derivation step even has a declarative carrier on the shelf. Take Prop. 7.3's change direction — pattern plus bindings yields a delta — and draw the bindings from the state instead of a form: that is a rule, *assert what follows from what holds*. The deployed stack already ships it as an update term whose delta is computed by its own query. One algebra, both directions, no human in the loop.
 
@@ -1265,13 +1265,13 @@ So the domain's logic divides cleanly. Validation is a predicate on deltas (Chap
 
 ### The incentives
 
-Why, then, does every domain still get its own codebase? Chapter 13 supplied the mental models; the incentives supply the motive. Generic software commoditizes its vendor: a domain application's defense is precisely its bespoke code, and an industry that charges rent on that code will not derive this corollary on its own initiative. The corollary dissolves the asset. So the corollary's adoption path runs through the demand side, and Chapter 21 names the demand: users never counted the cost of bespoke code; agents count it per call.
+Why, then, does every domain still get its own codebase? Chapter 13 supplied the mental models; the incentives supply the motive. Generic software commoditizes its vendor: a domain application's defense is precisely its bespoke code, and an industry that charges rent on that code will not derive this corollary on its own initiative. The corollary dissolves the asset. So the corollary's adoption path runs through the demand side, and Chapter 22 names the demand: users never counted the cost of bespoke code; agents count it per call.
 
 ## Chapter 20. The Result
 
-The audit table, completed — Chapter 16, one page, every cell carrying a chapter's score, one column with no failures. The table is the book, as the opening argument promised. This chapter reads it forward, sitting between Chapter 19's economics and the demand Chapter 21 names.
+The audit table, completed — Chapter 16, one page, every cell carrying a chapter's score, one column with no failures. The table is the book, as the opening argument promised. This chapter reads it forward, sitting between Chapter 19's economics and the demand Chapter 22 names.
 
-Web 3.0, defined: `read` transparent all the way down — S1–S4 at every layer, R1–R3 at the substrate — for humans *and* machines alike. An agent is only another reader, as Chapter 21 will show. Every earlier use of the term outside this book gestured; the table lets this one *point*.
+Web 3.0, defined: `read` transparent all the way down — S1–S4 at every layer, R1–R3 at the substrate — for humans *and* machines alike. An agent is only another reader, as Chapter 22 will show. Every earlier use of the term outside this book gestured; the table lets this one *point*.
 
 Read the eras through the one variable this book has tracked. Web 1.0: `read` transparent, over documents — declarative, addressable, indexable, the properties that beat every contemporary in Chapter 1's history. Web 2.0: `write` arrives, and with it the fused term — the application stays on the web only at its rendered surface, and state disappears behind `read`. Web 3.0, on this definition, adds no third invention: it is the first era's one virtue extended to the layer the second era hid. Chapter 10's lateral churn was two decades spent inside era two. The vertical direction was open the whole time, and Part II proved that under the three requirements it had exactly one shape. The table now carries what the preface could only announce: the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains — each located, column by column, as a partial rediscovery of this way or a detour from it.
 
@@ -1283,7 +1283,7 @@ And because the audit cuts both ways, here is the register of the book's own ope
 |---|---|---|
 | the SPA paradigm caps at Web 2.0 | Ch 11 | a fused-architecture deployment whose state is machine-consumable at web scale without a compensating adapter layer |
 | the convergence stalls before R3 and S4 absent new incentives | Ch 14 | a mainstream framework shipping addressable intermediates and global references as defaults |
-| the agent economy converges on generic systems with domains as data | Ch 21 | agent infrastructure stabilizing permanently on per-application protocol servers, adapter counts growing linearly |
+| the agent economy converges on generic systems with domains as data | Ch 22 | agent infrastructure stabilizing permanently on per-application protocol servers, adapter counts growing linearly |
 | attribution pressure keeps selecting the fourth position | Prop. 9.2 | a successor standard that discards named graphs |
 
 Retrodictions — claims history had already graded, like quads and the JS convergence — are marked as such where they occur. This table lists only what is still open. Registered July 2026.
@@ -1298,15 +1298,42 @@ Beneath the lenses, the sentence: strip any page and the same skeleton appears; 
 
 # Part VI — The Future
 
-*The synthesis, carried forward. Two readings of the web's future: the era its machine readers bring on, and the web the derived stack permits once it is occupied.*
+*The synthesis, carried forward. Three readings of the web's future: the adoption already underway, the era its machine readers bring on, and the web the derived stack permits once it is occupied.*
 
 <img src="first-principles-figures/part6-the-future.svg" alt="Chains of three linked dots converging up from a level foundation to a single core, then reopening into a highlighted pair, the next tier outlined and fanning further out" class="fp-frontispiece" width="440" />
 
-## Chapter 21. The Agent Era
+## Chapter 21. Knowledge Graphs
+
+<div class="fp-epigraph">
+
+*The future is already here — it's just not evenly distributed.*
+
+— William Gibson, on NPR's *Talk of the Nation*, 1999
+</div>
+
+The state Part II derived is in production at scale, under an industry name. A knowledge graph is instance data and the ontologies that describe it, held and queried as one graph. The name went mainstream in May 2012, when Google introduced its [Knowledge Graph](https://blog.google/products-and-platforms/products/search/introducing-knowledge-graph-things-not/) — "things, not strings." Freebase seeded it; Chapter 23 shows Freebase browsed live in 2008. Google has never published what its graph runs on, but the contents are expressible as triples, and its public API serves them that way. Knowledge graphs are also built on other graph models; the ones this chapter counts are RDF.
+
+The practice preceded the name, and the first movers published their reasons as they went.
+
+<div class="fp-history">
+
+**The first movers, dated 2010–2013.** For the 2010 World Cup the BBC generated [700-plus pages](https://www.bbc.co.uk/blogs/bbcinternet/2010/07/bbc_world_cup_2010_dynamic_sem.html) from an RDF triple store — more index pages than the rest of BBC Sport combined. By London 2012 the same architecture kept [a page for every athlete, team and discipline](https://www.bbc.co.uk/blogs/bbcinternet/2012/04/sports_dynamic_semantic.html), ten thousand of them, a scale its architect called "simply impossible to manage using a static CMS driven publishing stack." In January 2013 NXP Semiconductors, its product data "scattered and duplicated across numerous applications and databases," [published its exit](https://web.archive.org/web/2020/https://www.nxp.com/company/about-nxp/smarter-world-blog/BL-LINKED-DATA-THE-INTEGRATION-FUTURE): an HTTP URI per product, every source converted to RDF, SPARQL underneath. "The Linked Data is the API." NXP's pages were served by Graphity, LinkedDataHub's predecessor (disclosure: the author's, per Chapter 18).
+
+</div>
+
+The wave behind the first movers arrived a decade later, at the top of the market. NASA runs the systems engineering of its Moon program on an RDF graph. Siemens holds 1.2 million products in one. The banks maintain FIBO, a shared financial ontology, in OWL. Gartner dated the wave in 2021: "[by 2025, graph technologies will be used in 80% of data and analytics innovations, up from 10% in 2021](https://www.gartner.com/en/newsroom/press-releases/2021-03-16-gartner-identifies-top-10-data-and-analytics-technologies-trends-for-2021)" — a figure spanning every graph model, not RDF alone. And what accelerated the wave is the machine reader. A statistical model answering business questions over an enterprise database [got 17 of 100 right against raw SQL, and 54 against the same data as an RDF graph](https://arxiv.org/abs/2311.07509). Chapter 22 derives what the graph is doing under the model.
+
+<img src="first-principles-figures/spot-ch21-the-long-tail.svg" alt="A single curve drops steeply from a high head at the left and flattens into a long tail hugging the axis to the right; the short head is blue, the long tail grey, over one axis of organizations ranked by size" class="fp-spot" width="420" />
+
+The wave stops partway down the market, and the reason is arithmetic. Integration pain scales with organization size: General Electric ran [about seventy-five procurement systems, Merck about four thousand Oracle databases](https://cs.uwaterloo.ca/~ilyas/papers/StonebrakerIEEE2018.pdf). Chapter 17 priced the bridges between silos at N × M, and every acquisition raises the count. Down the tail the count falls to a handful, the bill falls with it, and the case for a knowledge graph never arrives. Adoption tracks the head. That is the distribution the epigraph names: the future, already here, unevenly.
+
+Many have realized RDF's potential for data integration. Very few have realized its potential for web application architecture. The audit says the same in its own columns: the industry adopted the R-rows and left the S-rows unclaimed. A knowledge graph is Chapter 5's state without Chapter 4's architecture — the data half of the derivation, running at scale, waiting for the other half. The two chapters that follow are about the other half.
+
+## Chapter 22. The Agent Era
 
 Improper architecture is locally cheap and globally expensive: fusing is always less work *today*, and the costs land on caches, crawlers, integrators, and the future. For thirty years the future could wait. Now the bill arrives: software agents are trying to read the web, and they find what Part IV measured — rendered pixels and private APIs. The response is a compensating industry assembling itself in real time — scraping harnesses, headless browsers, and a per-application protocol server bolted onto every system that wants to be machine-readable. Read that list against Chapter 11's scores: it is the S4 tax, collected one adapter at a time, at industry scale, exactly as the model predicts. The machine-readable web is being retrofitted at the margin because it lapsed at the core — Chapter 9's maintenance failure, its cost still compounding.
 
-<img src="first-principles-figures/spot-ch21-the-collapse.svg" alt="On the left, four agents each wired to three applications through a dense tangle of one-off adapters, labelled N times M; on the right, the same agents and applications each connecting once to a single shared substrate, labelled N plus M" class="fp-spot" width="420" />
+<img src="first-principles-figures/spot-ch22-the-collapse.svg" alt="On the left, four agents each wired to three applications through a dense tangle of one-off adapters, labelled N times M; on the right, the same agents and applications each connecting once to a single shared substrate, labelled N plus M" class="fp-spot" width="420" />
 
 The arithmetic of that compensating industry is the integration industry's arithmetic (Chapter 17) at a new scale. `N` agents meeting `M` applications through bespoke adapters need on the order of `N × M` integrations. The moment state shares one model and one query semantics, the count collapses to `N + M` — each side implements the common substrate once. Every generation of middleware has re-learned this sum. The agent era re-learns it with `N` growing by the month. The per-application protocol server (MCP, the emerging convention as of this writing) is the `N × M` answer, shipped in real time. The protocol is shared, but the model and query semantics are not: each server exposes its own vocabulary, so every agent still learns every application one at a time. The derived stack is the `N + M` answer, shipped since 1999.
 
@@ -1326,15 +1353,15 @@ And reading is half of Definition 1.1; the write side serves agents twice over. 
 
 The chapter ends with a question, put to any agent directly: *is it more efficient for you to write a custom system for every domain, or to reuse one generic system and define the domain as data?* The answer is not in doubt. What stands between agents and the second option is the set of human mental models Part IV audited — pre-web paradigms, defended now by habit rather than argument. The web that agents need is the web this book derived — necessarily. Both derive from the same requirement: machine-consumable, mergeable, globally referenced state.
 
-## Chapter 22. The Next Web
+## Chapter 23. The Next Web
 
-Chapter 20 stated the result; Chapter 21 named its machine readers. What remains is the web they compose: Web 3.0, on Chapter 20's definition — not a forecast but a reading of what the derived properties already permit. Occupied — taken up origin by origin rather than built and shipped — it does a handful of things no fused web can.
+Chapter 20 stated the result; Chapter 22 named its machine readers. What remains is the web they compose: Web 3.0, on Chapter 20's definition — not a forecast but a reading of what the derived properties already permit. Occupied — taken up origin by origin rather than built and shipped — it does a handful of things no fused web can.
 
-<img src="first-principles-figures/spot-ch22-the-condensation.svg" alt="A row of silos with a gathering cloud of small linked dataspaces condensing around them; the rightmost silo has faded to a dashed copy behind the solid dataspace that detached from it" class="fp-spot" width="420" />
+<img src="first-principles-figures/spot-ch23-the-condensation.svg" alt="A row of silos with a gathering cloud of small linked dataspaces condensing around them; the rightmost silo has faded to a dashed copy behind the solid dataspace that detached from it" class="fp-spot" width="420" />
 
 What it gives the end user, because the end user was always the point. Navigate and drill into any data without knowing a query language — the five moves are interface primitives, and none of them requires a programmer. Fork and augment running applications declaratively — S3 as a user right rather than a vendor courtesy, exercised by substituting a term, never by rebuilding a bundle. Federate without asking permission — the union law requires none; merge is the whole protocol.
 
-None of this asks the existing web to stop — or even to notice. A silo doesn't have to migrate to be included: wrapped (Chapter 21), it enters a federation as a view of itself, before its vendor has agreed to anything. So the transition has no event. Nobody joins a platform, because there is no platform. What forms instead is a condensation: a cloud of small, private dataspaces gathering around the silos until, quietly, the silos become the copy. Each dataspace is detachable from the services it summarizes, from the software that serves it, and from the machine it happens to sit on. Union is additive: a dataspace federates beside whatever already runs, and everything that stays fused simply keeps paying the bill Part IV added up. No migration day, no flag day. The architecture asks only that the next thing built be built one level down.
+None of this asks the existing web to stop — or even to notice. A silo doesn't have to migrate to be included: wrapped (Chapter 22), it enters a federation as a view of itself, before its vendor has agreed to anything. So the transition has no event. Nobody joins a platform, because there is no platform. What forms instead is a condensation: a cloud of small, private dataspaces gathering around the silos until, quietly, the silos become the copy. Each dataspace is detachable from the services it summarizes, from the software that serves it, and from the machine it happens to sit on. Union is additive: a dataspace federates beside whatever already runs, and everything that stays fused simply keeps paying the bill Part IV added up. No migration day, no flag day. The architecture asks only that the next thing built be built one level down.
 
 Read the properties forward, as capabilities rather than columns — from the application in the reader's hands out to the network that forms when many build one level down.
 
@@ -1376,7 +1403,7 @@ The web's newest reader is a machine; it asks for facts and receives them, each 
 
 #### Reading, not scraping
 
-The agent reads rather than scrapes — Chapter 21's diagnosis, flipped to a capability — and each fact it receives arrives carrying something the scraped page never did: its source.
+The agent reads rather than scrapes — Chapter 22's diagnosis, flipped to a capability — and each fact it receives arrives carrying something the scraped page never did: its source.
 
 #### A claim carries its source
 
@@ -1434,7 +1461,7 @@ Search runs one way: a person forms a query and the market's pages answer, each 
 
 #### Every action a document
 
-An agent's change is a delta, and its whole intended course — every read, change, and branch — is a document. Chapter 21 derived both: the change is reviewable before it applies and invertible after, and the plan is inspectable before a step of it runs. The autonomy that alarms turns out to be the autonomy that can be read.
+An agent's change is a delta, and its whole intended course — every read, change, and branch — is a document. Chapter 22 derived both: the change is reviewable before it applies and invertible after, and the plan is inspectable before a step of it runs. The autonomy that alarms turns out to be the autonomy that can be read.
 
 ### The network forms
 
@@ -1442,11 +1469,11 @@ And once many build this way, the whole becomes more than its origins. Because s
 
 And the loop compounds: each party that publishes a dataspace makes every dataspace federated with it worth more. This is the network effect that once turned a single physicist's filing system into the world's front page. It arrives now at the layer the second era hid, this time with no one in the middle owning the graph or charging rent on the joins.
 
-The same compounding reaches the agent. A domain it has never seen needs no new system: it states the domain as facts over the one generic engine, and is done. The choice Chapter 21 put to it — a bespoke system per domain, or one engine with the domain as data — was never really a choice.
+The same compounding reaches the agent. A domain it has never seen needs no new system: it states the domain as facts over the one generic engine, and is done. The choice Chapter 22 put to it — a bespoke system per domain, or one engine with the domain as data — was never really a choice.
 
 So the next web is not built by a consortium or shipped in a release. It begins wherever someone stops the lateral churn and the taste-based technology trends, and treats the web as this book has treated it: from first principles, as a science. Those who do, the agents included, will have an edge over those who don't, and the gap will only grow, because churn starts over and derivation compounds. Which curve do you want to be on?
 
-<img src="first-principles-figures/spot-ch22-the-two-curves.svg" alt="Two curves leave the same origin: a jagged line labelled churn climbs but keeps falling partway back, gaining little; a smooth curve labelled derivation starts lower, overtakes it, and keeps rising as the gap widens" class="fp-spot" width="420" />
+<img src="first-principles-figures/spot-ch23-the-two-curves.svg" alt="Two curves leave the same origin: a jagged line labelled churn climbs but keeps falling partway back, gaining little; a smooth curve labelled derivation starts lower, overtakes it, and keeps rising as the gap widens" class="fp-spot" width="420" />
 
 ---
 
@@ -1700,18 +1727,24 @@ The spec concordance. The axioms below are the book's external dependencies — 
 - I. Newton, *Opticks*, Query 31 — "the Investigation of difficult Things by the Method of Analysis ought ever to precede the Method of Composition"; Chapter 2.
 - T. Berners-Lee, [*Information Management: A Proposal*](https://www.w3.org/History/1989/proposal.html) (CERN, 1989) — the origin memo, and Mike Sendall's cover note "vague but exciting"; Chapter 1's epigraph, and the browser-editor bootstrap of Chapter 18.
 - V. Bush, [*As We May Think*](https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/) (The Atlantic, 1945); T. Nelson, *Computer Lib / Dream Machines* (1974) — association over hierarchy, the graph refusing the tree, stated before the web; Chapter 6.
-- T. Berners-Lee, J. Hendler, O. Lassila, [*The Semantic Web*](https://www.scientificamerican.com/article/the-semantic-web/) (Scientific American, May 2001) — the agent-over-machine-readable-data scenario Chapter 21 derives; written as fiction, now falsifiable.
+- T. Berners-Lee, J. Hendler, O. Lassila, [*The Semantic Web*](https://www.scientificamerican.com/article/the-semantic-web/) (Scientific American, May 2001) — the agent-over-machine-readable-data scenario Chapter 22 derives; written as fiction, now falsifiable.
 - J. E. Labra Gayo, E. Prud'hommeaux, I. Boneva, D. Kontokostas, *Validating RDF Data* (2017), foreword by D. Brickley and L. Miller — Chapter 9's epigraph.
 - D. McComb, *Software Wasteland* (Technics, 2018) and *The Data-Centric Revolution* (Technics, 2019) — the [data-centric](https://www.semanticarts.com/data-centric/) case (Semantic Arts) for data over application code; Chapter 19's corollary reached from enterprise waste rather than derivation.
 - J. Somers, [*The Coming Software Apocalypse*](https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/) (The Atlantic, September 2017) — code grown past comprehension in safety-critical systems, and the remedies that move engineers above it (model-based design, Lamport's TLA+); Chapter 19's liability, reported from the field.
-- D. Huynh, [*Freebase Parallax: A new way to browse and explore data*](https://vimeo.com/1513562) (Metaweb, 2008) — set-based navigation over graph data: a set carried to the set it relates to. Google acquired Metaweb in 2010, and Freebase was a seed of the Google Knowledge Graph. Chapter 22's set-to-set capability, demonstrated.
-- D. Siegel, *Pull: The Power of the Semantic Web to Transform Your Business* (Portfolio, 2009) — the *personal data locker* (a life held as one owner-controlled graph) and *intentcasting* (Searls's coinage, below); Chapter 22's personal dataspace, reached from the demand side. Video: [*Personal Data Locker Vision*](https://www.youtube.com/watch?v=xOch5o3MhUg).
-- D. Searls, *The Intention Economy: When Customers Take Charge* (Harvard Business Review Press, 2012; the term *intention economy* coined 2006) — customers broadcasting qualified intent for vendors to answer (*intentcasting*); Chapter 22's stating-a-need capability, from the demand side. Talk: [*The Intention Economy* book talk, 2012](https://www.youtube.com/watch?v=nVP3qF_HVkA).
-- Apple, *HyperCard* (1987) — a running application reshaped in place, its stacks editable documents, with no rebuild and no redeploy; Chapter 22's live-morphability lineage, lacking only a cross-party substrate.
-- D. Shea, [*CSS Zen Garden*](https://www.csszengarden.com/) (2003) — one unchanged HTML document redressed by hundreds of stylesheets; Chapter 22's presentation independence (S1), demonstrated at the presentation layer alone.
-- The Semantic Web stack (the "layer cake"), W3C, early 2000s — *proof* and *trust* sketched as its top layers and left unbuilt; Chapter 22's provenance capability (R4), the layer the deployed web skipped.
-- T. Berners-Lee, [*Cool URIs don't change*](https://www.w3.org/Provider/Style/URI) (W3C, 1998) — persistence of names asked of the web and mostly declined; Chapter 22's data-outlives-the-application (R3).
-- The mashup era — P. Rademacher's *HousingMaps* (Google Maps × Craigslist, 2005) and *ProgrammableWeb* (2005) — combination without permission, until the APIs metered and re-siloed; Chapter 22's applications-nobody-planned (R2/S3).
+- J. Rayfield, [*BBC World Cup 2010 dynamic semantic publishing*](https://www.bbc.co.uk/blogs/bbcinternet/2010/07/bbc_world_cup_2010_dynamic_sem.html) (BBC Internet Blog, July 2010) and [*Sports Refresh: Dynamic Semantic Publishing*](https://www.bbc.co.uk/blogs/bbcinternet/2012/04/sports_dynamic_semantic.html) (April 2012) — 700-plus World Cup pages, then ten thousand Olympic pages, generated from an RDF triple store; Chapter 21's first mover on the publishing side.
+- A. Singhal, [*Introducing the Knowledge Graph: things, not strings*](https://blog.google/products-and-platforms/products/search/introducing-knowledge-graph-things-not/) (Google, May 2012) — the announcement that made *knowledge graph* the industry's name for graph-shaped state; Chapter 21's dating of the term.
+- J. Walker, [*Is Linked Data the Future of Data Integration in the Enterprise?*](https://web.archive.org/web/2020/https://www.nxp.com/company/about-nxp/smarter-world-blog/BL-LINKED-DATA-THE-INTEGRATION-FUTURE) (NXP Smarter World Blog, January 2013; archived) — product data scattered across systems, converted to RDF, dereferenceable per product; "the Linked Data is the API"; Chapter 21's first mover on the integration side.
+- M. Stonebraker, I. F. Ilyas, [*Data Integration: The Current Status and the Way Forward*](https://cs.uwaterloo.ca/~ilyas/papers/StonebrakerIEEE2018.pdf) (IEEE Data Eng. Bulletin, 2018) — silo counts at enterprise scale: GE's ~75 procurement systems, Merck's ~4,000 databases; Chapter 21's head of the curve, measured.
+- Gartner, [*Top 10 Data and Analytics Technology Trends for 2021*](https://www.gartner.com/en/newsroom/press-releases/2021-03-16-gartner-identifies-top-10-data-and-analytics-technologies-trends-for-2021) (press release, March 2021) — "by 2025, graph technologies will be used in 80% of data and analytics innovations, up from 10% in 2021"; Chapter 21's wave, dated by its analysts; the figure spans all graph models, not RDF alone.
+- J. F. Sequeda, D. Allemang, B. Jacob, [*A Benchmark to Understand the Role of Knowledge Graphs on Large Language Model's Accuracy for Question Answering on Enterprise SQL Databases*](https://arxiv.org/abs/2311.07509) (2023) — GPT-4 at 16.7% over enterprise SQL, 54.2% over the same data as an RDF graph; Chapter 21's grounding motive, measured.
+- D. Huynh, [*Freebase Parallax: A new way to browse and explore data*](https://vimeo.com/1513562) (Metaweb, 2008) — set-based navigation over graph data: a set carried to the set it relates to. Google acquired Metaweb in 2010, and Freebase was a seed of the Google Knowledge Graph. Chapter 23's set-to-set capability, demonstrated.
+- D. Siegel, *Pull: The Power of the Semantic Web to Transform Your Business* (Portfolio, 2009) — the *personal data locker* (a life held as one owner-controlled graph) and *intentcasting* (Searls's coinage, below); Chapter 23's personal dataspace, reached from the demand side. Video: [*Personal Data Locker Vision*](https://www.youtube.com/watch?v=xOch5o3MhUg).
+- D. Searls, *The Intention Economy: When Customers Take Charge* (Harvard Business Review Press, 2012; the term *intention economy* coined 2006) — customers broadcasting qualified intent for vendors to answer (*intentcasting*); Chapter 23's stating-a-need capability, from the demand side. Talk: [*The Intention Economy* book talk, 2012](https://www.youtube.com/watch?v=nVP3qF_HVkA).
+- Apple, *HyperCard* (1987) — a running application reshaped in place, its stacks editable documents, with no rebuild and no redeploy; Chapter 23's live-morphability lineage, lacking only a cross-party substrate.
+- D. Shea, [*CSS Zen Garden*](https://www.csszengarden.com/) (2003) — one unchanged HTML document redressed by hundreds of stylesheets; Chapter 23's presentation independence (S1), demonstrated at the presentation layer alone.
+- The Semantic Web stack (the "layer cake"), W3C, early 2000s — *proof* and *trust* sketched as its top layers and left unbuilt; Chapter 23's provenance capability (R4), the layer the deployed web skipped.
+- T. Berners-Lee, [*Cool URIs don't change*](https://www.w3.org/Provider/Style/URI) (W3C, 1998) — persistence of names asked of the web and mostly declined; Chapter 23's data-outlives-the-application (R3).
+- The mashup era — P. Rademacher's *HousingMaps* (Google Maps × Craigslist, 2005) and *ProgrammableWeb* (2005) — combination without permission, until the APIs metered and re-siloed; Chapter 23's applications-nobody-planned (R2/S3).
 
 *Candidates — specified, not standardized; Part V's seams:*
 
@@ -1744,7 +1777,7 @@ The spec concordance. The axioms below are the book's external dependencies — 
 
 ## Draft status
 
-> *All twenty-two chapters and Appendices A–C are drafted in prose, with exhibits, scored audit columns, and full proofs (B.1–B.9). Under construction: the Chapter 18 reconstruction exhibit, the mechanization of the proofs, and the online edition. Feedback is most valuable on R1–R3, the arity argument, and the Transposition Thesis (Chapter 5, Appendix B) — if something is smuggled, it is there.*
+> *All twenty-three chapters and Appendices A–C are drafted in prose, with exhibits, scored audit columns, and full proofs (B.1–B.9). Under construction: the Chapter 18 reconstruction exhibit, the mechanization of the proofs, and the online edition. Feedback is most valuable on R1–R3, the arity argument, and the Transposition Thesis (Chapter 5, Appendix B) — if something is smuggled, it is there.*
 
 | Part | Status |
 |---|---|
@@ -1756,7 +1789,7 @@ The spec concordance. The axioms below are the book's external dependencies — 
 | Ch 8, 9 | drafted — the reveal and the mismatches |
 | Ch 10–16 | drafted — every audit column scored; the table assembled |
 | Ch 17–20 | drafted — LinkedDataHub as reference implementation; reconstruction exhibit pending |
-| Ch 21–22 (Part VI) | drafted — the agent era and the next web; `part6` frontispiece pending |
+| Ch 21–23 (Part VI) | drafted — knowledge graphs, the agent era, and the next web; `part6` frontispiece pending |
 | Appendices A, C | drafted |
 | Appendix B | complete — B.1–B.9; mechanization pending |
 | Rigor & prior art | uniqueness, arity, and genericity checked against prior work; corroborations and the full prior-art ledger are in Appendix C |

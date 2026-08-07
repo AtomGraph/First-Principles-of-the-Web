@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="56 104 640 288" role="img">
+  <title>Silo pain concentrates at the head; the tail never feels it</title>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- organizations, largest first -->
+    <path d="M70 380 L640 380" stroke="#5a6270" stroke-width="1.5"/>
+    <circle cx="85" cy="380" r="3.5" fill="#1b1e22" stroke="none"/>
+    <!-- the head: a few giants, silos by the thousand, the N × M bill -->
+    <path d="M85 130 C100 200 118 262 148 310" stroke="#005a9c" stroke-width="2.4"/>
+    <!-- the tail: everyone else, too few silos to justify the platform -->
+    <path d="M148 310 C210 358 380 372 630 375" stroke="#5a6270" stroke-width="2"/>
+    <!-- labels -->
+    <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="15" text-anchor="start" stroke="none">
+      <text x="100" y="140" fill="#005a9c">the head</text>
+      <text x="440" y="352" fill="#5a6270">the long tail</text>
+    </g>
+  </g>
+</svg>
