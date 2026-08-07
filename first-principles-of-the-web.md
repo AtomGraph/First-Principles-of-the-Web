@@ -1200,6 +1200,8 @@ The document web bootstrapped exactly this way — the box below dates it. The p
 
 **The first instance, dated.** This is not an analogy; it happened. In 1990 the first web server (`info.cern.ch`) and the first browser ran on two NeXT machines at CERN and interoperated with each other before there was a third program in the world to interoperate with. That browser — WorldWideWeb, soon renamed Nexus so the web could keep the name — was also an editor: reading and writing went through one program. The write side was there on day one, then lost for a generation as the read-only browser became the thing everyone shipped. The federation test above is that first day made a permanent requirement.
 
+<img src="first-principles-figures/worldwideweb-next.png" alt="The WorldWideWeb browser-editor on a NeXT screen: Tim's home page, the WWW Virtual Library and CERN pages in overlapping windows, and the Links menu open on Link to marked — reading and writing in one program" class="fp-spot" width="640" />
+
 </div>
 
 ### The existence proof
@@ -1311,13 +1313,19 @@ Beneath the lenses, the sentence: strip any page and the same skeleton appears; 
 — William Gibson, on NPR's *Talk of the Nation*, 1999
 </div>
 
+### The name
+
 The state Part II derived is in production at scale, under an industry name. A knowledge graph is instance data and the ontologies that describe it, held and queried as one graph. The name went mainstream in May 2012, when Google introduced its [Knowledge Graph](https://blog.google/products-and-platforms/products/search/introducing-knowledge-graph-things-not/) — "things, not strings." Freebase seeded it; Chapter 23 shows Freebase browsed live in 2008. Google has never published what its graph runs on, but the contents are expressible as triples, and its public API serves them that way. Knowledge graphs are also built on other graph models; the ones this chapter counts are RDF.
+
+### The first movers
 
 The practice preceded the name, and the first movers published their reasons as they went.
 
 <div class="fp-history">
 
 **In the world, dated 2010.** For the World Cup the BBC generated [700-plus pages](https://www.bbc.co.uk/blogs/bbcinternet/2010/07/bbc_world_cup_2010_dynamic_sem.html) from an RDF triple store — more index pages than the rest of BBC Sport combined. By London 2012 the same architecture kept [a page for every athlete, team and discipline](https://www.bbc.co.uk/blogs/bbcinternet/2012/04/sports_dynamic_semantic.html), ten thousand of them, a scale its architect called "simply impossible to manage using a static CMS driven publishing stack."
+
+<img src="first-principles-figures/bbc-olympics-2012.png" alt="The BBC Olympics athletes page in July 2012: a banner announcing over 10,000 athletes from more than 200 countries, a live medal table, and featured athletes — pages generated from the triple store" class="fp-spot" width="640" />
 
 </div>
 
@@ -1335,13 +1343,25 @@ The practice preceded the name, and the first movers published their reasons as 
 
 </div>
 
+### The wave
+
 The wave behind the first movers arrived a decade later, at the top of the market. NASA runs the systems engineering of its Moon program on an RDF graph. Siemens holds 1.2 million products in one. The banks maintain FIBO, a shared financial ontology, in OWL. Gartner dated the wave in 2021: "[by 2025, graph technologies will be used in 80% of data and analytics innovations, up from 10% in 2021](https://www.gartner.com/en/newsroom/press-releases/2021-03-16-gartner-identifies-top-10-data-and-analytics-technologies-trends-for-2021)" — a figure spanning every graph model, not RDF alone. And what accelerated the wave is the machine reader. A statistical model answering business questions over an enterprise database [got 17 of 100 right against raw SQL, and 54 against the same data as an RDF graph](https://arxiv.org/abs/2311.07509). Chapter 22 derives what the graph is doing under the model.
 
 The words went mainstream too. Palantir has sold its platform's core abstraction as [the Ontology](https://www.palantir.com/platforms/ontology/) since 2018 and put the word in its SEC filing in 2020. Microsoft followed: Power BI's datasets became [semantic models](https://powerbi.microsoft.com/en-us/blog/datasets-renamed-to-semantic-models/) in 2023, and Fabric now ships [an ontology of its own](https://learn.microsoft.com/en-us/fabric/iq/ontology/overview) — "a shared, machine-understandable vocabulary of your business." Neither ontology runs on RDF. The point is smaller and telling: *ontology* was an academic word the industry would not say aloud, and now it is a product name.
 
+### The open giants
+
+The largest knowledge graphs are not corporate at all. UniProt, the protein knowledge base, has published its data as RDF since 2008 and holds [232 billion triples](https://sparql.uniprot.org/) behind a public SPARQL endpoint — the largest knowledge graph anyone can query. Wikidata — where part of Freebase settled — serves [about eighteen billion more](https://www.wikidata.org/wiki/Wikidata:Statistics). Google last counted its own graph in 2020: [500 billion facts](https://blog.google/products-and-platforms/products/search/about-knowledge-graph-and-knowledge-panels/), private, unqueryable. And the open graphs link to one another: the Linked Open Data cloud maps [1,360 interlinked datasets](https://lod-cloud.net/) as of June 2026.
+
+<img src="first-principles-figures/lod-cloud-2026-06.png" alt="The Linked Open Data cloud diagram, version June 2026: more than a thousand circles, each a published dataset, packed into one dense ball and joined by a line wherever one dataset links to another" class="fp-spot" width="640" />
+
+### The head and the tail
+
 <img src="first-principles-figures/spot-ch21-the-long-tail.svg" alt="A single curve drops steeply from a high head at the left and flattens into a long tail hugging the axis to the right; the short head is blue, the long tail grey; the axis legends read organizations, largest first, and integration pain" class="fp-spot" width="420" />
 
 The wave stops partway down the market, and the reason is arithmetic. Integration pain scales with organization size: General Electric ran [about seventy-five procurement systems, Merck about four thousand Oracle databases](https://cs.uwaterloo.ca/~ilyas/papers/StonebrakerIEEE2018.pdf). Chapter 17 priced the bridges between silos at N × M, and every acquisition raises the count. Down the tail the count falls to a handful, the bill falls with it, and the case for a knowledge graph never arrives. Adoption tracks the head. That is the distribution the epigraph names: the future, already here, unevenly.
+
+### The unclaimed half
 
 Many have realized RDF's potential for data integration. Very few have realized its potential for web application architecture. The audit says the same in its own columns: the industry adopted the R-rows and left the S-rows unclaimed. A knowledge graph is Chapter 5's state without Chapter 4's architecture — the data half of the derivation, running at scale, waiting for the other half. The two chapters that follow are about the other half.
 
@@ -1401,11 +1421,27 @@ Navigation is the first of the five moves (Chapter 7), and on a graph it does wh
 
 Presentation is its own factor (S1), independent of the facts beneath it, so one body of state renders as many surfaces the publisher never built. The reader who needs large type, a screen reader's linear order, another language, a watch-sized screen — each takes the same facts through a different `present` term and gets a document fit for them. Accessibility stops being a retrofit and personalization stops being surveillance: the state is shared, the rendering is the reader's, and the two were never required to be the same choice. The document web bolted this on — parallel mobile sites, accessibility overlays — because content and presentation were fused. CSS Zen Garden (2003) showed the other way at the presentation layer alone, dressing one unchanged HTML document in hundreds of unrecognizably different designs: this independence at a single factor, the rest of the skeleton still fused.
 
+<div class="fp-history">
+
+**In the world, dated 2003.** [CSS Zen Garden](https://www.csszengarden.com/) is one HTML document dressed by hundreds of stylesheets. Both pages below are that same document, twenty-three years on, still accepting designs.
+
+<img src="first-principles-figures/css-zen-garden-pair.png" alt="Two CSS Zen Garden designs side by side: a serene layout over a green photographic header, and a bold geometric poster in orange, navy and pink — the same unchanged HTML document under two stylesheets" class="fp-spot" width="640" />
+
+</div>
+
 #### A feature is a package
 
 An application on the derived web is data — a vocabulary and a stylesheet over state (Chapter 19) — so to change what it does is to change data, not code. A feature ships as a *package*: the terms it introduces and the templates that render them. The package merges into a running application and is withdrawn by the reverse delta, asserted and retracted the way any fact is. Nothing recompiles and nothing redeploys, because there is no application-specific code to rebuild — the catalogue becomes a storefront once a checkout package merges, and a catalogue again once it is retracted. And since the change is a delta, the party making it need be neither a programmer nor a person. A human installs from the interface, or an agent submits the same merge (Chapter 7), and the application is a different application one request later. S3 stops being a vendor's release cycle and becomes an ordinary write, open to anyone holding the right to make it.
 
 The wish is old: HyperCard let people reshape a running application in place in 1987, no rebuild and no deploy. What it lacked was a substrate where the reshaping composes across parties instead of trapping the stack on one machine.
+
+<div class="fp-history">
+
+**In the world, dated 1987.** HyperCard shipped with the Macintosh: stacks of cards a user could edit while using them, buttons and behavior rearranged in place. The reshaping never left the one machine.
+
+<img src="first-principles-figures/hypercard-datebook.png" alt="A HyperCard date book stack: a week of appointments on a card, arrow buttons and tabs for moving between cards, in the black-and-white Macintosh interface" class="fp-spot" width="420" />
+
+</div>
 
 <div class="fp-history">
 
@@ -1482,6 +1518,14 @@ An agent's change is a delta, and its whole intended course — every read, chan
 ### The network forms
 
 And once many build this way, the whole becomes more than its origins. Because states merge by union without a coordinator (R2) and any stylesheet can be pointed at the result (S3), value arises from combinations no one arranged. Two dataspaces that never coordinated compose the moment their names meet, and a third party who owns neither can render the join as something new — an application their authors never imagined and did not have to permit. The document web tried this once and lost it: the mashups of the mid-2000s stitched maps and listings into applications nobody's vendor had shipped, until the APIs metered and re-siloed and the combinations died at the platforms' discretion. Union revokes nothing — the joins hold because no one owns the seam across them, so the mashup that was a fad becomes the ordinary case.
+
+<div class="fp-history">
+
+**In the world, dated 2005.** [HousingMaps](https://web.archive.org/web/2009/http://www.housingmaps.com/) put Craigslist rentals on Google Maps — an application neither vendor shipped or permitted, built by one person from two others' data. Captured here in 2009.
+
+<img src="first-principles-figures/housingmaps-2009.png" alt="HousingMaps: a United States map studded with city pins beside usage instructions, the header reading powered by craigslist and Google Maps" class="fp-spot" width="640" />
+
+</div>
 
 And the loop compounds: each party that publishes a dataspace makes every dataspace federated with it worth more. This is the network effect that once turned a single physicist's filing system into the world's front page. It arrives now at the layer the second era hid, this time with no one in the middle owning the graph or charging rent on the joins.
 
@@ -1753,9 +1797,13 @@ The spec concordance. The axioms below are the book's external dependencies — 
 - J. Walker, [*Is Linked Data the Future of Data Integration in the Enterprise?*](https://www.nxp.com/company/about-nxp/smarter-world-blog/BL-LINKED-DATA-THE-INTEGRATION-FUTURE) (NXP Smarter World Blog, January 2013) — product data scattered across systems, converted to RDF, dereferenceable per product; "the Linked Data is the API"; Chapter 21's first mover on the integration side.
 - M. Stonebraker, I. F. Ilyas, [*Data Integration: The Current Status and the Way Forward*](https://cs.uwaterloo.ca/~ilyas/papers/StonebrakerIEEE2018.pdf) (IEEE Data Eng. Bulletin, 2018) — silo counts at enterprise scale: GE's ~75 procurement systems, Merck's ~4,000 databases; Chapter 21's head of the curve, measured.
 - Palantir, [*Ontology*](https://www.palantir.com/platforms/ontology/) (platform page; on Foundry's marketing since 2018) and the [S-1 registration statement](https://www.sec.gov/Archives/edgar/data/1321655/000119312520230013/d904406ds1.htm) (SEC, August 2020) — "a data model that reflects the real world," the word filed with the regulator; not built on RDF; Chapter 21's vocabulary crossover.
+- Google, [*A reintroduction to our Knowledge Graph and knowledge panels*](https://blog.google/products-and-platforms/products/search/about-knowledge-graph-and-knowledge-panels/) (May 2020) — "over 500 billion facts about five billion entities"; proprietary, no public endpoint or dump; Chapter 21's closed giant.
 - Gartner, [*Top 10 Data and Analytics Technology Trends for 2021*](https://www.gartner.com/en/newsroom/press-releases/2021-03-16-gartner-identifies-top-10-data-and-analytics-technologies-trends-for-2021) (press release, March 2021) — "by 2025, graph technologies will be used in 80% of data and analytics innovations, up from 10% in 2021"; Chapter 21's wave, dated by its analysts; the figure spans all graph models, not RDF alone.
 - J. F. Sequeda, D. Allemang, B. Jacob, [*A Benchmark to Understand the Role of Knowledge Graphs on Large Language Model's Accuracy for Question Answering on Enterprise SQL Databases*](https://arxiv.org/abs/2311.07509) (2023) — GPT-4 at 16.7% over enterprise SQL, 54.2% over the same data as an RDF graph; Chapter 21's grounding motive, measured.
 - Microsoft, [Fabric IQ ontology](https://learn.microsoft.com/en-us/fabric/iq/ontology/overview) (preview, announced November 2025) — "an ontology is a shared, machine-understandable vocabulary of your business"; [Power BI's datasets became *semantic models*](https://powerbi.microsoft.com/en-us/blog/datasets-renamed-to-semantic-models/) in November 2023; neither on RDF; Chapter 21's vocabulary crossover.
+- The UniProt Consortium, [sparql.uniprot.org](https://sparql.uniprot.org/) (release 2026_02, June 2026) — 232.5 billion triples behind a free public SPARQL endpoint, RDF distribution since 2008; the largest publicly queryable knowledge graph; Chapter 21's open giant.
+- Wikidata, [statistics](https://www.wikidata.org/wiki/Wikidata:Statistics) (2026) — ~123 million items, ~18 billion triples across the [query service and its scholarly split](https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service/WDQS_graph_split) (May 2025); where part of Freebase settled; Chapter 21's open giant.
+- The [Linked Open Data cloud](https://lod-cloud.net/) (version of 15 June 2026; diagram CC BY) — 1,360 interlinked open datasets; Chapter 21's map of the open graphs.
 - D. Huynh, [*Freebase Parallax: A new way to browse and explore data*](https://vimeo.com/1513562) (Metaweb, 2008) — set-based navigation over graph data: a set carried to the set it relates to. Google acquired Metaweb in 2010, and Freebase was a seed of the Google Knowledge Graph. Chapter 23's set-to-set capability, demonstrated.
 - D. Siegel, *Pull: The Power of the Semantic Web to Transform Your Business* (Portfolio, 2009) — the *personal data locker* (a life held as one owner-controlled graph) and *intentcasting* (Searls's coinage, below); Chapter 23's personal dataspace, reached from the demand side. Video: [*Personal Data Locker Vision*](https://www.youtube.com/watch?v=xOch5o3MhUg).
 - D. Searls, *The Intention Economy: When Customers Take Charge* (Harvard Business Review Press, 2012; the term *intention economy* coined 2006) — customers broadcasting qualified intent for vendors to answer (*intentcasting*); Chapter 23's stating-a-need capability, from the demand side. Talk: [*The Intention Economy* book talk, 2012](https://www.youtube.com/watch?v=nVP3qF_HVkA).
