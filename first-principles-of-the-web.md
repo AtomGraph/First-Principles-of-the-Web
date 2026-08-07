@@ -458,7 +458,7 @@ Chapter 5 closed on a mismatch of shapes; the pipeline's types locate it. `State
 
 <div class="fp-history">
 
-**In the world.** The tension this chapter resolves is older than the web. In 1945 Vannevar Bush blamed our trouble finding anything on "the artificiality of systems of indexing": records "filed alphabetically or numerically," found "by tracing it down from subclass to subclass." The mind, he wrote, instead "operates by association." Ted Nelson put the same objection in capitals in 1974: "EVERYTHING IS DEEPLY INTERTWINGLED. In an important sense there are no 'subjects' at all." Both were describing a graph and refusing the tree. This chapter keeps both. The association is what `State` is. The tree is only what a document must become to cross the wire and be read.
+**In the world.** The tension this chapter resolves is older than the web. In 1945 Vannevar Bush blamed our trouble finding anything on "[the artificiality of systems of indexing](https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/)": records "filed alphabetically or numerically," found "by tracing it down from subclass to subclass." The mind, he wrote, instead "operates by association." Ted Nelson put the same objection in capitals in 1974: "EVERYTHING IS DEEPLY INTERTWINGLED. In an important sense there are no 'subjects' at all." Both were describing a graph and refusing the tree. This chapter keeps both. The association is what `State` is. The tree is only what a document must become to cross the wire and be read.
 
 </div>
 
@@ -1243,13 +1243,13 @@ The reference implementation ships exactly this: applications as importable data
 
 <div class="fp-history">
 
-**In the world.** Enterprise architecture reached this chapter's conclusion from the cost side, without deriving it. Dave McComb's *Software Wasteland* (2018) is a book-length audit of the application-centric mindset — every enterprise rebuilding the same CRUD over its own bespoke model. Its sequel *The Data-Centric Revolution* (2019) prescribes the data-centric cure this chapter derives: make the data the fixed point and let one generic substrate be specialized by an evolving model, not by code. Those books argue it from decades of enterprise waste; Proposition 19.1 states the same result as a corollary.
+**In the world.** Enterprise architecture reached this chapter's conclusion from the cost side, without deriving it. Dave McComb's *Software Wasteland* (2018) is a book-length audit of the application-centric mindset — every enterprise rebuilding the same CRUD over its own bespoke model. Its sequel *The Data-Centric Revolution* (2019) prescribes the [data-centric](https://www.semanticarts.com/data-centric/) cure this chapter derives: make the data the fixed point and let one generic substrate be specialized by an evolving model, not by code. Those books argue it from decades of enterprise waste; Proposition 19.1 states the same result as a corollary.
 
 </div>
 
 <div class="fp-history">
 
-**In the world, dated 2017.** The liability has a mainstream witness. James Somers's *Atlantic* essay "The Coming Software Apocalypse" surveys what code grown past comprehension already costs. A statewide 911 outage traced to one counter's threshold; a runaway Toyota whose throttle code eighteen months of expert review barely untangled. A car now carries a hundred million lines. Unmoored from anything physical, software "tends to grow without bound" — into systems, as Nancy Leveson writes, "beyond our ability to intellectually manage." The remedy one interviewee states is this chapter's: "Nobody would build a car by hand."
+**In the world, dated 2017.** The liability has a mainstream witness. James Somers's *Atlantic* essay "[The Coming Software Apocalypse](https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/)" surveys what code grown past comprehension already costs. A statewide 911 outage traced to one counter's threshold; a runaway Toyota whose throttle code eighteen months of expert review barely untangled. A car now carries a hundred million lines. Unmoored from anything physical, software "tends to grow without bound" — into systems, as Nancy Leveson writes, "beyond our ability to intellectually manage." The remedy one interviewee states is this chapter's: "Nobody would build a car by hand."
 
 </div>
 
@@ -1314,7 +1314,7 @@ There is an exit built into this arithmetic. An adapter that translates one appl
 
 <div class="fp-history">
 
-**The vision, dated 2001.** The scenario this chapter derives was written as fiction twenty-five years ago. The May 2001 *Scientific American* article "The Semantic Web" is by Tim Berners-Lee, James Hendler, and Ora Lassila. It opens with Lucy's agent negotiating a course of medical appointments over machine-readable data on her behalf — an agent reading the web, not scraping its pixels. It read as science fiction because the agents did not exist. They exist now. Chapter 8 said the substrate was built for machine consumption and the machines were twenty years out; this is the same clock, run down. What was missing was never the stack — it was the reader, and the reader has arrived.
+**The vision, dated 2001.** The scenario this chapter derives was written as fiction twenty-five years ago. The May 2001 *Scientific American* article "[The Semantic Web](https://www.scientificamerican.com/article/the-semantic-web/)" is by Tim Berners-Lee, James Hendler, and Ora Lassila. It opens with Lucy's agent negotiating a course of medical appointments over machine-readable data on her behalf — an agent reading the web, not scraping its pixels. It read as science fiction because the agents did not exist. They exist now. Chapter 8 said the substrate was built for machine consumption and the machines were twenty years out; this is the same clock, run down. What was missing was never the stack — it was the reader, and the reader has arrived.
 
 </div>
 
@@ -1414,7 +1414,7 @@ What may be read, and by whom, is stated in the same state it governs — narrow
 
 <div class="fp-history">
 
-**The vision, dated 2016.** The web's own inventor built toward this. Solid — Tim Berners-Lee's re-decentralization project, begun in 2016 — gives each person a *pod* whose access is itself data. Web Access Control rules, held beside the resources they govern, state who may read what and are edited and revoked like any other fact. Permission as a statement rather than a platform setting is Solid's design and this section's, for the same reason: put access in the state, and no intermediary owns the gate.
+**The vision, dated 2016.** The web's own inventor built toward this. [Solid](https://solidproject.org/) — Tim Berners-Lee's re-decentralization project, begun in 2016 — gives each person a *pod* whose access is itself data. [Web Access Control](https://www.w3.org/wiki/WebAccessControl) rules, held beside the resources they govern, state who may read what and are edited and revoked like any other fact. Permission as a statement rather than a platform setting is Solid's design and this section's, for the same reason: put access in the state, and no intermediary owns the gate.
 
 </div>
 
