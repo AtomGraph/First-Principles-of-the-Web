@@ -1446,6 +1446,8 @@ The same compounding reaches the agent. A domain it has never seen needs no new 
 
 So the next web is not built by a consortium or shipped in a release. It begins wherever someone stops the lateral churn and the taste-based technology trends, and treats the web as this book has treated it: from first principles, as a science. Those who do, the agents included, will have an edge over those who don't, and the gap will only grow, because churn starts over and derivation compounds. Which curve do you want to be on?
 
+<img src="first-principles-figures/spot-ch22-the-two-curves.svg" alt="Two curves leave the same origin: a jagged line labelled churn climbs but keeps falling partway back, gaining little; a smooth curve labelled derivation starts lower, overtakes it, and keeps rising as the gap widens" class="fp-spot" width="420" />
+
 ---
 
 # Appendices
