@@ -1439,7 +1439,7 @@ The wish is old: HyperCard let people reshape a running application in place in 
 
 **In the world, dated 1987.** HyperCard shipped with the Macintosh: stacks of cards a user could edit while using them, buttons and behavior rearranged in place. The reshaping never left the one machine.
 
-<img src="first-principles-figures/hypercard-datebook.png" alt="A HyperCard date book stack: a week of appointments on a card, arrow buttons and tabs for moving between cards, in the black-and-white Macintosh interface" class="fp-spot" width="420" />
+<iframe src="https://www.youtube.com/embed/FquNpWdf9vg" style="width: 100%; aspect-ratio: 16 / 9; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="The Computer Chronicles — HyperCard (1987)"></iframe>
 
 </div>
 
