@@ -1318,9 +1318,9 @@ What lives today across a dozen unspeaking silos composes, under one model and o
 
 </div>
 
-### Data outlives the application
+### What outlives the software
 
-State lives under its owner's origin, not inside the application that renders it, so it outlives that application. The service shuts down, the vendor is acquired, the format falls from fashion, the framework is rewritten — and the facts remain where they were, under a name that still resolves. What dies on the fused web is not only the app but everything entrusted to it: the account closes and its history goes with it, the link rots and the record is gone. Here the code is the mortal part and the data the durable one — Chapter 19's inversion, holding for a person's life and a civilization's record alike. The principle is old, mostly honored in the breach: Berners-Lee's *Cool URIs don't change* (1998) asked exactly this and the web declined; a name that resolves to its owner's current answer is that discipline made structural rather than requested.
+State lives under its owner's origin, not inside the software that happens to touch it, so it outlives that software — the application and the agent alike. The service shuts down, the vendor is acquired, the framework is rewritten, the assistant is replaced by a better one; the facts remain where they were, under a name that still resolves, readable by whatever reads next. What dies on the fused web is not only the app but everything entrusted to it — the account closes and its history goes with it, the link rots and the record is gone — and what an agent learned about the party it served dies sealed in the assistant's own machinery. Here the code is the mortal part and the data the durable one: an agent gives way to a better one with nothing forgotten, because its memory was state under the served party's origin, never the agent's to keep. The record even reaches the words themselves — the conversation that produced a fact is state like any other, each turn a document carrying the utterance that triggered it — so *why was this done?* is settled by reading, not by asking a machine to remember. The principle is old, mostly honored in the breach: Berners-Lee's *Cool URIs don't change* (1998) asked persistence of the web and the web declined, and Bush's Memex (Chapter 6) wanted a personal store that outlived no session; both wanted what owner-held state supplies — a name that resolves to its owner's own current answer, durable past the software that reads it.
 
 ### Permission is a fact
 
@@ -1331,10 +1331,6 @@ What may be read, and by whom, is stated in the same state it governs — narrow
 **The vision, dated 2016.** The web's own inventor built toward this. Solid — Tim Berners-Lee's re-decentralization project, begun in 2016 — gives each person a *pod* whose access is itself data: Web Access Control rules, held beside the resources they govern, stating who may read what, edited and revoked like any other fact. Permission as a statement rather than a platform setting is Solid's design and this section's, for the same reason: put access in the state, and no intermediary owns the gate.
 
 </div>
-
-### Memory that outlives the agent
-
-What an agent learns about the party it serves is not the agent's to keep. On the closed web that memory sits sealed in the assistant's machinery, lost the day it is replaced; here it is state under the served party's origin — plain facts, readable and correctable — so one agent gives way to a better one with nothing forgotten. The question no closed system answers — *why was this done?* — is settled by reading. And it reaches the words themselves: the conversation that produced a fact is state like any other, each turn a document carrying the utterance that triggered it, portable across whatever model reads it next and narrowed, like every fact, to those permitted to see it. Memory that belongs to the person rather than the tool is the oldest wish in this book's lineage — Bush's Memex (Chapter 6) was one form; what it lacked, and owner-held state supplies, is a substrate that can hold it.
 
 Reading is half of it. The write side turns capability into action.
 
@@ -1354,13 +1350,9 @@ A change is a delta — two fact-sets, readable before it applies and reversible
 
 And once many build this way, the whole becomes more than its origins.
 
-### Applications nobody planned
+### The network with no landlord
 
-Because states merge by union without a coordinator (R2) and any stylesheet can be pointed at the result (S3), applications arise from combinations no one arranged. Two dataspaces that never coordinated compose the moment their names meet, and a third party who owns neither can render the join as something new — a view, a tool, an application their authors never imagined and did not have to permit. Value stops requiring a party who planned it. The document web tried this once and lost it: the mashups of the mid-2000s stitched maps and listings into applications nobody's vendor had shipped, until the APIs metered and re-siloed and the combinations died at the platforms' discretion. Union revokes nothing — the joins hold because no one owns the seam across them, and the mashup that was a fad becomes the ordinary case.
-
-### Compounding without a landlord
-
-Each party that publishes a dataspace makes every dataspace federated with it worth more — the loop that once turned a single physicist's filing system into the world's front page, arriving now at the layer the second era hid, this time with no one in the middle owning the graph or charging rent on the joins. And a domain the agent has never seen needs no new system: it states the domain as facts over the one generic engine, and is done. The choice Chapter 21 put to it — a bespoke system per domain, or one engine with the domain as data — was never really a choice.
+Because states merge by union without a coordinator (R2) and any stylesheet can be pointed at the result (S3), value arises from combinations no one arranged. Two dataspaces that never coordinated compose the moment their names meet, and a third party who owns neither can render the join as something new — an application their authors never imagined and did not have to permit. The document web tried this once and lost it: the mashups of the mid-2000s stitched maps and listings into applications nobody's vendor had shipped, until the APIs metered and re-siloed and the combinations died at the platforms' discretion. Union revokes nothing — the joins hold because no one owns the seam across them, so the mashup that was a fad becomes the ordinary case. And the loop compounds: each party that publishes a dataspace makes every dataspace federated with it worth more — the network effect that once turned a single physicist's filing system into the world's front page, arriving now at the layer the second era hid, this time with no one in the middle owning the graph or charging rent on the joins. A domain the agent has never seen needs no new system either: it states the domain as facts over the one generic engine, and is done. The choice Chapter 21 put to it — a bespoke system per domain, or one engine with the domain as data — was never really a choice.
 
 So the next web is not built by a consortium or shipped in a release. It is occupied — origin by origin, dataspace by dataspace — by anyone who builds one level down instead of fusing. That is the whole of the work that remains, and it is already under way.
 
