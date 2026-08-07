@@ -863,15 +863,25 @@ Three columns of failures — the bracket stacks (Chapter 10), the single-page a
 
 <img src="first-principles-figures/spot-ch13-the-bridges.svg" alt="Four tall silos joined by improvised plank bridges, a rope bridge, and a leaning ladder; two silos on a shared foundation stand apart, unbridged" class="fp-spot" width="420" />
 
-**Relational.** The strongest of the pre-web paradigms, and the most instructive. Inside one database the model scores where nothing else pre-web does: relational algebra is denotational — S2-grade semantics decades before the web — and the query/storage separation is genuine S1 discipline. The failure is R3, and it is total: keys are database-scoped, so reference stops at the connection string, and two databases that never coordinated share no name for anything — which drags R2 down with it, since composition then requires a schema authority. The compensating industry is integration itself: every pair of silos bridged by hand, per pair, forever.
+### Relational
 
-**Object orientation.** Encapsulation is the deliberate fusion of state and behavior — R1 inverted: state exists in order to be hidden. Objects are designed neither to merge nor to be referenced from outside their runtime; identity is a pointer. The compensating industries: serialization frameworks and data-transfer-object (DTO) layers — machinery for re-extracting the state the paradigm hid, every time it must travel.
+The strongest of the pre-web paradigms, and the most instructive. Inside one database the model scores where nothing else pre-web does: relational algebra is denotational — S2-grade semantics decades before the web — and the query/storage separation is genuine S1 discipline. The failure is R3, and it is total: keys are database-scoped, so reference stops at the connection string, and two databases that never coordinated share no name for anything — which drags R2 down with it, since composition then requires a schema authority. The compensating industry is integration itself: every pair of silos bridged by hand, per pair, forever.
 
-**ORM.** An ORM is a type error between two wrong models: object graphs mapped onto relations, machine-local identity onto database-scoped keys. Each side fails a different requirement, and the mapping inherits both. The impedance-mismatch literature is its own measurement.
+### Object orientation
 
-**Imperative languages.** S2 unreachable in principle — Chapter 11's argument at the language level. The compensating machinery is the testing pyramid: when meaning is execution, every claim about meaning must be executed to be checked — semantics recovered empirically, per program, forever.
+Encapsulation is the deliberate fusion of state and behavior — R1 inverted: state exists in order to be hidden. Objects are designed neither to merge nor to be referenced from outside their runtime; identity is a pointer. The compensating industries: serialization frameworks and data-transfer-object (DTO) layers — machinery for re-extracting the state the paradigm hid, every time it must travel.
 
-**MVC.** The paradigms above, assembled: a Model without R2 or R3, Views without S2, Controllers fusing what S1 separates. Deconstructed, each part has a derived generic replacement — the model by the shape of a fact (5.3), the view by `⟦t⟧` and `⟦s⟧`, the controller by `read` and `write` themselves, which HTTP had already provided.
+### ORM
+
+An ORM is a type error between two wrong models: object graphs mapped onto relations, machine-local identity onto database-scoped keys. Each side fails a different requirement, and the mapping inherits both. The impedance-mismatch literature is its own measurement.
+
+### Imperative languages
+
+S2 unreachable in principle — Chapter 11's argument at the language level. The compensating machinery is the testing pyramid: when meaning is execution, every claim about meaning must be executed to be checked — semantics recovered empirically, per program, forever.
+
+### MVC
+
+The paradigms above, assembled: a Model without R2 or R3, Views without S2, Controllers fusing what S1 separates. Deconstructed, each part has a derived generic replacement — the model by the shape of a fact (5.3), the view by `⟦t⟧` and `⟦s⟧`, the controller by `read` and `write` themselves, which HTTP had already provided.
 
 | Paradigm | Fails | The compensating industry |
 |---|---|---|
@@ -1038,13 +1048,21 @@ Internal storage — file, memory, triplestore — has no row: invisible to cons
 
 Behind the four names stands one state `S`, in the shape of Prop. 9.2: quads, grouped by their fourth position into a family of named graphs. `S(u)` is the graph named `u`, and every graph name is a document URI under `o`. The gloss column is then four laws, each an earlier result arriving at deployment grain.
 
-**Documents.** Dereference is graph lookup — `select(u, S) = S(u)`, the fourth position as the address (Prop. 9.2), with `read` defined (S4) and `write` accepting a delta there (Prop. 7.1). And the obligation that makes the data *linked*: every name under `o` in a fact position of `S` has `read(name, S)` defined — mint a name only if you serve its description. AWWW §3.5 asked for this as a SHOULD; (17.1) holds it as a condition of being a dataspace at all.
+#### Documents
 
-**One state.** The endpoint `e` answers `⟦q⟧` posed to `S` itself — the same `S` the documents project. "Projecting the same state" is an equation, and a second store that drifts from `S` breaks it observably.
+Dereference is graph lookup — `select(u, S) = S(u)`, the fourth position as the address (Prop. 9.2), with `read` defined (S4) and `write` accepting a delta there (Prop. 7.1). And the obligation that makes the data *linked*: every name under `o` in a fact position of `S` has `read(name, S)` defined — mint a name only if you serve its description. AWWW §3.5 asked for this as a SHOULD; (17.1) holds it as a condition of being a dataspace at all.
 
-**Domain as data.** `S(ont)` is schema in the shape of (5.3).
+#### One state
 
-**Total rendering.** `x` dereferences to the arrange term, generic in B.8's sense. The build log below looks at it more closely.
+The endpoint `e` answers `⟦q⟧` posed to `S` itself — the same `S` the documents project. "Projecting the same state" is an equation, and a second store that drifts from `S` breaks it observably.
+
+#### Domain as data
+
+`S(ont)` is schema in the shape of (5.3).
+
+#### Total rendering
+
+`x` dereferences to the arrange term, generic in B.8's sense. The build log below looks at it more closely.
 
 One entity makes the four concrete: GET `…/panel-14` returns the graph of facts about that panel; POST a form there applies a delta — `(D⁻, D⁺)` — to the same graph; and the endpoint answers any query that ranges over it. One state, three doors, each an HTTP request you can make by hand.
 
