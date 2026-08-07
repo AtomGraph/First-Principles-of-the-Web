@@ -1317,7 +1317,19 @@ The practice preceded the name, and the first movers published their reasons as 
 
 <div class="fp-history">
 
-**The first movers, dated 2010–2013.** For the 2010 World Cup the BBC generated [700-plus pages](https://www.bbc.co.uk/blogs/bbcinternet/2010/07/bbc_world_cup_2010_dynamic_sem.html) from an RDF triple store — more index pages than the rest of BBC Sport combined. By London 2012 the same architecture kept [a page for every athlete, team and discipline](https://www.bbc.co.uk/blogs/bbcinternet/2012/04/sports_dynamic_semantic.html), ten thousand of them, a scale its architect called "simply impossible to manage using a static CMS driven publishing stack." In January 2013 NXP Semiconductors, its product data "scattered and duplicated across numerous applications and databases," [published its exit](https://www.nxp.com/company/about-nxp/smarter-world-blog/BL-LINKED-DATA-THE-INTEGRATION-FUTURE): an HTTP URI per product, every source converted to RDF, SPARQL underneath. "The Linked Data is the API." NXP's pages were served by Graphity, LinkedDataHub's predecessor (disclosure: the author's, per Chapter 18).
+**In the world, dated 2010.** For the World Cup the BBC generated [700-plus pages](https://www.bbc.co.uk/blogs/bbcinternet/2010/07/bbc_world_cup_2010_dynamic_sem.html) from an RDF triple store — more index pages than the rest of BBC Sport combined. By London 2012 the same architecture kept [a page for every athlete, team and discipline](https://www.bbc.co.uk/blogs/bbcinternet/2012/04/sports_dynamic_semantic.html), ten thousand of them, a scale its architect called "simply impossible to manage using a static CMS driven publishing stack."
+
+</div>
+
+<div class="fp-history">
+
+**In the world, dated 2011.** The Danish comics site [heltnormalt.dk](https://atomgraph.com/cases/helt-normalt/) rebuilt its publishing on RDF, SPARQL and XSLT. Its builders [told a W3C workshop](https://www.w3.org/2011/09/LinkedData/ledp2011_submission_1.pdf) that the codebase shrank by an order of magnitude against the relational system it replaced, and that its ontologies were reused rather than written — down to [a zodiac vocabulary](https://data.totl.net/zodiac/) found on the open web, for the daily horoscope strip. The platform was Graphity, LinkedDataHub's predecessor (disclosure: the author's, per Chapter 18).
+
+</div>
+
+<div class="fp-history">
+
+**In the world, dated 2013.** NXP Semiconductors, its product data "scattered and duplicated across numerous applications and databases," [published its exit](https://www.nxp.com/company/about-nxp/smarter-world-blog/BL-LINKED-DATA-THE-INTEGRATION-FUTURE): an HTTP URI per product, every source converted to RDF, SPARQL underneath. "The Linked Data is the API." NXP's pages were served by the same Graphity.
 
 </div>
 
@@ -1732,6 +1744,7 @@ The spec concordance. The axioms below are the book's external dependencies — 
 - D. McComb, *Software Wasteland* (Technics, 2018) and *The Data-Centric Revolution* (Technics, 2019) — the [data-centric](https://www.semanticarts.com/data-centric/) case (Semantic Arts) for data over application code; Chapter 19's corollary reached from enterprise waste rather than derivation.
 - J. Somers, [*The Coming Software Apocalypse*](https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/) (The Atlantic, September 2017) — code grown past comprehension in safety-critical systems, and the remedies that move engineers above it (model-based design, Lamport's TLA+); Chapter 19's liability, reported from the field.
 - J. Rayfield, [*BBC World Cup 2010 dynamic semantic publishing*](https://www.bbc.co.uk/blogs/bbcinternet/2010/07/bbc_world_cup_2010_dynamic_sem.html) (BBC Internet Blog, July 2010) and [*Sports Refresh: Dynamic Semantic Publishing*](https://www.bbc.co.uk/blogs/bbcinternet/2012/04/sports_dynamic_semantic.html) (April 2012) — 700-plus World Cup pages, then ten thousand Olympic pages, generated from an RDF triple store; Chapter 21's first mover on the publishing side.
+- M. Jusevičius, A. Smirnovas, J. Šėporaitis, [*Graphity – A Generic Linked Data Platform*](https://www.w3.org/2011/09/LinkedData/ledp2011_submission_1.pdf) (position paper, [W3C Workshop on Linked Enterprise Data Patterns](https://www.w3.org/2011/09/LinkedData/), December 2011) — heltnormalt.dk on RDF, SPARQL and XSLT, the codebase an order of magnitude smaller than the relational system it replaced, ontologies reused down to [a zodiac vocabulary](https://data.totl.net/zodiac/); Chapter 21's first mover on the application side (the author's, per Chapter 18).
 - A. Singhal, [*Introducing the Knowledge Graph: things, not strings*](https://blog.google/products-and-platforms/products/search/introducing-knowledge-graph-things-not/) (Google, May 2012) — the announcement that made *knowledge graph* the industry's name for graph-shaped state; Chapter 21's dating of the term.
 - J. Walker, [*Is Linked Data the Future of Data Integration in the Enterprise?*](https://www.nxp.com/company/about-nxp/smarter-world-blog/BL-LINKED-DATA-THE-INTEGRATION-FUTURE) (NXP Smarter World Blog, January 2013) — product data scattered across systems, converted to RDF, dereferenceable per product; "the Linked Data is the API"; Chapter 21's first mover on the integration side.
 - M. Stonebraker, I. F. Ilyas, [*Data Integration: The Current Status and the Way Forward*](https://cs.uwaterloo.ca/~ilyas/papers/StonebrakerIEEE2018.pdf) (IEEE Data Eng. Bulletin, 2018) — silo counts at enterprise scale: GE's ~75 procurement systems, Merck's ~4,000 databases; Chapter 21's head of the curve, measured.
