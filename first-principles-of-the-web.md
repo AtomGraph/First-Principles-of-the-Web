@@ -1278,6 +1278,18 @@ Navigation is the first of the five moves (Chapter 7), and on a graph it does wh
 
 </div>
 
+### A feature is a package
+
+An application on the derived web is data — a vocabulary and a stylesheet over state (Chapter 19) — so to change what it does is to change data, not code. A feature ships as a *package*: the terms it introduces and the templates that render them, added to a running application by merging them in and withdrawn by the reverse delta — asserted the way any fact is, retracted the same way. Nothing recompiles and nothing redeploys, because there is no application-specific code to rebuild; the app that was a catalogue is a storefront once a checkout package merges, and a catalogue again once it is retracted. And since the change is a delta, the party making it need be neither a programmer nor even a person: a human installs a package from the interface, or an agent submits the same merge (Chapter 7), and the application is a different application one request later. S3 — substitutability — stops being a vendor's release cycle and becomes an ordinary write, available to anyone holding the right to make it.
+
+The wish is old — HyperCard let people reshape a running application in place in 1987, no rebuild and no deploy — and what it lacked was a substrate where the reshaping composes across parties instead of trapping the stack on one machine.
+
+<div class="fp-history">
+
+**In the world, prototyped.** This is running code. LinkedDataHub — the reference implementation of Chapter 18 — ships a package as exactly an ontology and a stylesheet: installing one merges its vocabulary into the running application and adds its templates; uninstalling one is the reverse delta. The operation is an ordinary authenticated write, so an owner runs it from the interface and an agent runs it over the same endpoint — no code rebuilt, no application redeployed. It is young — shipped in 2026, its shipped feature a taxonomy editor, its presentation refresh not yet instantaneous — but the mechanism is the derived one, in production. (Disclosure: LinkedDataHub is the author's, as Chapters 18–19 note.)
+
+</div>
+
 ### Reading, not scraping
 
 The agent reads rather than scrapes. It asks, and receives facts, where its predecessors parsed rendered pixels and reverse-engineered private interfaces — the compensating industry Chapter 21 measured, no longer needed. Its answers are computed, not guessed: the substrate returns what is actually held, and each fact arrives with the source that asserted it, so a claim and its provenance travel together, and a fabricated one has nowhere to sit. The move is not new: it is what the 2001 Semantic Web scenario (Chapter 21) assumed all along — an agent that asks for facts and receives them, not one that parses a page pretending to be one.
@@ -1564,6 +1576,7 @@ Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, 
 - D. Huynh, [*Freebase Parallax: A new way to browse and explore data*](https://vimeo.com/1513562) (Metaweb, 2008) — set-based navigation over graph data: a set carried to the set it relates to. Metaweb acquired by Google in 2010, Freebase a seed of the Google Knowledge Graph. Chapter 22's set-to-set capability, demonstrated.
 - D. Siegel, *Pull: The Power of the Semantic Web to Transform Your Business* (Portfolio, 2009) — the *personal data locker* (a life held as one owner-controlled graph) and *intentcasting* (structured demand published to a market); Chapter 22's personal dataspace, reached from the demand side. Video: [*Personal Data Locker Vision*](https://www.youtube.com/watch?v=xOch5o3MhUg).
 - D. Searls, *The Intention Economy: When Customers Take Charge* (Harvard Business Review Press, 2012; the term *intention economy* coined 2006) — customers broadcasting qualified intent for vendors to answer (*intentcasting*); Chapter 22's stating-a-need capability, from the demand side. Talk: [*The Intention Economy* book talk, 2012](https://www.youtube.com/watch?v=nVP3qF_HVkA).
+- Apple, *HyperCard* (1987) — a running application reshaped in place, its stacks editable documents, with no rebuild and no redeploy; Chapter 22's live-morphability lineage, wanting only a cross-party substrate.
 
 *Candidates — specified, not standardized; Part V's seams:*
 
