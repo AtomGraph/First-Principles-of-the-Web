@@ -1247,6 +1247,18 @@ The reference implementation ships exactly this: applications as importable data
 
 </div>
 
+### The liability, measured
+
+The liability now has a measured scale. An enterprise system runs to millions of lines of code; a car carries a hundred million. No one reads such a codebase, let alone holds it in mind, and the defect count grows with the line count. The tools have not kept pace: four decades of hardware doubling, and software is still imperative text typed into an editor.
+
+The endpoint count has a trend of its own. One industry forecast (2020) puts the world on course for [a trillion programmable endpoints](https://www.forbes.com/sites/tomtaulli/2020/01/18/api-economy--is-it-the-next-big-thing/). Each bespoke API is a vocabulary to learn and a connector to write, so the connector count runs toward the N × M that Chapter 17 priced and Chapter 21 totals. At today's counts that is a cost. At the projected counts it is infeasible: no workforce writes that many adapters, and none maintains them.
+
+<div class="fp-history">
+
+**In the world, dated 2017.** The trend is not a niche worry. James Somers's *Atlantic* essay "[The Coming Software Apocalypse](https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/)" tours what code grown past comprehension already does. A six-hour statewide 911 outage traced to one counter's threshold; a runaway Toyota whose throttle code NASA's reviewers could not clear. Its diagnosis is Nancy Leveson's: the serious failures are failures of requirements, not of coding. Every remedy it reports moves the engineer above the code — an airliner's flight software generated from declared rules, Amazon finding bugs in S3 by writing Lamport's specifications before code. The essay stops where the tools stop, at safety-critical code. This chapter carries the same move to the domain application: declared as data, run by a generic engine.
+
+</div>
+
 ### Computation on the write side
 
 One objection lands here with real force, and it deserves the treatment latency got in Chapter 7: *real domains compute.* A payroll run turns timesheets into pay; an allocation turns orders into reservations; an invoice's total is nobody's keystroke. If the engine houses no domain code, who computes? Definition 1.1 answered before the question arose: it types what the application *is* — `read` and `write` — and says nothing about who calls it. Chapter 7's caller was a human holding a form. A computation is another caller: an agent that reads, computes, and submits its conclusion through the same `write`, in the same normal form, reviewable and invertible like every delta. Chapter 21 turns exactly that reviewability into the governance story.
