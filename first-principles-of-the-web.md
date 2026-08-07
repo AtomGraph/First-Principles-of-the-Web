@@ -1436,9 +1436,9 @@ And once many build this way, the whole becomes more than its origins. Because s
 
 And the loop compounds: each party that publishes a dataspace makes every dataspace federated with it worth more — the network effect that once turned a single physicist's filing system into the world's front page, arriving now at the layer the second era hid, this time with no one in the middle owning the graph or charging rent on the joins.
 
-A domain the agent has never seen needs no new system: it states the domain as facts over the one generic engine, and is done. The choice Chapter 21 put to it — a bespoke system per domain, or one engine with the domain as data — was never really a choice.
+The same compounding reaches the agent. A domain it has never seen needs no new system: it states the domain as facts over the one generic engine, and is done. The choice Chapter 21 put to it — a bespoke system per domain, or one engine with the domain as data — was never really a choice.
 
-So the next web is not built by a consortium or shipped in a release. It is occupied — origin by origin, dataspace by dataspace — by anyone who builds one level down instead of fusing. That is the whole of the work that remains, and it is already under way.
+So the next web is not built by a consortium or shipped in a release. It begins wherever someone stops the lateral churn and the taste-based technology trends, and treats the web as this book has treated it: from first principles, as a science. Those who do, the agents included, will have an edge over those who don't, and the gap will only grow, because churn starts over and derivation compounds. Which curve do you want to be on?
 
 ---
 
