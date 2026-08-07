@@ -1247,6 +1247,12 @@ The reference implementation ships exactly this: applications as importable data
 
 </div>
 
+<div class="fp-history">
+
+**In the world, dated 2017.** The liability has a mainstream witness. James Somers's *Atlantic* essay "The Coming Software Apocalypse" surveys what code grown past comprehension already costs. A statewide 911 outage traced to one counter's threshold; a runaway Toyota whose throttle code eighteen months of expert review barely untangled. A car now carries a hundred million lines. Unmoored from anything physical, software "tends to grow without bound" — into systems, as Nancy Leveson writes, "beyond our ability to intellectually manage." The remedy one interviewee states is this chapter's: "Nobody would build a car by hand."
+
+</div>
+
 ### Computation on the write side
 
 One objection lands here with real force, and it deserves the treatment latency got in Chapter 7: *real domains compute.* A payroll run turns timesheets into pay; an allocation turns orders into reservations; an invoice's total is nobody's keystroke. If the engine houses no domain code, who computes? Definition 1.1 answered before the question arose: it types what the application *is* — `read` and `write` — and says nothing about who calls it. Chapter 7's caller was a human holding a form. A computation is another caller: an agent that reads, computes, and submits its conclusion through the same `write`, in the same normal form, reviewable and invertible like every delta. Chapter 21 turns exactly that reviewability into the governance story.
@@ -1695,6 +1701,7 @@ The spec concordance. The axioms below are the book's external dependencies — 
 - T. Berners-Lee, J. Hendler, O. Lassila, [*The Semantic Web*](https://www.scientificamerican.com/article/the-semantic-web/) (Scientific American, May 2001) — the agent-over-machine-readable-data scenario Chapter 21 derives; written as fiction, now falsifiable.
 - J. E. Labra Gayo, E. Prud'hommeaux, I. Boneva, D. Kontokostas, *Validating RDF Data* (2017), foreword by D. Brickley and L. Miller — Chapter 9's epigraph.
 - D. McComb, *Software Wasteland* (Technics, 2018) and *The Data-Centric Revolution* (Technics, 2019) — the [data-centric](https://www.semanticarts.com/data-centric/) case (Semantic Arts) for data over application code; Chapter 19's corollary reached from enterprise waste rather than derivation.
+- J. Somers, [*The Coming Software Apocalypse*](https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/) (The Atlantic, September 2017) — code grown past comprehension in safety-critical systems, and the remedies that move engineers above it (model-based design, Lamport's TLA+); Chapter 19's liability, reported from the field.
 - D. Huynh, [*Freebase Parallax: A new way to browse and explore data*](https://vimeo.com/1513562) (Metaweb, 2008) — set-based navigation over graph data: a set carried to the set it relates to. Google acquired Metaweb in 2010, and Freebase was a seed of the Google Knowledge Graph. Chapter 22's set-to-set capability, demonstrated.
 - D. Siegel, *Pull: The Power of the Semantic Web to Transform Your Business* (Portfolio, 2009) — the *personal data locker* (a life held as one owner-controlled graph) and *intentcasting* (Searls's coinage, below); Chapter 22's personal dataspace, reached from the demand side. Video: [*Personal Data Locker Vision*](https://www.youtube.com/watch?v=xOch5o3MhUg).
 - D. Searls, *The Intention Economy: When Customers Take Charge* (Harvard Business Review Press, 2012; the term *intention economy* coined 2006) — customers broadcasting qualified intent for vendors to answer (*intentcasting*); Chapter 22's stating-a-need capability, from the demand side. Talk: [*The Intention Economy* book talk, 2012](https://www.youtube.com/watch?v=nVP3qF_HVkA).
