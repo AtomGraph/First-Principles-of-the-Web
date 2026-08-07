@@ -370,6 +370,7 @@ yml = """project:
     - exhibits.js
     - exhibits.css
     - "first-principles-figures/*.svg"
+    - "first-principles-figures/*.png"
 
 book:
   title: "First Principles of the Web"

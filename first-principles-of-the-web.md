@@ -1325,6 +1325,8 @@ The practice preceded the name, and the first movers published their reasons as 
 
 **In the world, dated 2011.** The Danish comics site [Helt Normalt](https://atomgraph.com/cases/helt-normalt/) rebuilt its publishing on RDF, SPARQL and XSLT. Its builders [told a W3C workshop](https://www.w3.org/2011/09/LinkedData/ledp2011_submission_1.pdf) that the codebase shrank by an order of magnitude against the relational system it replaced, and that its ontologies were reused rather than written — down to [a zodiac vocabulary](https://data.totl.net/zodiac/) found on the open web, for the daily horoscope strip. The platform was Graphity, LinkedDataHub's predecessor (disclosure: the author's, per Chapter 18).
 
+<img src="first-principles-figures/helt-normalt-2012.png" alt="The Helt Normalt front page in 2012: a Wulffmorgenthaler strip of a T. rex on a toilet, arms too short for the toilet paper, dated 8 March 2012, with star ratings, Facebook comments, and a column of recent strips on a bright green layout" class="fp-spot" width="640" />
+
 </div>
 
 <div class="fp-history">
