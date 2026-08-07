@@ -274,8 +274,16 @@ def linkify(text, current=None):
     return "\n".join(out)
 
 def promote(body):
-    """Within a chapter file the chapter title is h1, so ### becomes h2."""
-    return [re.sub(r"^### ", "## ", l) for l in body]
+    """Within a chapter file the chapter title is h1, so ### becomes h2 and #### becomes h3."""
+    out = []
+    for l in body:
+        if l.startswith("#### "):
+            out.append(l[1:])   # #### -> ### (h3)
+        elif l.startswith("### "):
+            out.append(l[1:])   # ### -> ## (h2)
+        else:
+            out.append(l)
+    return out
 
 def strip_rules(body):
     """Drop trailing horizontal rules; Quarto pages end themselves."""
