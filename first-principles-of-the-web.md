@@ -12,6 +12,8 @@ The claim: there is exactly one way to build applications that are *of* the web 
 
 The book is structured as a derivation, and every statement in it is one of three things: a definition quoted from the web's own specifications, a proposition that follows from previous statements, or an observation you can verify against deployed reality. If you find a statement that is none of the three, the book has a bug, and I would like a report. The method itself is Chapter 2's subject; notation and reading tracks are in Appendix A.
 
+Underneath the method is a choice of genre. The web is mostly treated as software engineering — a craft of frameworks and taste; this book treats it as a science, an object whose forced structure can be derived, proved, and tested by prediction rather than surveyed and preferred. Chapter 20 returns to it once the scores are in.
+
 One more thing. This book is built to practice what it derives: its canonical edition is designed as an application of the very kind the book derives, in which every proposition is a resource with its own address — an instance of its own thesis. As of this writing, that edition is under construction: a promise the book has yet to keep.
 
 ---
@@ -1214,6 +1216,8 @@ And because the audit cuts both ways, the register of the book's own open, falsi
 
 Retrodictions — quads, the JS convergence — are marked as such where they occur; this table lists only what is still open. Registered July 2026.
 
+Beneath the particular scores is the claim about method the preface promised to return to. The web has been treated as software engineering — frameworks, taste, iteration — and Chapter 10's lateral churn is what that treatment costs: motion with no fixed point to measure it against. An object whose structure is forced asks to be treated as a science instead — derived, proved, and pinned to falsifiable claims like the ones just registered. The stack is the finding; the genre is the method that found it.
+
 Closing recursion. The canonical edition of this book — under construction, as the preface discloses — is a dataspace on Chapter 18's machine: propositions as resources, dependencies as typed links, figures as live queries, the properness table as the home page. When you read it there, the final step of the argument will be an act rather than a sentence: QED, dereferenced.
 
 And if you put the book down short of that edition, what it leaves behind is a handful of lenses you will find yourself using unbidden. You will strip pages on sight — style, arrangement, selection peeling away from any screen, the skeleton showing through. You will sort announcements with one question — *which property moved?* — and recognize lateral churn before the keynote ends. You will find the crossing in every framework you evaluate: somewhere inside it a graph becomes a tree, and the framework is its strategy for that moment. You will watch a deploy invalidate a cache and know which of the four timelines moved — and which three the fusion invalidated with it. And when you meet a scraping harness, an adapter layer, a reconciliation engine, you will read it as compensating machinery: some property, somewhere upstream, gone unadopted.
@@ -1262,17 +1266,53 @@ None of this asks the existing web to stop — or even to notice. A silo doesn't
 
 Read those same properties forward — as capabilities rather than columns — and here they are, one at a time.
 
+### Navigating the graph
+
+Navigation is the first of the five moves (Chapter 7), and on a graph it does what the document web never could. Because every relation is a property in the state, the moves a document web had to build page by page become primitives of the interface. Narrow a set by its own facts — products in stock, turbines below tolerance — and the filter is a selection, not a screen someone wrote. Follow a relation out of that set and arrive at the set it relates to: from a filtered list of products to the list of their vendors, a set reached from a set rather than a page linked to a page. Chain the two — facet, cross to the related set, facet again, and step back when a branch disappoints — and open-ended exploration falls out of moves the reader never has to name, each intermediate a resource with its own address (S4) to return to. The document web stops at the item: a list leads down to one of its members and no further, and turning a filtered set into the set it relates to has always cost a purpose-built page or a hand-written query. On a graph the step is unremarkable, which is exactly the point — it is what navigation would have been all along had the web's state been a graph from the start.
+
+<div class="fp-history">
+
+**In the world, dated 2008.** None of this is speculative. David Huynh's *Freebase Parallax* demonstrated exactly this move over graph data in 2008 — a set carried in one step to the set it relates to — on real data, years before the chapter names it. Metaweb, Freebase's maker, was acquired by Google in 2010, and Freebase seeded the Google Knowledge Graph. The capability is a decade and a half old; what it waited for was not invention but the state model this chapter derives.
+
+<iframe src="https://player.vimeo.com/video/1513562" style="width: 100%; aspect-ratio: 16 / 9; border: 0;" allow="fullscreen; picture-in-picture" allowfullscreen title="Freebase Parallax: A new way to browse and explore data"></iframe>
+
+</div>
+
 ### Reading, not scraping
 
-The agent reads rather than scrapes. It asks, and receives facts, where its predecessors parsed rendered pixels and reverse-engineered private interfaces — the compensating industry Chapter 21 measured, no longer needed. Its answers are computed, not guessed: the substrate returns what is actually held, and each fact arrives with the source that asserted it, so a claim and its provenance travel together, and a fabricated one has nowhere to sit.
+The agent reads rather than scrapes. It asks, and receives facts, where its predecessors parsed rendered pixels and reverse-engineered private interfaces — the compensating industry Chapter 21 measured, no longer needed. Its answers are computed, not guessed: the substrate returns what is actually held, and each fact arrives with the source that asserted it, so a claim and its provenance travel together, and a fabricated one has nowhere to sit. The move is not new: it is what the 2001 Semantic Web scenario (Chapter 21) assumed all along — an agent that asks for facts and receives them, not one that parses a page pretending to be one.
 
 ### State stops being scattered
 
 What lives today across a dozen unspeaking silos composes, under one model and one law of merge, into a body of facts a party keeps under its own origin and federates with the origins it trusts. Nothing is copied forward to go stale: a name resolves to its owner's own current answer, an origin being the one authority on itself.
 
+<div class="fp-history">
+
+**The vision, dated 2009.** This section's personal dataspace has an earlier name. In *Pull* (2009), David Siegel called it the *personal data locker*: a person's world — home, possessions, finances, media, health — held as one graph under its owner's control, with the services that touch it demoted to sources that read and write it. Siegel arrived from the economics of demand rather than from three requirements, and reached the same place this section derives: state that composes under its owner's origin instead of scattering across silos. Named seventeen years ago, and shown working on video since.
+
+<iframe src="https://www.youtube.com/embed/xOch5o3MhUg" style="width: 100%; aspect-ratio: 16 / 9; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="David Siegel — Personal Data Locker Vision"></iframe>
+
+</div>
+
+### Stating a need
+
+Search runs one way: a person forms a query and the market's pages answer it, each provider having guessed in advance what to publish. Structured state runs it the other way. Because a need is itself facts — constraints, preferences, the criteria that qualify an answer — it can be published as a document and read by providers rather than typed into a box and kept. A person states once, in the open, what they are looking for; the parties who can meet it read that statement and answer it, matched against the very facts that generated it, nothing re-entered and no form filled. Demand stops being a private keystroke and becomes a public, verifiable fact — the write side (Chapter 7) pointed outward.
+
+<div class="fp-history">
+
+**The vision, dated 2006.** Publishing a need instead of searching for one has a name. Doc Searls called it the *intention economy* — the term dates to 2006, the book to 2012: a market a buyer addresses by broadcasting a qualified intent, sellers competing to satisfy it, the search economy run backwards. The practice took a verb — *intentcasting* — and Siegel's *Pull* (2009) tied it to the personal data locker of the section above: the locker stores the facts, the intentcast publishes them as demand. What the idea always lacked was a substrate of structured, owner-held state for the market to read; that is what the derivation supplies.
+
+</div>
+
 ### Permission is a fact
 
 What may be read, and by whom, is stated in the same state it governs, and narrowed or withdrawn as an ordinary change — no platform to grant the access and none that can revoke it. One party opens a region of its world to another's agent with a single assertion, and the boundary holds at every hop of a query that crosses between them.
+
+<div class="fp-history">
+
+**The vision, dated 2016.** The web's own inventor built toward exactly this. Solid — Tim Berners-Lee's re-decentralization project, begun in 2016 — gives each person a *pod*, a personal data store whose access is itself data: Web Access Control rules, held beside the resources they govern, state who may read what and are edited or revoked like any other fact. Permission as a statement rather than a platform setting is Solid's design and this section's, for the same reason: put access in the state, and no intermediary owns the gate. Solid names the pattern; the derivation shows it was forced.
+
+</div>
 
 ### Every action a document
 
@@ -1280,7 +1320,7 @@ A change is a delta — two fact-sets, a thing that can be read before it applie
 
 ### Memory that outlives the agent
 
-What an agent learns about the party it serves is not the agent's to keep. On the closed web that memory sits sealed in the assistant's own machinery, lost the day it is replaced; here it is state under the served party's origin — plain facts, readable and correctable — so one agent gives way to a better one with nothing forgotten, and the record of what was drawn on and what was produced stays queryable. The question no closed system answers — *why was this done?* — is settled by reading, not by asking the machine to remember.
+What an agent learns about the party it serves is not the agent's to keep. On the closed web that memory sits sealed in the assistant's own machinery, lost the day it is replaced; here it is state under the served party's origin — plain facts, readable and correctable — so one agent gives way to a better one with nothing forgotten, and the record of what was drawn on and what was produced stays queryable. The question no closed system answers — *why was this done?* — is settled by reading, not by asking the machine to remember. And it reaches the words themselves: the conversation that produced a fact is state like any other — each turn a document, each fact carrying the utterance that triggered it — so the record traces past what was done to the sentence that caused it, portable across whatever model reads it next and narrowed, like every fact, to those permitted to see it. Memory that belongs to the person rather than the tool is the oldest wish in this book's lineage — Vannevar Bush's Memex (Chapter 6) was one form of it; what it lacked, and owner-held state supplies, is a substrate that can actually hold it.
 
 ### Compounding without a landlord
 
@@ -1521,6 +1561,9 @@ Currency, checked July 2026. RFC 3986 remains Internet Standard 66 — updated, 
 - T. Berners-Lee, J. Hendler, O. Lassila, *The Semantic Web* (Scientific American, May 2001) — the agent-over-machine-readable-data scenario Chapter 21 derives; written as fiction, now falsifiable.
 - J. E. Labra Gayo, E. Prud'hommeaux, I. Boneva, D. Kontokostas, *Validating RDF Data* (2017), foreword by D. Brickley and L. Miller — Chapter 9's epigraph.
 - D. McComb, *Software Wasteland* (Technics, 2018) and *The Data-Centric Revolution* (Technics, 2019) — the [data-centric](https://www.semanticarts.com/data-centric/) case (Semantic Arts) for data over application code; Chapter 19's corollary reached from enterprise waste rather than derivation.
+- D. Huynh, [*Freebase Parallax: A new way to browse and explore data*](https://vimeo.com/1513562) (Metaweb, 2008) — set-based navigation over graph data: a set carried to the set it relates to. Metaweb acquired by Google in 2010, Freebase a seed of the Google Knowledge Graph. Chapter 22's set-to-set capability, demonstrated.
+- D. Siegel, *Pull: The Power of the Semantic Web to Transform Your Business* (Portfolio, 2009) — the *personal data locker* (a life held as one owner-controlled graph) and *intentcasting* (structured demand published to a market); Chapter 22's personal dataspace, reached from the demand side. Video: [*Personal Data Locker Vision*](https://www.youtube.com/watch?v=xOch5o3MhUg).
+- D. Searls, *The Intention Economy: When Customers Take Charge* (Harvard Business Review Press, 2012; the term *intention economy* coined 2006) — customers broadcasting qualified intent for vendors to answer (*intentcasting*); Chapter 22's stating-a-need capability, from the demand side. Talk: [*The Intention Economy* book talk, 2012](https://www.youtube.com/watch?v=nVP3qF_HVkA).
 
 *Candidates — specified, not standardized; Part V's seams:*
 
