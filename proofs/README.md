@@ -81,6 +81,28 @@ name, so distinct origins are disjoint name regions.
 
 Federation is the union law; it needs no machinery beyond disjointness.
 
+### Prop 5.2 (Arity) — the crux
+
+`FirstPrinciples/Arity.lean`. A fact names three things — `(predicate, subject,
+object)`. B-0 (self-interpreting atom) + B-3 (names verbatim) say an atom's fact
+may use only the atom's own names.
+
+| Lean name | Prop 5.2 claim | status |
+|---|---|---|
+| `arity1_insufficient` | a 1-name atom can't express a fact of 2 distinct names | theorem (no axioms) |
+| `arity2_insufficient` | a 2-name atom can't express a fact of 3 distinct names (pigeonhole) | theorem (no axioms) |
+| `enc3`, `arity3_sufficient` | arity 3 is self-contained **and** expresses every fact | theorem (no axioms) |
+| `arity_minimal_is_three` | **Prop 5.2 (core)**: three is the minimal arity | theorem (no axioms) |
+
+**Honesty note (this is the book's flagged danger zone).** This mechanizes the
+mathematical core *given self-containment*, which is an **explicit hypothesis on
+display** (`hsc`), exactly as B-0/B-3 are conditions in the book — nothing is
+smuggled. It does **not** re-derive *why* self-containment is the right condition:
+that is the gadget-closure blocking the Löwenheim–Quine dyadic reduction, which
+the book grounds in the Transposition Thesis's fourth row (a deployed web
+invariant, argued not proved). The arity bound is the *consequence* of the
+condition, not a proof of the condition.
+
 ### What the formalization clarified
 
 Isolating B-2d into two named predicates made two things precise that the prose
@@ -107,8 +129,8 @@ essentially nothing else is**, because the rest are not mathematical claims.
 | Result | Lean verdict |
 |---|---|
 | Union law (5.1) / B.1 | ✅ **done** (embedding + finite); full powerset (B-2e) remains |
-| Arity (5.2) / B.2 | ✅ formalizable — the *hardest*; faithfulness of B-0 ("self-interpreting atom") carries the weight |
-| Uniqueness (5.4) / B.3 | ✅ formalizable (assembles B.1 + B.2) |
+| Arity (5.2) / B.2 | ✅ **done** (core) — `arity_minimal_is_three`, self-containment on display as `hsc` |
+| Uniqueness (5.4) / B.3 | ◻ remaining — the *assembly* of B.1 (`𝒫(A)`) and B.2 (atom = `I×I×(I∪V)`) into one reading-preserving iso |
 | Independence of the laws / B.4 | ✅ formalizable — one of five countermodels done (`atomistic_independent`) |
 | Analysis theorem (4.4) / B.5 | ✅ core (finite dependence ⇒ 3-stage S1 factorization); S2–S4 are the definitional "lift" |
 | Independent evolution (4.5) / B.6 | ✅ formalizable (dependency-triangle argument) |
@@ -152,9 +174,9 @@ would be a category error, not a bigger proof.
 - **B.4, remaining countermodels** — drop B-2a (schema-indexed union), B-2b
   (event logs), B-2c (multisets), B-2e (finite subsets); `atomistic_independent`
   is the B-2d case.
-- **B.2 / B.3** — arity-minimality forces `I × I × (I ∪ V)`; uniqueness up to
-  reading-preserving isomorphism. (Highest-value next target: the book's
-  most-attacked result.)
+- **B.3** — uniqueness: assemble B.1 (`𝒫(A)`) and B.2 (`atom = I×I×(I∪V)`) into
+  one reading-preserving isomorphism. (B.2's arity core is now done; this is the
+  remaining glue.)
 - **B.5** — the analysis theorem (finite dependence ⇒ three-stage S1 factorization).
 - **B.6** — independent evolution (dependency triangle).
 - **B.7 / B.8** — partial only, against a Lean model of the SPARQL denotational

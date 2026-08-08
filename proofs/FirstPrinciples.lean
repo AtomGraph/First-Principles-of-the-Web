@@ -3,3 +3,4 @@
 import FirstPrinciples.StateModel
 import FirstPrinciples.Delta
 import FirstPrinciples.Federation
+import FirstPrinciples.Arity
