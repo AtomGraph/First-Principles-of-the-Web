@@ -635,8 +635,7 @@
       ], "PATCH") +
       '<span class="fp-note fp-m-note"></span></div>' +
       '<div class="fp-panel"><div class="fp-head"><span class="fp-s-head"></span></div>' +
-      '<pre class="fp-out fp-s"></pre>' +
-      '<div class="fp-body fp-graph-box"></div></div>' +
+      '<pre class="fp-out fp-s"></pre></div>' +
       '<div class="fp-cols">' +
       '<div class="fp-panel"><div class="fp-head"><span>D⁻ — removed</span></div>' +
       '<textarea class="fp-dm fp-short" spellcheck="false" aria-label="Facts removed"></textarea></div>' +
@@ -672,7 +671,6 @@
       q(root, ".fp-s").innerHTML = S.length
         ? stateHTML(S, "derived", marks || {})
         : '<span class="fp-tok-kw">∅ — the graph is gone</span>';
-      drawGraph(S, q(root, ".fp-graph-box"));
     }
 
     apply.addEventListener("click", function () {
