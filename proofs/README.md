@@ -103,6 +103,25 @@ the book grounds in the Transposition Thesis's fourth row (a deployed web
 invariant, argued not proved). The arity bound is the *consequence* of the
 condition, not a proof of the condition.
 
+### Theorem 5.4 / B.3 (Uniqueness) — the spine closes
+
+`FirstPrinciples/Uniqueness.lean`. B.3 is the assembly: "compose the
+isomorphisms." Transport B.1's representation `M ≅ 𝒫(A)` along B.2's atom≅triple
+bijection to land in `𝒫(triples)`.
+
+| Lean name | B.3 claim | status |
+|---|---|---|
+| `Bij`, `transport`, `transport_union`, `transport_injective` | a base-type bijection lifts to a union-preserving bijection of sets | theorem |
+| `uniqueness_compose` | representation (B.1) + atom bijection (B.2) ⟹ injective ⊕→∪ hom `M → 𝒫(T)` | theorem |
+| `atomRep`, `atomRep_hom`, `atomRep_inj` | B.1's representation, packaged over the atom subtype | theorem |
+| `uniqueness` | **Thm 5.4**: a state model with the atomicity axioms whose atoms biject with `T` embeds reading-preservingly into `𝒫(T)` | theorem |
+
+`uniqueness` **genuinely rests on B.1** — it is `uniqueness_compose` fed with
+`atomRep` (from `StateModel.atomsBelow_merge` / `atoms_injective`). The
+atom≅triple bijection is the explicit **B.2 input**, exactly as the book's B.3
+takes B.2's conclusion as an input to the assembly. So the spine
+**B.1 → B.2 → B.3** is now machine-checked end to end.
+
 ### What the formalization clarified
 
 Isolating B-2d into two named predicates made two things precise that the prose
@@ -130,7 +149,7 @@ essentially nothing else is**, because the rest are not mathematical claims.
 |---|---|
 | Union law (5.1) / B.1 | ✅ **done** (embedding + finite); full powerset (B-2e) remains |
 | Arity (5.2) / B.2 | ✅ **done** (core) — `arity_minimal_is_three`, self-containment on display as `hsc` |
-| Uniqueness (5.4) / B.3 | ◻ remaining — the *assembly* of B.1 (`𝒫(A)`) and B.2 (atom = `I×I×(I∪V)`) into one reading-preserving iso |
+| Uniqueness (5.4) / B.3 | ✅ **done** — `uniqueness`, the assembly of B.1 and B.2 (atom≅triple bijection as the B.2 input) |
 | Independence of the laws / B.4 | ✅ formalizable — one of five countermodels done (`atomistic_independent`) |
 | Analysis theorem (4.4) / B.5 | ✅ core (finite dependence ⇒ 3-stage S1 factorization); S2–S4 are the definitional "lift" |
 | Independent evolution (4.5) / B.6 | ✅ formalizable (dependency-triangle argument) |
@@ -174,9 +193,6 @@ would be a category error, not a bigger proof.
 - **B.4, remaining countermodels** — drop B-2a (schema-indexed union), B-2b
   (event logs), B-2c (multisets), B-2e (finite subsets); `atomistic_independent`
   is the B-2d case.
-- **B.3** — uniqueness: assemble B.1 (`𝒫(A)`) and B.2 (`atom = I×I×(I∪V)`) into
-  one reading-preserving isomorphism. (B.2's arity core is now done; this is the
-  remaining glue.)
 - **B.5** — the analysis theorem (finite dependence ⇒ three-stage S1 factorization).
 - **B.6** — independent evolution (dependency triangle).
 - **B.7 / B.8** — partial only, against a Lean model of the SPARQL denotational
