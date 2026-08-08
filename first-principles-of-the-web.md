@@ -24,7 +24,7 @@ A web application is two functions. `read` turns a request and the state of the 
 
 Strip any page — a newspaper, a dashboard — and the same skeleton emerges: style peels off, then arrangement, then selection, and what remains is state. So every `read` factors as `present ∘ arrange ∘ select` — one factor per stripped layer — and the factorization matters exactly when the factors are separate, declarative, substitutable, and addressable.
 
-Ask what `State` must be, and the requirements come from the web itself. `State` must host any domain. It must compose across parties who have never met — which forces merging by union over facts that carry their own meaning. Its names must work globally. The smallest fact meeting all three requirements is a triple: two global names and a value that may itself be such a name. Any minimal model meeting the requirements is isomorphic to sets of triples under union. The uniqueness is a theorem; to reject its conclusion you must reject one of the requirements.
+Ask what `State` must be, and the requirements come from the web itself. `State` must host any domain. It must compose across parties who have never met — which forces merging by union over facts that carry their own meaning. Its names must work globally. The smallest fact meeting all three requirements is a triple: two global names and a value that may itself be such a name. Any minimal model meeting the requirements is isomorphic to sets of triples under union. The uniqueness is a theorem; to reject its conclusion you must fault a step of the proof or reject a requirement.
 
 The reveal: the structure just derived is RDF, SPARQL, XSLT, and CSS — standardized between 1996 and 2014, then abandoned; abandoned, the book will argue, not refuted. The audit: everything the industry runs instead fails a named requirement and pays for the failure with a compensating industry — a market that sells the bridge across the gap the failure opens. By the audit's last chapter, one table carries every score — and the derived stack, scored last on the same rows, fails nothing. The synthesis: the derived parts compose into a complete architecture — no new standard needed, one generic engine specialized by data rather than code. The bill: software agents now need exactly the property the industry never adopted — machine-consumable state — and the compensating machinery is assembling in real time, at industry scale.
 
@@ -228,7 +228,7 @@ Two examples prove nothing about all websites; the strips are illustration. The 
 — Roy T. Fielding, dissertation §5.1.5, 2000
 </div>
 
-Chapter 3 stripped two pages by hand and called the result illustration; this chapter proves the universal claim. The strips become the factors of a typed pipeline. A definition — properness — separates real factorizations from trivial ones. And the analysis theorem guarantees that every `read` admits a proper one. The chapter closes with the method's debt to Roy Fielding — author of the REST dissertation — and with the four timelines a proper factorization gives the document.
+Chapter 3 stripped two pages by hand and called the result illustration; this chapter proves the universal claim. The strips become the factors of a typed pipeline. A definition — properness — separates real factorizations from trivial ones. And the analysis theorem guarantees that every `read` factors — and that the factorization can be made proper. The chapter closes with the method's debt to Roy Fielding — author of the REST dissertation — and with the four timelines a proper factorization gives the document.
 
 ### The pipeline
 
@@ -274,20 +274,20 @@ S1–S3 could describe any well-factored program. S4 is the web condition: the f
 
 The dashboard makes it concrete: `select` pulls the panel's `title` and `value`, `arrange` nests them into a card, `present` themes the card. S4 is the property you can check by hand. Each factor's output — the data, the card, the themed page — has its own URL and *dereferences*: a GET on the URL returns it.
 
-Three of these properties were written down by the web's own architects — as advice. [*Architecture of the World Wide Web, Volume One*](https://www.w3.org/TR/webarch/) (W3C Recommendation, 2004; hereafter AWWW) names the separation of content, presentation, and interaction a good practice (§4.3). It names orthogonal and composable specifications a principle (§5.1). And it asks URI owners to provide representations of their resources (§3.5) — S4's demand, minus the intermediates. All of it stated as SHOULD, because a recommendation can do no more than recommend. Hold that until Proposition 4.4: what the web's own architecture group could only advise, the derivation forces. The norms were theorems all along. AWWW is a witness here, never a premise: assuming §4.3 would be assuming this chapter's conclusion, and the method forbids that.
+Three of these properties were written down by the web's own architects — as advice. [*Architecture of the World Wide Web, Volume One*](https://www.w3.org/TR/webarch/) (W3C Recommendation, 2004; hereafter AWWW) names the separation of content, presentation, and interaction a good practice (§4.3). It names orthogonal and composable specifications a principle (§5.1). And it asks URI owners to provide representations of their resources (§3.5) — S4's demand, minus the intermediates. All of it stated as SHOULD, because a recommendation can do no more than recommend. Hold that until Proposition 4.4: the separation the web's own architecture group could only advise, the derivation forces; the addressing it could only request, the derivation constructs. The norms were theorems all along. AWWW is a witness here, never a premise: assuming §4.3 would be assuming this chapter's conclusion, and the method forbids that.
 
 The payoff of S4 is immediate and measurable. It is [Fielding's](https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm) list: HTTP caching per stage rather than per page; crawlability of *data* rather than of renderings; intermediaries; independent evolution of the layers. The last of these will harden from a phrase into a proposition before the chapter ends. Every one will reappear in Part IV, scored against every architecture that forfeits it.
 
 ### The analysis theorem
 
-**Prop. 4.4 (Analysis theorem).** Every `read` whose output depends on `State` only through some finite part admits a proper factorization.
+**Prop. 4.4 (Analysis theorem).** Every `read` whose output depends on `State` only through some finite part factors into the three stages with S1. The factorization then lifts to proper: realize each factor as a term of the languages Part III fixes in advance, give each stage's output a URI, and S2–S4 hold. Finite dependence forces the shape; the lift is a construction the web always permits, never a consequence of finiteness.
 
 The hypothesis is mild: a document renders finitely many facts, so every site ever deployed qualifies. Finiteness is there to make the proof's minimal fragment well-defined; it excludes nothing real.
 
 <details>
 <summary><i>Proof sketch — take the minimal fragment the output depends on.</i></summary>
 
-Define `select(r, S)` as the minimal fragment of S on which `read(r, ·)` actually depends — well-defined by finiteness; `arrange` and `present` are the induced quotients; S1 holds by construction, S2–S4 by choosing the languages of Part III. Full proof in Appendix B. ∎
+Define `select(r, S)` as a minimal fragment of S on which `read(r, ·)` actually depends — well-defined by finiteness; `arrange` and `present` are the induced quotients. That much is the analysis half: it gives S1 and the three-stage shape. S2–S4 are the lift: S2 is realization in languages whose semantics are fixed in advance and shared across applications — never invented around the `read`, which would make S2 vacuous — S3 is substitution within them, and S4 is publication, an act. The synthesis theorem (8.2) supplies all three. Full proof in Appendix B. ∎
 
 </details>
 
@@ -429,7 +429,7 @@ Chapter 3's exhibit already wrote facts in this shape without saying so. The das
 
 **Theorem 5.4 (Uniqueness).** Any arity-minimal state model satisfying R1–R3 is isomorphic to (5.3). *(Proof: Appendix B. The proof is an assembly of 5.1–5.3: R2 forces the set-of-atomic-facts shape and union-merge; R1 with minimality forces arity three; R3 forces positions one and two into `I`.)*
 
-The claim that (5.3) is the only shape the web itself permits sounds like rhetoric. Theorem 5.4 makes it a statement with an escape clause, and the escape clause is the trap: to reject the conclusion you must reject a requirement, and each rejection has a name. Reject R1 and your model can't host the web's content. Reject R2 and your data needs a coordinator — a central schema authority, which is to say: you have built a silo. Reject R3 and your data cannot refer beyond itself — a silo again, by the other door. Reject minimality and you widen the tuple — a door left deliberately ajar; Chapter 9 walks through it with a fourth requirement, attribution. Every alternative data model the industry runs on will be located, in Part IV, at one of the first three exits.
+The claim that (5.3) is the only shape the web itself permits sounds like rhetoric. Theorem 5.4 makes it a statement with escape clauses, and the clauses are the trap. Fault a step of the proof — Appendix B lays the steps out for that attack — or reject a requirement; each rejection has a name. Reject R1 and your model can't host the web's content. Reject R2 and your data needs a coordinator — a central schema authority, which is to say: you have built a silo. Reject R3 and your data cannot refer beyond itself — a silo again, by the other door. Reject minimality and you widen the tuple — a door left deliberately ajar; Chapter 9 walks through it with a fourth requirement, attribution. Every alternative data model the industry runs on will be located, in Part IV, at one of the first three exits.
 
 ### The selection algebra
 
