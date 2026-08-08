@@ -603,6 +603,93 @@
     render({});
   }
 
+  /* ——————— Chapter 17: the write methods — POST/PUT/DELETE as PATCH at a fixed delta ——————— */
+
+  function wMethods(root) {
+    var id = "fpm" + (++uid);
+    var SEED_G =
+      'panel-14 type Panel\n' +
+      'panel-14 title "Current Power"\n' +
+      'panel-14 value "15.5 kW"\n' +
+      'panel-14 partOf farm';
+    var POST_P = 'panel-14 unit "kW"';
+    var PUT_P =
+      'panel-14 type Panel\n' +
+      'panel-14 title "Current Power"\n' +
+      'panel-14 value "16.1 kW"';
+    var PATCH_M = 'panel-14 value "15.5 kW"';
+    var PATCH_P = 'panel-14 value "16.1 kW"';
+    var NOTES = {
+      GET: "GET reads. It returns S and writes nothing — D⁻ = D⁺ = ∅.",
+      POST: "POST fixes D⁻ = ∅ — additions only, a merge into the graph.",
+      PUT: "PUT fixes D⁻ = S(u) — the whole graph out, D⁺ in. Replace, creating it if absent.",
+      DELETE: "DELETE fixes D⁻ = S(u), D⁺ = ∅ — the graph removed.",
+      PATCH: "PATCH — any D⁻, D⁺. The general write; the other three are it at a fixed delta."
+    };
+
+    root.innerHTML =
+      '<div class="fp-controls">' +
+      seg(id, [
+        { v: "GET", l: "GET" }, { v: "POST", l: "POST" }, { v: "PUT", l: "PUT" },
+        { v: "DELETE", l: "DELETE" }, { v: "PATCH", l: "PATCH" }
+      ], "PATCH") +
+      '<span class="fp-note fp-m-note"></span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span class="fp-s-head"></span></div>' +
+      '<pre class="fp-out fp-s"></pre></div>' +
+      '<div class="fp-cols">' +
+      '<div class="fp-panel"><div class="fp-head"><span>D⁻ — removed</span></div>' +
+      '<textarea class="fp-dm fp-short" spellcheck="false" aria-label="Facts removed"></textarea></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span>D⁺ — added</span></div>' +
+      '<textarea class="fp-dp fp-short" spellcheck="false" aria-label="Facts added"></textarea></div>' +
+      "</div>" +
+      '<div class="fp-controls"><button type="button" class="fp-apply">apply: (S ∖ D⁻) ∪ D⁺</button>' +
+      '<button type="button" class="fp-reset">reset</button></div>';
+
+    var S, gen;
+    var dm = q(root, ".fp-dm"), dp = q(root, ".fp-dp"), apply = q(root, ".fp-apply");
+
+    function serialize(facts) {
+      return facts.map(function (f) { return f.s + " " + f.p + " " + f.o; }).join("\n");
+    }
+    function method() { return segValue(root, id) || "PATCH"; }
+
+    function snap() {
+      var m = method();
+      dm.readOnly = false; dp.readOnly = false;
+      if (m === "GET") { dm.value = ""; dp.value = ""; dm.readOnly = dp.readOnly = true; }
+      else if (m === "POST") { dm.value = ""; dm.readOnly = true; dp.value = POST_P; }
+      else if (m === "PUT") { dm.value = serialize(S); dm.readOnly = true; dp.value = PUT_P; }
+      else if (m === "DELETE") { dm.value = serialize(S); dm.readOnly = true; dp.value = ""; dp.readOnly = true; }
+      else { dm.value = PATCH_M; dp.value = PATCH_P; }
+      apply.disabled = (m === "GET");
+      q(root, ".fp-m-note").textContent = NOTES[m];
+    }
+
+    function renderS(marks) {
+      q(root, ".fp-s-head").innerHTML =
+        (gen === 0 ? "S" : "S" + "′".repeat(Math.min(gen, 4))) + " — the graph …/panel-14";
+      q(root, ".fp-s").innerHTML = S.length
+        ? stateHTML(S, "derived", marks || {})
+        : '<span class="fp-tok-kw">∅ — the graph is gone</span>';
+    }
+
+    apply.addEventListener("click", function () {
+      var before = S.map(key).sort().join("|");
+      var r = applyDelta(S, parseFacts(dm.value), parseFacts(dp.value));
+      S = r.next;
+      if (before !== S.map(key).sort().join("|")) gen++;
+      renderS({ add: r.added });
+      var m = method();
+      if (m === "PUT" || m === "DELETE") dm.value = serialize(S);
+    });
+    q(root, ".fp-reset").addEventListener("click", function () {
+      S = parseFacts(SEED_G); gen = 0; snap(); renderS({});
+    });
+    on(root, 'input[name="' + id + '"]', "change", function () { snap(); renderS({}); });
+
+    S = parseFacts(SEED_G); gen = 0; snap(); renderS({});
+  }
+
   /* ——————— Chapter 8: the reveal — nothing recomputed, only renamed ——————— */
 
   function wReveal(root) {
@@ -730,7 +817,7 @@
 
   var WIDGETS = {
     strip: wStrip, merge: wMerge, select: wSelect, canon: wCanon,
-    delta: wDelta, reveal: wReveal, pipeline: wPipeline
+    delta: wDelta, methods: wMethods, reveal: wReveal, pipeline: wPipeline
   };
 
   function init() {

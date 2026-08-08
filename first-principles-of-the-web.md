@@ -1100,7 +1100,22 @@ The endpoint `e` answers `⟦q⟧` posed to `S` itself — the same `S` the docu
 
 `x` dereferences to the arrange term, generic in B.8's sense. The build log below looks at it more closely.
 
-One entity makes the four concrete. GET `…/panel-14` returns the graph of facts about that panel. POST a form there applies a delta — `(D⁻, D⁺)` — to the same graph. And the endpoint answers any query that ranges over it. One state, three doors, each an HTTP request you can make by hand.
+One entity makes the four concrete. GET `…/panel-14` returns the graph of facts about that panel. PATCH `…/panel-14` sends a delta — `(D⁻, D⁺)`. And the endpoint answers any query that ranges over it. One state, three doors, each an HTTP request you can make by hand.
+
+That write door holds four methods, and each is Prop. 7.1's delta at a fixed value — `PATCH` the general case, `POST`, `PUT`, and `DELETE` its corners:
+
+| method | fixes | result | |
+|---|---|---|---|
+| `POST` | `D⁻ = ∅` | `S′ = S(u) ∪ D⁺` | append (a merge) |
+| `PUT` | `D⁻ = S(u)` | `S′ = D⁺` | replace, creating if absent |
+| `DELETE` | `D⁻ = S(u)`, `D⁺ = ∅` | `S′ = ∅` | remove |
+| `PATCH` | any `D⁻`, `D⁺` | `S′ = (S(u) ∖ D⁻) ∪ D⁺` | general |
+
+The Graph Store Protocol leaves `PATCH` informative; realized, it is a graph-scoped SPARQL Update. HTML forms speak only `POST`, so a form's delta arrives through the RDF/POST bridge (Chapter 9). Zoom out from one graph to the whole dataset and the same four return on quads: `GET` a dataset, `POST` appends quads, `PUT` replaces it, `DELETE` removes it — the extended form some triplestores implement.
+
+<div class="fp-exhibit" data-exhibit="methods"></div>
+
+*Interactive exhibit (online edition): the write methods on `…/panel-14`. Pick GET, POST, PUT, DELETE, or PATCH — the delta `(D⁻, D⁺)` snaps to that method's row, and the graph updates by `S′(u) = (S(u) ∖ D⁻) ∪ D⁺`. The same panel graph the chapter reads, now writable by hand.*
 
 Note what (17.1) omits: `S` is not a component. The store the gloss just called invisible appears nowhere in the tuple, so invisibility holds by construction rather than by discipline — S1, lifted from factor to system. Two deployments with the same four projections are the same dataspace.
 
@@ -1131,18 +1146,18 @@ The build log, factor by factor:
 | select | a SPARQL endpoint per dataspace | S4: query results and graphs are resources with URIs of their own |
 | arrange | XSLT over the canonical serialization — a base stylesheet naming no vocabulary, per-vocabulary overrides layered by the language's import mechanism | Chapter 6's seam occupied; S3's substitution, performed in daily practice |
 | present | CSS | in continuous service since 1996 |
-| write | HTML forms encoding graphs (Chapter 9's RDF/POST bridge, deployed in Chapter 18), written through the Graph Store Protocol's unsafe methods | Chapter 1's unsafe methods at graph grain — each such request a SPARQL Update by the protocol's own definition, the delta's two sets on the wire |
+| write | HTML forms encoding graphs (Chapter 9's RDF/POST bridge, deployed in Chapter 18), written through the Graph Store Protocol's unsafe methods | Chapter 1's unsafe methods at graph grain — POST appends, PUT replaces, DELETE removes; the delta itself a PATCH, a graph-scoped SPARQL Update carrying its two sets |
 
 ```mermaid
 %%| column: page-right
 flowchart LR
     S(["S · dataset"]) --> e[["SPARQL (e)"]] --> D(["Data"]) --> x[["XSLT (x)"]] --> T(["Tree"]) --> css[["CSS"]] --> Doc(["Doc · webpage"])
     Doc --> form[["HTML form"]] --> delta(["(D⁻, D⁺)"])
-    delta --> upd[["Graph Store Protocol<br/>unsafe methods<br/>same effect as SPARQL Update"]]
+    delta --> upd[["PATCH<br/>a graph-scoped SPARQL Update"]]
     upd -- "S′(u) = (S(u) ∖ D⁻) ∪ D⁺" --> S
 ```
 
-*The build log as a picture — (4.1) at deployment grain, closed as in Chapter 7. Along the read spine the endpoint `e` runs `select` (SPARQL), the stylesheet `x` runs `arrange` (XSLT, `⟦t⟧ ∘ canon`), CSS runs `present` — (17.1)'s components bound to deployed standards. The return arrow is the write side: a form (Chapter 9's bridge) yields a delta `(D⁻, D⁺)` (Prop. 7.1), written through the Graph Store Protocol's unsafe methods — each a SPARQL Update by the protocol's own definition. Under S4 every rounded node is a web resource with a URI of its own.*
+*The build log as a picture — (4.1) at deployment grain, closed as in Chapter 7. Along the read spine the endpoint `e` runs `select` (SPARQL), the stylesheet `x` runs `arrange` (XSLT, `⟦t⟧ ∘ canon`), CSS runs `present` — (17.1)'s components bound to deployed standards. The return arrow is the write side: a form (Chapter 9's bridge) yields a delta `(D⁻, D⁺)` (Prop. 7.1), carried as a PATCH — a graph-scoped SPARQL Update. Under S4 every rounded node is a web resource with a URI of its own.*
 
 The arrange row carries the most machinery, and it deserves a closer look. The names the layered term treats specially are exactly the names the dataspace's ontology declares — B.8's relative genericity, deployed. Unmatched state falls back to the base rendering rather than to nothing: every graph renders; declared vocabulary renders better. The stylesheets share their templates across the wire: one library, imported by a server-side stylesheet that emits documents and a browser-side one that binds events. Saxon runs the first, and SaxonJS with IXSL runs the second — two processors, one set of terms. Chapter 7's mobility of evaluation, running. The convergence shares rendering code too, by running the same framework on both sides (Chapter 14's hydration); here the sides share templates without sharing an engine, because the language's semantics is closed. And independent evolution shows up as operations rather than theory: data, selection, layout, and style invalidate independently, per factor, cache entry by cache entry — the four timelines, running as infrastructure.
 
@@ -1187,12 +1202,12 @@ sequenceDiagram
     B-->>A: read(u, S) — a document (S4)
     A->>B: ⟦q⟧ to endpoint e — a window over B's state
     B-->>A: Data — the solution
-    A->>B: delta (D⁻, D⁺) — RDF/POST form via Graph Store Protocol (same effect as SPARQL Update)
+    A->>B: PATCH (D⁻, D⁺) — the delta as a graph-scoped SPARQL Update
     B-->>A: S′(u) = (S(u) ∖ D⁻) ∪ D⁺ (Prop. 7.1)
     Note over A,B: every capability crosses the wire — no in-process shortcut
 ```
 
-*The federation test, drawn. Each instance runs both halves. Here Instance A's client consumes Instance B's server across three exchanges. It dereferences a foreign name (R3) for a document (S4). It poses `⟦q⟧` to the endpoint `e` for a window. It submits a delta (Prop. 7.1) as an RDF/POST form through the Graph Store Protocol's unsafe methods (a SPARQL Update by the protocol's definition). Because S2 leaves nothing private, the meeting surface is the specifications' surface alone.*
+*The federation test, drawn. Each instance runs both halves. Here Instance A's client consumes Instance B's server across three exchanges. It dereferences a foreign name (R3) for a document (S4). It poses `⟦q⟧` to the endpoint `e` for a window. It submits a delta (Prop. 7.1) as a PATCH — a graph-scoped SPARQL Update. Because S2 leaves nothing private, the meeting surface is the specifications' surface alone.*
 
 The document web bootstrapped exactly this way — the box below dates it. The pattern, one level down: a server+client pair whose self-interoperability is the first running instance of a protocol anyone may join.
 
