@@ -2,3 +2,4 @@
 -- Self-contained: Lean 4 core only, no Mathlib.
 import FirstPrinciples.StateModel
 import FirstPrinciples.Delta
+import FirstPrinciples.Federation

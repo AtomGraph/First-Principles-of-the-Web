@@ -68,6 +68,19 @@ factors as a *least* pair of sets — a delta. A minimal set layer
 "Two sets. That is the entire theory of mutation over a fact-set model." — now
 exact: mutation's normal form is computed by subtraction.
 
+### B.9 (Federation closure)
+
+`FirstPrinciples/Federation.lean`. RFC 6454 makes the origin a function of the
+name, so distinct origins are disjoint name regions.
+
+| Lean name | B.9 claim | status |
+|---|---|---|
+| `regions_disjoint` | distinct origins ⇒ disjoint regions (`I∣o ∩ I∣o' = ∅`) | theorem (no axioms) |
+| `no_double_claim` | no document name is served by both origin-disjoint families | theorem |
+| `federation_closure` | **B.9**: the union is again well-formed — one graph per document, one origin per name | theorem |
+
+Federation is the union law; it needs no machinery beyond disjointness.
+
 ### What the formalization clarified
 
 Isolating B-2d into two named predicates made two things precise that the prose
@@ -102,7 +115,7 @@ essentially nothing else is**, because the rest are not mathematical claims.
 | Delta normal form (7.1) | ✅ **done** — `delta_normal_form` (pure set algebra) |
 | Forms / one-algebra / five moves (7.2–7.4) | ✅ formalizable (mechanical) |
 | Erasure → quads (9.2) | ✅ formalizable |
-| Federation closure / B.9 | ✅ formalizable (set-theoretic) |
+| Federation closure / B.9 | ✅ **done** — `federation_closure` |
 | Nothing else to vary (19.1) | ✅ trivial corollary |
 | Homomorphism (8.1) / B.7 | ⚠️ **partial** — needs a Lean model of SPARQL §18's denotational defs; proves correspondence to *that model*, not to Saxon |
 | Synthesis + genericity (8.2) / B.8 | ⚠️ **partial** — genericity/free-theorem core formalizable; "XSLT is Turing-complete on trees" stays a cited external fact |
@@ -143,6 +156,6 @@ would be a category error, not a bigger proof.
   reading-preserving isomorphism. (Highest-value next target: the book's
   most-attacked result.)
 - **B.5** — the analysis theorem (finite dependence ⇒ three-stage S1 factorization).
-- **B.6 / B.9** — independent evolution; federation closure.
+- **B.6** — independent evolution (dependency triangle).
 - **B.7 / B.8** — partial only, against a Lean model of the SPARQL denotational
   fragment (see scope table).
