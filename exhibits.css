@@ -45,6 +45,7 @@ img.fp-spot { display: block; margin: 2.4rem auto; max-width: 100%; height: auto
   width: 100%; min-height: 170px; resize: vertical; display: block; }
 .fp-exhibit textarea:focus-visible { outline: 2px solid var(--fp-accent); outline-offset: -2px; }
 .fp-exhibit textarea.fp-short { min-height: 96px; }
+.fp-exhibit textarea[readonly] { opacity: 0.5; cursor: not-allowed; }
 
 .fp-exhibit pre.fp-out { font-family: var(--fp-mono); font-size: 0.78rem; line-height: 1.65;
   margin: 0; padding: 0.6rem 0.8rem; overflow-x: auto; background: transparent; border: 0; }
