@@ -1103,17 +1103,18 @@ The endpoint `e` answers `⟦q⟧` posed to `S` itself — the same `S` the docu
 One entity makes the four concrete. GET `…/panel-14` returns the graph of facts about that panel. PATCH `…/panel-14` sends a delta — `(D⁻, D⁺)`. And the endpoint answers any query that ranges over it. One state, three doors, each an HTTP request you can make by hand.
 
 <details>
-<summary><i>The four methods on that graph, exactly.</i></summary>
+<summary><i>The write methods on that graph, exactly.</i></summary>
 
-Each method acts on the named graph `…/panel-14`, whole:
+GET `…/panel-14` returns the graph. The four unsafe methods write it, and each is Prop. 7.1's delta at a fixed value — `PATCH` the general case, the others its corners:
 
-- `GET` returns the graph.
-- `POST` appends triples to it — a merge, additions only.
-- `PUT` replaces the graph, creating it if absent.
-- `DELETE` removes the graph.
-- `PATCH` carries the delta `(D⁻, D⁺)` — stale facts out, fresh facts in. The Graph Store Protocol leaves `PATCH` informative; realized, it is a graph-scoped SPARQL Update. HTML forms speak only `POST`, so a form's delta arrives through the RDF/POST bridge (Chapter 9).
+| method | fixes | result | |
+|---|---|---|---|
+| `POST` | `D⁻ = ∅` | `S′ = S(u) ∪ D⁺` | append (a merge) |
+| `PUT` | `D⁻ = S(u)` | `S′ = D⁺` | replace, creating if absent |
+| `DELETE` | `D⁻ = S(u)`, `D⁺ = ∅` | `S′ = ∅` | remove |
+| `PATCH` | any `D⁻`, `D⁺` | `S′ = (S(u) ∖ D⁻) ∪ D⁺` | general |
 
-So `POST`, `PUT`, and `DELETE` are the coarse cases — append, replace, remove — and `PATCH` is the one that carries a two-sided delta.
+The Graph Store Protocol leaves `PATCH` informative; realized, it is a graph-scoped SPARQL Update. HTML forms speak only `POST`, so a form's delta arrives through the RDF/POST bridge (Chapter 9).
 
 Zoom out from one graph to the whole dataset and the same four return on quads: `GET` a dataset, `POST` appends quads, `PUT` replaces it, `DELETE` removes it — the extended form some triplestores implement.
 
