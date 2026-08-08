@@ -1,0 +1,9 @@
+name = "FirstPrinciples"
+defaultTargets = ["FirstPrinciples"]
+
+# Self-contained mechanization of Appendix B — Lean 4 core only, no Mathlib.
+# The order-theory scaffolding (bounded join-semilattice, atoms) is built by
+# hand precisely so that every ingredient of Lemma B.1 is explicit.
+
+[[lean_lib]]
+name = "FirstPrinciples"
