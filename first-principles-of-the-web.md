@@ -1102,10 +1102,7 @@ The endpoint `e` answers `⟦q⟧` posed to `S` itself — the same `S` the docu
 
 One entity makes the four concrete. GET `…/panel-14` returns the graph of facts about that panel. PATCH `…/panel-14` sends a delta — `(D⁻, D⁺)`. And the endpoint answers any query that ranges over it. One state, three doors, each an HTTP request you can make by hand.
 
-<details>
-<summary><i>The write methods on that graph, exactly.</i></summary>
-
-GET `…/panel-14` returns the graph. The four unsafe methods write it, and each is Prop. 7.1's delta at a fixed value — `PATCH` the general case, the others its corners:
+That write door holds four methods, and each is Prop. 7.1's delta at a fixed value — `PATCH` the general case, `POST`, `PUT`, and `DELETE` its corners:
 
 | method | fixes | result | |
 |---|---|---|---|
@@ -1114,11 +1111,11 @@ GET `…/panel-14` returns the graph. The four unsafe methods write it, and each
 | `DELETE` | `D⁻ = S(u)`, `D⁺ = ∅` | `S′ = ∅` | remove |
 | `PATCH` | any `D⁻`, `D⁺` | `S′ = (S(u) ∖ D⁻) ∪ D⁺` | general |
 
-The Graph Store Protocol leaves `PATCH` informative; realized, it is a graph-scoped SPARQL Update. HTML forms speak only `POST`, so a form's delta arrives through the RDF/POST bridge (Chapter 9).
+The Graph Store Protocol leaves `PATCH` informative; realized, it is a graph-scoped SPARQL Update. HTML forms speak only `POST`, so a form's delta arrives through the RDF/POST bridge (Chapter 9). Zoom out from one graph to the whole dataset and the same four return on quads: `GET` a dataset, `POST` appends quads, `PUT` replaces it, `DELETE` removes it — the extended form some triplestores implement.
 
-Zoom out from one graph to the whole dataset and the same four return on quads: `GET` a dataset, `POST` appends quads, `PUT` replaces it, `DELETE` removes it — the extended form some triplestores implement.
+<div class="fp-exhibit" data-exhibit="methods"></div>
 
-</details>
+*Interactive exhibit (online edition): the write methods on `…/panel-14`. Pick GET, POST, PUT, DELETE, or PATCH — the delta `(D⁻, D⁺)` snaps to that method's row, and the graph updates by `S′(u) = (S(u) ∖ D⁻) ∪ D⁺`. The same panel graph the chapter reads, now writable by hand.*
 
 Note what (17.1) omits: `S` is not a component. The store the gloss just called invisible appears nowhere in the tuple, so invisibility holds by construction rather than by discipline — S1, lifted from factor to system. Two deployments with the same four projections are the same dataspace.
 
