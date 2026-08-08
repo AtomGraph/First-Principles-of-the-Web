@@ -53,6 +53,21 @@ hypotheses — see "what the formalization clarified" below.
 `representation_finite`/`atomsBelow_joinList` depend only on `propext`;
 `atomistic_independent` on the three standard Lean axioms. None on `sorryAx`.
 
+### Prop 7.1 (Delta normal form) — the write side
+
+`FirstPrinciples/Delta.lean`. Over a set-of-facts model, every state change
+factors as a *least* pair of sets — a delta. A minimal set layer
+(`Set' α := α → Prop`) keeps it Mathlib-free.
+
+| Lean name | Prop 7.1 claim | status |
+|---|---|---|
+| `delta_apply` | `(S ∖ D⁻) ∪ D⁺ = T` — the canonical delta reconstructs the target | theorem |
+| `delta_least` | any `(A,B)` with `(S ∖ A) ∪ B = T` has `D⁻ ⊆ A`, `D⁺ ⊆ B` | theorem |
+| `delta_normal_form` | **Prop 7.1**: the delta is the unique least normal form | theorem |
+
+"Two sets. That is the entire theory of mutation over a fact-set model." — now
+exact: mutation's normal form is computed by subtraction.
+
 ### What the formalization clarified
 
 Isolating B-2d into two named predicates made two things precise that the prose
@@ -84,7 +99,7 @@ essentially nothing else is**, because the rest are not mathematical claims.
 | Independence of the laws / B.4 | ✅ formalizable — one of five countermodels done (`atomistic_independent`) |
 | Analysis theorem (4.4) / B.5 | ✅ core (finite dependence ⇒ 3-stage S1 factorization); S2–S4 are the definitional "lift" |
 | Independent evolution (4.5) / B.6 | ✅ formalizable (dependency-triangle argument) |
-| Delta normal form (7.1) | ✅ trivial (pure set algebra) |
+| Delta normal form (7.1) | ✅ **done** — `delta_normal_form` (pure set algebra) |
 | Forms / one-algebra / five moves (7.2–7.4) | ✅ formalizable (mechanical) |
 | Erasure → quads (9.2) | ✅ formalizable |
 | Federation closure / B.9 | ✅ formalizable (set-theoretic) |
