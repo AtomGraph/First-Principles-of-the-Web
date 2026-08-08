@@ -1421,14 +1421,6 @@ Navigation is the first of the five moves (Chapter 7), and on a graph it does wh
 
 Presentation is its own factor (S1), independent of the facts beneath it, so one body of state renders as many surfaces the publisher never built. The reader who needs large type, a screen reader's linear order, another language, a watch-sized screen — each takes the same facts through a different `present` term and gets a document fit for them. Accessibility stops being a retrofit and personalization stops being surveillance: the state is shared, the rendering is the reader's, and the two were never required to be the same choice. The document web bolted this on — parallel mobile sites, accessibility overlays — because content and presentation were fused. CSS Zen Garden (2003) showed the other way at the presentation layer alone, dressing one unchanged HTML document in hundreds of unrecognizably different designs: this independence at a single factor, the rest of the skeleton still fused.
 
-<div class="fp-history">
-
-**In the world, dated 2003.** [CSS Zen Garden](https://www.csszengarden.com/) is one HTML document dressed by hundreds of stylesheets. Both pages below are that same document, twenty-three years on, still accepting designs.
-
-<img src="first-principles-figures/css-zen-garden-pair.png" alt="Two CSS Zen Garden designs side by side: a serene layout over a green photographic header, and a bold geometric poster in orange, navy and pink — the same unchanged HTML document under two stylesheets" class="fp-spot" width="640" />
-
-</div>
-
 #### A feature is a package
 
 An application on the derived web is data — a vocabulary and a stylesheet over state (Chapter 19) — so to change what it does is to change data, not code. A feature ships as a *package*: the terms it introduces and the templates that render them. The package merges into a running application and is withdrawn by the reverse delta, asserted and retracted the way any fact is. Nothing recompiles and nothing redeploys, because there is no application-specific code to rebuild — the catalogue becomes a storefront once a checkout package merges, and a catalogue again once it is retracted. And since the change is a delta, the party making it need be neither a programmer nor a person. A human installs from the interface, or an agent submits the same merge (Chapter 7), and the application is a different application one request later. S3 stops being a vendor's release cycle and becomes an ordinary write, open to anyone holding the right to make it.
