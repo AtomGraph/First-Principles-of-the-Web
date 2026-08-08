@@ -228,7 +228,7 @@ Two examples prove nothing about all websites; the strips are illustration. The 
 — Roy T. Fielding, dissertation §5.1.5, 2000
 </div>
 
-Chapter 3 stripped two pages by hand and called the result illustration; this chapter proves the universal claim. The strips become the factors of a typed pipeline. A definition — properness — separates real factorizations from trivial ones. And the analysis theorem guarantees that every `read` admits a proper one. The chapter closes with the method's debt to Roy Fielding — author of the REST dissertation — and with the four timelines a proper factorization gives the document.
+Chapter 3 stripped two pages by hand and called the result illustration; this chapter proves the universal claim. The strips become the factors of a typed pipeline. A definition — properness — separates real factorizations from trivial ones. And the analysis theorem guarantees that every `read` factors — and that the factorization can be made proper. The chapter closes with the method's debt to Roy Fielding — author of the REST dissertation — and with the four timelines a proper factorization gives the document.
 
 ### The pipeline
 
@@ -274,20 +274,20 @@ S1–S3 could describe any well-factored program. S4 is the web condition: the f
 
 The dashboard makes it concrete: `select` pulls the panel's `title` and `value`, `arrange` nests them into a card, `present` themes the card. S4 is the property you can check by hand. Each factor's output — the data, the card, the themed page — has its own URL and *dereferences*: a GET on the URL returns it.
 
-Three of these properties were written down by the web's own architects — as advice. [*Architecture of the World Wide Web, Volume One*](https://www.w3.org/TR/webarch/) (W3C Recommendation, 2004; hereafter AWWW) names the separation of content, presentation, and interaction a good practice (§4.3). It names orthogonal and composable specifications a principle (§5.1). And it asks URI owners to provide representations of their resources (§3.5) — S4's demand, minus the intermediates. All of it stated as SHOULD, because a recommendation can do no more than recommend. Hold that until Proposition 4.4: what the web's own architecture group could only advise, the derivation forces. The norms were theorems all along. AWWW is a witness here, never a premise: assuming §4.3 would be assuming this chapter's conclusion, and the method forbids that.
+Three of these properties were written down by the web's own architects — as advice. [*Architecture of the World Wide Web, Volume One*](https://www.w3.org/TR/webarch/) (W3C Recommendation, 2004; hereafter AWWW) names the separation of content, presentation, and interaction a good practice (§4.3). It names orthogonal and composable specifications a principle (§5.1). And it asks URI owners to provide representations of their resources (§3.5) — S4's demand, minus the intermediates. All of it stated as SHOULD, because a recommendation can do no more than recommend. Hold that until Proposition 4.4: the separation the web's own architecture group could only advise, the derivation forces; the addressing it could only request, the derivation constructs. The norms were theorems all along. AWWW is a witness here, never a premise: assuming §4.3 would be assuming this chapter's conclusion, and the method forbids that.
 
 The payoff of S4 is immediate and measurable. It is [Fielding's](https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm) list: HTTP caching per stage rather than per page; crawlability of *data* rather than of renderings; intermediaries; independent evolution of the layers. The last of these will harden from a phrase into a proposition before the chapter ends. Every one will reappear in Part IV, scored against every architecture that forfeits it.
 
 ### The analysis theorem
 
-**Prop. 4.4 (Analysis theorem).** Every `read` whose output depends on `State` only through some finite part admits a proper factorization.
+**Prop. 4.4 (Analysis theorem).** Every `read` whose output depends on `State` only through some finite part factors into the three stages with S1. The factorization then lifts to proper: realize each factor as a term of the languages Part III fixes in advance, give each stage's output a URI, and S2–S4 hold. Finite dependence forces the shape; the lift is a construction the web always permits, never a consequence of finiteness.
 
 The hypothesis is mild: a document renders finitely many facts, so every site ever deployed qualifies. Finiteness is there to make the proof's minimal fragment well-defined; it excludes nothing real.
 
 <details>
 <summary><i>Proof sketch — take the minimal fragment the output depends on.</i></summary>
 
-Define `select(r, S)` as a minimal fragment of S on which `read(r, ·)` actually depends — well-defined by finiteness; `arrange` and `present` are the induced quotients. That much is the analysis half: it gives S1 and the three-stage shape. S2–S4 are claims about languages and addresses, and analysis cannot conjure those; the synthesis theorem (8.2) supplies them, and its languages are fixed in advance, not chosen around the `read`. Full proof in Appendix B. ∎
+Define `select(r, S)` as a minimal fragment of S on which `read(r, ·)` actually depends — well-defined by finiteness; `arrange` and `present` are the induced quotients. That much is the analysis half: it gives S1 and the three-stage shape. S2–S4 are the lift: S2 is realization in languages whose semantics are fixed in advance and shared across applications — never invented around the `read`, which would make S2 vacuous — S3 is substitution within them, and S4 is publication, an act. The synthesis theorem (8.2) supplies all three. Full proof in Appendix B. ∎
 
 </details>
 
