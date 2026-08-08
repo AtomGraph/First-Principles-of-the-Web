@@ -1,0 +1,43 @@
+{
+  "_comment": "Per-page SEO descriptions, consumed by split.py at build time. Written into each generated .qmd as a `description:` front-matter field, which Quarto turns into <meta name=description>, og:description, and twitter:description. Keep them plain (no markdown), one sentence, ~150-200 chars. Reveal discipline: no RDF/SPARQL/XSLT/CSS names on chapters 1-7, part I-III intros. Keyed: chapters by number, parts by roman numeral, appendices by letter.",
+  "index": "One architecture is of the web rather than merely on it. This book derives it from first principles — and finds it was standardized decades ago as RDF, SPARQL, XSLT, and CSS.",
+  "parts": {
+    "I": "Fixing the object of study: a web application is two functions, read and write, with one deliberate omission — what must its State be?",
+    "II": "Deriving what State must be: the factorization every read admits, the properties that make it real, and the write side that closes the loop.",
+    "III": "The derivation is complete — a data model, an algebra, a crossing, a write side — and none of it has been named. This part names it, and the names are decades old.",
+    "IV": "Scoring everything the industry runs — XML, JSON, SPAs, WebAssembly, GraphQL — against the seven derived properties, and the derived stack last, on the same rows.",
+    "V": "Building the application space back from the derived parts: the dataspace, the proof that no new standard is needed, the economics of generic software, and the result.",
+    "VI": "The synthesis carried forward: the knowledge-graph adoption already underway, the era its machine readers bring, and the web the derived stack permits once occupied."
+  },
+  "chapters": {
+    "1": "The web's own definitions, quoted: a web application is a pair of functions, read and write, and every framework ever shipped is an implementation detail of them.",
+    "2": "Why the web's State must be derived rather than surveyed or preferred — the method of analysis and synthesis, from Pappus and Newton to the clean-room rebuild.",
+    "3": "Strip a newspaper and a dashboard layer by layer — style, arrangement, selection — and the same skeleton emerges from both, down to bare State.",
+    "4": "Every read factors as present ∘ arrange ∘ select. A definition of properness separates real factorizations from trivial ones, and the analysis theorem proves every read admits one.",
+    "5": "Three requirements the web imposes — universality, coordination-free composition, global reference — force State to be sets of triples composed by union. The uniqueness is a theorem.",
+    "6": "State is a graph; documents are trees. The pipeline crosses from graph to tree exactly once, inside arrange — made a function by canonicalization.",
+    "7": "The write side, derived: every state change is a delta of two fact-sets, forms are inverse transforms, and interactivity decomposes into exactly five moves.",
+    "8": "The structure derived in Part II already exists, standardized between 1996 and 2014: RDF, SPARQL, XSLT, and CSS. You accepted RDF in Chapter 5, before it was named.",
+    "9": "Four honest mismatches between the derived model, the standards, and the browser: blank nodes, the fourth position, the abandoned XSLT seam, and the write-side last mile.",
+    "10": "The XML-to-JSON migration, audited: two decades of work that changed the brackets, shed the tooling, and gained not one of the seven properties. Lateral churn, by the numbers.",
+    "11": "The single-page application audited as the trivial factorization at scale: state hidden behind read, no intermediate value addressable — the un-web, scored cell by cell.",
+    "12": "WebAssembly as a paradigm: fusion in its terminal state, zero on every separation property by construction — the Java-applet experiment of 1996, rerun.",
+    "13": "Relational databases, objects, ORMs, imperative code, MVC — each fails a derived requirement at one seam, and each drags a compensating industry behind it at the web boundary.",
+    "14": "A decade of JavaScript rediscovering the proper factorization one tax at a time — SSR, hydration, islands, React Server Components, GraphQL, HTMX — stalling just before R3 and S4.",
+    "15": "The derived stack, audited on the same seven rows as everything else — and failing nothing, because every cell cites a result already proved.",
+    "16": "One table, every paradigm scored against the seven derived properties. Read by row: composition without coordination is the property nobody else has.",
+    "17": "The synthesis as a build log: the dataspace — one party's stake in the data web — assembled factor by factor from deployed standards, with federation as the union law.",
+    "18": "Nothing new needs standardizing: names versus addresses, seams filled by composition not creation, and a reference implementation that federates with itself — LinkedDataHub.",
+    "19": "The derivation as economics: every domain application is one generic engine specialized by data, not code. The browser and the spreadsheet are the existence proofs.",
+    "20": "Web 3.0 defined precisely: read transparent all the way down, for humans and machines alike. The completed audit table read forward, and the book's falsifiable claims registered.",
+    "21": "The derived state is in production at scale as the knowledge graph — BBC, NASA, Siemens, UniProt, Google — yet the industry adopted the data half and left the architecture half unclaimed.",
+    "22": "Software agents now need exactly the property the industry never adopted — machine-consumable state — and the N × M compensating machinery is assembling in real time.",
+    "23": "The web the derived properties already permit: applications that bend to the reader, claims that carry their source, data that outlives its software, and joins no platform owns."
+  },
+  "appendices": {
+    "a": "The book's apparatus and rules: the three kinds of statement, the symbol crib, the named results, and three reading tracks — in a hurry, building things, or refereeing.",
+    "b": "The full proofs: the representation lemma, the arity of a fact, the uniqueness theorem, independence of the conditions, analysis and synthesis, the homomorphism, and federation closure.",
+    "c": "The spec concordance and full citation ledger: the RFC and W3C axioms, the witnesses, the candidate specs, the formal prior art, and the works the audit examines."
+  },
+  "status": "Draft status of First Principles of the Web: all twenty-three chapters and Appendices A–C drafted, with exhibits, scored audit columns, and full proofs. Feedback wanted on R1–R3 and the arity argument."
+}

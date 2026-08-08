@@ -6,12 +6,37 @@ time: index.qmd (front matter), one .qmd per chapter, part intro pages, the
 appendices, and _quarto.yml. Generated files are gitignored — edit only the
 source file. In the book's own notation: this is an `arrange` term.
 """
+import json
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent
 SOURCE = ROOT / "first-principles-of-the-web.md"
+
+# ---- SEO metadata: per-page descriptions (from a tracked sidecar) and
+# schema.org JSON-LD built from data this script already holds. Descriptions
+# become <meta name=description>/og/twitter via Quarto; the JSON-LD is emitted
+# into each page body, which search engines read for structured data.
+SITE_URL = "https://atomgraph.github.io/First-Principles-of-the-Web/"
+BOOK_ID = SITE_URL + "#book"
+AUTHOR = {"@type": "Person", "name": "Martynas Jusevičius", "url": "https://atomgraph.com"}
+PUBLISHER = {"@type": "Organization", "name": "AtomGraph", "url": "https://atomgraph.com"}
+SEO = json.loads((ROOT / "seo-descriptions.json").read_text(encoding="utf-8"))
+
+def jsonld_script(obj):
+    """A schema.org JSON-LD block, as body-level raw HTML."""
+    return ('<script type="application/ld+json">\n'
+            + json.dumps(obj, ensure_ascii=False, indent=2)
+            + "\n</script>")
+
+def front_matter(description):
+    """YAML front matter carrying the page description. json.dumps yields a
+    safely-quoted scalar (a JSON string is valid YAML) whatever punctuation the
+    text holds; Quarto turns `description` into meta/og/twitter tags."""
+    if not description:
+        return ""
+    return "---\ndescription: " + json.dumps(description, ensure_ascii=False) + "\n---\n\n"
 
 text = SOURCE.read_text(encoding="utf-8")
 
@@ -292,17 +317,49 @@ def strip_rules(body):
         out.pop()
     return out
 
-def write(name, title, body, tail=""):
+def write(name, title, body, tail="", description=None, jsonld=None):
     text = add_anchors("\n".join(strip_rules(promote(body))).strip())
     text = linkify(text, current=name.replace(".qmd", ".html"))
     if tail:
         # raw HTML appended after linkify — "Chapter N" inside it stays literal
         text += "\n\n" + tail
-    content = f"# {title}\n\n" + text + "\n"
+    if jsonld:
+        # JSON-LD as body-level raw HTML, passed through like the tail above
+        text += "\n\n" + jsonld_script(jsonld)
+    content = front_matter(description) + f"# {title}\n\n" + text + "\n"
     (ROOT / name).write_text(content, encoding="utf-8")
     return name
 
 chapter_files = []
+
+# the Book's ordered chapters for schema.org hasPart, built before index is
+# written (index precedes the chapter-writing loop below)
+book_chapters = []
+for _pt, _in, _chs in parts:
+    for _ct, _cb in _chs:
+        _m = re.match(r"Chapter (\d+)\.\s*(.*)", _ct)
+        _n = int(_m.group(1))
+        book_chapters.append({
+            "@type": "Chapter",
+            "name": _ct,
+            "url": SITE_URL + ch_page[_n],
+            "position": _n,
+        })
+
+book_jsonld = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "@id": BOOK_ID,
+    "name": "First Principles of the Web",
+    "alternativeHeadline": "Graphs are not the thing, they are the thing that gets us to the thing",
+    "url": SITE_URL,
+    "inLanguage": "en",
+    "author": AUTHOR,
+    "publisher": PUBLISHER,
+    "image": SITE_URL + "first-principles-figures/title-the-thing.svg",
+    "description": SEO["index"],
+    "hasPart": book_chapters,
+}
 
 # index.qmd: title block + front sections, headings kept at h2
 index = title_block + [""]
@@ -312,7 +369,9 @@ index_body = "\n".join(l for l in index if l.strip() != "---" or True)
 # drop the h1 title line — _quarto.yml carries the book title
 index_body = re.sub(r"^# .*\n", "", index_body, count=1)
 index_body = linkify(index_body, current="index.html")
-(ROOT / "index.qmd").write_text(index_body.strip() + "\n", encoding="utf-8")
+index_content = (front_matter(SEO["index"]) + index_body.strip()
+                 + "\n\n" + jsonld_script(book_jsonld) + "\n")
+(ROOT / "index.qmd").write_text(index_content, encoding="utf-8")
 
 yml_chapters = ["  chapters:", "    - index.qmd"]
 part_no = 0
@@ -327,7 +386,9 @@ for part_title, intro, chapters in parts:
             f"<span>Chapter {m.group(1)}</span> {m.group(2)}</a>"
         )
     part_toc.append("</nav>")
-    write(pfile, part_title, intro, tail="\n".join(part_toc))
+    part_roman = re.match(r"Part ([IVX]+)", part_title)
+    part_desc = SEO["parts"].get(part_roman.group(1)) if part_roman else None
+    write(pfile, part_title, intro, tail="\n".join(part_toc), description=part_desc)
     yml_chapters.append(f"    - part: {pfile}")
     yml_chapters.append("      chapters:")
     for ch_title, body in chapters:
@@ -335,7 +396,20 @@ for part_title, intro, chapters in parts:
         num, name = m.group(1), m.group(2)
         slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
         fname = f"ch{int(num):02d}-{slug}.qmd"
-        write(fname, ch_title, body)
+        ch_url = SITE_URL + ch_page[int(num)]
+        ch_desc = SEO["chapters"].get(num)
+        ch_jsonld = {
+            "@context": "https://schema.org",
+            "@type": "Chapter",
+            "@id": ch_url + "#chapter",
+            "name": ch_title,
+            "url": ch_url,
+            "position": int(num),
+            "isPartOf": {"@id": BOOK_ID},
+            "author": AUTHOR,
+            "description": ch_desc,
+        }
+        write(fname, ch_title, body, description=ch_desc, jsonld=ch_jsonld)
         yml_chapters.append(f"        - {fname}")
         chapter_files.append(fname)
 
@@ -356,12 +430,24 @@ if appendices:
         letter = t[0].lower()
         slug = re.sub(r"[^a-z0-9]+", "-", t.split(". ", 1)[-1].lower()).strip("-")
         fname = f"appendix-{letter}-{slug}.qmd"
+        app_url = SITE_URL + f"appendix-{letter}-{slug}.html"
+        app_desc = SEO["appendices"].get(letter)
+        app_jsonld = {
+            "@context": "https://schema.org",
+            "@type": "Chapter",
+            "@id": app_url + "#chapter",
+            "name": f"Appendix {t[0]} — {t.split('. ', 1)[-1]}",
+            "url": app_url,
+            "isPartOf": {"@id": BOOK_ID},
+            "author": AUTHOR,
+            "description": app_desc,
+        }
         # Quarto prefixes appendix pages with "Appendix X —" itself; drop the source's letter
-        write(fname, re.sub(r"^[A-Z]\.\s+", "", t), b)
+        write(fname, re.sub(r"^[A-Z]\.\s+", "", t), b, description=app_desc, jsonld=app_jsonld)
         app_files.append(fname)
 if status:
     # back matter, not apparatus — keep it out of the lettered appendix sequence
-    write("status.qmd", "Draft status", status)
+    write("status.qmd", "Draft status", status, description=SEO.get("status"))
     yml_chapters.append("    - status.qmd")
 
 yml = """project:
