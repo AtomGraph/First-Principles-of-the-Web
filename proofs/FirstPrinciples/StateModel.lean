@@ -172,4 +172,131 @@ theorem representation_embedding (hne : S.NoEmergence) (hat : S.Atomistic) :
       ∧ (∀ s t, (∀ a, S.atomsBelow s a ↔ S.atomsBelow t a) → s = t) :=
   ⟨S.atomsBelow_empty, S.atomsBelow_merge hne, hat⟩
 
+/-! ### Surjectivity — the other half of Lemma B.1 (finite)
+
+Every finite set of atoms is realized by their join, so the atom map is a
+bijection onto the finite atom-sets. -/
+
+/-- The only atom below an atom `a` is `a` itself. -/
+theorem atomsBelow_atom {a : S.M} (ha : S.IsAtom a) (b : S.M) :
+    S.atomsBelow a b ↔ (S.IsAtom b ∧ b = a) := by
+  constructor
+  · rintro ⟨hb, hle⟩
+    refine ⟨hb, ?_⟩
+    rcases ha.2 b hle with h | h
+    · exact absurd h hb.1
+    · exact h
+  · rintro ⟨hb, hba⟩
+    subst hba
+    exact ⟨hb, S.le_refl _⟩
+
+/-- The join of a finite list of states: the `⊕`-fold from `∅`. -/
+def joinList (l : List S.M) : S.M := l.foldr S.merge S.empty
+
+/-- The atoms below `joinList l`, for a list `l` of atoms, are exactly the
+    members of `l`. So every finite atom-set is realized (surjectivity). -/
+theorem atomsBelow_joinList (hne : S.NoEmergence) :
+    ∀ (l : List S.M), (∀ a ∈ l, S.IsAtom a) → ∀ (b : S.M),
+      (S.atomsBelow (S.joinList l) b ↔ (S.IsAtom b ∧ b ∈ l)) := by
+  intro l
+  induction l with
+  | nil =>
+    intro _ b
+    constructor
+    · intro h; exact absurd h (S.atomsBelow_empty b)
+    · rintro ⟨_, hmem⟩; exact absurd hmem (by simp)
+  | cons a rest ih =>
+    intro hl b
+    have ha : S.IsAtom a := hl a (List.mem_cons_self a rest)
+    have hrest : ∀ x ∈ rest, S.IsAtom x := fun x hx => hl x (List.mem_cons_of_mem a hx)
+    have hstep : S.joinList (a :: rest) = S.merge a (S.joinList rest) := rfl
+    rw [hstep, S.atomsBelow_merge hne, S.atomsBelow_atom ha, ih hrest b]
+    constructor
+    · rintro (⟨hb, hba⟩ | ⟨hb, hmem⟩)
+      · subst hba; exact ⟨hb, List.mem_cons_self _ _⟩
+      · exact ⟨hb, List.mem_cons_of_mem a hmem⟩
+    · rintro ⟨hb, hmem⟩
+      rcases List.mem_cons.mp hmem with h | h
+      · exact Or.inl ⟨hb, h⟩
+      · exact Or.inr ⟨hb, h⟩
+
+/--
+  **Lemma B.1 (finite).** Under the atomicity axioms the atom map is a bijection
+  between states and finite sets of atoms — injective (`atoms_injective`) and
+  surjective onto finite atom-sets (`atomsBelow_joinList`) — carrying `⊕` to `∪`
+  (`atomsBelow_merge`). This is (5.1) in the finite: the operational content the
+  book flags as the one that matters, since messages are finite.
+-/
+theorem representation_finite (hne : S.NoEmergence) (hat : S.Atomistic) :
+    (∀ s t, (∀ a, S.atomsBelow s a ↔ S.atomsBelow t a) → s = t)
+      ∧ (∀ (l : List S.M), (∀ a ∈ l, S.IsAtom a) → ∀ b,
+           S.atomsBelow (S.joinList l) b ↔ (S.IsAtom b ∧ b ∈ l))
+      ∧ (∀ s t a, S.atomsBelow (S.merge s t) a
+           ↔ S.atomsBelow s a ∨ S.atomsBelow t a) :=
+  ⟨hat, S.atomsBelow_joinList hne, S.atomsBelow_merge hne⟩
+
+/-! ### B.4 fragment — the atomicity axiom is independent
+
+`Atomistic` is not derivable from the semilattice laws. Witness: `(ℕ, max, 0)`
+(Bloom^L's `lmax`) is a bounded join-semilattice whose only atom is `1`, yet the
+states `1` and `2` have the same atoms below them, so `Atomistic` fails. This is
+why Lemma B.1 must take `Atomistic` as a hypothesis. -/
+
+/-- `(ℕ, max, 0)` — a `StateModel` (bounded join-semilattice). Marked reducible
+    so that `lmax.M` unfolds to `Nat` for numerals, instances, and `omega`. -/
+@[reducible] def lmax : StateModel where
+  M := Nat
+  merge := Nat.max
+  empty := 0
+  merge_comm := Nat.max_comm
+  merge_assoc := Nat.max_assoc
+  merge_idem := Nat.max_self
+  empty_merge := Nat.zero_max
+
+theorem lmax_le (a b : Nat) : lmax.le a b ↔ a ≤ b := by
+  show max a b = b ↔ a ≤ b
+  rw [Nat.max_def]
+  by_cases h : a ≤ b
+  · rw [if_pos h]; omega
+  · rw [if_neg h]; omega
+
+/-- A tiny `Nat` fact, applied where the carrier prints as `lmax.M` (omega needs
+    the atom to be syntactically `Nat`, which a top-level `Nat` lemma provides). -/
+private theorem nat_le_one {x : Nat} (h : x ≤ 1) : x = 0 ∨ x = 1 := by omega
+
+theorem lmax_isAtom (a : Nat) : lmax.IsAtom a ↔ a = 1 := by
+  constructor
+  · intro h
+    have hne : a ≠ 0 := h.1
+    have hmin : ∀ x : Nat, lmax.le x a → x = 0 ∨ x = a := h.2
+    have h1 : lmax.le 1 a := (lmax_le 1 a).mpr (by omega)
+    rcases hmin 1 h1 with hx | hx
+    · omega
+    · omega
+  · intro ha
+    subst ha
+    refine ⟨?_, ?_⟩
+    · show (1 : Nat) ≠ 0
+      omega
+    · intro x hx
+      have hx1 : x ≤ 1 := (lmax_le x 1).mp hx
+      exact nat_le_one hx1
+
+theorem lmax_atomsBelow (n a : Nat) : lmax.atomsBelow n a ↔ (a = 1 ∧ 1 ≤ n) := by
+  simp only [StateModel.atomsBelow, lmax_isAtom, lmax_le]
+  omega
+
+/-- **B.4 (fragment): atomicity is independent.** Some `StateModel` violates
+    `Atomistic`, so it is a genuine axiom, not a theorem of the semilattice
+    laws — which is why Lemma B.1 assumes it. -/
+theorem atomistic_independent : ∃ S : StateModel.{0}, ¬ S.Atomistic := by
+  refine ⟨lmax, ?_⟩
+  intro h
+  have h12 : (1 : Nat) = 2 := by
+    refine h 1 2 ?_
+    intro a
+    rw [lmax_atomsBelow, lmax_atomsBelow]
+    omega
+  omega
+
 end StateModel
