@@ -1519,14 +1519,6 @@ An agent's change is a delta, and its whole intended course — every read, chan
 
 And once many build this way, the whole becomes more than its origins. Because states merge by union without a coordinator (R2) and any stylesheet can be pointed at the result (S3), value arises from combinations no one arranged. Two dataspaces that never coordinated compose the moment their names meet, and a third party who owns neither can render the join as something new — an application their authors never imagined and did not have to permit. The document web tried this once and lost it: the mashups of the mid-2000s stitched maps and listings into applications nobody's vendor had shipped, until the APIs metered and re-siloed and the combinations died at the platforms' discretion. Union revokes nothing — the joins hold because no one owns the seam across them, so the mashup that was a fad becomes the ordinary case.
 
-<div class="fp-history">
-
-**In the world, dated 2005.** [HousingMaps](https://web.archive.org/web/2009/http://www.housingmaps.com/) put Craigslist rentals on Google Maps — an application neither vendor shipped or permitted, built by one person from two others' data. Captured here in 2009.
-
-<img src="first-principles-figures/housingmaps-2009.png" alt="HousingMaps: a United States map studded with city pins beside usage instructions, the header reading powered by craigslist and Google Maps" class="fp-spot" width="640" />
-
-</div>
-
 And the loop compounds: each party that publishes a dataspace makes every dataspace federated with it worth more. This is the network effect that once turned a single physicist's filing system into the world's front page. It arrives now at the layer the second era hid, this time with no one in the middle owning the graph or charging rent on the joins.
 
 The same compounding reaches the agent. A domain it has never seen needs no new system: it states the domain as facts over the one generic engine, and is done. The choice Chapter 22 put to it — a bespoke system per domain, or one engine with the domain as data — was never really a choice.
