@@ -1086,7 +1086,7 @@ Behind the four names stands one state `S`, in the shape of Prop. 9.2: quads, gr
 
 #### Documents
 
-Dereference is graph lookup — `select(u, S) = S(u)`, the fourth position as the address (Prop. 9.2). There `read` is defined (S4) and `write` accepts a delta (Prop. 7.1). And the obligation that makes the data *linked*: every name under `o` in a fact position of `S` has `read(name, S)` defined — mint a name only if you serve its description. AWWW §3.5 asked for this as a SHOULD; (17.1) holds it as a condition of being a dataspace at all. Documents may also nest. Parent and child are ordinary facts, so a document's children are one more selection. Addressing stays flat — one graph per document — and the hierarchy is a convention over it, not a new kind of resource.
+Dereference is graph lookup — `select(u, S) = S(u)`, the fourth position as the address (Prop. 9.2). There `read` is defined (S4) and `write` accepts a delta (Prop. 7.1). And the obligation that makes the data *linked*: every name under `o` in a fact position of `S` has `read(name, S)` defined — mint a name only if you serve its description. AWWW §3.5 asked for this as a SHOULD; (17.1) holds it as a condition of being a dataspace at all. So the state is not only composable but recursively discoverable: each reference in a fact is an address, and dereferencing it returns more state, whose references point onward in turn. Documents may also nest. Parent and child are ordinary facts, so a document's children are one more selection. Addressing stays flat — one graph per document — and the hierarchy is a convention over it, not a new kind of resource.
 
 #### One state
 
@@ -1278,7 +1278,7 @@ The derivation step even has a declarative carrier on the shelf. Take Prop. 7.3'
 
 What lacks a recommendation is *when* such a term runs — schedule, trigger, threshold. That is the orchestration seam, open like identity and access in Chapter 18, and like them awaiting convention rather than invention.
 
-So the domain's logic divides cleanly. Validation is a predicate on deltas (Chapter 7 drew that line). Derivation is an update term over the ontology. And whatever imperative computation remains — the solver, the optimizer, Chapter 12's leaf — runs behind a caller, submitting deltas like everyone else: outside the engine, never inside it.
+So the domain's logic divides cleanly. Validation is a predicate on deltas (Chapter 7 drew that line). Derivation is an update term over the ontology. That places inference precisely: an entailed fact enters by that write, not by a closure computed at read time, so the state remains the asserted set. And whatever imperative computation remains — the solver, the optimizer, Chapter 12's leaf — runs behind a caller, submitting deltas like everyone else: outside the engine, never inside it.
 
 ### The incentives
 
@@ -1497,7 +1497,7 @@ The principle is old, mostly honored in the breach. Berners-Lee's *Cool URIs don
 
 #### Permission is a fact
 
-What may be read, and by whom, is stated in the same state it governs — narrowed or withdrawn as an ordinary change, with no platform to grant access and none that can revoke it. One party opens a region of its world to another's agent with a single assertion, and the boundary holds at every hop of a query that crosses between them.
+What may be read, and by whom, is stated in the same state it governs — narrowed or withdrawn as an ordinary change, with no platform to grant access and none that can revoke it. One party opens a region of its world to another's agent with a single assertion, and the boundary holds at every hop of a query that crosses between them. Composition and disclosure are not the same boundary. Any two states still compose without permission (R2), but what a given agent may read is a projection the permissions cut, so universal composition never meant universal visibility.
 
 <div class="fp-history">
 
