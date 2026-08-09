@@ -457,6 +457,7 @@ yml = """project:
     - exhibits.css
     - "first-principles-figures/*.svg"
     - "first-principles-figures/*.png"
+    - googleba0fe49aa3922677.html
 
 book:
   title: "First Principles of the Web"
