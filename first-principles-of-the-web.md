@@ -1086,7 +1086,7 @@ Behind the four names stands one state `S`, in the shape of Prop. 9.2: quads, gr
 
 #### Documents
 
-Dereference is graph lookup — `select(u, S) = S(u)`, the fourth position as the address (Prop. 9.2). There `read` is defined (S4) and `write` accepts a delta (Prop. 7.1). And the obligation that makes the data *linked*: every name under `o` in a fact position of `S` has `read(name, S)` defined — mint a name only if you serve its description. AWWW §3.5 asked for this as a SHOULD; (17.1) holds it as a condition of being a dataspace at all.
+Dereference is graph lookup — `select(u, S) = S(u)`, the fourth position as the address (Prop. 9.2). There `read` is defined (S4) and `write` accepts a delta (Prop. 7.1). And the obligation that makes the data *linked*: every name under `o` in a fact position of `S` has `read(name, S)` defined — mint a name only if you serve its description. AWWW §3.5 asked for this as a SHOULD; (17.1) holds it as a condition of being a dataspace at all. Documents may also nest. Parent and child are ordinary facts, so a document's children are one more selection. Addressing stays flat — one graph per document — and the hierarchy is a convention over it, not a new kind of resource.
 
 #### One state
 
