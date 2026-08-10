@@ -612,6 +612,13 @@ Change, the objection said, is where declarative architectures fail. Change is t
 
 ## Chapter 8. It Already Exists
 
+<div class="fp-epigraph">
+
+*I would definitely point to RDF as prior art in terms of thinking about properties, independent of aggregates.*
+
+— Rich Hickey, creator of Clojure (*Cognicast*, 2016)
+</div>
+
 Everything in Part II was derived from three RFC-level definitions — identifiers, requests, responses — and three requirements. No W3C recommendation has entered as a premise. Where AWWW is cited — Chapter 4's good practices, Chapter 5's transposition table — it stands as a witness, never as a premise. Chapter 4 states that rule outright. No vocabulary from any data-model community has appeared. Now:
 
 | Derived in Part II | Standardized as | Since |
@@ -1797,6 +1804,7 @@ The spec concordance. The axioms below are the book's external dependencies — 
 - T. Berners-Lee, [*Information Management: A Proposal*](https://www.w3.org/History/1989/proposal.html) (CERN, 1989) — the origin memo, and Mike Sendall's cover note "vague but exciting"; Chapter 1's epigraph, and the browser-editor bootstrap of Chapter 18.
 - V. Bush, [*As We May Think*](https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/) (The Atlantic, 1945); T. Nelson, *Computer Lib / Dream Machines* (1974) — association over hierarchy, the graph refusing the tree, stated before the web; Chapter 6.
 - T. Berners-Lee, J. Hendler, O. Lassila, [*The Semantic Web*](https://www.scientificamerican.com/article/the-semantic-web/) (Scientific American, May 2001) — the agent-over-machine-readable-data scenario Chapter 22 derives; written as fiction, now falsifiable.
+- R. Hickey, [*Cognicast* Episode 103: "Clojure spec with Rich Hickey"](https://www.cognitect.com/cognicast/103) (June 2016) — the creator of Clojure and Datomic naming RDF as prior art for properties defined independent of aggregates; Chapter 8's epigraph.
 - J. E. Labra Gayo, E. Prud'hommeaux, I. Boneva, D. Kontokostas, *Validating RDF Data* (2017), foreword by D. Brickley and L. Miller — Chapter 9's epigraph.
 - D. McComb, *Software Wasteland* (Technics, 2018) and *The Data-Centric Revolution* (Technics, 2019) — the [data-centric](https://www.semanticarts.com/data-centric/) case (Semantic Arts) for data over application code; Chapter 19's corollary reached from enterprise waste rather than derivation.
 - J. Somers, [*The Coming Software Apocalypse*](https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/) (The Atlantic, September 2017) — code grown past comprehension in safety-critical systems, and the remedies that move engineers above it (model-based design, Lamport's TLA+); Chapter 19's liability, reported from the field.
