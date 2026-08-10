@@ -891,6 +891,13 @@ S1 through S4, zero by construction: the terminal state of fusion, scored.
 
 ## Chapter 13. Pre-Web Paradigms
 
+<div class="fp-epigraph">
+
+*Technology changes quickly; people's minds change slowly. […] The next generation of programmers grows up only being shown one way of thinking about programming. […] They grow up with dogma. And once you grow up with dogma, it's really hard to break out of it.*
+
+— Bret Victor, *The Future of Programming*, 2013
+</div>
+
 Four columns of failures have accumulated: two bracket stacks (Chapter 10), the single-page application (Chapter 11), and the applet (Chapter 12). The pattern repeats. The scores cannot say where architectures that fail this way keep coming from. One observation can: they do not come from the web. Relational databases, object orientation, object-relational mappers (ORMs), imperative languages, and MVC (model–view–controller) all predate the web. Each fails the derived requirements at one identifiable seam, and that is *why* each drags a compensating industry behind it at the web boundary. The industries are the measurement: nobody builds a bridge across a gap that isn't there. And the reading is falsifiable: a compensating industry that grows up around a paradigm failing no derived requirement — a market pricing a gap the audit cannot name — would break it.
 
 <img src="first-principles-figures/spot-ch13-the-bridges.svg" alt="Four tall silos joined by improvised plank bridges, a rope bridge, and a leaning ladder; two silos on a shared foundation stand apart, unbridged" class="fp-spot" width="420" />
