@@ -487,7 +487,7 @@ The three properties `canon` must have (deterministic, lossless, structure-free)
 <details>
 <summary><i>Proof — sort lexicographically; unnamed entities pay Chapter 9's bill.</i></summary>
 
-For ground states — states whose entities all carry names — order the facts lexicographically by their three positions and emit one block per entity. The map is a function because a total order on tuples exists. It is lossless because the fact set is recoverable by reading the blocks back. It is structure-free because the order is defined by the facts alone, never by their provenance or grouping. States with unnamed entities need a canonical labeling first; that labeling exists, is standardized, and Chapter 9 states its cost. ∎
+For ground states (states whose entities all carry names) order the facts lexicographically by their three positions and emit one block per entity. The map is a function because a total order on tuples exists. It is lossless because the fact set is recoverable by reading the blocks back. It is structure-free because the order is defined by the facts alone, never by their provenance or grouping. States with unnamed entities need a canonical labeling first; that labeling exists, is standardized, and Chapter 9 states its cost. ∎
 
 </details>
 
@@ -636,7 +636,7 @@ Read the dates first. Every row predates this book, most by decades, and none ap
 <details>
 <summary><i>How the check runs — clause by clause against a denotational spec.</i></summary>
 
-The equation `φ(select(p, S)) = ⟦sparql(p)⟧(φ(S))` is checkable clause by clause against the SPARQL algebra. The algebra is written denotationally — a rarity among web specs, shared mainly with XQuery's Formal Semantics — and that denotational form is what makes the check possible. Full proof: Appendix B.7.
+The equation `φ(select(p, S)) = ⟦sparql(p)⟧(φ(S))` is checkable clause by clause against the SPARQL algebra. The algebra is written denotationally (a rarity among web specs, shared mainly with XQuery's Formal Semantics) and that denotational form is what makes the check possible. Full proof: Appendix B.7.
 
 </details>
 
@@ -690,7 +690,7 @@ Blank nodes are scoped to their graph, so composition must standardize them apar
 
 </details>
 
-That is the bill for anonymity, and it falls exactly on the party that chose anonymity. Name your entities and state composes by set arithmetic. Leave them unnamed and composition becomes theorem-proving in miniature, landing precisely at the seam where Chapter 6 put `canon`. The web's grain shows through the formalism: the work appears exactly where names are missing. The deployed stack's own list idiom shows the cost: an ordered collection encoded as a chain of unnamed cells carries the cost of anonymity at every link. Order is the recurring case. State it as facts — a rank fact per member, Chapter 3's lead story — and it merges like facts. Fold it into shape and it costs what shape costs.
+That is the bill for anonymity, and it falls exactly on the party that chose anonymity. Name your entities and state composes by set arithmetic. Leave them unnamed and composition becomes theorem-proving in miniature, landing precisely at the seam where Chapter 6 put `canon`. The web's grain shows through the formalism: the work appears exactly where names are missing. The deployed stack's own list idiom shows the cost: an ordered collection encoded as a chain of unnamed cells carries the cost of anonymity at every link. Order is the recurring case. State it as facts (a rank fact per member, Chapter 3's lead story) and it merges like facts. Fold it into shape and it costs what shape costs.
 
 ### Mismatch two: the fourth position
 
@@ -703,7 +703,7 @@ The web demands one requirement Chapter 5 never imposed. R1–R3 govern facts ab
 <details>
 <summary><i>Proof — set union forgets who contributed; reification attributes only descriptions; one position repairs it.</i></summary>
 
-Union erases contribution: B-2d says `atoms(s ⊕ s′) = atoms(s) ∪ atoms(s′)`, and a set union keeps no record of which side an element came from. So within `𝒫(Fact)`, "who asserted this atom" is unrecoverable by construction — attribution lives in the history of the state, and states-not-histories is what B-2c chose. Reification (the standard's device of describing a fact in triples of its own) does not escape either: it attributes only a *description* of the fact. The described fact is then either also present as a plain atom or absent. If present, it is asserted outright and the attribution is defeated. If absent, it is attributed but never stated — quoted rather than asserted. The minimal repair types the atom as a pair (source, fact). The source position must refer across parties, hence lies in `I`, R3's argument (condition B-3 in Appendix B) verbatim. One extra position suffices, because attribution of attributions is more quads, not more positions. Rerun B.1–B.3 over the retyped atom: `𝒫(I × I × I × (I ∪ V))`, merge still union. ∎
+Union erases contribution: B-2d says `atoms(s ⊕ s′) = atoms(s) ∪ atoms(s′)`, and a set union keeps no record of which side an element came from. So within `𝒫(Fact)`, "who asserted this atom" is unrecoverable by construction, attribution lives in the history of the state, and states-not-histories is what B-2c chose. Reification (the standard's device of describing a fact in triples of its own) does not escape either: it attributes only a *description* of the fact. The described fact is then either also present as a plain atom or absent. If present, it is asserted outright and the attribution is defeated. If absent, it is attributed but never stated, quoted rather than asserted. The minimal repair types the atom as a pair (source, fact). The source position must refer across parties, hence lies in `I`, R3's argument (condition B-3 in Appendix B) verbatim. One extra position suffices, because attribution of attributions is more quads, not more positions. Rerun B.1–B.3 over the retyped atom: `𝒫(I × I × I × (I ∪ V))`, merge still union. ∎
 
 </details>
 
@@ -950,7 +950,7 @@ Read the relational column twice: the highest pre-web score in the book, failing
 
 The evidence chapter. The JavaScript ecosystem had no exposure to any derivation, and it was moved by nothing but its own costs. It has spent a decade converging back toward the proper factorization, one rediscovery at a time:
 
-- **SSR — server-side rendering.** Documents should arrive as documents. The S4 tax landed as Chapter 11 billed it: a private API reverse-engineered per integrator, with crawler blindness as its consequence. The industry moved for its own reasons — SEO and first paint — and the fix is `present ∘ arrange ∘ select` running on a server, where it had been running since 1993.
+- **SSR — server-side rendering.** Documents should arrive as documents. The S4 tax landed as Chapter 11 billed it: a private API reverse-engineered per integrator, with crawler blindness as its consequence. The industry moved for its own reasons (SEO and first paint) and the fix is `present ∘ arrange ∘ select` running on a server, where it had been running since 1993.
 - **Hydration.** Chapter 11's S1 tax, given its industry name. An industry term for a category error.
 - **Islands.** The principle of least power, rederived from the costs: most of the page needs no program, so most of the page stops being one.
 - **React Server Components.** RSC pulls `select` back out of the fused term, ten years after fusion. But its wire format is a bespoke, non-addressable serialization of exactly the intermediate value S4 says should have a URI. The factor returned; its resource did not.
@@ -1164,7 +1164,7 @@ flowchart LR
     upd -- "S′(u) = (S(u) ∖ D⁻) ∪ D⁺" --> S
 ```
 
-*The build log as a picture — (4.1) at deployment grain, closed as in Chapter 7. Along the read spine the endpoint `e` runs `select` (SPARQL), the stylesheet `x` runs `arrange` (XSLT, `⟦t⟧ ∘ canon`), CSS runs `present` — (17.1)'s components bound to deployed standards. The return arrow is the write side: a form (Chapter 9's bridge) yields a delta `(D⁻, D⁺)` (Prop. 7.1), carried as a PATCH — a graph-scoped SPARQL Update. Under S4 every rounded node is a web resource with a URI of its own.*
+*The build log as a picture, (4.1) at deployment grain, closed as in Chapter 7. Along the read spine the endpoint `e` runs `select` (SPARQL), the stylesheet `x` runs `arrange` (XSLT, `⟦t⟧ ∘ canon`), CSS runs `present`, (17.1)'s components bound to deployed standards. The return arrow is the write side: a form (Chapter 9's bridge) yields a delta `(D⁻, D⁺)` (Prop. 7.1), carried as a PATCH, a graph-scoped SPARQL Update. Under S4 every rounded node is a web resource with a URI of its own.*
 
 The arrange row carries the most machinery, and it deserves a closer look. The names the layered term treats specially are exactly the names the dataspace's ontology declares, B.8's relative genericity, deployed. Unmatched state falls back to the base rendering rather than to nothing: every graph renders; declared vocabulary renders better. The stylesheets share their templates across the wire: one library, imported by a server-side stylesheet that emits documents and a browser-side one that binds events. Saxon runs the first, and SaxonJS with IXSL runs the second, two processors, one set of terms. Chapter 7's mobility of evaluation, running. The convergence shares rendering code too, by running the same framework on both sides (Chapter 14's hydration); here the sides share templates without sharing an engine, because the language's semantics is closed. And independent evolution shows up as operations rather than theory: data, selection, layout, and style invalidate independently, per factor, cache entry by cache entry, the four timelines, running as infrastructure.
 
@@ -1518,7 +1518,7 @@ Reading is half of Definition 1.1; the write side turns capability into action.
 
 #### Stating a need
 
-Search runs one way: a person forms a query and the market's pages answer, each provider having guessed in advance what to publish. Structured state runs it the other way. A need is itself facts — constraints, preferences, the criteria that qualify an answer — so it can be published as a document and read by providers rather than typed into a box and kept. A person states once, in the open, what they want; the parties who can meet it answer, matched against the very facts that generated the request, nothing re-entered and no form filled. Demand stops being a private keystroke and becomes a public, verifiable fact, the write side (Chapter 7) pointed outward.
+Search runs one way: a person forms a query and the market's pages answer, each provider having guessed in advance what to publish. Structured state runs it the other way. A need is itself facts (constraints, preferences, the criteria that qualify an answer) so it can be published as a document and read by providers rather than typed into a box and kept. A person states once, in the open, what they want; the parties who can meet it answer, matched against the very facts that generated the request, nothing re-entered and no form filled. Demand stops being a private keystroke and becomes a public, verifiable fact, the write side (Chapter 7) pointed outward.
 
 <div class="fp-history">
 
