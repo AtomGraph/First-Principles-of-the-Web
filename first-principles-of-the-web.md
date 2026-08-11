@@ -104,7 +104,7 @@ Stripping alone, though, proves less than it seems to. What remains after the re
 
 The Greek geometers called the two directions *analysis* and *synthesis*. Pappus's *Collection* describes the pair: assume the thing sought and work backwards to what is established; then reverse the path, and the reversal is the proof. Newton restates it as a rule of natural philosophy in the *Opticks*: the investigation of difficult things by analysis "ought ever to precede the method of composition." The practice has modern instances wherever a structure must be known rather than guessed. Organic chemists worked out a molecule's structure by breaking it into identifiable fragments, and accepted that structure as proven only once they had built the same compound from known ingredients and it matched. Software has the clean-room: a rebuild is independent exactly when the rebuilding team touched only the derived specification, never the original. Both keep the geometers' point: taking apart suggests a structure; only building back, independently, proves it.
 
-The claim, then, is stated in advance, so the reader can hold the book to it. The analysis, if it succeeds, will show that every web application has a certain form, that under Definition 1.1 there is nothing else `read` and `State` could be: necessity. The synthesis, if it succeeds, will show that the derived form is enough to build with, a full application space, nothing missing: sufficiency. Where the two directions meet exactly, the argument closes from both ends. That meeting, not either half, will be the book's proof. It happens twice, once in theorems and once in running code. And the method carries one obligation more: wherever the halves fail to meet *exactly*, the mismatches go on the table, itemized, not under it. That is Chapter 9's only job. The opening pages have already named the result; stating a result is not deriving it, and the derivation is the part a reader can check.
+The claim, then, is stated in advance, so the reader can hold the book to it. The analysis, if it succeeds, will show that every web application has a certain form, that under Definition 1.1 there is nothing else `read` and `State` could be: necessity. The synthesis, if it succeeds, will show that the derived form is enough to build with, a full application space, nothing missing: sufficiency. Where the two directions meet exactly, the argument closes from both ends. That meeting, not either half, will be the book's proof — and it happens twice, once in theorems and once in running code. And the method carries one obligation more: wherever the halves fail to meet *exactly*, the mismatches go on the table, itemized, not under it. That is Chapter 9's only job. The opening pages have already named the result; stating a result is not deriving it, and the derivation is the part a reader can check.
 
 The shape of the book follows from the method. Part II is the analysis: first performed by hand on real pages, then re-run as theorems that quantify over every page, including the ones not yet built. And once `State` is forced, the write side follows from it. Part V is the synthesis: the application space rebuilt from the derived parts and nothing else. Between them, the book does what the method obligates: holds the derived structure up against the world, scores everything the industry runs instead, and tables every mismatch. Part VI carries the synthesis forward: what the derived web permits once it is occupied.
 
@@ -151,11 +151,11 @@ The two pages are on the table, the newspaper front page and the wind-farm dashb
 Doc = Style × Content
 ```
 
-The justification is already deployed on every device you own: dark mode, print stylesheets, reader view, accessibility themes. Style varies while content holds fixed.
+The justification is already deployed on every device you own: dark mode, print stylesheets, reader view, accessibility themes — style varies while content holds fixed.
 
 ![Strip 1 — style stripped](first-principles-figures/strip-1-style-stripped.png)
 
-*CSS off. The newspaper still says everything it said — headlines, bylines, photographs, in browser-default dress. Note the asymmetry on the right, and file it for Part IV: stripping style from the newspaper leaves the news; stripping it from the dashboard leaves mostly chrome. The headline numbers survive as text, but the time-series curves were never in the document at all. They are pixels on a canvas.*
+*CSS off. The newspaper still says everything it said — headlines, bylines, photographs, in browser-default dress. Note the asymmetry on the right, and file it for Part IV: stripping style from the newspaper leaves the news; stripping it from the dashboard leaves mostly chrome. The headline numbers survive as text, but the time-series curves were never in the document at all — they are pixels on a canvas.*
 
 **Strip the arrangement.** The same content appears as a table on desktop, a card list on mobile, a chart in the summary view. The facts are identical; their shape as a document differs. So content factors:
 
@@ -355,7 +355,7 @@ flowchart LR
 
 Prop. 4.5's corollary is the first item on Fielding's list (caching per stage rather than per page), now holding its mechanism. Under S4 each factor's output is a resource; each resource has a URI; each URI carries its own validator, its own `ETag`, its own timeline, legible to every cache on the path. A theme change invalidates one stylesheet resource, and the data it styles stays cached at its own age, untouched. Collapse the factorization and there is one resource (the bundle) with one validator, and the corollary inverts: any change, of any kind, invalidates everything.
 
-And the industry already operates all four timelines, one layer down. Fingerprinted stylesheets shipped with `Cache-Control: immutable`; data responses marked `no-store`; templates deployed on their own cadence. Every serious deployment on the web runs per-component timelines at the delivery layer, including deployments whose application architecture denies that the components exist. Independent evolution already runs in production, one layer below the framework that obscures it.
+And the industry already operates all four timelines — one layer down. Fingerprinted stylesheets shipped with `Cache-Control: immutable`; data responses marked `no-store`; templates deployed on their own cadence. Every serious deployment on the web runs per-component timelines at the delivery layer, including deployments whose application architecture denies that the components exist. Independent evolution already runs in production, one layer below the framework that obscures it.
 
 One thread left dangling, on purpose: `select` selects *from State*, and State is still abstract. The factorization cannot be completed until we know what it is a factorization *over*. That is Chapter 5, and it is where the book stops describing and starts forcing.
 
@@ -363,7 +363,7 @@ One thread left dangling, on purpose: `select` selects *from State*, and State i
 
 ## Chapter 5. What State Must Be
 
-We need `State` to stop being abstract. But its structure is not mine to choose. The method forbids taste. It will be forced by three requirements, each drawn from the web itself.
+We need `State` to stop being abstract. But its structure is not mine to choose — the method forbids taste. It will be forced by three requirements, each drawn from the web itself.
 
 ### The three requirements
 
@@ -383,7 +383,7 @@ State is a *set of atomic facts*, and two states, from any two parties, anywhere
 
 **The scope of R2's result, before anything is built on it.** The merge laws govern composition's *mechanics*: that any two states merge, without permission, in any order, at no cost. They do not promise that merged facts *join* — that two parties' names for one turbine ever meet in a query. No data model can promise that: parties who never communicated have agreed on nothing, in every model ever proposed, and a requirement pretending otherwise would be a coordinator in disguise. A model does control two things: what an unjoined union already holds, and what a join requires once someone demands one. Chapter 17 takes that up, where federation stops being algebra and becomes deployment. Here it is enough to be exact about what R2 secures: merge, not meaning across sources. And it secures that completely.
 
-Flagged in the open: the passage from "no coordinator" to the merge laws is the one bridge in the derivation. I name it the **Transposition Thesis**: the invariants the web already enforces at its document layer, transposed to the state layer, are exactly the merge laws just used. I claim the transposition is exact, row by row, and the table below is the claim in checkable form. And it is corroborated by a field with no stake in this book's thesis. Distributed-systems research, forced to make replicas converge without coordination, derived the same laws as theorems, the CRDT (conflict-free replicated data type) literature. Two fields, disjoint motives, one algebra. The merge laws are not a matter of taste.
+Flagged in the open: the passage from "no coordinator" to the merge laws is the one bridge in the derivation. I name it the **Transposition Thesis**: the invariants the web already enforces at its document layer, transposed to the state layer, are exactly the merge laws just used. I claim the transposition is exact, row by row, and the table below is the claim in checkable form. And it is corroborated by a field with no stake in this book's thesis. Distributed-systems research, forced to make replicas converge without coordination, derived the same laws as theorems, the CRDT (conflict-free replicated data type) literature. Two fields, disjoint motives, one algebra — the merge laws are not a matter of taste.
 
 <details>
 <summary><i>The transposition, row by row — four deployed invariants, four laws.</i></summary>
@@ -408,7 +408,7 @@ The question now is the smallest self-contained fact, and "smallest" is not an a
 <details>
 <summary><i>Argument — a pair cannot name its own relation: <code>(employee42, "2026-07-08")</code> is hired-on, or fired-on, or born-on.</i></summary>
 
-A 1-tuple `(x)` asserts nothing. It names without claiming. A pair `(entity, value)` asserts a relation but cannot say *which* relation; the meaning lives outside the fact, which R2 forbids. Three positions, `(entity, attribute, value)`, is the first arity at which a fact names its own relation. And it is the last arity we need: any n-ary fact decomposes into triples by minting a fresh entity for the fact and attaching its n components as attributes. Minimality and universality pin the arity at exactly three. ∎
+A 1-tuple `(x)` asserts nothing — it names without claiming. A pair `(entity, value)` asserts a relation but cannot say *which* relation; the meaning lives outside the fact, which R2 forbids. Three positions, `(entity, attribute, value)`, is the first arity at which a fact names its own relation. And it is the last arity we need: any n-ary fact decomposes into triples by minting a fresh entity for the fact and attaching its n components as attributes. Minimality and universality pin the arity at exactly three. ∎
 
 </details>
 
@@ -503,7 +503,7 @@ flowchart LR
 
 *The graph→tree crossing. A relation (one graph, many trees) becomes a function followed by a term: `canon` chooses nothing, `t` chooses everything.*
 
-The seam is not a research problem; Chapter 9 brings the evidence. And with the crossing fixed, the read side is derived end to end. Definition 1.1 has one component left.
+The seam is not a research problem; Chapter 9 brings the evidence. And with the crossing fixed, the read side is derived end to end — Definition 1.1 has one component left.
 
 ---
 
@@ -538,7 +538,7 @@ On the running example: the wind gusts, and the panel's `value` moves. The delta
 
 *Interactive exhibit (online edition): the gust, applied. Edit the two sets and apply them against the live state. Apply the same delta twice and watch nothing happen: sets subtract, and re-application is a no-op.*
 
-And note what a delta is made of: fact-sets. Change is data in the same model as the state it changes. No second model, no change-description language with semantics of its own to invent. The delta is what fills the request's `Body` from Chapter 1, and Chapter 8 will give the industry's name for it.
+And note what a delta is made of: fact-sets. Change is data in the same model as the state it changes — no second model, no change-description language with semantics of its own to invent. The delta is what fills the request's `Body` from Chapter 1, and Chapter 8 will give the industry's name for it.
 
 ### Forms, run backwards
 
@@ -847,7 +847,7 @@ Run the scores. The tag denotes nothing until its class executes, so meaning is 
 
 What shadow DOM does standardize has a name the book has not yet used: encapsulation, state hidden behind a boundary on purpose. Chapter 13 files the paradigm that owns the move, and it is not the web's.
 
-The corollary: **the SPA is the un-web**, HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. The corollary adds nothing to the column: rejecting it means rejecting a score, and each score names the property to take it up with. And a prediction, labeled as one: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state (the definition Chapter 20 makes exact), and the paradigm's defining move is hiding state behind `read`. Chapter 14 measures the industry's own retreat from this position; Chapter 22 records what arrived in the meantime.
+The corollary: **the SPA is the un-web** — HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. The corollary adds nothing to the column: rejecting it means rejecting a score, and each score names the property to take it up with. And a prediction, labeled as one: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state (the definition Chapter 20 makes exact), and the paradigm's defining move is hiding state behind `read`. Chapter 14 measures the industry's own retreat from this position; Chapter 22 records what arrived in the meantime.
 
 **Column: SPA/JS.**
 
@@ -1093,7 +1093,7 @@ Behind the four names stands one state `S`, in the shape of Prop. 9.2: quads, gr
 
 #### Documents
 
-Dereference is graph lookup — `select(u, S) = S(u)`, the fourth position as the address (Prop. 9.2). There `read` is defined (S4) and `write` accepts a delta (Prop. 7.1). And the obligation that makes the data *linked*: every name under `o` in a fact position of `S` has `read(name, S)` defined. Mint a name only if you serve its description. AWWW §3.5 asked for this as a SHOULD; (17.1) holds it as a condition of being a dataspace at all. So the state is not only composable but recursively discoverable: each reference in a fact is an address, and dereferencing it returns more state, whose references point onward in turn. Documents may also nest. Parent and child are ordinary facts, so a document's children are one more selection. Addressing stays flat (one graph per document) and the hierarchy is a convention over it, not a new kind of resource.
+Dereference is graph lookup — `select(u, S) = S(u)`, the fourth position as the address (Prop. 9.2). There `read` is defined (S4) and `write` accepts a delta (Prop. 7.1). And the obligation that makes the data *linked*: every name under `o` in a fact position of `S` has `read(name, S)` defined — mint a name only if you serve its description. AWWW §3.5 asked for this as a SHOULD; (17.1) holds it as a condition of being a dataspace at all. So the state is not only composable but recursively discoverable: each reference in a fact is an address, and dereferencing it returns more state, whose references point onward in turn. Documents may also nest. Parent and child are ordinary facts, so a document's children are one more selection. Addressing stays flat (one graph per document) and the hierarchy is a convention over it, not a new kind of resource.
 
 #### One state
 
@@ -1216,7 +1216,7 @@ sequenceDiagram
 
 *The federation test, drawn. Each instance runs both halves. Here Instance A's client consumes Instance B's server across three exchanges. It dereferences a foreign name (R3) for a document (S4). It poses `⟦q⟧` to the endpoint `e` for a window. It submits a delta (Prop. 7.1) as a PATCH, a graph-scoped SPARQL Update. Because S2 leaves nothing private, the meeting surface is the specifications' surface alone.*
 
-The document web bootstrapped exactly this way. The box below dates it. The pattern, one level down: a server+client pair whose self-interoperability is the first running instance of a protocol anyone may join.
+The document web bootstrapped exactly this way — the box below dates it. The pattern, one level down: a server+client pair whose self-interoperability is the first running instance of a protocol anyone may join.
 
 <div class="fp-history">
 
@@ -1400,7 +1400,7 @@ There is an exit built into this arithmetic. An adapter that translates one appl
 
 <div class="fp-history">
 
-**The vision, dated 2001.** The scenario this chapter derives was written as fiction twenty-five years ago. The May 2001 *Scientific American* article "[The Semantic Web](https://www.scientificamerican.com/article/the-semantic-web/)" is by Tim Berners-Lee, James Hendler, and Ora Lassila. It opens with Lucy's agent negotiating a course of medical appointments over machine-readable data on her behalf, an agent reading the web, not scraping its pixels. It read as science fiction because the agents did not exist. They exist now. Chapter 8 said the substrate was built for machine consumption and the machines were twenty years out; this is the same clock, run down. What was missing was never the stack. It was the reader, and the reader has arrived.
+**The vision, dated 2001.** The scenario this chapter derives was written as fiction twenty-five years ago. The May 2001 *Scientific American* article "[The Semantic Web](https://www.scientificamerican.com/article/the-semantic-web/)" is by Tim Berners-Lee, James Hendler, and Ora Lassila. It opens with Lucy's agent negotiating a course of medical appointments over machine-readable data on her behalf, an agent reading the web, not scraping its pixels. It read as science fiction because the agents did not exist. They exist now. Chapter 8 said the substrate was built for machine consumption and the machines were twenty years out; this is the same clock, run down. What was missing was never the stack — it was the reader, and the reader has arrived.
 
 </div>
 
@@ -1418,7 +1418,7 @@ Chapter 20 stated the result; Chapter 22 named its machine readers. What remains
 
 <img src="first-principles-figures/spot-ch23-the-condensation.svg" alt="A row of silos with a gathering cloud of small linked dataspaces condensing around them; the rightmost silo has faded to a dashed copy behind the solid dataspace that detached from it" class="fp-spot" width="420" />
 
-What it gives the end user, because the end user was always the point. Navigate and drill into any data without knowing a query language. The five moves are interface primitives, and none of them requires a programmer. Fork and augment running applications declaratively. S3 as a user right rather than a vendor courtesy, exercised by substituting a term, never by rebuilding a bundle. Federate without asking permission. The union law requires none; merge is the whole protocol.
+What it gives the end user, because the end user was always the point. Navigate and drill into any data without knowing a query language — the five moves are interface primitives, and none of them requires a programmer. Fork and augment running applications declaratively — S3 as a user right rather than a vendor courtesy, exercised by substituting a term, never by rebuilding a bundle. Federate without asking permission — the union law requires none; merge is the whole protocol.
 
 None of this asks the existing web to stop, or even to notice. A silo doesn't have to migrate to be included: wrapped (Chapter 22), it enters a federation as a view of itself, before its vendor has agreed to anything. So the transition has no event. Nobody joins a platform, because there is no platform. What forms instead is a condensation: a cloud of small, private dataspaces gathering around the silos until, quietly, the silos become the copy. Each dataspace is detachable from the services it summarizes, from the software that serves it, and from the machine it happens to sit on. Union is additive: a dataspace federates beside whatever already runs, and everything that stays fused simply keeps paying the bill Part IV added up. No migration day, no flag day. The architecture asks only that the next thing built be built one level down.
 
@@ -1446,7 +1446,7 @@ Presentation is its own factor (S1), independent of the facts beneath it, so one
 
 #### A feature is a package
 
-An application on the derived web is data, a vocabulary and a stylesheet over state (Chapter 19), so to change what it does is to change data, not code. A feature ships as a *package*: the terms it introduces and the templates that render them. The package merges into a running application and is withdrawn by the reverse delta, asserted and retracted the way any fact is. Nothing recompiles and nothing redeploys, because there is no application-specific code to rebuild. The catalogue becomes a storefront once a checkout package merges, and a catalogue again once it is retracted. And since the change is a delta, the party making it need be neither a programmer nor a person. A human installs from the interface, or an agent submits the same merge (Chapter 7), and the application is a different application one request later. S3 stops being a vendor's release cycle and becomes an ordinary write, open to anyone holding the right to make it.
+An application on the derived web is data, a vocabulary and a stylesheet over state (Chapter 19), so to change what it does is to change data, not code. A feature ships as a *package*: the terms it introduces and the templates that render them. The package merges into a running application and is withdrawn by the reverse delta, asserted and retracted the way any fact is. Nothing recompiles and nothing redeploys, because there is no application-specific code to rebuild — the catalogue becomes a storefront once a checkout package merges, and a catalogue again once it is retracted. And since the change is a delta, the party making it need be neither a programmer nor a person. A human installs from the interface, or an agent submits the same merge (Chapter 7), and the application is a different application one request later. S3 stops being a vendor's release cycle and becomes an ordinary write, open to anyone holding the right to make it.
 
 The wish is old: HyperCard let people reshape a running application in place in 1987, no rebuild and no deploy. What it lacked was a substrate where the reshaping composes across parties instead of trapping the stack on one machine.
 
