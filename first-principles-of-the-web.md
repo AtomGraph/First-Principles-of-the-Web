@@ -612,7 +612,7 @@ Change, the objection said, is where declarative architectures fail. Change is t
 
 ## Chapter 8. It Already Exists
 
-Everything in Part II was derived from three RFC-level definitions — identifiers, requests, responses — and three requirements. No W3C recommendation has entered as a premise. Where AWWW is cited — Chapter 4's good practices, Chapter 5's transposition table — it stands as a witness, never as a premise. Chapter 4 states that rule outright. No vocabulary from any data-model community has appeared. Now:
+Everything in Part II was derived from three RFC-level definitions (identifiers, requests, responses) and three requirements. No W3C recommendation has entered as a premise. Where AWWW is cited (Chapter 4's good practices, Chapter 5's transposition table), it stands as a witness, never as a premise. Chapter 4 states that rule outright. No vocabulary from any data-model community has appeared. Now:
 
 | Derived in Part II | Standardized as | Since |
 |---|---|---|
@@ -631,7 +631,7 @@ Read the dates first. Every row predates this book, most by decades, and none ap
 
 <img src="first-principles-figures/spot-ch08-the-dates.svg" alt="Six reference volumes on a shelf, spines stamped with years, bindings unopened" class="fp-spot" width="420" />
 
-**Prop. 8.1 (Homomorphism).** There is a translation `φ` — facts to RDF triples, states to graphs, selection terms to SPARQL terms (write `sparql(p)` for that last translation) — such that `φ(select(p, S)) = ⟦sparql(p)⟧(φ(S))`; on ground states `φ` is a bijection. The mapping is a *homomorphism*, not a coincidence of shapes: the operations commute with the translation.
+**Prop. 8.1 (Homomorphism).** There is a translation `φ`, facts to RDF triples, states to graphs, selection terms to SPARQL terms (write `sparql(p)` for that last translation), such that `φ(select(p, S)) = ⟦sparql(p)⟧(φ(S))`; on ground states `φ` is a bijection. The mapping is a *homomorphism*, not a coincidence of shapes: the operations commute with the translation.
 
 <details>
 <summary><i>How the check runs — clause by clause against a denotational spec.</i></summary>
@@ -652,15 +652,15 @@ flowchart LR
 
 **You have already accepted RDF. You did it in Chapter 5, before I told you its name.**
 
-Whatever you believed about the semantic web when you opened this book — too academic, too complicated, died in the nineties — you derived it yourself. You derived it from three requirements, and you can reject each one only at a cost it names. The technologies were not a committee's enthusiasm in search of a problem. They occupy a position that was *forced*, and the people who standardized them in 1999 had already arrived there. What failed in the nineties was not the position. The tooling failed, and the timing did: the substrate is built for machine consumption, and the machines were twenty years out. Chapter 17 makes the demand-side case.
+Whatever you believed about the semantic web when you opened this book (too academic, too complicated, died in the nineties), you derived it yourself. You derived it from three requirements, and you can reject each one only at a cost it names. The technologies were not a committee's enthusiasm in search of a problem. They occupy a position that was *forced*, and the people who standardized them in 1999 had already arrived there. What failed in the nineties was not the position. The tooling failed, and the timing did: the substrate is built for machine consumption, and the machines were twenty years out. Chapter 17 makes the demand-side case.
 
 <div class="fp-exhibit" data-exhibit="reveal"></div>
 
-*Interactive exhibit (online edition): Chapter 5's state, Chapter 5's algebra, Chapter 7's delta, under one switch — the derivation's notation on one side, Turtle (the standard's text notation for triples), SPARQL, and SPARQL Update on the other. Nothing is recomputed. Everything is renamed.*
+*Interactive exhibit (online edition): Chapter 5's state, Chapter 5's algebra, Chapter 7's delta, under one switch, the derivation's notation on one side, Turtle (the standard's text notation for triples), SPARQL, and SPARQL Update on the other. Nothing is recomputed. Everything is renamed.*
 
-**Theorem 8.2 (Synthesis).** The stack realizes the proper factorizations whose `select` is a term of Chapter 5's algebra and whose `arrange` is generic — invariant under URI renaming, singling out no particular URI. SPARQL carries those selections exactly (Prop. 8.1), XSLT-over-canon the arrangements, CSS the presentation, and S4 holds by construction because query results and graphs are dereferenceable resources. By Prop. 7.3's symmetry, the write side inherits the result: SPARQL Update carries the deltas in the same pattern language, arguments swapped. Full proof: Appendix B.8, which states the genericity condition exactly.
+**Theorem 8.2 (Synthesis).** The stack realizes the proper factorizations whose `select` is a term of Chapter 5's algebra and whose `arrange` is generic, invariant under URI renaming, singling out no particular URI. SPARQL carries those selections exactly (Prop. 8.1), XSLT-over-canon the arrangements, CSS the presentation, and S4 holds by construction because query results and graphs are dereferenceable resources. By Prop. 7.3's symmetry, the write side inherits the result: SPARQL Update carries the deltas in the same pattern language, arguments swapped. Full proof: Appendix B.8, which states the genericity condition exactly.
 
-The select-side condition is Chapter 5's own boundary restated. The genericity condition is the claim's deeper caveat, carried inside it: the completeness class for `arrange` excludes transforms that smuggle in knowledge of particular URIs. That is what practitioners call data-drivenness, stated as mathematics — and AWWW §2.5's URI opacity, made exact. Analysis said every application has the form; Synthesis says the stack fills the form. The two halves of the argument meet. This meeting point is the book's proof.
+The select-side condition is Chapter 5's own boundary restated. The genericity condition is the claim's deeper caveat, carried inside it: the completeness class for `arrange` excludes transforms that smuggle in knowledge of particular URIs. That is what practitioners call data-drivenness, stated as mathematics, and AWWW §2.5's URI opacity, made exact. Analysis said every application has the form; Synthesis says the stack fills the form. The two halves of the argument meet. This meeting point is the book's proof.
 
 ---
 
@@ -673,20 +673,20 @@ The select-side condition is Chapter 5's own boundary restated. The genericity c
 — Dan Brickley and Libby Miller, foreword to *Validating RDF Data*
 </div>
 
-Chapter 8 put both halves of the argument into theorem form: every application has the derived form, and the deployed standards fill it. That invites suspicion — a derivation that lands exactly on a deployed stack looks retrofitted until its mismatches are on the table. This chapter puts them there. The fit is not exact. There are two mismatches between the model Part II forced and the standard Part III named, and two more between the standard and the platform that ships it — the browser. Each is located; the first two are measured (Props. 9.1–9.2), and one of them is turned into a prediction the standard later honored. Part IV holds everyone else's models to the same test.
+Chapter 8 put both halves of the argument into theorem form: every application has the derived form, and the deployed standards fill it. That invites suspicion. A derivation that lands exactly on a deployed stack looks retrofitted until its mismatches are on the table. This chapter puts them there. The fit is not exact. There are two mismatches between the model Part II forced and the standard Part III named, and two more between the standard and the platform that ships it, the browser. Each is located; the first two are measured (Props. 9.1–9.2), and one of them is turned into a prediction the standard later honored. Part IV holds everyone else's models to the same test.
 
 ### Mismatch one: the unnamed entities
 
-RDF permits facts about entities with no name — blank nodes. Nothing in Chapter 5 forced them: the derivation minted a fresh URI wherever it needed an entity, because minting a fresh URI costs nothing. So blank nodes are surplus, and the surplus has a precise reading. A graph containing `_:b` asserts *that something exists* with these properties; RDF's own semantics says exactly this — simple entailment treats blank nodes as existential variables. The extension is well-motivated. Entities routinely exist before anyone names them: every form not yet submitted, every observation not yet reconciled, describes a something. So a model that forbade the unnamed would fail R1 at the margins of every domain.
+RDF permits facts about entities with no name — blank nodes. Nothing in Chapter 5 forced them: the derivation minted a fresh URI wherever it needed an entity, because minting a fresh URI costs nothing. So blank nodes are surplus, and the surplus has a precise reading. A graph containing `_:b` asserts *that something exists* with these properties; RDF's own semantics says exactly this: simple entailment treats blank nodes as existential variables. The extension is well-motivated. Entities routinely exist before anyone names them: every form not yet submitted, every observation not yet reconciled, describes a something. So a model that forbade the unnamed would fail R1 at the margins of every domain.
 
 Now the cost, and it can be stated exactly; write `⊕` for the merge of two states.
 
-**Prop. 9.1.** Over ground facts, merge is plain set union — `⊕ = ∪` — and Chapter 5's four merge laws hold on the nose: totality, order-freedom, idempotence, atomicity (B-2a–d). With blank nodes, idempotence and atomicity hold up to logical equivalence — and only up to logical equivalence.
+**Prop. 9.1.** Over ground facts, merge is plain set union (`⊕ = ∪`) and Chapter 5's four merge laws hold on the nose: totality, order-freedom, idempotence, atomicity (B-2a–d). With blank nodes, idempotence and atomicity hold up to logical equivalence, and only up to logical equivalence.
 
 <details>
 <summary><i>Proof — merging a graph with itself doubles the existentials: equivalence survives, identity does not.</i></summary>
 
-Blank nodes are scoped to their graph, so composition must standardize them apart: `s ⊕ s` carries two copies of each existential. The result asserts nothing new — it entails `s` and is entailed by it — so `s ⊕ s ≡ s`. But as a set of atoms it is strictly larger, so `s ⊕ s ≠ s`. B-2c survives semantically and fails syntactically. Atomicity bends the same way: an atom containing a blank node means something only together with the atoms sharing its variable, so self-containedness holds per connected component, no longer per atom. Restoring identity from equivalence costs exactly two computations: canonical labeling — standardized in 2024 as RDFC-1.0, deterministic, with adversarial worst cases the spec itself documents — and redundancy elimination, which is coNP-complete in general. ∎
+Blank nodes are scoped to their graph, so composition must standardize them apart: `s ⊕ s` carries two copies of each existential. The result asserts nothing new (it entails `s` and is entailed by it), so `s ⊕ s ≡ s`. But as a set of atoms it is strictly larger, so `s ⊕ s ≠ s`. B-2c survives semantically and fails syntactically. Atomicity bends the same way: an atom containing a blank node means something only together with the atoms sharing its variable, so self-containedness holds per connected component, no longer per atom. Restoring identity from equivalence costs exactly two computations: canonical labeling (standardized in 2024 as RDFC-1.0, deterministic, with adversarial worst cases the spec itself documents) and redundancy elimination, which is coNP-complete in general. ∎
 
 </details>
 
@@ -694,7 +694,7 @@ That is the bill for anonymity, and it falls exactly on the party that chose ano
 
 ### Mismatch two: the fourth position
 
-The web demands one requirement Chapter 5 never imposed. R1–R3 govern facts about the world; the web also traffics in *claims* — the same fact asserted by one source and disputed by another, provenance, retraction, trust. Call it R4:
+The web demands one requirement Chapter 5 never imposed. R1–R3 govern facts about the world; the web also traffics in *claims*: the same fact asserted by one source and disputed by another, provenance, retraction, trust. Call it R4:
 
 **R4 — Attribution.** Facts about who asserts facts.
 
@@ -703,17 +703,17 @@ The web demands one requirement Chapter 5 never imposed. R1–R3 govern facts ab
 <details>
 <summary><i>Proof — set union forgets who contributed; reification attributes only descriptions; one position repairs it.</i></summary>
 
-Union erases contribution: B-2d says `atoms(s ⊕ s′) = atoms(s) ∪ atoms(s′)`, and a set union keeps no record of which side an element came from. So within `𝒫(Fact)`, "who asserted this atom" is unrecoverable by construction — attribution lives in the history of the state, and states-not-histories is what B-2c chose. Reification — the standard's device of describing a fact in triples of its own — does not escape either: it attributes only a *description* of the fact. The described fact is then either also present as a plain atom or absent. If present, it is asserted outright and the attribution is defeated. If absent, it is attributed but never stated — quoted rather than asserted. The minimal repair types the atom as a pair (source, fact). The source position must refer across parties, hence lies in `I` — R3's argument (condition B-3 in Appendix B) verbatim. One extra position suffices, because attribution of attributions is more quads, not more positions. Rerun B.1–B.3 over the retyped atom: `𝒫(I × I × I × (I ∪ V))`, merge still union. ∎
+Union erases contribution: B-2d says `atoms(s ⊕ s′) = atoms(s) ∪ atoms(s′)`, and a set union keeps no record of which side an element came from. So within `𝒫(Fact)`, "who asserted this atom" is unrecoverable by construction — attribution lives in the history of the state, and states-not-histories is what B-2c chose. Reification (the standard's device of describing a fact in triples of its own) does not escape either: it attributes only a *description* of the fact. The described fact is then either also present as a plain atom or absent. If present, it is asserted outright and the attribution is defeated. If absent, it is attributed but never stated — quoted rather than asserted. The minimal repair types the atom as a pair (source, fact). The source position must refer across parties, hence lies in `I`, R3's argument (condition B-3 in Appendix B) verbatim. One extra position suffices, because attribution of attributions is more quads, not more positions. Rerun B.1–B.3 over the retyped atom: `𝒫(I × I × I × (I ∪ V))`, merge still union. ∎
 
 </details>
 
-Here the mismatch becomes a prediction. The 1999 core standardized triples. The deployed stack then grew exactly the fourth position: named graphs, RDF datasets, TriG, standardized in 2014. The graph name is a URI, so attribution itself dereferences. A derivation that merely matched the 1999 core could be coincidence. But the derivation's one missing requirement generates the standard's own later extension — so it is tracking the constraint, not fitting itself to the artifact. Honesty about the prediction's scope: the position arrived, and the standard declined to fix what the graph name *means*; the semantics is argued about still. The prediction is structural, and claimed as nothing more. (Annotation syntaxes — RDF 1.2's triple term — by contrast, only re-serialize what reification already expressed. A convenience, and honest as one; but syntax is not a property, and Part IV's audit table scores properties.)
+Here the mismatch becomes a prediction. The 1999 core standardized triples. The deployed stack then grew exactly the fourth position: named graphs, RDF datasets, TriG, standardized in 2014. The graph name is a URI, so attribution itself dereferences. A derivation that merely matched the 1999 core could be coincidence. But the derivation's one missing requirement generates the standard's own later extension, so it is tracking the constraint, not fitting itself to the artifact. Honesty about the prediction's scope: the position arrived, and the standard declined to fix what the graph name *means*; the semantics is argued about still. The prediction is structural, and claimed as nothing more. (Annotation syntaxes, RDF 1.2's triple term, by contrast, only re-serialize what reification already expressed. A convenience, and honest as one; but syntax is not a property, and Part IV's audit table scores properties.)
 
 ### Mismatch three: the abandoned seam
 
-Chapter 6's crossing needs two pieces: a canonical serialization and a declarative tree-transformation language. The deployed stack had both, and the transformation language — XSLT — was standardized in 1999 and shipped in every browser. The platform then froze it at that 1999 revision for a quarter of a century and, as of this writing, is scheduled to remove it outright. So this mismatch is not a gap in the standards: the technology existed, and the platform stopped maintaining it. This is the evidence Chapter 6 promised — closing the seam requires no invention, only the upkeep of software that already existed. The platform declined the upkeep, and the industry built, many times over, the compensating machinery Part IV will measure.
+Chapter 6's crossing needs two pieces: a canonical serialization and a declarative tree-transformation language. The deployed stack had both, and the transformation language (XSLT) was standardized in 1999 and shipped in every browser. The platform then froze it at that 1999 revision for a quarter of a century and, as of this writing, is scheduled to remove it outright. So this mismatch is not a gap in the standards: the technology existed, and the platform stopped maintaining it. This is the evidence Chapter 6 promised: closing the seam requires no invention, only the upkeep of software that already existed. The platform declined the upkeep, and the industry built, many times over, the compensating machinery Part IV will measure.
 
-Generalized, that is the book's practical thesis: what separates the modern web from the derived one is abandoned technology — a maintenance failure, not a research problem. And the failure is the platform's, not the language's: XSLT 3.0 (2017) runs in every current browser through [SaxonJS](https://www.saxonica.com/html/saxonjs/index.html). Its [IXSL extension](https://www.saxonica.com/saxonjs/documentation3/index.html#!ixsl-extension) binds browser events to template rules — Chapter 7's mobility of evaluation, deployed, with interactivity still declarative. From userland, a vendor performs the maintenance the platform dropped.
+Generalized, that is the book's practical thesis: what separates the modern web from the derived one is abandoned technology, a maintenance failure, not a research problem. And the failure is the platform's, not the language's: XSLT 3.0 (2017) runs in every current browser through [SaxonJS](https://www.saxonica.com/html/saxonjs/index.html). Its [IXSL extension](https://www.saxonica.com/saxonjs/documentation3/index.html#!ixsl-extension) binds browser events to template rules, Chapter 7's mobility of evaluation, deployed, with interactivity still declarative. From userland, a vendor performs the maintenance the platform dropped.
 
 ### Mismatch four: the write-side last mile
 
@@ -725,7 +725,7 @@ Four mismatches, then:
 
 | mismatch | seam | resolves as |
 |---|---|---|
-| the unnamed entities (Prop. 9.1) | model ↔ standard | a motivated extension, its cost computable — and billed to whoever chose anonymity |
+| the unnamed entities (Prop. 9.1) | model ↔ standard | a motivated extension, its cost computable, and billed to whoever chose anonymity |
 | the fourth position (Prop. 9.2) | model ↔ standard | a prediction the standard later honored |
 | the abandoned seam | standard ↔ platform | abandonment — maintenance, never research |
 | the write-side last mile | standard ↔ platform | a bridge specified, never standardized |
@@ -744,7 +744,7 @@ flowchart TB
     Platform -. "standard–platform seam" .-> m4["write-side last mile<br/>a bridge specified, never standardized"]
 ```
 
-*The four mismatches, placed. The derivation meets the world across two seams: the **model** (Part II) against the **standard** (Part III), and the standard against the **platform** that ships it. At the model–standard seam (Props. 9.1–9.2): a surplus the standard permits and the model never forced, and a requirement the model missed and the standard later honored. At the standard–platform seam: an abandonment and a bridge specified but never standardized — neither a research problem.*
+*The four mismatches, placed. The derivation meets the world across two seams: the **model** (Part II) against the **standard** (Part III), and the standard against the **platform** that ships it. At the model–standard seam (Props. 9.1–9.2): a surplus the standard permits and the model never forced, and a requirement the model missed and the standard later honored. At the standard–platform seam: an abandonment and a bridge specified but never standardized, neither a research problem.*
 
 None touches the derivation: no proposition of Part II is weakened by anything in this inventory. A theory loses credibility where its mismatches are hidden and gains it where they are on the table. Ours are; now we audit everyone else's.
 
