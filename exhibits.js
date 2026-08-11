@@ -3,7 +3,8 @@
  * Self-contained: no dependencies, no network, no build step. The pattern
  * engine below is deliberately small — the book claims the selection algebra
  * is four operations, and the claim is checkable by reading this file.
- * Arrangement is executed by XSLTProcessor, the engine every browser ships.
+ * Arrangement is a small tree transform in JS here; the LinkedDataHub edition
+ * refactors it to IXSL.
  *
  * Widgets mount into <div class="fp-exhibit" data-exhibit="..."> stubs in the
  * source; without this script the stubs are invisible and the captions stand.
@@ -176,52 +177,38 @@
     return { next: next, added: { has: function (k) { return !!added[k]; } } };
   }
 
-  /* ——————— arrange = ⟦t⟧ ∘ canon — t executed by the browser's XSLT engine ——————— */
+  /* ——————— arrange = ⟦t⟧ ∘ canon — the term t, as a small tree transform ——————— */
 
-  var XSLT = {
-    cards: '<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">' +
-      '<xsl:output method="html"/>' +
-      '<xsl:template match="/data"><div>' +
-      '<xsl:for-each select="entity"><xsl:sort select="@name"/>' +
-      '<div class="fp-card"><h3><xsl:choose>' +
-      '<xsl:when test="fact[@attr=\'title\']"><xsl:value-of select="fact[@attr=\'title\']"/></xsl:when>' +
-      '<xsl:when test="fact[@attr=\'label\']"><xsl:value-of select="fact[@attr=\'label\']"/></xsl:when>' +
-      '<xsl:when test="fact[@attr=\'name\']"><xsl:value-of select="fact[@attr=\'name\']"/></xsl:when>' +
-      '<xsl:otherwise><xsl:value-of select="@name"/></xsl:otherwise>' +
-      "</xsl:choose></h3>" +
-      '<dl><xsl:for-each select="fact[@attr!=\'title\' and @attr!=\'type\']">' +
-      '<dt><xsl:value-of select="@attr"/></dt><dd><xsl:value-of select="."/></dd>' +
-      "</xsl:for-each></dl>" +
-      "</div></xsl:for-each></div></xsl:template></xsl:stylesheet>",
-    table: '<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">' +
-      '<xsl:output method="html"/>' +
-      '<xsl:template match="/data"><table>' +
-      "<tr><th>entity</th><th>attribute</th><th>value</th></tr>" +
-      '<xsl:for-each select="entity"><xsl:sort select="@name"/>' +
-      '<xsl:for-each select="fact">' +
-      '<tr><td><xsl:value-of select="../@name"/></td>' +
-      '<td><xsl:value-of select="@attr"/></td>' +
-      '<td><xsl:value-of select="."/></td></tr>' +
-      "</xsl:for-each></xsl:for-each></table></xsl:template></xsl:stylesheet>"
-  };
-
-  function runXSLT(cm, which) {
-    if (typeof XSLTProcessor === "undefined") return null;
-    var doc = document.implementation.createDocument(null, "data", null);
-    cm.order.forEach(function (s) {
-      var e = doc.createElement("entity");
-      e.setAttribute("name", s);
-      cm.by[s].forEach(function (f) {
-        var fe = doc.createElement("fact");
-        fe.setAttribute("attr", f.p);
-        fe.textContent = isLit(f.o) ? f.o.replace(/^"|"$/g, "") : f.o;
-        e.appendChild(fe);
+  function arrangeHTML(cm, which) {
+    function val(f) { return isLit(f.o) ? f.o.replace(/^"|"$/g, "") : f.o; }
+    if (which === "table") {
+      var rows = "";
+      cm.order.forEach(function (s) {
+        cm.by[s].forEach(function (f) {
+          rows += "<tr><td>" + esc(s) + "</td><td>" + esc(f.p) +
+            "</td><td>" + esc(val(f)) + "</td></tr>";
+        });
       });
-      doc.documentElement.appendChild(e);
+      return "<table><tr><th>entity</th><th>attribute</th><th>value</th></tr>" +
+        rows + "</table>";
+    }
+    var out = "";
+    cm.order.forEach(function (s) {
+      var fs = cm.by[s];
+      function pick(attr) {
+        for (var i = 0; i < fs.length; i++) if (fs[i].p === attr) return val(fs[i]);
+        return null;
+      }
+      var heading = pick("title") || pick("label") || pick("name") || s;
+      var dl = "";
+      fs.forEach(function (f) {
+        if (f.p !== "title" && f.p !== "type") {
+          dl += "<dt>" + esc(f.p) + "</dt><dd>" + esc(val(f)) + "</dd>";
+        }
+      });
+      out += '<div class="fp-card"><h3>' + esc(heading) + "</h3><dl>" + dl + "</dl></div>";
     });
-    var proc = new XSLTProcessor();
-    proc.importStylesheet(new DOMParser().parseFromString(XSLT[which], "text/xml"));
-    return proc.transformToFragment(doc, document);
+    return "<div>" + out + "</div>";
   }
 
   /* ——————— the state, drawn as the graph it is ——————— */
@@ -386,9 +373,8 @@
       '<div class="fp-view-2" hidden><pre class="fp-out"></pre></div>' +
       '<div class="fp-view-3" hidden><pre class="fp-out"></pre></div>' +
       "</div>";
-    var frag0 = runXSLT(cm, "cards"), frag1 = runXSLT(cm, "cards");
-    if (frag0) q(root, ".fp-view-0 .fp-rendered").appendChild(frag0);
-    if (frag1) q(root, ".fp-view-1 .fp-rendered").appendChild(frag1);
+    q(root, ".fp-view-0 .fp-rendered").innerHTML = arrangeHTML(cm, "cards");
+    q(root, ".fp-view-1 .fp-rendered").innerHTML = arrangeHTML(cm, "cards");
     q(root, ".fp-view-2 pre").innerHTML = canonHTML(cm, "derived");
     var winKeys = { has: sel.touched.has };
     q(root, ".fp-view-3 pre").innerHTML =
@@ -787,10 +773,7 @@
       var win = facts.filter(function (f) { return r.touched.has(key(f)); });
       var cm = canonMap(win);
       q(root, ".fp-canon").innerHTML = canonHTML(cm, "shipped");
-      var frag = runXSLT(cm, segValue(root, idT) || "cards");
-      var target = q(root, ".fp-target");
-      target.innerHTML = "";
-      if (frag) target.appendChild(frag);
+      q(root, ".fp-target").innerHTML = arrangeHTML(cm, segValue(root, idT) || "cards");
       q(root, ".fp-render").className = "fp-render fp-theme-" + (segValue(root, idC) || "console");
     }
     on(root, 'input[name="' + id + '"]', "change", function () {
