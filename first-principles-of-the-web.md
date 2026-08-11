@@ -8,13 +8,13 @@
 
 ## Preface
 
-The claim: there is exactly one way to build applications that are *of* the web rather than merely *on* it, and it is data-centric, declarative, and graph-based. "Exactly one" is meant relative to rules the web itself imposes — the book derives the rules, and shows what rejecting each one costs. Everything else — the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains — gets scored against those rules in Part IV. The book's finding, stated here and argued there: each is a partial rediscovery of this way or a detour from it.
+The claim: there is exactly one way to build applications that are *of* the web rather than merely *on* it, and it is data-centric, declarative, and graph-based. "Exactly one" is meant relative to rules the web itself imposes. The book derives the rules, and shows what rejecting each one costs. Everything else (the JSON APIs, the JavaScript frameworks, the compile-to-browser toolchains) gets scored against those rules in Part IV. The book's finding, stated here and argued there: each is a partial rediscovery of this way or a detour from it.
 
 The book is structured as a derivation. Every statement in it is one of three things: a definition quoted from the web's own specifications, a proposition that follows from previous statements, or an observation you can verify against deployed reality. If you find a statement that is none of the three, the book has a bug, and I would like a report. One statement is a deliberate exception, flagged where it stands: a single bridge from the web to the formalism (Chapter 5), argued but never proved. Disagreement with the whole belongs there. The arc runs in six parts: the object fixed, the analysis run, the result revealed as standards decades old, the industry audited, the synthesis built, the future read off. The method itself is Chapter 2's subject; notation and reading tracks are in Appendix A.
 
-Underneath the method is a choice of genre. The web is mostly treated as software engineering — a craft of frameworks and taste; this book treats it as a science, an object whose forced structure can be derived, proved, and tested by prediction rather than surveyed and preferred. Chapter 20 returns to it once the scores are in.
+Underneath the method is a choice of genre. The web is mostly treated as software engineering, a craft of frameworks and taste; this book treats it as a science, an object whose forced structure can be derived, proved, and tested by prediction rather than surveyed and preferred. Chapter 20 returns to it once the scores are in.
 
-One more thing. This book is built to practice what it derives. Its canonical edition is designed as an application of that very kind, in which every proposition is a resource with its own address. That makes the edition an instance of the book's own thesis. As of this writing, that edition is under construction: a promise the book has yet to keep.
+One more thing. This book is built to practice what it derives. Its canonical edition is designed as an application of that very kind, in which every proposition is a resource with its own address. That makes the edition an instance of the book's own thesis. As of this writing, that edition is under construction, a promise the book has yet to keep.
 
 ---
 
@@ -22,11 +22,11 @@ One more thing. This book is built to practice what it derives. Its canonical ed
 
 A web application is two functions. `read` turns a request and the state of the world into a document; `write` turns a request and a state into a new state. That is HTTP restated, and every framework ever shipped is an implementation detail of it.
 
-Strip any page — a newspaper, a dashboard — and the same skeleton emerges: style peels off, then arrangement, then selection, and what remains is state. So every `read` factors as `present ∘ arrange ∘ select` — one factor per stripped layer — and the factorization matters exactly when the factors are separate, declarative, substitutable, and addressable.
+Strip any page (a newspaper, a dashboard) and the same skeleton emerges: style peels off, then arrangement, then selection, and what remains is state. So every `read` factors as `present ∘ arrange ∘ select` (one factor per stripped layer), and the factorization matters exactly when the factors are separate, declarative, substitutable, and addressable.
 
 Ask what `State` must be, and the requirements come from the web itself. `State` must host any domain. It must compose across parties who have never met — which forces merging by union over facts that carry their own meaning. Its names must work globally. The smallest fact meeting all three requirements is a triple: two global names and a value that may itself be such a name. Any minimal model meeting the requirements is isomorphic to sets of triples under union. The uniqueness is a theorem; to reject its conclusion you must fault a step of the proof or reject a requirement.
 
-The reveal: the structure just derived is RDF, SPARQL, XSLT, and CSS — standardized between 1996 and 2014, then abandoned; abandoned, the book will argue, not refuted. The audit: everything the industry runs instead fails a named requirement and pays for the failure with a compensating industry — a market that sells the bridge across the gap the failure opens. By the audit's last chapter, one table carries every score — and the derived stack, scored last on the same rows, fails nothing. The synthesis: the derived parts compose into a complete architecture — no new standard needed, one generic engine specialized by data rather than code. The bill: software agents now need exactly the property the industry never adopted — machine-consumable state — and the compensating machinery is assembling in real time, at industry scale.
+The structure just derived is RDF, SPARQL, XSLT, and CSS, standardized between 1996 and 2014, then abandoned; abandoned, the book will argue, not refuted. Everything the industry runs instead fails a named requirement and pays for the failure with a compensating industry, a market that sells the bridge across the gap the failure opens. By the audit's last chapter, one table carries every score, and the derived stack, scored last on the same rows, fails nothing. The derived parts then compose into a complete architecture: no new standard needed, one generic engine specialized by data rather than code. Software agents now need exactly the property the industry never adopted, machine-consumable state, and the compensating machinery is assembling in real time, at industry scale.
 
 If the derivation holds, the next web needs no inventing; it waits to be occupied. The rest of this book is the proof, the scores, and the evidence.
 
@@ -34,7 +34,7 @@ If the derivation holds, the next web needs no inventing; it waits to be occupie
 
 # Part I — The Object
 
-*Before anything can be derived, the object of study must be fixed. This part quotes the web's own definitions — a pair of functions with one deliberate omission — and states the question the rest of the book answers: what must `State` be?*
+*Before anything can be derived, the object of study must be fixed. This part quotes the web's own definitions (a pair of functions with one deliberate omission) and states the question the rest of the book answers: what must `State` be?*
 
 <img src="first-principles-figures/part1-the-object.svg" alt="A transparent rounded object; an arrow carries a document out, and a second arrow curves back in" class="fp-frontispiece" width="440" />
 
@@ -61,7 +61,7 @@ There are requests, which are built from identifiers:
 Req = I × Method × Headers × Body                        (RFC 9110)
 ```
 
-The body may be empty; the empty body is a body, the way an empty set is a set. Requests with a *safe* method — RFC 9110's word for the methods that only ask, never change — almost always leave it empty. The unsafe methods are about to show what it is for. (RFC 9110's own name for it is *content* — a word this book will need for something else, so the older wire name stays.)
+The body may be empty; the empty body is a body, the way an empty set is a set. Requests with a *safe* method (RFC 9110's word for the methods that only ask, never change) almost always leave it empty. The unsafe methods are about to show what it is for. (RFC 9110's own name for it is *content*, a word this book will need for something else, so the older wire name stays.)
 
 Responses come back the same shape, because RFC 9110 defines one message form for both directions. A status code stands where the method and identifier stood:
 
@@ -69,7 +69,7 @@ Responses come back the same shape, because RFC 9110 defines one message form fo
 Resp = Status × Headers × Body                           (RFC 9110)
 ```
 
-Of the response, the definition below keeps only what the body carries. The body itself is octets. A header names their format (`Content-Type`), and the format's specification — not this book — defines how they parse. On the parsed side of that line lives the document — the thing a user agent displays. Call that domain `Doc`, and leave its internals alone for now. The envelope around it — the status code, the response headers — is how a document travels, ages, and caches. That is transfer machinery, and Definition 1.1 will not mention it.
+Of the response, the definition below keeps only what the body carries. The body itself is octets. A header names their format (`Content-Type`), and the format's specification, not this book, defines how they parse. On the parsed side of that line lives the document, the thing a user agent displays. Call that domain `Doc`, and leave its internals alone for now. The envelope around it (the status code, the response headers) is how a document travels, ages, and caches. That is transfer machinery, and Definition 1.1 will not mention it.
 
 **Definition 1.1.** A *web application* is a pair of functions:
 
@@ -78,7 +78,7 @@ read  : Req × State → Doc
 write : Req × State → State
 ```
 
-This is HTTP restated. `read` is what the safe methods do — `GET` takes a request and the current state of the world and produces a document. `write` is what the unsafe methods do — `POST`, `PUT`, `PATCH`, `DELETE` take a request and a state and produce a new state. The request's body carries what the change should be. The body belongs to the write side: on a safe request it has no defined meaning (RFC 9110 §9.3.1), and `read` ignores it. `read`'s output travels in the *response's* body instead. Like `Doc`, `Body` stays opaque for now; Chapter 7 says what fills it.
+This is HTTP restated. `read` is what the safe methods do. `GET` takes a request and the current state of the world and produces a document. `write` is what the unsafe methods do. `POST`, `PUT`, `PATCH`, `DELETE` take a request and a state and produce a new state. The request's body carries what the change should be. The body belongs to the write side: on a safe request it has no defined meaning (RFC 9110 §9.3.1), and `read` ignores it. `read`'s output travels in the *response's* body instead. Like `Doc`, `Body` stays opaque for now; Chapter 7 says what fills it.
 
 Every web application you have ever used, from a static homepage to the heaviest single-page monster, implements these two functions, because HTTP gives it no other way to be an application on the web. The framework it was built in is an implementation detail of Definition 1.1.
 
@@ -86,27 +86,27 @@ Notice what the definition does *not* say. It does not say what `State` is. That
 
 > **Prop. 1.2.** Every deployed web application implements Definition 1.1. *(Verification: RFC 9110 §9; there is no third kind of method.)*
 >
-> **Prop. 1.3.** Definition 1.1 constrains architecture not at all. Both a 1993 CGI script and a 2026 React application inhabit it. *(This is why the definition is safe as an axiom — no one on any side of any framework war can reject it.)*
+> **Prop. 1.3.** Definition 1.1 constrains architecture not at all. Both a 1993 CGI script and a 2026 React application inhabit it. *(This is why the definition is safe as an axiom; no one on any side of any framework war can reject it.)*
 
-**The standing connection.** One apparent counterexample is worth settling while the definition is fresh. WebSockets and server push carry traffic that is neither a safe nor an unsafe method — no method at all. The applications built on them — the live dashboard, the collaborative editor — can look like a third kind of thing. They are the same two functions at a different rhythm. Whatever flows on such a channel is one of two things: `read`'s output, arriving as the state changes rather than when it is requested, or `write`'s argument, arriving without a fresh envelope. Either way, the typing of Definition 1.1 is unchanged. What the channel sheds is not the definition but HTTP's machinery around it: methods, caches, a URI per exchange. Each shed piece has a cost. Part IV computes those costs one by one, under the names Chapter 5 gives them. (Part II will even name the standing connection's honest cargo: change turns out to have a normal form, and a stream of it is something a machine can read.)
+**The standing connection.** One apparent counterexample is worth settling while the definition is fresh. WebSockets and server push carry traffic that is neither a safe nor an unsafe method, no method at all. The applications built on them (the live dashboard, the collaborative editor) can look like a third kind of thing. They are the same two functions at a different rhythm. Whatever flows on such a channel is one of two things: `read`'s output, arriving as the state changes rather than when it is requested, or `write`'s argument, arriving without a fresh envelope. Either way, the typing of Definition 1.1 is unchanged. What the channel sheds is not the definition but HTTP's machinery around it: methods, caches, a URI per exchange. Each shed piece has a cost. Part IV computes those costs one by one, under the names Chapter 5 gives them. (Part II will even name the standing connection's honest cargo: change turns out to have a normal form, and a stream of it is something a machine can read.)
 
-The chapter closes with a reading of the web's history that the rest of the book will substantiate. The web succeeded against its contemporaries: Gopher, BBSs, desktop applications, and Java applets, an experiment Chapter 12 reruns. It succeeded because its `read` was *transparent*, legible to machines that did not produce it. Documents were declarative, addressable, linkable, indexable. Every technology audited in Part IV will turn out to be a position on exactly one question: how transparent is your `read`? But no audit can begin, and no history can be checked, while Definition 1.1's omission stands. And how to fill that omission honestly is a question of method — answered by neither a survey of the industry nor the author's taste. The method is old, it has a name, and it is the next chapter.
+The chapter closes with a reading of the web's history that the rest of the book will substantiate. The web succeeded against its contemporaries: Gopher, BBSs, desktop applications, and Java applets, an experiment Chapter 12 reruns. It succeeded because its `read` was *transparent*, legible to machines that did not produce it. Documents were declarative, addressable, linkable, indexable. Every technology audited in Part IV will turn out to be a position on exactly one question: how transparent is your `read`? But no audit can begin, and no history can be checked, while Definition 1.1's omission stands. And how to fill that omission honestly is a question of method, answered by neither a survey of the industry nor the author's taste. The method is old, it has a name, and it is the next chapter.
 
 ---
 
 ## Chapter 2. Analysis and Synthesis
 
-Chapter 1 defined a web application and deliberately left `State` untyped. Now the omission has to be filled, and the two easy ways — survey and preference — fail on inspection. Survey fails. The deployed industry holds answers — rows behind one application, trees behind the next, object graphs behind a third — and they contradict one another. That contradiction is Proposition 1.3 in deployment: the definition constrains architecture not at all, so architecture went in every direction at once. Preference fails harder: an author's favorite model binds nobody. What is left is derivation: `State` must follow from constraints the web itself imposes, so that rejecting the conclusion means rejecting a constraint. The question is where a derivation like that can begin.
+Chapter 1 defined a web application and deliberately left `State` untyped. Now the omission has to be filled, and the two easy ways (survey and preference) fail on inspection. Survey fails. The deployed industry holds answers (rows behind one application, trees behind the next, object graphs behind a third), and they contradict one another. That contradiction is Proposition 1.3 in deployment: the definition constrains architecture not at all, so architecture went in every direction at once. Preference fails harder: an author's favorite model binds nobody. What is left is derivation: `State` must follow from constraints the web itself imposes, so that rejecting the conclusion means rejecting a constraint. The question is where a derivation like that can begin.
 
-It cannot begin at `State`, because `State` is the one component of Definition 1.1 that nobody can see. Every other part of the signature is on the wire: requests are readable, responses are readable, and the document — `read`'s output — is the most public object in computing. The state behind them is each server's private business; no request returns it directly. So the investigation has to start at the observable end and work inward: take the document and strip it. Remove whatever can vary while the page still says what it says, and keep only what no removal can touch. Each removal is checkable against deployed reality, where pages already vary in exactly that way. What is left at the end is not decoration and not arrangement; it is what the document could not have been made without — the first direct view of `State`.
+It cannot begin at `State`, because `State` is the one component of Definition 1.1 that nobody can see. Every other part of the signature is on the wire: requests are readable, responses are readable, and the document (`read`'s output) is the most public object in computing. The state behind them is each server's private business; no request returns it directly. So the investigation has to start at the observable end and work inward: take the document and strip it. Remove whatever can vary while the page still says what it says, and keep only what no removal can touch. Each removal is checkable against deployed reality, where pages already vary in exactly that way. What is left at the end is not decoration and not arrangement; it is what the document could not have been made without, the first direct view of `State`.
 
 Stripping alone, though, proves less than it seems to. What remains after the removals could be a fact about the pages chosen, or about the order of the removals, rather than about every page. The check is independence: set the pages aside, keep only the derived parts, and build with them. A working application space means the full range of applications Definition 1.1 admits, not one rebuilt demo. If that space can be constructed from the derived parts alone, using nothing from the original pages, then the skeleton was in the pages, not in the procedure. And if the construction fails, or quietly needs parts the derivation never produced, the failure is public: either the analysis kept the wrong things or the parts list is incomplete, and each defect is visible on its own.
 
 The Greek geometers called the two directions *analysis* and *synthesis*. Pappus's *Collection* describes the pair: assume the thing sought and work backwards to what is established; then reverse the path, and the reversal is the proof. Newton restates it as a rule of natural philosophy in the *Opticks*: the investigation of difficult things by analysis "ought ever to precede the method of composition." The practice has modern instances wherever a structure must be known rather than guessed. Organic chemists worked out a molecule's structure by breaking it into identifiable fragments, and accepted that structure as proven only once they had built the same compound from known ingredients and it matched. Software has the clean-room: a rebuild is independent exactly when the rebuilding team touched only the derived specification, never the original. Both keep the geometers' point: taking apart suggests a structure; only building back, independently, proves it.
 
-The claim, then, is stated in advance, so the reader can hold the book to it. The analysis, if it succeeds, will show that every web application has a certain form — that under Definition 1.1 there is nothing else `read` and `State` could be: necessity. The synthesis, if it succeeds, will show that the derived form is enough to build with — a full application space, nothing missing: sufficiency. Where the two directions meet exactly, the argument closes from both ends. That meeting, not either half, will be the book's proof — and it happens twice, once in theorems and once in running code. And the method carries one obligation more: wherever the halves fail to meet *exactly*, the mismatches go on the table, itemized, not under it — that is Chapter 9's only job. The opening pages have already named the result; stating a result is not deriving it, and the derivation is the part a reader can check.
+The claim, then, is stated in advance, so the reader can hold the book to it. The analysis, if it succeeds, will show that every web application has a certain form, that under Definition 1.1 there is nothing else `read` and `State` could be: necessity. The synthesis, if it succeeds, will show that the derived form is enough to build with, a full application space, nothing missing: sufficiency. Where the two directions meet exactly, the argument closes from both ends. That meeting, not either half, will be the book's proof. It happens twice, once in theorems and once in running code. And the method carries one obligation more: wherever the halves fail to meet *exactly*, the mismatches go on the table, itemized, not under it. That is Chapter 9's only job. The opening pages have already named the result; stating a result is not deriving it, and the derivation is the part a reader can check.
 
-The shape of the book follows from the method. Part II is the analysis: first performed by hand on real pages, then re-run as theorems that quantify over every page, including the ones not yet built. And once `State` is forced, the write side follows from it. Part V is the synthesis: the application space rebuilt from the derived parts and nothing else. Between them, the book does what the method obligates — holds the derived structure up against the world, scores everything the industry runs instead, and tables every mismatch. Part VI carries the synthesis forward: what the derived web permits once it is occupied.
+The shape of the book follows from the method. Part II is the analysis: first performed by hand on real pages, then re-run as theorems that quantify over every page, including the ones not yet built. And once `State` is forced, the write side follows from it. Part V is the synthesis: the application space rebuilt from the derived parts and nothing else. Between them, the book does what the method obligates: holds the derived structure up against the world, scores everything the industry runs instead, and tables every mismatch. Part VI carries the synthesis forward: what the derived web permits once it is occupied.
 
 ```mermaid
 flowchart TB
@@ -123,9 +123,9 @@ flowchart TB
     P -. "where the halves miss" .-> M["mismatches, tabulated · Chapter 9"]
 ```
 
-*The method of this chapter, and the shape of the book. Analysis (Part II) strips the observable `Doc` inward to the hidden `State` — necessity; synthesis (Part V) builds `State` back out to a full `Doc` space — sufficiency. Where the two meet exactly is the proof, and it happens twice: in theorems (Chapter 8) and in running code (Chapter 18). Where the halves miss, the gap is not hidden but tabulated — Chapter 9's one job.*
+*The method of this chapter, and the shape of the book. Analysis (Part II) strips the observable `Doc` inward to the hidden `State`, necessity; synthesis (Part V) builds `State` back out to a full `Doc` space, sufficiency. Where the two meet exactly is the proof, and it happens twice: in theorems (Chapter 8) and in running code (Chapter 18). Where the halves miss, the gap is not hidden but tabulated, Chapter 9's one job.*
 
-One decision remains before the stripping starts, and it is a control on the experiment: which pages to strip. Two, at least — one page's layers prove nothing beyond that page — and the honest pair is the most different pair available, because whatever survives the removals in *both* is unlikely to be an accident of either. So the pair is a newspaper front page and a wind-farm dashboard. The front page is written by a handful of editors on an editorial rhythm and read by millions. The dashboard is written continuously by machines and read by one operator on shift. Different domain, different audience, opposite rhythms of `read` and `write`; under Definition 1.1, one signature. If these two reduce to the same skeleton, everything between them likely does too. Print both. Now take them apart.
+One decision remains before the stripping starts, and it is a control on the experiment: which pages to strip. Two, at least (one page's layers prove nothing beyond that page), and the honest pair is the most different pair available, because whatever survives the removals in *both* is unlikely to be an accident of either. So the pair is a newspaper front page and a wind-farm dashboard. The front page is written by a handful of editors on an editorial rhythm and read by millions. The dashboard is written continuously by machines and read by one operator on shift. Different domain, different audience, opposite rhythms of `read` and `write`; under Definition 1.1, one signature. If these two reduce to the same skeleton, everything between them likely does too. Print both. Now take them apart.
 
 ---
 
@@ -606,7 +606,7 @@ Change, the objection said, is where declarative architectures fail. Change is t
 
 # Part III — The Reveal
 
-*The derivation is complete — a data model, an algebra, a crossing, a write side — and none of it has been named. This part names it, then puts the mismatches on the table. The names are decades old.*
+*The derivation is complete (a data model, an algebra, a crossing, a write side), and none of it has been named. This part names it, then puts the mismatches on the table. The names are decades old.*
 
 <img src="first-principles-figures/part3-the-reveal.svg" alt="A blank nameplate lifting away from a finished lattice of connected nodes" class="fp-frontispiece" width="440" />
 
@@ -752,7 +752,7 @@ None touches the derivation: no proposition of Part II is weakened by anything i
 
 # Part IV — The Audit
 
-*Part II derived seven properties; Part III showed that one stack satisfies all of them. This part scores everything else the industry runs — and last, the derived stack itself, on the same rows; its closing chapter is the completed table.*
+*Part II derived seven properties; Part III showed that one stack satisfies all of them. This part scores everything else the industry runs, and last, the derived stack itself, on the same rows; its closing chapter is the completed table.*
 
 *Every audit in this part ends by filling in one column of the same table; the last chapter assembles the table whole. Rows: R1 R2 R3 · S1 S2 S3 S4. Each chapter scores its technologies against the seven properties; the scores carry the argument. A score here is rejected only by striking a row: R1–R3 through Theorem 5.4, S1–S4 through Proposition 4.4. So disagreement concerns the requirements, not the individual technologies.*
 
@@ -766,19 +766,19 @@ Since the early 2000s, the web community has executed the largest format migrati
 |---|---|
 | `<person><name>Ada</name></person>` | `{"person":{"name":"Ada"}}` |
 
-*Twenty years of progress. The book's only sarcastic figure caption; it has earned it.*
+*Twenty years of progress. The book's only sarcastic figure caption.*
 
-There is a term for activity of this shape: **lateral churn** — motion that looks like innovation but isn't. Real innovation is vertical: new layers, new semantics, new abstractions on top of what already works. That is how the web was designed to grow — and Parts II and III have shown, formally, that the vertical direction was open the entire time.
+Activity of this shape is **lateral churn**, motion that looks like innovation but isn't. Real innovation is vertical: new layers, new semantics, new abstractions on top of what already works. That is how the web was designed to grow. Parts II and III have shown, formally, that the vertical direction was open the entire time.
 
 <img src="first-principles-figures/spot-ch10-the-ladder.svg" alt="Angle brackets and curly brackets riding a closed loop of track, beside an unused ladder that leaves the top of the frame" class="fp-spot" width="420" />
 
-So far, that is a story. The apparatus can measure it. The claim to check: XML→JSON was lateral — a change of syntax presented as a change of substance. The instrument: the seven properties.
+So far, that is a story. The apparatus can measure it. The claim to check: XML→JSON was lateral, a change of syntax presented as a change of substance. The instrument is the seven properties.
 
-Both formats are one model. An XML document and a JSON document are ordered labeled trees; their differences — attributes versus members, elements versus arrays — decorate the same structure. Chapter 5's requirements apply to the structure, so the scores transfer wherever a requirement sees only the tree. R3 is the exception, and the formats part ways there.
+Both formats are one model. An XML document and a JSON document are ordered labeled trees; their differences (attributes versus members, elements versus arrays) decorate the same structure. Chapter 5's requirements apply to the structure, so the scores transfer wherever a requirement sees only the tree. R3 is the exception, and the formats part ways there.
 
-**R2.** Trees have no coordination-free merge. Two JSON documents have no defined composition at all. Concatenation is not valid JSON, and "deep merge" is a per-application policy — which key wins, whether arrays append or replace. And a policy shared between parties is coordination. In the terms of Appendix B, meaning lives in arrangement (position, nesting, order). That rejects B-2d (atomicity: a state says exactly what its atoms say). So the representation lemma (B.1) — the proof behind the union law — never gets started. ✗
+**R2.** Trees have no coordination-free merge. Two JSON documents have no defined composition at all. Concatenation is not valid JSON, and "deep merge" is a per-application policy (which key wins, whether arrays append or replace). And a policy shared between parties is coordination. In the terms of Appendix B, meaning lives in arrangement (position, nesting, order). That rejects B-2d (atomicity: a state says exactly what its atoms say). So the representation lemma (B.1), the proof behind the union law, never gets started. ✗
 
-**R3.** JSON has no reference type. A URL in a JSON string is a string; the format's specifications define grammar and leave interpretation to applications, so nothing distinguishes a link from a postcode. XML held fragments of the property. Namespaces gave vocabulary terms global names; `xml:id` and XLink offered standardized reference, largely unused. The migration shed the fragments too. AWWW §4.4 named three good practices in 2004 — link identification, Web-wide linking, hypertext links — and all three fail in the format the industry migrated *to*. ✗ for the destination; the origin's fragments salvage a ~.
+**R3.** JSON has no reference type. A URL in a JSON string is a string; the format's specifications define grammar and leave interpretation to applications, so nothing distinguishes a link from a postcode. XML held fragments of the property. Namespaces gave vocabulary terms global names; `xml:id` and XLink offered standardized reference, largely unused. The migration shed the fragments too. AWWW §4.4 named three good practices in 2004 (link identification, Web-wide linking, hypertext links), and all three fail in the format the industry migrated *to*. ✗ for the destination; the origin's fragments salvage a ~.
 
 **The tooling deficit, itemized.**
 
@@ -790,7 +790,7 @@ Both formats are one model. An XML document and a JSON document are ordered labe
 | intra-document addressing | fragments + XPointer | JSON Pointer — RFC 6901, 2013 |
 | vocabulary scoping | Namespaces, 1999 | — |
 
-The right column arrived a quarter century late where it arrived at all: a standardized query language in 2024, twenty-five years after XPath; transformation and vocabulary scoping with no entry. The migration's tooling deficit is two decades old and still open. And longevity ran the other way. The JSON column's empty transformation cell is filled by whatever framework is current, and most JavaScript frameworks of 2010 have already been retired. XSLT — frozen at its 1999 revision, as Chapter 9 filed — still runs in every browser as of this writing.
+The right column arrived a quarter century late where it arrived at all: a standardized query language in 2024, twenty-five years after XPath; transformation and vocabulary scoping with no entry. The migration's tooling deficit is two decades old and still open. And longevity ran the other way. The JSON column's empty transformation cell is filled by whatever framework is current, and most JavaScript frameworks of 2010 have already been retired. XSLT, frozen at its 1999 revision as Chapter 9 filed, still runs in every browser as of this writing.
 
 **Column: XML stack.**
 
@@ -804,7 +804,7 @@ The right column arrived a quarter century late where it arrived at all: a stand
 | S3 | ✓ — one standardized language per capability; components substitute |
 | S4 | ~ — fragments and XPointer address into documents, largely unused |
 
-**The S-properties of the deployment style — REST as practiced.** The style's genuine inheritance from HTTP survives in the scores: resources carry URIs, so S4 earns partial credit at the resource grain. The credit stops there, because values inside a representation cannot link onward, so the data ends at every document boundary. The style's own definition requires hypermedia links (Fielding 2000, §5.1.5); the deployments that adopted the style's name discarded the requirement. Query and transformation semantics are implementation-defined (S2 ✗). Substituting a component means renegotiating a bespoke contract per pair of parties (S3 ~). Every payload ships arrangement and data fused (S1 ~ — the endpoint separates, the representation does not).
+**The S-properties of the deployment style — REST as practiced.** The style's genuine inheritance from HTTP survives in the scores: resources carry URIs, so S4 earns partial credit at the resource grain. The credit stops there, because values inside a representation cannot link onward, so the data ends at every document boundary. The style's own definition requires hypermedia links (Fielding 2000, §5.1.5); the deployments that adopted the style's name discarded the requirement. Query and transformation semantics are implementation-defined (S2 ✗). Substituting a component means renegotiating a bespoke contract per pair of parties (S3 ~). Every payload ships arrangement and data fused (S1 ~; the endpoint separates, the representation does not).
 
 **Column: JSON/REST.**
 
@@ -818,7 +818,7 @@ The right column arrived a quarter century late where it arrived at all: a stand
 | S3 | ~ — substitution behind bespoke contracts |
 | S4 | ~ — resources have URIs; values do not link onward |
 
-The opening question — *and what changed?* — now has a measured answer: the migration changed brackets, shed tooling, and gained not one property. The cells that moved — R3, S2, S3 — moved down. Lateral, by the numbers.
+The opening question (*and what changed?*) now has a measured answer: the migration changed brackets, shed tooling, and gained not one property. The cells that moved (R3, S2, S3) moved down. Lateral, by the numbers.
 
 ## Chapter 11. The Single-Page Application
 
