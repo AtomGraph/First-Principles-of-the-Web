@@ -4,7 +4,7 @@
 
 A book that derives web application architecture from the web's own specifications — and finds the answer was standardized decades ago.
 
-**Read the book: <https://atomgraph.github.io/First-Principles-of-the-Web/>**
+**Read the book: <https://firstprinciplesoftheweb.org/>**
 
 ## The claim
 
