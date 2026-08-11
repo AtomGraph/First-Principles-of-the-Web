@@ -18,7 +18,7 @@ SOURCE = ROOT / "first-principles-of-the-web.md"
 # schema.org JSON-LD built from data this script already holds. Descriptions
 # become <meta name=description>/og/twitter via Quarto; the JSON-LD is emitted
 # into each page body, which search engines read for structured data.
-SITE_URL = "https://atomgraph.github.io/First-Principles-of-the-Web/"
+SITE_URL = "https://firstprinciplesoftheweb.org/"
 BOOK_ID = SITE_URL + "#book"
 AUTHOR = {"@type": "Person", "name": "Martynas Jusevičius", "url": "https://atomgraph.com"}
 PUBLISHER = {"@type": "Organization", "name": "AtomGraph", "url": "https://atomgraph.com"}
@@ -458,6 +458,7 @@ yml = """project:
     - "first-principles-figures/*.svg"
     - "first-principles-figures/*.png"
     - googleba0fe49aa3922677.html
+    - CNAME
 
 book:
   title: "First Principles of the Web"
@@ -468,7 +469,7 @@ book:
       url: "https://atomgraph.com"
   repo-url: https://github.com/AtomGraph/First-Principles-of-the-Web
   repo-actions: [issue]
-  site-url: https://atomgraph.github.io/First-Principles-of-the-Web/
+  site-url: https://firstprinciplesoftheweb.org/
   favicon: first-principles-figures/favicon.svg
   open-graph: true
   twitter-card: true
