@@ -43,6 +43,19 @@ text = SOURCE.read_text(encoding="utf-8")
 # Quarto renders mermaid only in executable-style fences
 text = text.replace("```mermaid", "```{mermaid}")
 
+# Inject the pre-generated static fallbacks (fallbacks.cjs) into the exhibit
+# stubs, wrapped in a raw-HTML block so pandoc passes the markup through
+# verbatim. In the browser exhibits.js overwrites innerHTML with the live
+# widget; without JS the fallback stands — crawlers, screen readers, EPUB.
+FALLBACKS = ROOT / "exhibit-fallbacks"
+def _inject_fallback(m):
+    t = m.group(1)
+    f = FALLBACKS / (t + ".html")
+    inner = f.read_text(encoding="utf-8").strip() if f.exists() else ""
+    stub = '<div class="fp-exhibit" data-exhibit="' + t + '">\n' + inner + "\n</div>"
+    return "\n```{=html}\n" + stub + "\n```\n"
+text = re.sub(r'<div class="fp-exhibit" data-exhibit="(\w+)"></div>', _inject_fallback, text)
+
 lines = text.split("\n")
 
 # ---- parse: title block, then h2 front sections, then h1 parts containing h2 chapters

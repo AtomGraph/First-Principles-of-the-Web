@@ -730,7 +730,7 @@
     render();
   }
 
-  /* ——————— Chapter 15: two dataspaces, one generic machine ——————— */
+  /* ——————— Chapter 18: two dataspaces, one generic machine ——————— */
 
   function wPipeline(root) {
     var id = "fpd" + (++uid), idT = "fpt" + uid, idC = "fpc" + uid;
