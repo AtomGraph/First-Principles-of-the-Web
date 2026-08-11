@@ -274,11 +274,22 @@ def _xref_target(m):
         return part_page.get(m.group("part"))
     return None
 
+def _xref_link(label, target):
+    """A cross-reference as a markdown link to the .qmd source, so Quarto
+    rewrites the href per format — .html for the web, the chapter's .xhtml for
+    EPUB. A raw <a href="...html"> is opaque to that rewriting and leaves every
+    non-HTML edition with dead links."""
+    page, _, frag = target.partition("#")
+    if page.endswith(".html"):
+        page = page[:-5] + ".qmd"
+    return f"[{label}]({page}{'#' + frag if frag else ''}){{.xref}}"
+
 def linkify(text, current=None):
-    """Wrap chapter/proposition/appendix references in muted <a class="xref">
-    links. Skips fenced code blocks and headings; a reference to the page it
-    sits on stays plain unless it can point to a fragment, and the statement
-    of a result never links to its own anchor."""
+    """Wrap chapter/proposition/appendix references in muted .xref links (markdown
+    links to the .qmd source; Quarto resolves the href per format). Skips fenced
+    code blocks and headings; a reference to the page it sits on stays plain unless
+    it can point to a fragment, and the statement of a result never links to its
+    own anchor."""
     own_id = [None]
     def repl(m):
         if m.group("chlist"):
@@ -286,7 +297,7 @@ def linkify(text, current=None):
                 t = ch_page.get(int(nm.group(0)))
                 if not t or t == current:
                     return nm.group(0)
-                return f'<a class="xref" href="{t}">{nm.group(0)}</a>'
+                return _xref_link(nm.group(0), t)
             return "Chapters " + re.sub(r"\d+", one, m.group("chlist"))
         target = _xref_target(m)
         if not target:
@@ -296,7 +307,7 @@ def linkify(text, current=None):
             return m.group(0)
         if frag and frag == own_id[0]:
             return m.group(0)
-        return f'<a class="xref" href="{target}">{m.group(0)}</a>'
+        return _xref_link(m.group(0), target)
     out, fence = [], False
     for line in text.split("\n"):
         s = line.lstrip()
