@@ -824,7 +824,7 @@ The opening question (*and what changed?*) now has a measured answer: the migrat
 
 The single-page application (SPA), audited. In the book's terms its architecture is the trivial factorization of Chapter 4 (Prop. 4.2), deployed at industry scale. `select` and `present` shrink to near-identities; the application is stuffed into one term that computes all of `read`. Fetching, state management, templating, and styling decisions interleave in one program, delivered as one bundle.
 
-**S1.** State is threaded through the term — component state, stores, caches, props — with no factor boundary anywhere; the paradigm's own architecture diagrams draw the threading as a feature. ✗
+**S1.** State is threaded through the term (component state, stores, caches, props) with no factor boundary anywhere; the paradigm's own architecture diagrams draw the threading as a feature. ✗
 
 **S2.** The term is imperative, so its meaning is defined by execution order. The failure is in principle rather than in implementation. Def. 4.3 requires each factor to denote a term in a language with closed semantics; an imperative program's meaning is the trace of its execution. No discipline within the paradigm can repair this, because the paradigm *is* the choice of trace over denotation. ✗
 
@@ -832,22 +832,22 @@ The single-page application (SPA), audited. In the book's terms its architecture
 
 **S4.** No intermediate value has a URI. The data behind a rendered view cannot be addressed, cached by intermediaries, indexed, or linked. Chapter 3's exhibit filed the evidence in passing. Stripping style from the dashboard left chrome, the frame with no facts in it, because the curves were pixels on a canvas. The state was invisible even to the application's own document. ✗
 
-**The one-timeline consequence.** Independent evolution (Prop. 4.5) states what the fusion costs. One component, one timeline: any change — data, layout, theme, query — is a change to the whole term, and the term is the unit of delivery, so the term is the unit of invalidation. The consequences follow. Each is the forfeit of a property that Fielding's constraints were chosen to induce:
+**The one-timeline consequence.** Independent evolution (Prop. 4.5) states what the fusion costs. One component, one timeline: any change (data, layout, theme, query) is a change to the whole term, and the term is the unit of delivery, so the term is the unit of invalidation. The consequences follow. Each is the forfeit of a property that Fielding's constraints were chosen to induce:
 
-- caching degrades to bundle-level — the corollary to Prop. 4.5, now an operating cost;
-- crawling requires headless browsers — machines simulating humans in order to read what machines produced;
-- reuse requires reverse-engineering a private API — the S4 tax, paid by every integrator separately;
-- hydration — shipping the document *and* the program that regenerates it — is the S1 tax: the architecture cannot tell its document from its program, so it ships both.
+- caching degrades to bundle-level, the corollary to Prop. 4.5, now an operating cost;
+- crawling requires headless browsers, machines simulating humans in order to read what machines produced;
+- reuse requires reverse-engineering a private API, the S4 tax, paid by every integrator separately;
+- hydration (shipping the document *and* the program that regenerates it) is the S1 tax: the architecture cannot tell its document from its program, so it ships both.
 
-**The R-properties.** R1 holds; a program holds any state in memory. R2 and R3 fail together. Component state has no merge law — state-synchronization libraries are the compensating industry. And references are pointers: machine-local by definition.
+**The R-properties.** R1 holds; a program holds any state in memory. R2 and R3 fail together. Component state has no merge law. State-synchronization libraries are the compensating industry. And references are pointers: machine-local by definition.
 
-**The platform's component model.** The audit invites one escape: that these are framework failures, and the cure is the platform — which has since shipped its own component model. Web Components are the test case. A custom element gives the fused term a tag name; shadow DOM gives it a boundary the document's own selectors cannot cross.
+**The platform's component model.** The audit invites one escape: that these are framework failures, and the cure is the platform, which has since shipped its own component model. Web Components are the test case. A custom element gives the fused term a tag name; shadow DOM gives it a boundary the document's own selectors cannot cross.
 
-Run the scores. The tag denotes nothing until its class executes, so meaning is still the trace (S2). The element's state lives in the class, threaded as before (S1). The shadow tree is an interior hidden *by design*: no URI reaches it, and now no selector either (S4). And no factor boundary appeared, so substitution still means rewriting the class (S3). The standard standardizes the seam *around* the term, not a seam *through* it: a component boundary is not a factor boundary. Moving the component model from framework to platform moves no score — Chapter 1 filed the framework as an implementation detail, and this is the confirming experiment.
+Run the scores. The tag denotes nothing until its class executes, so meaning is still the trace (S2). The element's state lives in the class, threaded as before (S1). The shadow tree is an interior hidden *by design*: no URI reaches it, and now no selector either (S4). And no factor boundary appeared, so substitution still means rewriting the class (S3). The standard standardizes the seam *around* the term, not a seam *through* it: a component boundary is not a factor boundary. Moving the component model from framework to platform moves no score. Chapter 1 filed the framework as an implementation detail, and this is the confirming experiment.
 
 What shadow DOM does standardize has a name the book has not yet used: encapsulation, state hidden behind a boundary on purpose. Chapter 13 files the paradigm that owns the move, and it is not the web's.
 
-The corollary: **the SPA is the un-web** — HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. The corollary adds nothing to the column: rejecting it means rejecting a score, and each score names the property to take it up with. And a prediction, labeled as one: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state (the definition Chapter 20 makes exact), and the paradigm's defining move is hiding state behind `read`. Chapter 14 measures the industry's own retreat from this position; Chapter 22 records what arrived in the meantime.
+The corollary: **the SPA is the un-web**, HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. The corollary adds nothing to the column: rejecting it means rejecting a score, and each score names the property to take it up with. And a prediction, labeled as one: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state (the definition Chapter 20 makes exact), and the paradigm's defining move is hiding state behind `read`. Chapter 14 measures the industry's own retreat from this position; Chapter 22 records what arrived in the meantime.
 
 **Column: SPA/JS.**
 
@@ -865,11 +865,11 @@ The column restates the corollary, cell by cell.
 
 ## Chapter 12. The Applet Returns
 
-WebAssembly — Wasm — as a paradigm treats the browser as a virtual machine and the application as one compiled binary. It is the extreme case of fusion: everything collapsed into one term, zero on all of S1–S4 *by construction*. The format's virtues — any language, compiled, opaque — remove every seam the properties require. There is nothing inside the term for the web's semantics to address, and that is the design.
+WebAssembly (Wasm) as a paradigm treats the browser as a virtual machine and the application as one compiled binary. It is the extreme case of fusion: everything collapsed into one term, zero on all of S1–S4 *by construction*. The format's virtues (any language, compiled, opaque) remove every seam the properties require. There is nothing inside the term for the web's semantics to address, and that is the design.
 
-One step separates this column from the last. Chapter 11's fused term still emitted a DOM — a tree the platform could at least inspect. The paradigm audited here renders into a canvas or a buffer. Chapter 6 classified every framework as a strategy for the graph→tree crossing. This one declines the crossing altogether — no graph, no tree, pixels. The terminal state of fusion.
+One step separates this column from the last. Chapter 11's fused term still emitted a DOM, a tree the platform could at least inspect. The paradigm audited here renders into a canvas or a buffer. Chapter 6 classified every framework as a strategy for the graph→tree crossing. This one declines the crossing altogether: no graph, no tree, pixels. The terminal state of fusion.
 
-History has already run this experiment. Compiled programs delivered through the page, executing in a VM, rendering into a rectangle the web could not see into: the description fits 1996 as well as it fits today. In 1996, its name was Java applets. The web's declarative documents outlived them. The principle of least power — prefer the least powerful language that suffices for the job — was the reason then and is the reason now. The W3C Technical Architecture Group made it a formal finding in 2006: [*The Rule of Least Power*](https://www.w3.org/2001/tag/doc/leastPower.html). The finding is its own document, not, as often assumed, part of AWWW.
+History has already run this experiment. Compiled programs delivered through the page, executing in a VM, rendering into a rectangle the web could not see into: the description fits 1996 as well as it fits today. In 1996, its name was Java applets. The web's declarative documents outlived them. The principle of least power (prefer the least powerful language that suffices for the job) was the reason then and is the reason now. The W3C Technical Architecture Group made it a formal finding in 2006: [*The Rule of Least Power*](https://www.w3.org/2001/tag/doc/leastPower.html). The finding is its own document, not, as often assumed, part of AWWW.
 
 The concession is Wasm as a *leaf*: a codec, a physics kernel, a solver inside one factor of a proper factorization. A leaf is useful and harmless, because computation inside a factor leaves every property intact. The factor's boundary is still a declarative term. The objection is to computation *replacing* the factorization, not to computation itself.
 
@@ -898,29 +898,29 @@ S1 through S4, zero by construction: the terminal state of fusion, scored.
 — Bret Victor, *The Future of Programming*, 2013
 </div>
 
-Four columns of failures have accumulated: two bracket stacks (Chapter 10), the single-page application (Chapter 11), and the applet (Chapter 12). The pattern repeats. The scores cannot say where architectures that fail this way keep coming from. One observation can: they do not come from the web. Relational databases, object orientation, object-relational mappers (ORMs), imperative languages, and MVC (model–view–controller) all predate the web. Each fails the derived requirements at one identifiable seam, and that is *why* each drags a compensating industry behind it at the web boundary. The industries are the measurement: nobody builds a bridge across a gap that isn't there. And the reading is falsifiable: a compensating industry that grows up around a paradigm failing no derived requirement — a market pricing a gap the audit cannot name — would break it.
+Four columns of failures have accumulated: two bracket stacks (Chapter 10), the single-page application (Chapter 11), and the applet (Chapter 12). The pattern repeats. The scores cannot say where architectures that fail this way keep coming from. One observation can: they do not come from the web. Relational databases, object orientation, object-relational mappers (ORMs), imperative languages, and MVC (model–view–controller) all predate the web. Each fails the derived requirements at one identifiable seam, and that is *why* each drags a compensating industry behind it at the web boundary. The industries are the measurement: nobody builds a bridge across a gap that isn't there. And the reading is falsifiable: a compensating industry that grows up around a paradigm failing no derived requirement (a market pricing a gap the audit cannot name) would break it.
 
 <img src="first-principles-figures/spot-ch13-the-bridges.svg" alt="Four tall silos joined by improvised plank bridges, a rope bridge, and a leaning ladder; two silos on a shared foundation stand apart, unbridged" class="fp-spot" width="420" />
 
 ### Relational
 
-The strongest of the pre-web paradigms, and the most instructive. Inside one database the model scores where nothing else pre-web does. Relational algebra is denotational — S2-grade semantics decades before the web. The query/storage separation is genuine S1 discipline. The failure is R3, and it is total: keys are database-scoped, so reference stops at the connection string, and two databases that never coordinated share no name for anything. R2 goes down with it: composition now requires a schema authority. The compensating industry is integration itself: every pair of silos bridged by hand, per pair, forever.
+The strongest of the pre-web paradigms, and the most instructive. Inside one database the model scores where nothing else pre-web does. Relational algebra is denotational, S2-grade semantics decades before the web. The query/storage separation is genuine S1 discipline. The failure is R3, and it is total: keys are database-scoped, so reference stops at the connection string, and two databases that never coordinated share no name for anything. R2 goes down with it: composition now requires a schema authority. The compensating industry is integration itself: every pair of silos bridged by hand, per pair, forever.
 
 ### Object orientation
 
-Encapsulation is the deliberate fusion of state and behavior. That is R1 half-inverted: state exists, but in order to be hidden. Objects are designed neither to merge nor to be referenced from outside their runtime; identity is a pointer. The compensating industries: serialization frameworks and data-transfer-object (DTO) layers — machinery for re-extracting the state the paradigm hid, every time it must travel.
+Encapsulation is the deliberate fusion of state and behavior. That is R1 half-inverted: state exists, but in order to be hidden. Objects are designed neither to merge nor to be referenced from outside their runtime; identity is a pointer. The compensating industries: serialization frameworks and data-transfer-object (DTO) layers, machinery for re-extracting the state the paradigm hid, every time it must travel.
 
 ### ORM
 
-An ORM is a type error between two wrong models: object graphs mapped onto relations, machine-local identity onto database-scoped keys. Each side fails a different requirement — R1 on the object side, R3 on the relational — and the mapping inherits both. The object-relational impedance-mismatch literature is its own measurement.
+An ORM is a type error between two wrong models: object graphs mapped onto relations, machine-local identity onto database-scoped keys. Each side fails a different requirement (R1 on the object side, R3 on the relational) and the mapping inherits both. The object-relational impedance-mismatch literature is its own measurement.
 
 ### Imperative languages
 
-S2 unreachable in principle — Chapter 11's argument at the language level. The compensating machinery is the testing pyramid. When meaning is execution, every claim about meaning must be executed to be checked — semantics recovered empirically, per program, forever.
+S2 unreachable in principle, Chapter 11's argument at the language level. The compensating machinery is the testing pyramid. When meaning is execution, every claim about meaning must be executed to be checked, semantics recovered empirically, per program, forever.
 
 ### MVC
 
-The paradigms above, assembled: a Model without R2 or R3, Views without S2, Controllers fusing what S1 separates. Take it apart and each part has a derived generic replacement. The model gives way to the shape of a fact (5.3), the view to `⟦t⟧` and `⟦s⟧`, and the controller to `read` and `write` themselves — which HTTP had already provided.
+The paradigms above, assembled: a Model without R2 or R3, Views without S2, Controllers fusing what S1 separates. Take it apart and each part has a derived generic replacement. The model gives way to the shape of a fact (5.3), the view to `⟦t⟧` and `⟦s⟧`, and the controller to `read` and `write` themselves, which HTTP had already provided.
 
 | Paradigm | Fails | The compensating industry |
 |---|---|---|
@@ -930,9 +930,9 @@ The paradigms above, assembled: a Model without R2 or R3, Views without S2, Cont
 | Imperative | S2 unreachable in principle | testing pyramids doing the work semantics should |
 | MVC | all of the above, assembled | all of the above, assembled |
 
-These are not outdated because they are old — HTTP is old. They are *pre-web* in the technical sense: their reference, composition, and semantics mechanisms are machine-local, and the web is definitionally the machine-spanning case. The 1960s–70s stack answers "how do I compute inside one machine". The web asks "how do independent parties share state with no coordinator". Theorem 5.4 shows the second question forces a model none of them is.
+These are not outdated because they are old. HTTP is old. They are *pre-web* in the technical sense: their reference, composition, and semantics mechanisms are machine-local, and the web is definitionally the machine-spanning case. The 1960s–70s stack answers "how do I compute inside one machine". The web asks "how do independent parties share state with no coordinator". Theorem 5.4 shows the second question forces a model none of them is.
 
-Two columns cover the five paradigms. OOP and its ORM share one. Imperative's audit is a single cell — S2, unreachable in principle. MVC's column would be the others, assembled.
+Two columns cover the five paradigms. OOP and its ORM share one. Imperative's audit is a single cell, S2, unreachable in principle. MVC's column would be the others, assembled.
 
 | | Relational | OOP/ORM |
 |---|---|---|
@@ -944,7 +944,7 @@ Two columns cover the five paradigms. OOP and its ORM share one. Imperative's au
 | S3 | ~ — within one vendor's dialect | ~ — behind interfaces, within one runtime |
 | S4 | ✗ — no value addressable from outside | ✗ |
 
-Read the relational column twice: the highest pre-web score in the book, failing on exactly the machine-spanning properties. The diagnosis follows the scores — a correct answer to the single-machine question, put to the machine-spanning one. The scores are settled; the industry is not. It has spent a decade paying these costs; what it did in response is the next chapter.
+Read the relational column twice: the highest pre-web score in the book, failing on exactly the machine-spanning properties. The diagnosis follows the scores: a correct answer to the single-machine question, put to the machine-spanning one. The scores are settled; the industry is not. It has spent a decade paying these costs; what it did in response is the next chapter.
 
 ## Chapter 14. The Convergence
 
@@ -954,10 +954,10 @@ The evidence chapter. The JavaScript ecosystem had no exposure to any derivation
 - **Hydration.** Chapter 11's S1 tax, given its industry name. An industry term for a category error.
 - **Islands.** The principle of least power, rederived from the costs: most of the page needs no program, so most of the page stops being one.
 - **React Server Components.** RSC pulls `select` back out of the fused term, ten years after fusion. But its wire format is a bespoke, non-addressable serialization of exactly the intermediate value S4 says should have a URI. The factor returned; its resource did not.
-- **GraphQL.** Declarative queries over a graph model, returning projections — `select` and R1, rebuilt without global identifiers. So it stops at the silo wall, exactly where the missing R3 predicts: federation works within one organization and no further. Its column is below.
+- **GraphQL.** Declarative queries over a graph model, returning projections, `select` and R1, rebuilt without global identifiers. So it stops at the silo wall, exactly where the missing R3 predicts: federation works within one organization and no further. Its column is below.
 - **HTMX and the hypermedia revival.** The same convergence arriving from the opposite shore: documents, links, and forms argued back into fashion on their original merits. Forms are Chapter 7's instrument.
 
-The framing is convergent evolution: independent lineages, under the same pressure, arrive at the same design — and the match is explained by the pressure, not by chance. The lineages had contact with nothing but the costs, and the costs are the derivation's predictions.
+The framing is convergent evolution: independent lineages, under the same pressure, arrive at the same design, and the match is explained by the pressure, not by chance. The lineages had contact with nothing but the costs, and the costs are the derivation's predictions.
 
 ```mermaid
 %%| column: page-right
@@ -997,7 +997,7 @@ timeline
 
 *R1, R2, S3: unchanged from Chapter 11's column.*
 
-One closing observation: the convergence recovers S1 and S2 — to a tilde, not a check. But it stalls before R3 and S4, the two properties that make it *the web* rather than an app platform that happens to use browsers. The stall has a reason: the last stretch helps everyone except the vendor walking it. The properties that privately reward the vendor return first; the properties that reward the public wait. Asymptotic, incomplete, and in the predicted order.
+One closing observation: the convergence recovers S1 and S2, to a tilde, not a check. But it stalls before R3 and S4, the two properties that make it *the web* rather than an app platform that happens to use browsers. The stall has a reason: the last stretch helps everyone except the vendor walking it. The properties that privately reward the vendor return first; the properties that reward the public wait. Asymptotic, incomplete, and in the predicted order.
 
 <img src="first-principles-figures/spot-ch14-the-convergence.svg" alt="A dashed path leaving the front door of a house, wandering past hills, mountains, and a lake, and stopping just short of the door beside it" class="fp-spot" width="420" />
 
@@ -1007,11 +1007,11 @@ Five chapters have scored seven columns between them, and every column holds a f
 
 When Chapter 11 scored the SPA, the scores were assessments — argued in prose, each naming the property it rested on, so a dispute had an address. The cells below assert nothing new: R2's check is the union law (5.1), proved before the stack had a name; S2's is Theorem 8.2, proved before this part began. The part's opening rule is that a score is rejected only by striking a row. That rule reaches its hardest case here: striking any of the column's rows means refuting a proved result, and each cell names which one.
 
-The three R-cells are the derivation itself, taken in the order the propositions arrived. R2 is the union law (5.1): merge is set union — total, order-free, idempotent, the only composition the coordination-free laws leave. R3 is (5.3): the first two positions of every fact lie in `I`, so reference is global by type rather than by discipline. R1 is Proposition 5.2 with Theorem 5.4: triples encode any domain, and any arity-minimal model satisfying all three requirements is this one up to isomorphism. Chapter 5 argued the requirements against the reader's alternatives, not against the stack's competitors; the stack inherits the checks because Chapter 8 proved it is the model, renamed.
+The three R-cells are the derivation itself, taken in the order the propositions arrived. R2 is the union law (5.1): merge is set union, total, order-free, idempotent, the only composition the coordination-free laws leave. R3 is (5.3): the first two positions of every fact lie in `I`, so reference is global by type rather than by discipline. R1 is Proposition 5.2 with Theorem 5.4: triples encode any domain, and any arity-minimal model satisfying all three requirements is this one up to isomorphism. Chapter 5 argued the requirements against the reader's alternatives, not against the stack's competitors; the stack inherits the checks because Chapter 8 proved it is the model, renamed.
 
-The four S-cells draw on the two halves of Part III's meeting point. From the analysis half, S1: it holds by construction of the factorization (4.3). From the synthesis half, S2 and S3: each factor denotes a term in a language with closed, cited semantics — SPARQL's algebra, XSLT-over-canon, CSS — and terms with closed semantics substitute per factor (8.3). S4 draws on both halves: the factorization requires every stage value to be addressable (4.3), and the stack delivers it by construction — the graph, the query result, and the document each dereference (8.3). One honest asterisk carries over with the theorem: the completeness class for `arrange` excludes smuggling — a transform qualifies only if it is generic, invariant under URI renaming (B.8). The S2 and S3 checks are checks on that class, not on arbitrary code.
+The four S-cells draw on the two halves of Part III's meeting point. From the analysis half, S1: it holds by construction of the factorization (4.3). From the synthesis half, S2 and S3: each factor denotes a term in a language with closed, cited semantics (SPARQL's algebra, XSLT-over-canon, CSS) and terms with closed semantics substitute per factor (8.3). S4 draws on both halves: the factorization requires every stage value to be addressable (4.3), and the stack delivers it by construction, the graph, the query result, and the document each dereference (8.3). One honest asterisk carries over with the theorem: the completeness class for `arrange` excludes smuggling, a transform qualifies only if it is generic, invariant under URI renaming (B.8). The S2 and S3 checks are checks on that class, not on arbitrary code.
 
-What would make the column suspect is not who scored it but what the scoring left out, and Chapter 9 already filed the omissions. Four mismatches, then: where do they land on the rows? The two that belong to the model land nearest. Blank nodes graze R2: idempotence holds up to logical equivalence rather than syntactic identity, priced exactly (Prop. 9.1). The row holds over ground facts on the nose, and the composition laws survive. The fourth position adds a requirement rather than striking one: the web demands R4 — attribution — and the column meets it as quads, merge still union (Prop. 9.2). R4 is not a row below because no column in this part was scored on it; it is Chapter 9's addition, and the quad model carries it.
+What would make the column suspect is not who scored it but what the scoring left out, and Chapter 9 already filed the omissions. Four mismatches, then: where do they land on the rows? The two that belong to the model land nearest. Blank nodes graze R2: idempotence holds up to logical equivalence rather than syntactic identity, priced exactly (Prop. 9.1). The row holds over ground facts on the nose, and the composition laws survive. The fourth position adds a requirement rather than striking one: the web demands R4 (attribution) and the column meets it as quads, merge still union (Prop. 9.2). R4 is not a row below because no column in this part was scored on it; it is Chapter 9's addition, and the quad model carries it.
 
 The two that belong to the platform strike no row, because no row scores maintenance. The abandoned seam and the write-side last mile are deployment failures, and deployment failure is what this part has priced in every other column's compensating industry. The pricing is symmetric: no other column's row was struck for deployment either, because the industries corroborated failures the rows had already scored. The stack's own deployment bill is itemized in Chapter 9, mismatches three and four. The mismatches do not soften the column. They are why it can be trusted: Chapter 9 filed all four in the open before this audit began, and every cell below cites a result that carries its own caveats with it.
 
@@ -1045,11 +1045,11 @@ Every audit in this part ended the same way: a column. This chapter assembles th
 
 Notes, one per line where a cell needs it.
 
-- XML's R3 and S4 are `~` for namespaces, `xml:id`, and fragment addressing — standardized slivers of the properties, largely unused (Ch 10).
+- XML's R3 and S4 are `~` for namespaces, `xml:id`, and fragment addressing, standardized slivers of the properties, largely unused (Ch 10).
 - GraphQL's S2 is `~` for a specified but prose-defined semantics. Its S1 is `~` because `select` is genuinely separated, but behind one endpoint. That one endpoint is where S4 fails.
 - SPA/JS is scored as Chapter 11 audited it, at its 2013 consolidated form. Chapter 14 revises S1 and S2 to `~` as of 2026 and leaves the rest unchanged. That revision is Chapter 14's finding, so the column keeps its 2013 values here. The 2026 deltas live in Chapter 14's table.
 
-Read the table by row rather than by column — property by property instead of paradigm by paradigm — and the audit's finding shows its shape. R2 fails in every column but one: composition without coordination is the property nobody else has, and it is what the "world wide" in the name promises. R2, R3, and S4 — the machine-spanning properties — fail or fall partial in every column but one. R3 and S4 are the two that, as Chapter 14 put it, make an architecture the web rather than an app platform that happens to use browsers. Chapter 13 found the highest pre-web score failing exactly the machine-spanning three; Chapter 14 found the convergence stalled before R3 and S4, the two still ahead. And the S-row failures kept appearing in this part twice: once as a score, once as a compensating industry. The industry is the bridge built across the gap the row names, at the boundary where a paradigm meets the web. The industries are the measurement; the table is the ledger.
+Read the table by row rather than by column (property by property instead of paradigm by paradigm) and the audit's finding shows its shape. R2 fails in every column but one: composition without coordination is the property nobody else has, and it is what the "world wide" in the name promises. R2, R3, and S4 (the machine-spanning properties) fail or fall partial in every column but one. R3 and S4 are the two that, as Chapter 14 put it, make an architecture the web rather than an app platform that happens to use browsers. Chapter 13 found the highest pre-web score failing exactly the machine-spanning three; Chapter 14 found the convergence stalled before R3 and S4, the two still ahead. And the S-row failures kept appearing in this part twice: once as a score, once as a compensating industry. The industry is the bridge built across the gap the row names, at the boundary where a paradigm meets the web. The industries are the measurement; the table is the ledger.
 
 One column has no failures, and Part II proved that shape was forced: that is the book, in one exhibit. Part V builds with it.
 
