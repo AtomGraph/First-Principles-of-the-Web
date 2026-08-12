@@ -40,8 +40,15 @@ def front_matter(description):
 
 text = SOURCE.read_text(encoding="utf-8")
 
-# Quarto renders mermaid only in executable-style fences
-text = text.replace("```mermaid", "```{mermaid}")
+# Mermaid diagrams are pre-rendered to committed SVGs (render-mermaid.py) so CI
+# needs no headless browser, the diagrams are identical across formats, and the
+# output avoids Quarto's malformed mermaid figure in EPUB. Replace each
+# ```mermaid block with its SVG image, in source order.
+_mm_n = [0]
+def _mermaid_svg(m):
+    _mm_n[0] += 1
+    return f"![](first-principles-figures/mermaid-{_mm_n[0]:02d}.svg){{.fp-diagram}}"
+text = re.sub(r"```mermaid.*?```", _mermaid_svg, text, flags=re.S)
 
 # Inject the pre-generated static fallbacks (fallbacks.cjs) into the exhibit
 # stubs, wrapped in a raw-HTML block so pandoc passes the markup through
@@ -474,11 +481,13 @@ if status:
     write("status.qmd", "Draft status", status, description=SEO.get("status"))
     yml_chapters.append("    - status.qmd")
 
-yml = """project:
+yml = """lang: en
+project:
   type: book
   resources:
     - exhibits.js
     - exhibits.css
+    - epub.css
     - "first-principles-figures/*.svg"
     - "first-principles-figures/*.png"
     - googleba0fe49aa3922677.html
@@ -493,6 +502,7 @@ book:
       url: "https://atomgraph.com"
   repo-url: https://github.com/AtomGraph/First-Principles-of-the-Web
   repo-actions: [issue]
+  downloads: [epub]
   site-url: https://firstprinciplesoftheweb.org/
   favicon: first-principles-figures/favicon.svg
   open-graph: true
@@ -514,6 +524,10 @@ format:
       text: |
         <link rel="stylesheet" href="exhibits.css">
         <script defer src="exhibits.js"></script>
+  epub:
+    toc: true
+    number-sections: false
+    css: epub.css
 """
 (ROOT / "_quarto.yml").write_text(yml, encoding="utf-8")
 
