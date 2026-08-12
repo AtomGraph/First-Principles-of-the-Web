@@ -226,9 +226,10 @@ def add_anchors(text):
         elif m3:
             line = m3.group("pre") + "[]{#%s}" % m3.group("cond").lower() + line[len(m3.group("pre")):]
         elif re.match(r"^## B\.\d+ ", line):
-            # section ids keep the label's own spelling: B.1 → #b.1 (the
-            # condition B-1 → #b-1 would otherwise collide)
-            line = line + " {#b.%s}" % re.match(r"^## B\.(\d+)", line).group(1)
+            # section ids: B.1 → #b-sec-1. Dotless (dots in a fragment break
+            # navigation in EPUB readers that resolve #frag as a CSS selector),
+            # and distinct from the condition anchors B-1 → #b-1.
+            line = line + " {#b-sec-%s}" % re.match(r"^## B\.(\d+)", line).group(1)
         out.append(line)
         i += 1
     return "\n".join(out)
@@ -247,26 +248,34 @@ XREF = re.compile(
     r"|Part (?P<part>[IVX]+)\b"
 )
 
+def _anchored(page):
+    # Quarto's EPUB writer rewrites .qmd links only when they carry a #fragment;
+    # a fragment-less chapter/part/appendix ref stays a dead .qmd in the EPUB.
+    # Point it at the page's own clean heading id (added by write()) so it
+    # rewrites — the clean id also avoids the dotted auto-ids some readers can't
+    # navigate to.
+    return page + "#" + page[:-5] if page else page
+
 def _xref_target(m):
     if m.group("pch"):
         key = m.group("pch") + "." + m.group("psub")
         if key in res_page:
             p, f = res_page[key]
             return f"{p}#{f}"
-        return ch_page.get(int(m.group("pch")))
+        return _anchored(ch_page.get(int(m.group("pch"))))
     if m.group("eqn"):
         if m.group("eqn") in eq_page:
             p, f = eq_page[m.group("eqn")]
             return f"{p}#{f}"
-        return ch_page.get(int(m.group("eqn").split(".")[0]))
+        return _anchored(ch_page.get(int(m.group("eqn").split(".")[0])))
     if m.group("lemc"):
         if m.group("lemc") in res_page:
             p, f = res_page[m.group("lemc")]
             return f"{p}#{f}"
-        return app_page.get("B")
+        return _anchored(app_page.get("B"))
     if m.group("appcn") or m.group("csecn"):
         ap = app_page.get("B")
-        return f"{ap}#b.{m.group('appcn') or m.group('csecn')}" if ap else None
+        return f"{ap}#b-sec-{m.group('appcn') or m.group('csecn')}" if ap else None
     if m.group("ccondn"):
         # each condition has its own anchor on its defining bullet;
         # a range like B-2a–d points at the first of the range
@@ -274,11 +283,11 @@ def _xref_target(m):
         return f"{ap}#b-{m.group('ccondn')}" if ap else None
     for g in ("ch", "chshort"):
         if m.group(g):
-            return ch_page.get(int(m.group(g)))
+            return _anchored(ch_page.get(int(m.group(g))))
     if m.group("app"):
-        return app_page.get(m.group("app"))
+        return _anchored(app_page.get(m.group("app")))
     if m.group("part"):
-        return part_page.get(m.group("part"))
+        return _anchored(part_page.get(m.group("part")))
     return None
 
 def _xref_link(label, target):
@@ -301,8 +310,8 @@ def linkify(text, current=None):
     def repl(m):
         if m.group("chlist"):
             def one(nm):
-                t = ch_page.get(int(nm.group(0)))
-                if not t or t == current:
+                t = _anchored(ch_page.get(int(nm.group(0))))
+                if not t or t.partition("#")[0] == current:
                     return nm.group(0)
                 return _xref_link(nm.group(0), t)
             return "Chapters " + re.sub(r"\d+", one, m.group("chlist"))
@@ -310,7 +319,7 @@ def linkify(text, current=None):
         if not target:
             return m.group(0)
         page, _, frag = target.partition("#")
-        if page == current and not frag:
+        if page == current and (not frag or frag == page[:-5]):
             return m.group(0)
         if frag and frag == own_id[0]:
             return m.group(0)
@@ -357,7 +366,8 @@ def write(name, title, body, tail="", description=None, jsonld=None):
     if jsonld:
         # JSON-LD as body-level raw HTML, passed through like the tail above
         text += "\n\n" + jsonld_script(jsonld)
-    content = front_matter(description) + f"# {title}\n\n" + text + "\n"
+    anchor = name.rsplit(".", 1)[0]
+    content = front_matter(description) + f"# {title} {{#{anchor}}}\n\n" + text + "\n"
     (ROOT / name).write_text(content, encoding="utf-8")
     return name
 
