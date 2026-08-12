@@ -23,3 +23,29 @@ figcaption {
 /* video poster fallbacks (see render pipeline) */
 figure.fp-video img { margin: 0 auto; }
 figure.fp-video figcaption { font-style: normal; }
+
+/* Exhibit static fallbacks. exhibits.css is HTML-only, so the injected fallback
+   is otherwise unstyled in EPUB — labels run together and pre blocks get the
+   reader's default grey box. Mirror a curated subset with literal colors so the
+   fallback lays out like the online widget. */
+.fp-exhibit { font-size: 0.92rem; margin: 1.4em 0; }
+.fp-exhibit .fp-cols { margin: 0.8em 0; }
+.fp-exhibit .fp-panel { border: 1px solid #d8dce1; border-radius: 5px; margin: 0.8em 0; overflow: hidden; }
+.fp-exhibit .fp-head { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #5a6270; padding: 0.45em 0.7em; border-bottom: 1px solid #d8dce1; }
+.fp-exhibit .fp-head code, .fp-exhibit .fp-note code { text-transform: none; }
+.fp-exhibit .fp-body { padding: 0.55em 0.75em; }
+.fp-exhibit .fp-note { display: block; font-size: 0.84rem; color: #5a6270; margin: 0.5em 0; }
+.fp-exhibit .fp-controls { margin: 0.7em 0; }
+.fp-exhibit pre.fp-out { font-family: monospace; font-size: 0.82rem; line-height: 1.6; margin: 0;
+  padding: 0.55em 0.75em; background: transparent; border: 0; white-space: pre-wrap; }
+.fp-exhibit .fp-tok-name { color: #005a9c; }
+.fp-exhibit .fp-tok-lit { color: #2e7d4f; }
+.fp-exhibit .fp-tok-var { font-style: italic; }
+.fp-exhibit .fp-tok-kw { color: #5a6270; }
+.fp-exhibit .fp-rendered { padding: 0.7em 0.9em; }
+.fp-exhibit .fp-rendered .fp-card { margin: 0 0 0.7em; }
+.fp-exhibit .fp-rendered h3 { font-size: 1rem; margin: 0 0 0.15em; }
+.fp-exhibit table.fp-res { border-collapse: collapse; font-family: monospace; font-size: 0.82rem; }
+.fp-exhibit table.fp-res th, .fp-exhibit table.fp-res td { padding: 0.2em 1em 0.2em 0;
+  border-bottom: 1px solid #d8dce1; text-align: left; }

@@ -1,4 +1,4 @@
-<span class="fp-note">two datasets — the domain travels in the state</span><div class="fp-cols"><div class="fp-panel"><div class="fp-head"><span>state — the domain lives here</span></div><pre class="fp-out fp-static">panel-14 type Panel
+<div class="fp-controls"><span class="fp-note">two datasets — the domain travels in the <code>State</code></span></div><div class="fp-cols"><div class="fp-panel"><div class="fp-head"><span><code>State</code> — the domain lives here</span></div><pre class="fp-out fp-static">panel-14 type Panel
 panel-14 title "Current Power"
 panel-14 value "15.5 kW"
 panel-14 partOf overview
@@ -10,9 +10,9 @@ panel-3 type Panel
 panel-3 title "Grid Frequency"
 panel-3 value "49.98 Hz"
 panel-3 partOf archive
-farm name "Anholt Offshore"</pre></div><div class="fp-panel"><div class="fp-head"><span>select — the window</span><span class="fp-btns"></span></div><pre class="fp-out fp-static">?p partOf overview
+farm name "Anholt Offshore"</pre></div><div class="fp-panel"><div class="fp-head"><span><code>select</code> — the window</span></div><pre class="fp-out fp-static">?p partOf overview
 ?p title ?t
-?p value ?v</pre></div></div><div class="fp-panel"><div class="fp-head"><span>canon(Data) — the canonical serialization</span></div><pre class="fp-out fp-canon"><span class="fp-tok-kw">@prefix d: &lt;https://wind.example/farm#&gt; .
+?p value ?v</pre></div></div><div class="fp-panel"><div class="fp-head"><span><code>canon(Data)</code> — the canonical serialization</span></div><pre class="fp-out fp-canon"><span class="fp-tok-kw">@prefix d: &lt;https://wind.example/farm#&gt; .
 @prefix w: &lt;https://wind.example/vocab#&gt; .</span>
 
 <span class="fp-tok-name">d:panel-14</span>
@@ -23,4 +23,4 @@ farm name "Anholt Offshore"</pre></div><div class="fp-panel"><div class="fp-head
 <span class="fp-tok-name">d:panel-7</span>
     <span class="fp-tok-name">w:partOf</span> <span class="fp-tok-name">d:overview</span> ;
     <span class="fp-tok-name">w:title</span> <span class="fp-tok-lit">"Wind Speed"</span> ;
-    <span class="fp-tok-name">w:value</span> <span class="fp-tok-lit">"8.2 m/s"</span> .</pre></div><span class="fp-note">arrange — the term t:</span><span class="fp-note">present — the stylesheet:</span><div class="fp-panel"><div class="fp-head"><span class="fp-r-head">read(r, S) — the document</span></div><div class="fp-render fp-theme-console"><div class="fp-rendered fp-target"><div><div class="fp-card"><h3>Current Power</h3><dl><dt>partOf</dt><dd>overview</dd><dt>value</dt><dd>15.5 kW</dd></dl></div><div class="fp-card"><h3>Wind Speed</h3><dl><dt>partOf</dt><dd>overview</dd><dt>value</dt><dd>8.2 m/s</dd></dl></div></div></div></div></div><div class="fp-note">swap any factor — data, selection, term, stylesheet — and the others hold still.</div>
+    <span class="fp-tok-name">w:value</span> <span class="fp-tok-lit">"8.2 m/s"</span> .</pre></div><div class="fp-controls"><span class="fp-note"><code>arrange</code> — the term <code>t</code>: t₁ · cards</span><span class="fp-note"><code>present</code> — the stylesheet: console</span></div><div class="fp-panel"><div class="fp-head"><span class="fp-r-head"><code>read(r, S)</code> — the document</span></div><div class="fp-render fp-theme-console"><div class="fp-rendered fp-target"><div><div class="fp-card"><h3>Current Power</h3><dl><dt>partOf</dt><dd>overview</dd><dt>value</dt><dd>15.5 kW</dd></dl></div><div class="fp-card"><h3>Wind Speed</h3><dl><dt>partOf</dt><dd>overview</dd><dt>value</dt><dd>8.2 m/s</dd></dl></div></div></div></div></div><div class="fp-note">swap any factor — data, selection, term, stylesheet — and the others hold still.</div>

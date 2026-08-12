@@ -23,14 +23,33 @@ const STRIP_LABELS = ["the page, as shipped", "− style off", "− arrangement 
 /* Option A cleaning: drop the interactive-only chrome (control bars, buttons),
  * render textareas as static <pre> of their seed facts, keep the data panels. */
 function clean(d, root, type) {
-  // salvage explanatory notes out of the control bars before dropping them
-  // (strip is handled separately, with a label per stage)
-  if (type !== "strip") {
-    root.querySelectorAll(".fp-controls").forEach(function (c) {
-      c.querySelectorAll(".fp-note").forEach(function (n) { c.parentNode.insertBefore(n, c); });
-    });
-  }
-  root.querySelectorAll(".fp-controls, button").forEach(function (el) { el.remove(); });
+  // Segmented toggles become static: append the selected option to a preceding
+  // label note (truthful to the config on display), or drop the toggle when a
+  // following note already names the selection.
+  root.querySelectorAll(".fp-seg").forEach(function (seg) {
+    var prev = seg.previousElementSibling, next = seg.nextElementSibling;
+    var checked = seg.querySelector("input:checked");
+    var val = checked && checked.nextElementSibling ? checked.nextElementSibling.textContent.trim() : "";
+    if (prev && prev.classList.contains("fp-note") && val) {
+      prev.appendChild(d.createTextNode(" " + val));
+      seg.remove();
+    } else if (next && next.classList.contains("fp-note")) {
+      seg.remove();
+    } else if (val) {
+      var s = d.createElement("span");
+      s.className = "fp-seg-static";
+      s.textContent = val;
+      seg.parentNode.replaceChild(s, seg);
+    } else {
+      seg.remove();
+    }
+  });
+
+  // drop action buttons + their shells, and any now-empty control bar
+  root.querySelectorAll("button, .fp-btns").forEach(function (el) { el.remove(); });
+  root.querySelectorAll(".fp-controls").forEach(function (c) {
+    if (!c.textContent.trim()) c.remove();
+  });
 
   root.querySelectorAll("textarea").forEach(function (ta) {
     var pre = d.createElement("pre");
@@ -43,6 +62,8 @@ function clean(d, root, type) {
   root.querySelectorAll("[hidden]").forEach(function (el) { el.removeAttribute("hidden"); });
 
   if (type === "strip") {
+    // the strip's control bar was the 4-stage selector; drop it and label each stage
+    root.querySelectorAll(".fp-controls").forEach(function (c) { c.remove(); });
     var head = root.querySelector(".fp-panel > .fp-head");
     if (head) head.remove();
     for (var i = 0; i < 4; i++) {
