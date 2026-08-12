@@ -1,0 +1,25 @@
+/* EPUB-only styles. The site's editorial.scss is not loaded here, so images
+   default to left-aligned; center all illustrations and their captions. */
+
+img, svg {
+  display: block;
+  margin: 1em auto;
+  max-width: 100%;
+  height: auto;
+}
+
+figure {
+  margin: 1.2em auto;
+  text-align: center;
+}
+
+figcaption {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+  margin-top: 0.4em;
+}
+
+/* video poster fallbacks (see render pipeline) */
+figure.fp-video img { margin: 0 auto; }
+figure.fp-video figcaption { font-style: normal; }

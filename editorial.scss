@@ -155,3 +155,10 @@ nav.fp-part-toc a span {
   color: #5a6270; white-space: nowrap;
 }
 nav.fp-part-toc a:hover { color: #005a9c; }
+
+// Pre-rendered mermaid diagrams (were client-side, centered; keep them centered).
+.fp-diagram {
+  display: block;
+  margin: 1.75rem auto;
+  max-width: 100%;
+}

@@ -1,0 +1,13 @@
+{
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#e3eef7",
+    "primaryBorderColor": "#005a9c",
+    "primaryTextColor": "#1b1e22",
+    "lineColor": "#5a6270",
+    "edgeLabelBackground": "#fffdf9",
+    "clusterBkg": "#f4f1e9",
+    "clusterBorder": "#d9d3c5",
+    "fontFamily": "Georgia, 'Times New Roman', serif"
+  }
+}
