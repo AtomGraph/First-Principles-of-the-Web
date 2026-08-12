@@ -409,9 +409,9 @@
       '<textarea class="fp-b" spellcheck="false" aria-label="Party B facts"></textarea></div>' +
       "</div>" +
       '<div class="fp-note fp-count"></div>' +
-      '<div class="fp-panel"><div class="fp-head"><span>A ∪ B — one state; no coordinator was consulted</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span>A ∪ B — one <code>State</code>; no coordinator was consulted</span></div>' +
       '<pre class="fp-out fp-merged"></pre></div>' +
-      '<div class="fp-panel"><div class="fp-head"><span>the same state, as the graph it is</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span>the same <code>State</code>, as the graph it is</span></div>' +
       '<div class="fp-body fp-graph-box"></div></div>';
     q(root, ".fp-a").value = SEED.A;
     q(root, ".fp-b").value = SEED.B;
@@ -453,14 +453,14 @@
   function wSelect(root) {
     root.innerHTML =
       '<div class="fp-cols">' +
-      '<div class="fp-panel"><div class="fp-head"><span>pattern — ?x binds</span>' +
+      '<div class="fp-panel"><div class="fp-head"><span>pattern — <code>?x</code> binds</span>' +
       '<span class="fp-btns"><button type="button" class="fp-q1">panels &amp; values</button>' +
       '<button type="button" class="fp-q2">cross-party join</button></span></div>' +
       '<textarea class="fp-q fp-short" spellcheck="false" aria-label="Pattern"></textarea></div>' +
       '<div class="fp-panel"><div class="fp-head"><span class="fp-sols-head">solutions</span></div>' +
       '<div class="fp-body fp-sols"></div></div>' +
       "</div>" +
-      '<div class="fp-panel"><div class="fp-head"><span>Data — the sub-state the solutions touched</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>Data</code> — the sub-state the solutions touched</span></div>' +
       '<pre class="fp-out fp-window"></pre></div>';
     q(root, ".fp-q").value = SEED.Q1;
     function facts() { return shared.merged || mergedSeed(); }
@@ -509,10 +509,10 @@
       '<div class="fp-panel"><div class="fp-head"><span>facts, in arrival order</span>' +
       '<span class="fp-btns"><button type="button" class="fp-shuffle">shuffle</button></span></div>' +
       '<textarea class="fp-in" spellcheck="false" aria-label="Facts"></textarea></div>' +
-      '<div class="fp-panel"><div class="fp-head"><span>canon — one block per entity, sorted, no nesting</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>canon</code> — one block per entity, sorted, no nesting</span></div>' +
       '<pre class="fp-out fp-canon"></pre></div>' +
       "</div>" +
-      '<div class="fp-note fp-c-note">canon is a function of the atoms alone — not of their order, grouping, or provenance.</div>';
+      '<div class="fp-note fp-c-note"><code>canon</code> is a function of the atoms alone — not of their order, grouping, or provenance.</div>';
     var seedText = mergedSeed().map(function (f) { return f.s + " " + f.p + " " + f.o; }).join("\n");
     q(root, ".fp-in").value = seedText;
     var shuffles = 0, last = "";
@@ -541,12 +541,12 @@
 
   function wDelta(root) {
     root.innerHTML =
-      '<div class="fp-panel"><div class="fp-head"><span class="fp-s-head">S — the state</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span class="fp-s-head"><code>S</code> — the <code>State</code></span></div>' +
       '<pre class="fp-out fp-s"></pre></div>' +
       '<div class="fp-cols">' +
-      '<div class="fp-panel"><div class="fp-head"><span>D⁻ — the facts removed</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>D⁻</code> — the facts removed</span></div>' +
       '<textarea class="fp-dm fp-short" spellcheck="false" aria-label="Facts removed"></textarea></div>' +
-      '<div class="fp-panel"><div class="fp-head"><span>D⁺ — the facts added</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>D⁺</code> — the facts added</span></div>' +
       '<textarea class="fp-dp fp-short" spellcheck="false" aria-label="Facts added"></textarea></div>' +
       "</div>" +
       '<div class="fp-controls"><button type="button" class="fp-apply">apply: (S ∖ D⁻) ∪ D⁺</button>' +
@@ -556,8 +556,8 @@
     q(root, ".fp-dm").value = SEED.DMINUS;
     q(root, ".fp-dp").value = SEED.DPLUS;
     function render(marks) {
-      q(root, ".fp-s-head").textContent = gen === 0 ? "S — the state" :
-        "S" + "′".repeat(Math.min(gen, 4)) + " — the state, after " + gen +
+      q(root, ".fp-s-head").innerHTML = gen === 0 ? "<code>S</code> — the <code>State</code>" :
+        "<code>S" + "′".repeat(Math.min(gen, 4)) + "</code> — the <code>State</code>, after " + gen +
         " delta" + (gen > 1 ? "s" : "");
       q(root, ".fp-s").innerHTML = stateHTML(S, "derived", marks || {});
     }
@@ -606,11 +606,11 @@
     var PATCH_M = 'panel-14 value "15.5 kW"';
     var PATCH_P = 'panel-14 value "16.1 kW"';
     var NOTES = {
-      GET: "GET reads. It returns S and writes nothing — D⁻ = D⁺ = ∅.",
-      POST: "POST fixes D⁻ = ∅ — additions only, a merge into the graph.",
-      PUT: "PUT fixes D⁻ = S(u) — the whole graph out, D⁺ in. Replace, creating it if absent.",
-      DELETE: "DELETE fixes D⁻ = S(u), D⁺ = ∅ — the graph removed.",
-      PATCH: "PATCH — any D⁻, D⁺. The general write; the other three are it at a fixed delta."
+      GET: "GET reads. It returns <code>S</code> and writes nothing — <code>D⁻</code> = <code>D⁺</code> = ∅.",
+      POST: "POST fixes <code>D⁻</code> = ∅ — additions only, a <code>merge</code> into the graph.",
+      PUT: "PUT fixes <code>D⁻</code> = <code>S(u)</code> — the whole graph out, <code>D⁺</code> in. Replace, creating it if absent.",
+      DELETE: "DELETE fixes <code>D⁻</code> = <code>S(u)</code>, <code>D⁺</code> = ∅ — the graph removed.",
+      PATCH: "PATCH — any <code>D⁻</code>, <code>D⁺</code>. The general <code>write</code>; the other three are it at a fixed delta."
     };
 
     root.innerHTML =
@@ -623,9 +623,9 @@
       '<div class="fp-panel"><div class="fp-head"><span class="fp-s-head"></span></div>' +
       '<pre class="fp-out fp-s"></pre></div>' +
       '<div class="fp-cols">' +
-      '<div class="fp-panel"><div class="fp-head"><span>D⁻ — removed</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>D⁻</code> — removed</span></div>' +
       '<textarea class="fp-dm fp-short" spellcheck="false" aria-label="Facts removed"></textarea></div>' +
-      '<div class="fp-panel"><div class="fp-head"><span>D⁺ — added</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>D⁺</code> — added</span></div>' +
       '<textarea class="fp-dp fp-short" spellcheck="false" aria-label="Facts added"></textarea></div>' +
       "</div>" +
       '<div class="fp-controls"><button type="button" class="fp-apply">apply: (S ∖ D⁻) ∪ D⁺</button>' +
@@ -648,12 +648,12 @@
       else if (m === "DELETE") { dm.value = serialize(S); dm.readOnly = true; dp.value = ""; dp.readOnly = true; }
       else { dm.value = PATCH_M; dp.value = PATCH_P; }
       apply.disabled = (m === "GET");
-      q(root, ".fp-m-note").textContent = NOTES[m];
+      q(root, ".fp-m-note").innerHTML = NOTES[m];
     }
 
     function renderS(marks) {
       q(root, ".fp-s-head").innerHTML =
-        (gen === 0 ? "S" : "S" + "′".repeat(Math.min(gen, 4))) + " — the graph …/panel-14";
+        (gen === 0 ? "<code>S</code>" : "<code>S" + "′".repeat(Math.min(gen, 4)) + "</code>") + " — the graph …/panel-14";
       q(root, ".fp-s").innerHTML = S.length
         ? stateHTML(S, "derived", marks || {})
         : '<span class="fp-tok-kw">∅ — the graph is gone</span>';
@@ -682,7 +682,7 @@
     var id = "fps" + (++uid);
     var facts = parseFacts(SEED.DELTA_S);
     var HEADS = {
-      derived: ["State = 𝒫(Fact) — (5.3)", "the selection algebra — pattern, join, project", "the delta — (7.1)"],
+      derived: ["<code>State</code> = 𝒫(Fact) — (5.3)", "the selection algebra — pattern, join, project", "the delta — (7.1)"],
       shipped: ["an RDF graph — Turtle", "SPARQL", "SPARQL Update"]
     };
     var SELECTION = {
@@ -711,9 +711,9 @@
       "</div>";
     function render() {
       var skin = segValue(root, id) || "derived";
-      q(root, ".fp-h1").textContent = HEADS[skin][0];
-      q(root, ".fp-h2").textContent = HEADS[skin][1];
-      q(root, ".fp-h3").textContent = HEADS[skin][2];
+      q(root, ".fp-h1").innerHTML = HEADS[skin][0];
+      q(root, ".fp-h2").innerHTML = HEADS[skin][1];
+      q(root, ".fp-h3").innerHTML = HEADS[skin][2];
       q(root, ".fp-p1").innerHTML = stateHTML(facts, skin);
       q(root, ".fp-p2").textContent = "";
       q(root, ".fp-p2").innerHTML = skin === "derived"
@@ -742,23 +742,23 @@
     root.innerHTML =
       '<div class="fp-controls">' +
       seg(id, [{ v: "wind", l: "the wind farm" }, { v: "news", l: "the front page" }], "wind") +
-      '<span class="fp-note">two datasets — the domain travels in the state</span></div>' +
+      '<span class="fp-note">two datasets — the domain travels in the <code>State</code></span></div>' +
       '<div class="fp-cols">' +
-      '<div class="fp-panel"><div class="fp-head"><span>state — the domain lives here</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>State</code> — the domain lives here</span></div>' +
       '<textarea class="fp-facts" spellcheck="false" aria-label="State"></textarea></div>' +
-      '<div class="fp-panel"><div class="fp-head"><span>select — the window</span>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>select</code> — the window</span>' +
       '<span class="fp-btns"><button type="button" class="fp-q-reset">reset</button></span></div>' +
       '<textarea class="fp-query" spellcheck="false" aria-label="Selection"></textarea></div>' +
       "</div>" +
-      '<div class="fp-panel"><div class="fp-head"><span>canon(Data) — the canonical serialization</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>canon(Data)</code> — the canonical serialization</span></div>' +
       '<pre class="fp-out fp-canon"></pre></div>' +
       '<div class="fp-controls">' +
-      '<span class="fp-note">arrange — the term t:</span>' +
+      '<span class="fp-note"><code>arrange</code> — the term <code>t</code>:</span>' +
       seg(idT, [{ v: "cards", l: "t₁ · cards" }, { v: "table", l: "t₂ · table" }], "cards") +
-      '<span class="fp-note">present — the stylesheet:</span>' +
+      '<span class="fp-note"><code>present</code> — the stylesheet:</span>' +
       seg(idC, [{ v: "editorial", l: "editorial" }, { v: "console", l: "console" }], "console") +
       "</div>" +
-      '<div class="fp-panel"><div class="fp-head"><span class="fp-r-head">read(r, S) — the document</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span class="fp-r-head"><code>read(r, S)</code> — the document</span></div>' +
       '<div class="fp-render fp-theme-console"><div class="fp-rendered fp-target"></div></div></div>' +
       '<div class="fp-note">swap any factor — data, selection, term, stylesheet — and the others hold still.</div>';
     q(root, ".fp-facts").value = store.wind.facts;

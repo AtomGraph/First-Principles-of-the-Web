@@ -69,7 +69,7 @@ img.fp-spot { display: block; margin: 2.4rem auto; max-width: 100%; height: auto
 .fp-exhibit .fp-controls { display: flex; gap: 0.6rem; align-items: center;
   flex-wrap: wrap; margin: 0.8rem 0; }
 .fp-exhibit .fp-note { font-size: 0.78rem; color: var(--fp-muted); margin: 0.5rem 0; }
-.fp-exhibit .fp-note code, .fp-exhibit .fp-head code { font-size: 0.72rem; }
+.fp-exhibit .fp-note code, .fp-exhibit .fp-head code { font-size: 0.72rem; text-transform: none; }
 
 .fp-exhibit .fp-seg { display: inline-flex; border: 1px solid var(--fp-line);
   border-radius: 5px; overflow: hidden; flex-wrap: wrap; }
