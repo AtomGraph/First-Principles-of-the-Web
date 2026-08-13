@@ -74,6 +74,20 @@ if used:
         o = o.replace("</manifest>", "\n".join(items) + "\n</manifest>")
         opf.write_text(o, encoding="utf-8")
 
+# Rights + publisher in the OPF metadata (Quarto/pandoc emit neither). Both are
+# standard DCMES elements pandoc already namespaces, so this stays EPUB-valid.
+o = opf.read_text(encoding="utf-8")
+adds = ""
+if "<dc:rights>" not in o:
+    adds += ("<dc:rights>© 2026 Martynas Jusevičius. Licensed under Creative Commons "
+             "Attribution-ShareAlike 4.0 International (CC BY-SA 4.0): "
+             "https://creativecommons.org/licenses/by-sa/4.0/</dc:rights>")
+if "<dc:publisher>" not in o:
+    adds += "<dc:publisher>AtomGraph</dc:publisher>"
+if adds:
+    o = o.replace("</metadata>", adds + "</metadata>", 1)
+    opf.write_text(o, encoding="utf-8")
+
 # repackage: mimetype first + stored, everything else deflated (EPUB requirement)
 with zipfile.ZipFile(epub_path, "w") as z:
     z.write(work / "mimetype", "mimetype", compress_type=zipfile.ZIP_STORED)
