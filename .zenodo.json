@@ -1,0 +1,26 @@
+{
+  "upload_type": "publication",
+  "publication_type": "book",
+  "title": "First Principles of the Web",
+  "description": "One architecture is <em>of</em> the web rather than merely <em>on</em> it. This book derives it from first principles &mdash; and finds it was standardized decades ago as RDF, SPARQL, XSLT, and CSS. Draft 0.1.",
+  "creators": [
+    { "name": "Jusevičius, Martynas", "affiliation": "AtomGraph" }
+  ],
+  "license": "cc-by-sa-4.0",
+  "access_right": "open",
+  "version": "0.1",
+  "keywords": [
+    "web architecture",
+    "RDF",
+    "SPARQL",
+    "XSLT",
+    "CSS",
+    "linked data",
+    "semantic web",
+    "REST",
+    "knowledge graphs"
+  ],
+  "related_identifiers": [
+    { "relation": "isIdenticalTo", "identifier": "https://firstprinciplesoftheweb.org/", "scheme": "url" }
+  ]
+}
