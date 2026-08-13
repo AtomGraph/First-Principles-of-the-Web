@@ -397,7 +397,7 @@ book_jsonld = {
     "inLanguage": "en",
     "author": AUTHOR,
     "publisher": PUBLISHER,
-    "image": SITE_URL + "first-principles-figures/title-the-thing.svg",
+    "image": SITE_URL + "first-principles-figures/social-card.png",
     "description": SEO["index"],
     "hasPart": book_chapters,
 }
@@ -491,6 +491,24 @@ if status:
     write("status.qmd", "Draft status", status, description=SEO.get("status"))
     yml_chapters.append("    - status.qmd")
 
+# Colophon: license + edition metadata. Generated boilerplate (not book prose),
+# so it lives here, not in the single-source markdown. Written directly (not via
+# write()) so cross-ref linkification never touches the license text.
+COLOPHON = (
+    "*First Principles of the Web* — Draft 0.1.\n\n"
+    "© 2026 Martynas Jusevičius. Published by [AtomGraph](https://atomgraph.com).\n\n"
+    "This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 "
+    "International License (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/). "
+    "You may share and adapt it for any purpose, provided you give appropriate credit "
+    "and license any derivatives under the same terms.\n\n"
+    "Built from a single Markdown source with [Quarto](https://quarto.org/); diagrams are "
+    "pre-rendered to SVG. Available as HTML and EPUB. Source at "
+    "[github.com/AtomGraph/First-Principles-of-the-Web]"
+    "(https://github.com/AtomGraph/First-Principles-of-the-Web).\n"
+)
+(ROOT / "colophon.qmd").write_text("# Colophon {#colophon}\n\n" + COLOPHON, encoding="utf-8")
+yml_chapters.append("    - colophon.qmd")
+
 yml = """lang: en
 project:
   type: book
@@ -515,9 +533,14 @@ book:
   downloads: [epub]
   site-url: https://firstprinciplesoftheweb.org/
   favicon: first-principles-figures/favicon.svg
-  open-graph: true
-  twitter-card: true
+  image: first-principles-figures/social-card.png
+  open-graph:
+    image: first-principles-figures/social-card.png
+  twitter-card:
+    image: first-principles-figures/social-card.png
+    card-style: summary_large_image
   search: true
+  page-footer: "© 2026 Martynas Jusevičius · Licensed [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · [Source on GitHub](https://github.com/AtomGraph/First-Principles-of-the-Web)"
 """ + "\n".join(yml_chapters) + """
   appendices:
 """ + "\n".join(f"    - {f}" for f in app_files) + """

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img">
+  <title>First Principles of the Web — Martynas Jusevičius</title>
+  <!-- background -->
+  <rect x="0" y="0" width="1200" height="630" fill="#ffffff"/>
+  <!-- right panel behind the motif -->
+  <rect x="700" y="0" width="500" height="630" fill="#f4f8fb"/>
+  <rect x="700" y="0" width="2" height="620" fill="#e6edf3"/>
+
+  <!-- the motif: a graph projected through an aperture onto a rendered page.
+       Geometry reused verbatim from title-the-thing.svg, mapped into the panel. -->
+  <g transform="translate(678,134) scale(0.72)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- projection rays -->
+    <g stroke="#5a6270" stroke-width="1.2" stroke-dasharray="3 6">
+      <path d="M120 168 L392 240"/>
+      <path d="M212 132 L392 240"/>
+      <path d="M92 262 L392 240"/>
+      <path d="M196 248 L392 240"/>
+      <path d="M140 344 L392 240"/>
+      <path d="M238 322 L392 240"/>
+      <path d="M392 240 L498 170"/>
+      <path d="M392 240 L498 200"/>
+      <path d="M392 240 L498 240"/>
+      <path d="M392 240 L498 280"/>
+      <path d="M392 240 L498 310"/>
+      <path d="M392 240 L498 340"/>
+    </g>
+    <!-- graph edges -->
+    <g stroke="#1b1e22" stroke-width="2">
+      <path d="M120 168 L212 132"/>
+      <path d="M120 168 L92 262"/>
+      <path d="M120 168 L196 248"/>
+      <path d="M92 262 L140 344"/>
+      <path d="M196 248 L238 322"/>
+      <path d="M140 344 L238 322"/>
+    </g>
+    <!-- graph nodes -->
+    <g stroke="#1b1e22" stroke-width="2" fill="#e3eef7">
+      <circle cx="120" cy="168" r="10"/>
+      <circle cx="212" cy="132" r="10"/>
+      <circle cx="92" cy="262" r="10"/>
+      <circle cx="196" cy="248" r="10"/>
+      <circle cx="140" cy="344" r="10"/>
+      <circle cx="238" cy="322" r="10"/>
+    </g>
+    <!-- aperture -->
+    <g stroke="#1b1e22" stroke-width="3">
+      <path d="M392 162 L392 222"/>
+      <path d="M392 258 L392 318"/>
+    </g>
+    <!-- the thing: a rendered page -->
+    <rect x="498" y="128" width="164" height="252" rx="8" fill="#ffffff" stroke="#1b1e22" stroke-width="2.5"/>
+    <rect x="522" y="154" width="76" height="14" rx="4" fill="#005a9c" stroke="none"/>
+    <g stroke="#d8dce1" stroke-width="6">
+      <path d="M522 198 L638 198"/>
+      <path d="M522 222 L610 222"/>
+      <path d="M522 246 L638 246"/>
+      <path d="M522 270 L596 270"/>
+      <path d="M522 294 L624 294"/>
+    </g>
+    <rect x="522" y="318" width="116" height="40" rx="5" fill="#e3eef7" stroke="none"/>
+  </g>
+
+  <!-- title -->
+  <text x="72" y="196" font-family="EB Garamond" font-weight="700" font-size="78" letter-spacing="0.5" fill="#1b1e22">First Principles</text>
+  <text x="72" y="282" font-family="EB Garamond" font-weight="700" font-size="78" letter-spacing="0.5" fill="#1b1e22">of the Web</text>
+
+  <!-- accent rule -->
+  <rect x="74" y="312" width="108" height="5" rx="2.5" fill="#005a9c"/>
+
+  <!-- subtitle -->
+  <text x="74" y="368" font-family="EB Garamond" font-style="italic" font-weight="500" font-size="30" fill="#5a6270">Graphs are not the thing, they are</text>
+  <text x="74" y="406" font-family="EB Garamond" font-style="italic" font-weight="500" font-size="30" fill="#5a6270">the thing that gets us to the thing.</text>
+
+  <!-- footer: author · domain -->
+  <text x="74" y="548" font-family="Helvetica Neue, Arial, sans-serif" font-weight="600" font-size="25">
+    <tspan fill="#1b1e22">Martynas Jusevičius</tspan><tspan fill="#9aa3ad">   ·   </tspan><tspan fill="#005a9c">firstprinciplesoftheweb.org</tspan>
+  </text>
+
+  <!-- bottom accent bar -->
+  <rect x="0" y="620" width="1200" height="10" fill="#005a9c"/>
+</svg>
