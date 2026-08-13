@@ -8,6 +8,7 @@ source file. In the book's own notation: this is an `arrange` term.
 """
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -47,20 +48,83 @@ text = SOURCE.read_text(encoding="utf-8")
 _mm_n = [0]
 def _mermaid_svg(m):
     _mm_n[0] += 1
-    return f"![](first-principles-figures/mermaid-{_mm_n[0]:02d}.svg){{.fp-diagram}}"
+    n = f"{_mm_n[0]:02d}"
+    # SVG for HTML/EPUB; PNG for Typst, whose SVG renderer can't draw mermaid's
+    # foreignObject labels (render-mermaid.py commits both, in source order).
+    return (
+        '\n::: {.content-visible unless-format="typst"}\n'
+        f"![](first-principles-figures/mermaid-{n}.svg){{.fp-diagram}}\n"
+        ":::\n"
+        '::: {.content-visible when-format="typst"}\n'
+        f"![](first-principles-figures/mermaid-{n}.png){{.fp-diagram}}\n"
+        ":::\n"
+    )
 text = re.sub(r"```mermaid.*?```", _mermaid_svg, text, flags=re.S)
+
+# Videos are raw <iframe> embeds: they play in HTML, epub_fix.py swaps them for
+# poster links in EPUB, but raw HTML drops in Typst — so append a Typst-only
+# poster figure from the committed video-posters/ (same mapping as epub_fix.py).
+def _video_poster(m):
+    iframe = m.group(0)
+    sm = re.search(r'src="([^"]+)"', iframe)
+    if not sm:
+        return iframe
+    tm = re.search(r'title="([^"]*)"', iframe)
+    title = tm.group(1) if tm else "Watch the video"
+    ym = re.search(r"youtube\.com/embed/([\w-]+)", sm.group(1))
+    vm = re.search(r"vimeo\.com/video/(\d+)", sm.group(1))
+    if ym:
+        poster, watch = f"yt-{ym.group(1)}.jpg", f"https://youtu.be/{ym.group(1)}"
+    elif vm:
+        poster, watch = f"vimeo-{vm.group(1)}.jpg", f"https://vimeo.com/{vm.group(1)}"
+    else:
+        return iframe
+    return iframe + (
+        '\n\n::: {.content-visible when-format="typst"}\n'
+        f"[![{title}](video-posters/{poster})]({watch})\n\n"
+        f"▶ Watch online: {title} — <{watch}>\n"
+        ":::\n"
+    )
+text = re.sub(r"<iframe\b[^>]*>\s*</iframe>", _video_poster, text, flags=re.S)
 
 # Inject the pre-generated static fallbacks (fallbacks.cjs) into the exhibit
 # stubs, wrapped in a raw-HTML block so pandoc passes the markup through
 # verbatim. In the browser exhibits.js overwrites innerHTML with the live
 # widget; without JS the fallback stands — crawlers, screen readers, EPUB.
 FALLBACKS = ROOT / "exhibit-fallbacks"
+
+def _fallback_native(html_path):
+    """Convert an exhibit's static HTML fallback to native markdown so the Typst
+    (PDF) edition renders it as real, selectable code blocks and tables — the same
+    content the EPUB shows — instead of dropping it. Pandoc parses <pre>/<table>/
+    <dl> into native blocks; we then strip its layout <div> fences (fp-panel /
+    fp-cols / fp-head), which carry only CSS meaning, keeping the labels, code and
+    tables. Returns '' if pandoc is unreachable at build time."""
+    try:
+        out = subprocess.run(
+            ["quarto", "pandoc", "-f", "html", "-t", "markdown", str(html_path)],
+            capture_output=True, text=True, check=True,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError):
+        return ""
+    kept = [ln for ln in out.split("\n") if not ln.lstrip().startswith(":::")]
+    return re.sub(r"\n{3,}", "\n\n", "\n".join(kept)).strip()
+
 def _inject_fallback(m):
     t = m.group(1)
     f = FALLBACKS / (t + ".html")
     inner = f.read_text(encoding="utf-8").strip() if f.exists() else ""
     stub = '<div class="fp-exhibit" data-exhibit="' + t + '">\n' + inner + "\n</div>"
-    return "\n```{=html}\n" + stub + "\n```\n"
+    # HTML + EPUB get the styled interactive fallback (raw HTML; drops in Typst).
+    html_block = "\n```{=html}\n" + stub + "\n```\n"
+    # Typst/PDF gets the same content rendered natively; fall back to a pointer
+    # only if pandoc can't be reached during the build.
+    native = _fallback_native(f) or (
+        f"> **Interactive exhibit** (*{t}*) — explore it in the web edition at "
+        "<https://firstprinciplesoftheweb.org/>."
+    )
+    typst_block = '\n\n::: {.content-visible when-format="typst"}\n' + native + "\n:::\n"
+    return html_block + typst_block
 text = re.sub(r'<div class="fp-exhibit" data-exhibit="(\w+)"></div>', _inject_fallback, text)
 
 lines = text.split("\n")
@@ -191,10 +255,25 @@ if appendices:
         if _k in app_page:
             _scan_registry(_ls, app_page[_k])
 
+_emitted_ids = set()
+
+def _mint(rid):
+    """First book-wide sighting of an id returns it; later ones return None.
+    A result stated in a chapter and restated in its Appendix B proof would
+    otherwise emit the same anchor twice — invalid HTML, and a hard Typst error
+    (the single-file PDF has no per-page id scope). The kept anchor is the first
+    occurrence, which is exactly where the cross-ref registry (res_page, first
+    wins) already points."""
+    if rid in _emitted_ids:
+        return None
+    _emitted_ids.add(rid)
+    return rid
+
 def add_anchors(text):
     """Mint fragment ids: an invisible span on each numbered result and each
     R/S requirement, an id attribute on C.N section headings, and an id'd div
-    around each numbered-equation code block."""
+    around each numbered-equation code block. Each id is minted at most once
+    book-wide (see _mint) — restatements are left unanchored."""
     lines, out, i = text.split("\n"), [], 0
     while i < len(lines):
         line = lines[i]
@@ -208,8 +287,9 @@ def add_anchors(text):
                 if m:
                     num = m.group(1)
                     break
-            if num:
-                out.append("::: {#eq-%s}" % num.replace(".", "-"))
+            rid = _mint("eq-" + num.replace(".", "-")) if num else None
+            if rid:
+                out.append("::: {#%s}" % rid)
                 out.extend(lines[i:j + 1])
                 out.append(":::")
             else:
@@ -220,16 +300,24 @@ def add_anchors(text):
         m2 = RS_LINE.match(line) if not m else None
         m3 = COND_LINE.match(line) if not (m or m2) else None
         if m:
-            line = m.group("pre") + "[]{#%s}" % result_id(m) + line[len(m.group("pre")):]
+            rid = _mint(result_id(m))
+            if rid:
+                line = m.group("pre") + "[]{#%s}" % rid + line[len(m.group("pre")):]
         elif m2:
-            line = m2.group("pre") + "[]{#%s}" % m2.group("rs").lower() + line[len(m2.group("pre")):]
+            rid = _mint(m2.group("rs").lower())
+            if rid:
+                line = m2.group("pre") + "[]{#%s}" % rid + line[len(m2.group("pre")):]
         elif m3:
-            line = m3.group("pre") + "[]{#%s}" % m3.group("cond").lower() + line[len(m3.group("pre")):]
+            rid = _mint(m3.group("cond").lower())
+            if rid:
+                line = m3.group("pre") + "[]{#%s}" % rid + line[len(m3.group("pre")):]
         elif re.match(r"^## B\.\d+ ", line):
             # section ids: B.1 → #b-sec-1. Dotless (dots in a fragment break
             # navigation in EPUB readers that resolve #frag as a CSS selector),
             # and distinct from the condition anchors B-1 → #b-1.
-            line = line + " {#b-sec-%s}" % re.match(r"^## B\.(\d+)", line).group(1)
+            sid = _mint("b-sec-" + re.match(r"^## B\.(\d+)", line).group(1))
+            if sid:
+                line = line + " {#%s}" % sid
         out.append(line)
         i += 1
     return "\n".join(out)
@@ -334,7 +422,17 @@ def linkify(text, current=None):
             out.append(line)
         else:
             mo = re.match(r"^(?:>\s*|-\s+)?\[\]\{#([\w.-]+)\}", line)
-            own_id[0] = mo.group(1) if mo else None
+            if mo:
+                own_id[0] = mo.group(1)
+            else:
+                # A restatement whose anchor was deduped away (see _mint) still
+                # must not link to its own result — recover the id from the line.
+                rm = RESULT_LINE.match(line)
+                r2 = RS_LINE.match(line) if not rm else None
+                r3 = COND_LINE.match(line) if not (rm or r2) else None
+                own_id[0] = (result_id(rm) if rm else
+                             r2.group("rs").lower() if r2 else
+                             r3.group("cond").lower() if r3 else None)
             out.append(XREF.sub(repl, line))
     return "\n".join(out)
 
@@ -419,6 +517,12 @@ part_no = 0
 for part_title, intro, chapters in parts:
     part_no += 1
     pfile = f"part{part_no}.qmd"
+    # Quarto's Typst book writer renders a part title as #part[...] and drops its
+    # heading id, so references to <partN> would be undefined. Prepend a
+    # Typst-only anchor span (dropped in HTML/EPUB, which use the H1 id) so the
+    # label exists in the single-file PDF.
+    intro = ['::: {.content-visible when-format="typst"}',
+             f'[]{{#part{part_no}}}', ':::', ''] + intro
     part_toc = ['<nav class="fp-part-toc">']
     for ch_title, _cb in chapters:
         m = re.match(r"Chapter (\d+)\.\s*(.*)", ch_title)
@@ -502,7 +606,7 @@ COLOPHON = (
     "You may share and adapt it for any purpose, provided you give appropriate credit "
     "and license any derivatives under the same terms.\n\n"
     "Built from a single Markdown source with [Quarto](https://quarto.org/); diagrams are "
-    "pre-rendered to SVG. Available as HTML and EPUB. Source at "
+    "pre-rendered to SVG. Available as HTML, EPUB, and PDF. Source at "
     "[github.com/AtomGraph/First-Principles-of-the-Web]"
     "(https://github.com/AtomGraph/First-Principles-of-the-Web).\n"
 )
@@ -518,6 +622,7 @@ project:
     - epub.css
     - "first-principles-figures/*.svg"
     - "first-principles-figures/*.png"
+    - "video-posters/*.jpg"
     - googleba0fe49aa3922677.html
     - CNAME
 
@@ -530,7 +635,7 @@ book:
       url: "https://atomgraph.com"
   repo-url: https://github.com/AtomGraph/First-Principles-of-the-Web
   repo-actions: [issue]
-  downloads: [epub]
+  downloads: [epub, pdf]
   site-url: https://firstprinciplesoftheweb.org/
   favicon: first-principles-figures/favicon.svg
   image: first-principles-figures/social-card.png
@@ -561,6 +666,17 @@ format:
     toc: true
     number-sections: false
     css: epub.css
+    cover-image: first-principles-figures/cover.png
+  typst:
+    toc: true
+    number-sections: false
+    papersize: a4
+    include-in-header:
+      text: |
+        // Fall back to bundled NCM Math for glyphs the text/code fonts lack
+        // (e.g. 𝒫 U+1D4AB); Typst's automatic fallback skips math fonts.
+        #set text(font: ("New Computer Modern", "New Computer Modern Math"))
+        #show raw: set text(font: ("DejaVu Sans Mono", "New Computer Modern Math"))
 """
 (ROOT / "_quarto.yml").write_text(yml, encoding="utf-8")
 

@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you cite this work, please use the metadata below."
+title: "First Principles of the Web"
+abstract: >-
+  One architecture is of the web rather than merely on it. This book derives it
+  from first principles — and finds it was standardized decades ago as RDF,
+  SPARQL, XSLT, and CSS.
+authors:
+  - family-names: "Jusevičius"
+    given-names: "Martynas"
+    website: "https://atomgraph.com"
+    orcid: "https://orcid.org/0000-0003-1750-9906"
+version: "0.1"
+date-released: "2026-08-13"
+license: CC-BY-SA-4.0
+url: "https://firstprinciplesoftheweb.org/"
+repository-code: "https://github.com/AtomGraph/First-Principles-of-the-Web"
+keywords:
+  - web architecture
+  - RDF
+  - SPARQL
+  - XSLT
+  - CSS
+  - linked data
+  - semantic web
+  - REST
+  - knowledge graphs
+preferred-citation:
+  type: book
+  title: "First Principles of the Web"
+  authors:
+    - family-names: "Jusevičius"
+      given-names: "Martynas"
+      orcid: "https://orcid.org/0000-0003-1750-9906"
+  year: 2026
+  publisher:
+    name: "AtomGraph"
+  url: "https://firstprinciplesoftheweb.org/"
+  version: "0.1"

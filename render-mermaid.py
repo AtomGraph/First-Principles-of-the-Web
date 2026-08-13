@@ -27,14 +27,20 @@ if not blocks:
     sys.exit("no mermaid blocks found")
 
 for i, code in enumerate(blocks, 1):
-    out = FIGURES / f"mermaid-{i:02d}.svg"
     with tempfile.NamedTemporaryFile("w", suffix=".mmd", delete=False) as tf:
         tf.write(code)
         mmd = tf.name
-    subprocess.run(
-        ["mmdc", "-i", mmd, "-o", str(out), "-c", str(THEME), "-b", "white"],
-        check=True,
-    )
-    print(f"mermaid-{i:02d}.svg")
+    # SVG for the HTML + EPUB editions (crisp, scalable). Typst's SVG renderer
+    # (resvg) can't draw mermaid's foreignObject HTML labels, and re-rendering
+    # with htmlLabels:false collapses the spaces in wrapped labels — so ALSO emit
+    # a browser-rasterized PNG (labels and spacing intact) for the PDF/Typst
+    # edition. split.py picks svg vs png per output format.
+    for ext, extra in ((".svg", []), (".png", ["-s", "3"])):
+        subprocess.run(
+            ["mmdc", "-i", mmd, "-o", str(FIGURES / f"mermaid-{i:02d}{ext}"),
+             "-c", str(THEME), "-b", "white", *extra],
+            check=True,
+        )
+    print(f"mermaid-{i:02d}.svg + .png")
 
-print(f"rendered {len(blocks)} diagrams")
+print(f"rendered {len(blocks)} diagrams (svg + png)")
