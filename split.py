@@ -673,6 +673,12 @@ format:
     papersize: a4
     include-in-header:
       text: |
+        // Full-page cover as page 1 (matches the EPUB cover). Emitted before
+        // orange-book's #show, so it renders ahead of the template title page.
+        #page(margin: 0pt, header: none, footer: none)[
+          #set align(center + horizon)
+          #image("first-principles-figures/cover.png", height: 100%)
+        ]
         // Fall back to bundled NCM Math for glyphs the text/code fonts lack
         // (e.g. 𝒫 U+1D4AB); Typst's automatic fallback skips math fonts.
         #set text(font: ("New Computer Modern", "New Computer Modern Math"))
