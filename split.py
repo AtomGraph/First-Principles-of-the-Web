@@ -8,6 +8,7 @@ source file. In the book's own notation: this is an `arrange` term.
 """
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -91,20 +92,39 @@ text = re.sub(r"<iframe\b[^>]*>\s*</iframe>", _video_poster, text, flags=re.S)
 # verbatim. In the browser exhibits.js overwrites innerHTML with the live
 # widget; without JS the fallback stands — crawlers, screen readers, EPUB.
 FALLBACKS = ROOT / "exhibit-fallbacks"
+
+def _fallback_native(html_path):
+    """Convert an exhibit's static HTML fallback to native markdown so the Typst
+    (PDF) edition renders it as real, selectable code blocks and tables — the same
+    content the EPUB shows — instead of dropping it. Pandoc parses <pre>/<table>/
+    <dl> into native blocks; we then strip its layout <div> fences (fp-panel /
+    fp-cols / fp-head), which carry only CSS meaning, keeping the labels, code and
+    tables. Returns '' if pandoc is unreachable at build time."""
+    try:
+        out = subprocess.run(
+            ["quarto", "pandoc", "-f", "html", "-t", "markdown", str(html_path)],
+            capture_output=True, text=True, check=True,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError):
+        return ""
+    kept = [ln for ln in out.split("\n") if not ln.lstrip().startswith(":::")]
+    return re.sub(r"\n{3,}", "\n\n", "\n".join(kept)).strip()
+
 def _inject_fallback(m):
     t = m.group(1)
     f = FALLBACKS / (t + ".html")
     inner = f.read_text(encoding="utf-8").strip() if f.exists() else ""
     stub = '<div class="fp-exhibit" data-exhibit="' + t + '">\n' + inner + "\n</div>"
-    # The static fallback is raw HTML (HTML + EPUB only) and drops in Typst, so
-    # add a Typst-only note pointing to the interactive web edition.
-    typst_note = (
-        '\n\n::: {.content-visible when-format="typst"}\n'
+    # HTML + EPUB get the styled interactive fallback (raw HTML; drops in Typst).
+    html_block = "\n```{=html}\n" + stub + "\n```\n"
+    # Typst/PDF gets the same content rendered natively; fall back to a pointer
+    # only if pandoc can't be reached during the build.
+    native = _fallback_native(f) or (
         f"> **Interactive exhibit** (*{t}*) — explore it in the web edition at "
-        "<https://firstprinciplesoftheweb.org/>.\n"
-        ":::\n"
+        "<https://firstprinciplesoftheweb.org/>."
     )
-    return "\n```{=html}\n" + stub + "\n```\n" + typst_note
+    typst_block = '\n\n::: {.content-visible when-format="typst"}\n' + native + "\n:::\n"
+    return html_block + typst_block
 text = re.sub(r'<div class="fp-exhibit" data-exhibit="(\w+)"></div>', _inject_fallback, text)
 
 lines = text.split("\n")
