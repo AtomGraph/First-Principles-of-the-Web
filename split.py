@@ -671,6 +671,8 @@ format:
     toc: true
     number-sections: false
     papersize: a4
+    font-paths:
+      - fonts
     include-in-header:
       text: |
         // Full-page cover as page 1 (matches the EPUB cover). Emitted before
@@ -679,9 +681,9 @@ format:
           #set align(center + horizon)
           #image("first-principles-figures/cover.png", height: 100%)
         ]
-        // Fall back to bundled NCM Math for glyphs the text/code fonts lack
-        // (e.g. 𝒫 U+1D4AB); Typst's automatic fallback skips math fonts.
-        #set text(font: ("New Computer Modern", "New Computer Modern Math"))
+        // Body in EB Garamond — the web edition's face, committed in fonts/ —
+        // falling back to bundled NCM Math for glyphs it lacks (e.g. 𝒫 U+1D4AB).
+        #set text(font: ("EB Garamond", "New Computer Modern Math"))
         #show raw: set text(font: ("DejaVu Sans Mono", "New Computer Modern Math"))
 """
 (ROOT / "_quarto.yml").write_text(yml, encoding="utf-8")
