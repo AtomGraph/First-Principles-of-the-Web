@@ -685,6 +685,17 @@ format:
         // falling back to bundled NCM Math for glyphs it lacks (e.g. 𝒫 U+1D4AB).
         #set text(font: ("EB Garamond", "New Computer Modern Math"))
         #show raw: set text(font: ("DejaVu Sans Mono", "New Computer Modern Math"))
+    include-before-body:
+      text: |
+        // Match the online edition's reading feel: orange-book defaults to a
+        // cramped 10pt / 0.5em-leading indented-paragraph body; the web uses a
+        // generous size, ~1.65 line-height, and block paragraphs (space, no
+        // indent). This runs inside the template body, overriding those defaults.
+        #set text(size: 12pt)
+        #set par(leading: 0.8em, first-line-indent: 0pt, spacing: 1em)
+        // Wide tables (esp. the 9-column Properness table) don't fit A4 at 12pt;
+        // hold table text at the pre-bump size so columns don't collide.
+        #show table: set text(size: 10pt)
 """
 (ROOT / "_quarto.yml").write_text(yml, encoding="utf-8")
 
