@@ -15,6 +15,13 @@ date-released: "2026-08-13"
 license: CC-BY-SA-4.0
 url: "https://firstprinciplesoftheweb.org/"
 repository-code: "https://github.com/AtomGraph/First-Principles-of-the-Web"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21940029"
+    description: "Concept DOI — always resolves to the latest version"
+  - type: doi
+    value: "10.5281/zenodo.21940030"
+    description: "Version DOI — v0.1"
 keywords:
   - web architecture
   - RDF
@@ -27,6 +34,7 @@ keywords:
   - knowledge graphs
 preferred-citation:
   type: book
+  doi: "10.5281/zenodo.21940029"
   title: "First Principles of the Web"
   authors:
     - family-names: "Jusevičius"
