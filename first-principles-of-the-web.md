@@ -1,6 +1,6 @@
 # First Principles of the Web
 
-*DRAFT 0.1 · [atomgraph.com](https://atomgraph.com) · [GitHub](https://github.com/namedgraph) · [X](https://x.com/namedgraph)*
+*DRAFT 0.1 · [atomgraph.com](https://atomgraph.com) · [GitHub](https://github.com/namedgraph) · [X](https://x.com/namedgraph) · [LinkedIn](https://www.linkedin.com/in/martynasjusevicius/)*
 
 <img src="first-principles-figures/title-the-thing.svg" alt="A graph of linked nodes, projected through a narrow aperture, resolving into a rendered page" class="fp-frontispiece" width="460" />
 
