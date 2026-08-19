@@ -69,7 +69,7 @@ Responses come back the same shape, because RFC 9110 defines one message form fo
 Resp = Status × Headers × Body                           (RFC 9110)
 ```
 
-For the model below, only the response body matters. The body itself is octets. A header names their format (`Content-Type`), and the format's specification, not this book, defines how they parse. On the parsed side of that line lives the document, the thing a user agent displays. Call that domain `Doc`, and leave its internals alone for now. The envelope around it (the status code, the response headers) is how a document travels, ages, and caches. That is transfer machinery, and Definition 1.1 will not mention it.
+For the model below, only the response body matters. The body itself is octets. A header names their format (`Content-Type`). How the octets parse is defined by the format's own specification, so the book does not have to define it. On the parsed side of that line lives the document, the thing a user agent displays. Call that domain `Doc`, and leave its internals alone for now. The envelope around it (the status code, the response headers) is how a document travels, ages, and caches. That is transfer machinery, and Definition 1.1 will not mention it.
 
 **Definition 1.1.** A *web application* is a pair of functions:
 
@@ -78,7 +78,7 @@ read  : Req × State → Doc
 write : Req × State → State
 ```
 
-In this model, `read` corresponds to HTTP's safe methods. `GET` takes a request and the current state of the world and produces a document. `write` is what the unsafe methods do. `POST`, `PUT`, `PATCH`, `DELETE` take a request and a state and produce a new state. The request's body carries what the change should be. The body belongs to the write side: on a safe request it has no defined meaning (RFC 9110 §9.3.1), and `read` ignores it. `read`'s output travels in the *response's* body instead. Like `Doc`, `Body` stays opaque for now; Chapter 7 says what fills it.
+In this model, `read` corresponds to HTTP's safe methods. `GET` takes a request and the current state of the world and produces a document. `write` is what the unsafe methods do. `POST`, `PUT`, `PATCH`, `DELETE` take a request and a state and produce a new state. The request's body carries what the change should be. The body belongs to the write side: on a safe request it has no defined meaning (RFC 9110 §9.3.1), and `read` ignores it. `read`'s output travels in the *response's* body instead. Like `Doc`, `Body` stays opaque for now; Chapter 7 explains what fills it.
 
 Every web application you have ever used, from a static homepage to the heaviest single-page monster, implements these two functions, because HTTP gives it no other way to be an application on the web. The framework it was built in is an implementation detail of Definition 1.1.
 
@@ -86,7 +86,7 @@ Definition 1.1 deliberately leaves `State` unspecified. The central question of 
 
 > **Prop. 1.2.** Every deployed web application implements Definition 1.1. *(Verification: RFC 9110 §9; there is no third kind of method.)*
 >
-> **Prop. 1.3.** Definition 1.1 constrains architecture not at all. Both a 1993 CGI script and a 2026 React application inhabit it. *(This is why the definition is safe as an axiom; no one on any side of any framework war can reject it.)*
+> **Prop. 1.3.** Definition 1.1 places no constraint on architecture. Both a 1993 CGI script and a 2026 React application satisfy it. *(This is why the definition is safe as an axiom; no one on any side of any framework war can reject it.)*
 
 **Persistent connections.** WebSockets and server push may look like a counterexample because messages on an established connection are not themselves HTTP requests with safe or unsafe methods. At the application level, however, they still carry either data from the server to the client or changes from the client to the server. The first corresponds to `read` output delivered when state changes; the second corresponds to input to `write` delivered over an existing channel. Definition 1.1 therefore still describes the application behavior. What changes is the surrounding HTTP machinery: individual messages no longer necessarily have their own method, cache semantics, or URI. Each dropped piece has a cost; Part IV computes those costs one by one.
 
@@ -169,7 +169,7 @@ Every "view toggle" on the web justifies this factoring, showing the same data a
 
 *Arrangement off. Both pages now use the same format: one block per entity, sorted, with no nesting. A headline is paired with a section, and a panel title with a value. The two sites that shared nothing now differ only in vocabulary.*
 
-**Order as data.** There is one complication before the next strip. A careful reader has already spotted it: the front page's order *means* something. The lead story leads because an editor judged it should, and a strip that discarded the judgment would be destroying content while claiming to remove arrangement. That judgment can itself be represented as data: *this article, prominence one*. The strip's real effect is eviction: order moves out of the tree and into the data, where it survives every re-arrangement that follows. The deployed web already shows what happens otherwise: the same articles travel by feed, and the front page's judgment does not travel with them. Prominence that lives only in an arrangement is lost on every consumer who receives the content without it. Chapter 6 will harden this from a concession into a law: if the order is a message, the order is data.
+**Order as data.** There is one complication before the next strip. A careful reader has already spotted it: the front page's order *means* something. The lead story leads because an editor judged it should, and a strip that discarded the judgment would be destroying content while claiming to remove arrangement. That judgment can itself be represented as data: *this article, prominence one*. The strip's real effect is eviction: order moves out of the tree and into the data, where it survives every re-arrangement that follows. The deployed web already shows what happens otherwise: the same articles also go out through feeds, and a feed delivers them without the front page's ordering. Prominence that lives only in an arrangement is lost on every consumer who receives the content without it. Chapter 6 will harden this from a concession into a law: if the order is a message, the order is data.
 
 **Strip the selection.** Every page shows a sliver of something much larger. An article's own page and the front page draw from the same pool; the dashboard shows the last six hours, but last week exists. So data factors:
 
@@ -213,7 +213,7 @@ flowchart TB
 
 <div class="fp-exhibit" data-exhibit="strip"></div>
 
-*Interactive exhibit (online edition): the strip, performed rather than photographed, the dashboard rebuilt live, each layer removed and restored in place.*
+*Interactive exhibit (online edition): here the strip runs live rather than as before-and-after images. The dashboard is rebuilt in place, and each layer can be removed and restored.*
 
 Two examples prove nothing about all websites; the strips are illustration. The universal claim is Chapter 4's theorem, quantifying over every `read` at once. This chapter makes you feel it; the next one proves it.
 
@@ -254,7 +254,7 @@ flowchart LR
 
 *The pipeline of (4.1). Rectangles are the factors; rounded nodes are values. Under S4 (the fourth properness condition defined below), each factor's output is a web resource: it has a URI, and a GET on that URI returns it.*
 
-**Prop. 4.2 (Existence, trivial).** Every `read` factors as (4.1). *Proof:* let `select` and `present` be identities up to retyping and stuff the entire application into `arrange`. Call this the *fused* factorization. ∎
+**Prop. 4.2 (Existence, trivial).** Every `read` factors as (4.1). *Proof:* make `select` and `present` do nothing except repackage their input at the required type, and put the whole of `read` inside `arrange`. Call this the *fused* factorization. ∎
 
 Proposition 4.2 matters because of what its proof shows. A factorization always exists, so the bare existence of one carries no information. The information is in whether the factors are genuinely separate. Definition 4.3 states that separation as four checkable properties. Those four properties are what "declarative architecture" means, once the phrase is required to mean anything checkable. It is the book's central definition.
 
