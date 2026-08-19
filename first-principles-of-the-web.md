@@ -61,7 +61,7 @@ There are requests, which are built from identifiers:
 Req = I × Method × Headers × Body                        (RFC 9110)
 ```
 
-The body may be empty; the empty body is a body, the way an empty set is a set. Requests with a *safe* method (RFC 9110's word for the methods that only ask, never change) almost always leave it empty. The unsafe methods are about to show what it is for. (RFC 9110's own name for it is *content*, a word this book will need for something else, so the older wire name stays.)
+The body may be empty; the empty body is a body, the way an empty set is a set. Requests with a *safe* method (RFC 9110's word for the methods that only ask, never change) almost always leave it empty. Definition 1.1 shows what the unsafe methods use the body for. (RFC 9110's own name for it is *content*, a word this book will need for something else, so the older wire name stays.)
 
 Responses come back the same shape, because RFC 9110 defines one message form for both directions. Where the request had a method and an identifier, the response has a status code:
 
@@ -80,7 +80,7 @@ write : Req × State → State
 
 In this model, `read` corresponds to HTTP's safe methods. `GET` takes a request and the current state of the world and produces a document. `write` is what the unsafe methods do. `POST`, `PUT`, `PATCH`, `DELETE` take a request and a state and produce a new state. The request's body carries what the change should be. The body belongs to the write side: on a safe request it has no defined meaning (RFC 9110 §9.3.1), and `read` ignores it. `read`'s output travels in the *response's* body instead. Like `Doc`, `Body` stays opaque for now; Chapter 7 explains what fills it.
 
-Every web application you have ever used, from a static homepage to the heaviest single-page monster, implements these two functions, because HTTP gives it no other way to be an application on the web. The framework it was built in is an implementation detail of Definition 1.1.
+Every web application you have ever used, from a static homepage to the heaviest single-page application, implements these two functions, because HTTP gives it no other way to be an application on the web. The framework it was built in is an implementation detail of Definition 1.1.
 
 Definition 1.1 deliberately leaves `State` unspecified. The central question of the book is therefore: *what properties must State have?* Part II derives those properties from constraints of the web — forced, not chosen — and Part III shows how they correspond to existing standards.
 
@@ -90,7 +90,7 @@ Definition 1.1 deliberately leaves `State` unspecified. The central question of 
 
 **Persistent connections.** WebSockets and server push may look like a counterexample because messages on an established connection are not themselves HTTP requests with safe or unsafe methods. At the application level, however, they still carry either data from the server to the client or changes from the client to the server. The first corresponds to `read` output delivered when state changes; the second corresponds to input to `write` delivered over an existing channel. Definition 1.1 therefore still describes the application behavior. What changes is the surrounding HTTP machinery: individual messages no longer necessarily have their own method, cache semantics, or URI. Each dropped piece has a cost; Part IV computes those costs one by one.
 
-The web succeeded against contemporaries such as Gopher, BBSs, desktop applications, and Java applets; Chapter 12 revisits that comparison. It succeeded because its `read` was *transparent*: documents were declarative, addressable, linkable, indexable, and legible to machines that did not produce them. Part IV evaluates later technologies on one variable: how much of that transparency they preserve. Before doing that, the undefined `State` in Definition 1.1 needs a model. Chapter 2 explains the method used to derive one rather than selecting it from current practice or personal preference.
+The web succeeded against contemporaries such as Gopher, BBSs, desktop applications, and Java applets; Chapter 12 revisits that comparison. It succeeded because its `read` was *transparent*: documents were declarative, addressable, linkable, indexable, and legible to machines that did not produce them. Part IV evaluates later technologies on one variable: how much of that transparency they preserve. Chapter 20 makes the term exact. Before doing that, the undefined `State` in Definition 1.1 needs a model. Chapter 2 explains the method used to derive one rather than selecting it from current practice or personal preference.
 
 ---
 
@@ -125,7 +125,7 @@ flowchart TB
 
 *The method used in the book. Analysis (Part II) works from the observable `Doc` toward `State` and establishes necessity. Synthesis (Part V) builds from `State` back to documents and establishes sufficiency. Chapter 8 compares the two formally, Chapter 18 does so in running code, and Chapter 9 records the mismatches.*
 
-One decision remains before the stripping starts, and it is a control on the experiment: which pages to strip. At least two are needed, because one page says nothing about pages in general. The most useful pair is two very different pages: anything that survives the same removals in *both* is less likely to be specific to either one. So the pair is a newspaper front page and a wind-farm dashboard. The front page is written by a handful of editors on an editorial rhythm and read by millions. The dashboard is written continuously by machines and read by one operator on shift. Different domain, different audience, opposite rhythms of `read` and `write`; under Definition 1.1, one signature. If these two reduce to the same skeleton, everything between them likely does too. Print both. Now take them apart.
+One decision remains before the stripping starts, and it is a control on the experiment: which pages to strip. At least two are needed, because one page says nothing about pages in general. The most useful pair is two very different pages: anything that survives the same removals in *both* is less likely to be specific to either one. So the pair is a newspaper front page and a wind-farm dashboard. The front page is written by a handful of editors on an editorial rhythm and read by millions. The dashboard is written continuously by machines and read by one operator on shift. Different domain, different audience, opposite rhythms of `read` and `write`; under Definition 1.1 they have one signature. If these two reduce to the same skeleton, everything between them likely does too. Print both. Now take them apart.
 
 ---
 
@@ -169,7 +169,7 @@ Every "view toggle" on the web justifies this factoring, showing the same data a
 
 *Arrangement off. Both pages now use the same format: one block per entity, sorted, with no nesting. A headline is paired with a section, and a panel title with a value. The two sites that shared nothing now differ only in vocabulary.*
 
-**Order as data.** There is one complication before the next strip. A careful reader has already spotted it: the front page's order *means* something. The lead story leads because an editor judged it should, and a strip that discarded the judgment would be destroying content while claiming to remove arrangement. That judgment can itself be represented as data: *this article, prominence one*. The strip's real effect is eviction: order moves out of the tree and into the data, where it survives every re-arrangement that follows. The deployed web already shows what happens otherwise: the same articles also go out through feeds, and a feed delivers them without the front page's ordering. Prominence that lives only in an arrangement is lost on every consumer who receives the content without it. Chapter 6 will harden this from a concession into a law: if the order is a message, the order is data.
+**Order as data.** There is one complication before the next strip. A careful reader has already spotted it: the front page's order *means* something. The lead story leads because an editor judged it should, and a strip that discarded the judgment would be destroying content while claiming to remove arrangement. That judgment can itself be represented as data: *this article, prominence one*. The strip's real effect is that order moves out of the tree and into the data, where it survives every re-arrangement that follows. The deployed web already shows what happens otherwise: the same articles also go out through feeds, and a feed delivers them without the front page's ordering. Prominence that lives only in an arrangement is lost on every consumer who receives the content without it. Chapter 6 will harden this from a concession into a law: if the order is a message, the order is data.
 
 **Strip the selection.** Every page shows a sliver of something much larger. An article's own page and the front page draw from the same pool; the dashboard shows the last six hours, but last week exists. So data factors:
 
@@ -215,7 +215,7 @@ flowchart TB
 
 *Interactive exhibit (online edition): here the strip runs live rather than as before-and-after images. The dashboard is rebuilt in place, and each layer can be removed and restored.*
 
-Two examples prove nothing about all websites; the strips are illustration. The universal claim is Chapter 4's theorem, quantifying over every `read` at once. This chapter makes you feel it; the next one proves it.
+Two examples prove nothing about all websites; the strips are illustration. The universal claim is Chapter 4's theorem, quantifying over every `read` at once.
 
 ---
 
@@ -270,17 +270,17 @@ Proposition 4.2 matters because of what its proof shows. A factorization always 
 
 **S4 — Addressability.** Each factor's output is itself a web resource: the data produced by `select` has a URI and is dereferenceable, independently of the document it is destined to become.
 
-S1–S3 could describe any well-factored program. S4 is the web condition: the factorization itself goes public, *exposed through the web's own reference mechanism*. An application satisfying S1–S4 is part of the web at every layer, not only at its rendered surface.
+S1–S3 could describe any well-factored program. S4 is the web condition: the factorization itself becomes public, *exposed through the web's own reference mechanism*. An application satisfying S1–S4 is part of the web at every layer, not only at its rendered surface.
 
 The dashboard makes it concrete: `select` pulls the panel's `title` and `value`, `arrange` nests them into a card, `present` themes the card. S4 is the property you can check by hand. Each factor's output (the data, the card, the themed page) has its own URL and *dereferences*: a GET on the URL returns it.
 
 Three of these properties were written down by the web's own architects, as advice. [*Architecture of the World Wide Web, Volume One*](https://www.w3.org/TR/webarch/) (W3C Recommendation, 2004; hereafter AWWW) names the separation of content, presentation, and interaction a good practice (§4.3). It names orthogonal and composable specifications a principle (§5.1). And it asks URI owners to provide representations of their resources (§3.5) — S4's demand, minus the intermediates. All of it is stated as SHOULD, because a recommendation can do no more than recommend. Hold that until Proposition 4.4, where the derivation forces the separation that the web's own architecture group could only advise, and constructs the addressing that AWWW could only request. Those norms were theorems all along. AWWW is a witness here, never a premise: assuming §4.3 would be assuming this chapter's conclusion, and the method forbids that.
 
-The payoff of S4 is immediate and measurable. It is [Fielding's](https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm) list: HTTP caching per stage rather than per page; crawlability of *data* rather than of renderings; intermediaries; independent evolution of the layers. The last of these will harden from a phrase into a proposition before the chapter ends. Every one will reappear in Part IV, scored against every architecture that forfeits it.
+The benefit of S4 is immediate and measurable. It is [Fielding's](https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm) list: HTTP caching per stage rather than per page; crawlability of *data* rather than of renderings; intermediaries; independent evolution of the layers. The last of these will harden from a phrase into a proposition before the chapter ends. Every one will reappear in Part IV, scored against every architecture that forfeits it.
 
 ### The analysis theorem
 
-**Prop. 4.4 (Analysis theorem).** Every `read` whose output depends on `State` only through some finite part factors into the three stages with S1. The factorization then lifts to proper: realize each factor as a term of the languages Part III fixes in advance, give each stage's output a URI, and S2–S4 hold. Finite dependence forces the shape; the lift is a construction the web always permits, never a consequence of finiteness.
+**Prop. 4.4 (Analysis theorem).** Every `read` whose output depends on `State` only through some finite part factors into the three stages, satisfying S1. The factorization then lifts to proper: realize each factor as a term of the languages Part III fixes in advance, give each stage's output a URI, and S2–S4 hold. Finite dependence forces the shape; the lift is a construction the web always permits, never a consequence of finiteness.
 
 The hypothesis is mild: a document renders finitely many facts, so every site ever deployed qualifies. Finiteness is there to make the proof's minimal fragment well-defined; it excludes nothing real.
 
@@ -313,7 +313,7 @@ His deepest constraint is also his least defined: the **uniform interface**. In 
 
 ### The four timelines
 
-Definition 4.3 has one more consequence, and it can be collected now. Nothing in this chapter has mentioned time. HTTP has. A representation, per RFC 9110 §3.2, reflects "a past, current, or desired state of a given resource", state *at a time*. The protocol also provides mechanisms for distinguishing a resource's representation at one moment from its representation at another: `Last-Modified` and `ETag` (RFC 9110 §8.8), and the caching calculus built on them (RFC 9111). The web's own specifications already treat the document as a sequence of states; the time index comes ready-made. Index the moving parts, writing `τ` for time, since `t` is taken:
+Definition 4.3 has one more consequence, and it can be stated now. Nothing in this chapter has mentioned time. HTTP has. A representation, per RFC 9110 §3.2, reflects "a past, current, or desired state of a given resource": state *at a time*. The protocol also provides mechanisms for distinguishing a resource's representation at one moment from its representation at another: `Last-Modified` and `ETag` (RFC 9110 §8.8), and the caching calculus built on them (RFC 9111). The web's own specifications already treat the document as a sequence of states; the time index comes ready-made. Index the moving parts, writing `τ` for time, since `t` is taken:
 
 ```
 S : Time → State                               the world, over time
@@ -325,7 +325,7 @@ Four components can move: the state `S(τ)` and the three factors. Each movement
 
 And one thing that looks like movement is not: a user paging forward or tightening a filter changes nothing in the application. The filter travels in `r`, and `select` is the same term evaluated at a new argument. A model that makes the selection depend on time just to handle a mouse click has confused the function with its argument, a natural mistake, since `select_τ` offers a time subscript to anything that happens over time. The four timelines belong to the application; navigation belongs to the request.
 
-The dashboard makes it concrete. A panel lists alerts, twenty per page, and the user clicks *next*. In the proper factorization the click mints a new request: the page number travels in `r`, visible as a query parameter, and `select` is the same query that produced page one, now evaluated at `page=2`. The new page is another value of the same function: it has its own URI, so it can be bookmarked, shared, cached, and fetched tomorrow with the same result. In the confused model the click increments a counter kept beside the query, a session variable or a widget's internal state, and the selection now depends on when and by whom it is asked: the same URI shows you page two and shows the colleague you sent it to page one. The familiar symptoms follow: the back button misbehaves, the link does not travel, a refresh loses the page. All of them are one defect: the page number was stored in the application instead of carried by the request.
+The dashboard makes it concrete. A panel lists alerts, twenty per page, and the user clicks *next*. In the proper factorization the click mints a new request: the page number travels in `r`, visible as a query parameter, and `select` is the same query that produced page one, now evaluated at `page=2`. The new page is another value of the same function: it has its own URI, so it can be bookmarked, shared, cached, and fetched tomorrow with the same result. In the confused model the click increments a counter kept beside the query, a session variable or a widget's internal state. The selection now depends on when and by whom it is asked: the same URI shows you page two and shows the colleague you sent it to page one. The familiar symptoms follow: the back button misbehaves, the link does not travel, a refresh loses the page. All of them are one defect: the page number was stored in the application instead of carried by the request.
 
 **Prop. 4.5 (Independent evolution).** In a proper factorization, the document's evolution decomposes into four independent timelines, one per component `(S, select, arrange, present)`: a change to any one component changes the document without requiring a change to, or the participation of, any other. In the fused factorization of Prop. 4.2 there is one component and therefore one timeline: every change, of whatever kind, is a change to the whole.
 
@@ -355,7 +355,7 @@ flowchart LR
 
 *Prop. 4.5, drawn. In the proper factorization each component advances alone, and caches invalidate per component; in the fused one every change, of whatever kind, is a change to the whole, and invalidates the whole.*
 
-Prop. 4.5's corollary is the first item on Fielding's list, caching per stage rather than per page, and the corollary now supplies the mechanism for it. Under S4 each factor's output is a resource; each resource has a URI; each URI carries its own validator, an `ETag`, and its own timeline, and every cache on the path can read them. A theme change invalidates one stylesheet resource, and the data it styles stays cached at its own age, untouched. Collapse the factorization and there is one resource (the bundle) with one validator, and the corollary inverts: any change, of any kind, invalidates everything.
+Prop. 4.5's corollary is the first item on Fielding's list, caching per stage rather than per page, and S4 now supplies the mechanism for it. Under S4 each factor's output is a resource; each resource has a URI; each URI carries its own validator, an `ETag`, and its own timeline, and every cache on the path can read them. A theme change invalidates one stylesheet resource, and the data it styles stays cached at its own age, untouched. Collapse the factorization and there is one resource (the bundle) with one validator, and the corollary inverts: any change, of any kind, invalidates everything.
 
 And the industry already operates all four timelines at the delivery layer. Fingerprinted stylesheets ship with `Cache-Control: immutable`, data responses are marked `no-store`, and templates are deployed on their own cadence. Every serious deployment on the web runs per-component timelines there, even when the application above is fused. Independent evolution already runs in production, one layer below the framework that obscures it.
 
@@ -379,7 +379,7 @@ State = 𝒫(Fact)        merge = ∪                          (5.1)
 
 State is a *set of atomic facts*, and two states, from any two parties, anywhere, compose by union. Union is order-free, idempotent, associative, and commutative, so it has every property that federation needs.
 
-**R3 — Global reference.** A fact on one site can be about an entity described on another; the web's entire value proposition is that things link. Therefore names *inside* facts need global scope. The web possesses exactly one global naming system (`I`, the URIs from Chapter 1), and inventing a second one would itself violate R2 (two parties' private naming schemes collide on merge). So references in facts are drawn from `I`. And note what R3 does and does not ask: names must be global; nothing requires that they dereference. They *can*, though, and that comes free with the construction: the naming system and the web's address system are one. Chapter 18 confronts what that identification costs.
+**R3 — Global reference.** A fact on one site can be about an entity described on another; the web's entire point is that things link. Therefore names *inside* facts need global scope. The web possesses exactly one global naming system (`I`, the URIs from Chapter 1), and inventing a second one would itself violate R2 (two parties' private naming schemes collide on merge). So references in facts are drawn from `I`. And note what R3 does and does not ask: names must be global; nothing requires that they dereference. They *can*, though, and that comes free with the construction: the naming system and the web's address system are one. Chapter 18 confronts what that identification costs.
 
 ### The one bridge
 
@@ -409,7 +409,7 @@ A 1-tuple `(x)` asserts nothing — it names without claiming. A pair `(entity, 
 
 </details>
 
-R3 forces the entity position into `I`. It forces the *attribute* position into `I` too, because attributes need global names just as much. Without global names, two sources cannot know they mean the same property, and R2 dies at the first merge. The value position is either a reference or an atomic literal. Write `V` for the literals:
+R3 forces the entity position into `I`. It forces the *attribute* position into `I` too, because attributes need global names just as much. Without global names, two sources cannot know they mean the same property, and R2 fails at the first merge. The value position is either a reference or an atomic literal. Write `V` for the literals:
 
 ```
 Fact  = I × I × (I ∪ V)                                   (5.3)
@@ -443,15 +443,15 @@ returns one row (`?turbine = turbine-3`, `?panel = panel-14`, `?name = "Current 
 
 <div class="fp-exhibit" data-exhibit="select"></div>
 
-*Interactive exhibit (online edition): the algebra, exercised, patterns with variables, joined and projected over the state merged above. One preset only answers because the merge happened: it joins the operator's facts to the contractor's.*
+*Interactive exhibit (online edition): the algebra exercised — patterns with variables, joined and projected over the state merged above. One preset only answers because the merge happened: it joins the operator's facts to the contractor's.*
 
-And notice what the join has done to the pipeline's types. `State` is the graph that (5.3) built, and the pattern just walked it, crossing from the contractor's facts to the operator's along a reference, from `feeds` into `panel-14` and on to its `title`. References point anywhere. But every document Chapter 3 stripped was a tree. Somewhere between them, the shape must change. That is Chapter 6.
+The join also exposes a problem in the pipeline's types. `State` is the graph that (5.3) built, and the pattern just walked it, crossing from the contractor's facts to the operator's along a reference, from `feeds` into `panel-14` and on to its `title`. References point anywhere. But every document Chapter 3 stripped was a tree. Somewhere between them, the shape must change. That is Chapter 6.
 
 ---
 
 ## Chapter 6. From Graph to Tree
 
-Chapter 5 closed on a mismatch of shapes; the pipeline's types locate it. `State` and `Data` are *graphs*, facts whose references form arbitrary many-to-many webs. `Tree` and `Doc` are *trees*. Documents are hierarchical, and so is human reading. The pipeline crosses from graph to tree exactly once, inside `arrange`.
+Chapter 5 closed on a mismatch of shapes; the pipeline's types locate it. `State` and `Data` are *graphs*, facts whose references form arbitrary many-to-many structures. `Tree` and `Doc` are *trees*. Documents are hierarchical, and so is human reading. The pipeline crosses from graph to tree exactly once, inside `arrange`.
 
 <div class="fp-history">
 
@@ -475,14 +475,14 @@ Display order is one of those structural decisions, and it gets the strictest ha
 
 *One graph, many trees: `d` can nest under only one parent (the other edge survives as a reference) and siblings take an order the graph never fixed. These are the choices the crossing must make somewhere: `canon` makes none of them, `t` makes all of them.*
 
-And you have already seen `canon`'s output. Strip 2 *is* it: the dashboard reduced to sorted blocks, one per panel, `title` and `value` beneath. The exhibit's format was never a design choice for the figure. It was the canonical serialization, arrived at by stripping.
+And you have already seen `canon`'s output. Strip 2 *is* it: the dashboard reduced to sorted blocks, one per panel, `title` and `value` beneath. The exhibit's format was the canonical serialization, arrived at by stripping, not a design choice.
 
 The three properties `canon` must have (deterministic, lossless, structure-free) are satisfiable, and cheaply:
 
 **Prop. 6.1.** A `canon` with all three properties exists.
 
 <details>
-<summary><i>Proof — sort lexicographically; unnamed entities pay Chapter 9's bill.</i></summary>
+<summary><i>Proof — sort lexicographically; unnamed entities need Chapter 9's labeling.</i></summary>
 
 For ground states (states whose entities all carry names) order the facts lexicographically by their three positions and emit one block per entity. The map is a function because a total order on tuples exists. It is lossless because the fact set is recoverable by reading the blocks back. It is structure-free because the order is defined by the facts alone, never by their provenance or grouping. States with unnamed entities need a canonical labeling first; that labeling exists, is standardized, and Chapter 9 states its cost. ∎
 
@@ -527,7 +527,7 @@ With `D⁻`, `D⁺` as defined, `(S ∖ D⁻) ∪ D⁺ = write(r, S)` by set ext
 
 </details>
 
-A state change is two sets. That is the entire theory of mutation over a fact-set model. Measure that against what the industry maintains for mutation: object-relational mappers, undo stacks, reconciliation engines. Every one of these is machinery for computing or applying change over a model in which change has no normal form. Trees are the instructive case: two trees have no canonical difference, so deciding what "changed" is a heuristic. The industry's clearest specimen is the virtual DOM's diffing engine (Chapter 11): client-side frameworks re-compare an in-memory copy of the page on every render. That is a whole runtime spent recovering, approximately, what (7.1) gives exactly by subtraction. Subtracting one set from another is exact. The model that R2 forced for merging therefore gives mutation's normal form as a by-product, because union and difference belong to one algebra.
+A state change is two sets. That is the entire theory of mutation over a fact-set model. Measure that against what the industry maintains for mutation: object-relational mappers, undo stacks, reconciliation engines. Every one of these is machinery for computing or applying change over a model in which change has no normal form. Trees are the instructive case: two trees have no canonical difference, so deciding what "changed" is a heuristic. The industry's clearest specimen is the virtual DOM's diffing engine (Chapter 11): client-side frameworks re-compare an in-memory copy of the page on every render. That is a whole runtime recovering, approximately, what (7.1) gives exactly by subtraction. Subtracting one set from another is exact. The model that R2 forced for merging therefore gives mutation's normal form as a by-product, because union and difference belong to one algebra.
 
 On the running example: the wind gusts, and the panel's `value` moves. The delta is `D⁻ = {(⟨…#panel-14⟩, value, "15.5 kW")}` and `D⁺ = {(⟨…#panel-14⟩, value, "16.1 kW")}`, two one-element sets. That is the entire update, transport included.
 
@@ -535,11 +535,11 @@ On the running example: the wind gusts, and the panel's `value` moves. The delta
 
 *Interactive exhibit (online edition): the gust, applied. Edit the two sets and apply them against the live state. Apply the same delta twice and watch nothing happen: sets subtract, and re-application is a no-op.*
 
-And note what a delta is made of: fact-sets. Change is data in the same model as the state it changes. There is no second model, and no change-description language whose semantics would have to be invented. The delta is what fills the request's `Body` from Chapter 1, and Chapter 8 will give the industry's name for it.
+A delta is made of fact-sets. Change is data in the same model as the state it changes. There is no second model, and no change-description language whose semantics would have to be invented. The delta is what fills the request's `Body` from Chapter 1, and Chapter 8 will give the industry's name for it.
 
 ### Forms, run backwards
 
-**Prop. 7.2 (Forms are inverse transforms).** The read pipeline ends at a human; the write side begins at one. The instrument is a form: a tree, part of a document, rendered by `present` like everything else. Its fields stand where a fact pattern's variables stand. A form carries one pattern or several, each marked "remove" or "add"; submission binds their fields, and a bound pattern is a set of facts. The marked sets are (7.1)'s delta:
+**Prop. 7.2 (Forms are inverse transforms).** The read pipeline ends at a human; the write side begins at one. The instrument is a form: a tree, part of a document, rendered by `present` like everything else. Its fields are a fact pattern's variables. A form carries one pattern or several, each marked "remove" or "add"; submission binds their fields, and a bound pattern is a set of facts. The marked sets are (7.1)'s delta:
 
 ```
 form   : Tree                fields ↔ variables of a fact pattern
@@ -556,8 +556,7 @@ For the justification, view source on any HTML form since 1993. Field names are 
 
 ### One algebra, both directions
 
-**Prop. 7.3 (One algebra, both directions).** Chapter 5's selection algebra (match, join, union, project) is the write side's algebra too. A pattern with free variables *selects* the facts that match; the same pattern with its variables bound *denotes* the facts of a delta. Selection finds what is; the delta says what shall be; the syntax between them is one syntax.
-
+**Prop. 7.3 (One algebra, both directions).** Chapter 5's selection algebra (match, join, union, project) is the write side's algebra too. A pattern with free variables *selects* the facts that match; the same pattern with its variables bound *denotes* the facts of a delta.
 ```
 pattern + state      →  bindings                          (find)
 pattern + bindings   →  (D⁻, D⁺)                          (change)
@@ -579,7 +578,7 @@ Moves 2–5 are independent evolution's four timelines; move 1 is the request, a
 
 ### The latency concession
 
-One concession remains, and it too should be met at full strength. That concession is latency. The operational complaint is the round trip: a keystroke should not cross an ocean to move a cursor. Granted. But look at what the complaint actually asks for: that the factors be *evaluated near the user*, not that they be fused. And mobility of evaluation is precisely what S2 already secured. A term whose semantics is closed evaluates the same everywhere. So ship `q`, `t`, `s` to the client and run them there, against a local replica of the selected data. The architecture has not changed by one proposition. The terms and the factors are the same; only the machine is different. What cannot travel this way is a fused `read`: an opaque program can only be shipped whole and trusted blind. Shipping opaque programs to browsers is an experiment the web has already run; Chapter 12 reports the result. Declarative terms are portable because they mean the same thing everywhere. That is S2, applied as a deployment strategy.
+One concession remains, and it too should be met at full strength. That concession is latency. The operational complaint is the round trip: a keystroke should not cross an ocean to move a cursor. Granted. But look at what the complaint actually asks for: that the factors be *evaluated near the user*, not that they be fused. And mobility of evaluation is precisely what S2 already secured. A term whose semantics is closed evaluates the same everywhere. So ship `q`, `t`, `s` to the client and run them there, against a local replica of the selected data. No proposition of the architecture has changed. The terms and the factors are the same; only the machine is different. What cannot travel this way is a fused `read`: an opaque program can only be shipped whole and trusted blind. Shipping opaque programs to browsers is an experiment the web has already run; Chapter 12 reports the result. Declarative terms are portable because they mean the same thing everywhere. That is S2, applied as a deployment strategy.
 
 ### The closed pipeline
 
@@ -635,7 +634,7 @@ Read the dates first. Every row predates this book, most by decades, and none ap
 
 <img src="first-principles-figures/spot-ch08-the-dates.svg" alt="Six reference volumes on a shelf, spines stamped with years, bindings unopened" class="fp-spot" width="420" />
 
-**Prop. 8.1 (Homomorphism).** There is a translation `φ`, facts to RDF triples, states to graphs, selection terms to SPARQL terms (write `sparql(p)` for that last translation), such that `φ(select(p, S)) = ⟦sparql(p)⟧(φ(S))`; on ground states `φ` is a bijection. The mapping is a *homomorphism*, not a coincidence of shapes: the operations commute with the translation.
+**Prop. 8.1 (Homomorphism).** There is a translation `φ`, taking facts to RDF triples, states to graphs, and selection terms to SPARQL terms (write `sparql(p)` for that last translation), such that `φ(select(p, S)) = ⟦sparql(p)⟧(φ(S))`; on ground states `φ` is a bijection. The mapping is a *homomorphism*, not a coincidence of shapes: the operations commute with the translation.
 
 <details>
 <summary><i>How the check runs — clause by clause against a denotational spec.</i></summary>
@@ -664,7 +663,7 @@ Whatever you believed about the semantic web when you opened this book (too acad
 
 **Theorem 8.2 (Synthesis).** The stack realizes the proper factorizations whose `select` is a term of Chapter 5's algebra and whose `arrange` is generic, invariant under URI renaming, singling out no particular URI. SPARQL carries those selections exactly (Prop. 8.1), XSLT-over-canon the arrangements, CSS the presentation, and S4 holds by construction because query results and graphs are dereferenceable resources. By Prop. 7.3's symmetry, the write side inherits the result: SPARQL Update carries the deltas in the same pattern language, arguments swapped. Full proof: Appendix B.8, which states the genericity condition exactly.
 
-The select-side condition restricts nothing new: it admits exactly the selections Chapter 5's four operations build, and no more. The genericity condition is the claim's deeper caveat, carried inside it: the completeness class for `arrange` excludes transforms that smuggle in knowledge of particular URIs. The exclusion has a reason: such a transform makes the document depend on how an entity is named rather than on what the facts say, so a renaming, which asserts nothing, changes the page, and the page carries meaning with no source in the state. Practitioners call a transform without such knowledge data-driven, and AWWW §2.5 calls the norm URI opacity; invariance under renaming is both, made exact. Analysis said every application has the form; Synthesis says the stack fills the form. The two halves of the argument meet. This meeting point is the book's proof.
+The select-side condition restricts nothing new: it admits exactly the selections Chapter 5's four operations build, and no more. The genericity condition is the claim's deeper caveat, carried inside it: the completeness class for `arrange` excludes transforms that smuggle in knowledge of particular URIs. The exclusion has a reason: such a transform makes the document depend on how an entity is named rather than on what the facts say. A renaming, which asserts nothing, then changes the page, and the page carries meaning with no source in the state. Practitioners call a transform without such knowledge data-driven, and AWWW §2.5 calls the norm URI opacity; invariance under renaming is both, made exact. Analysis said every application has the form; Synthesis says the stack fills the form. The two halves of the argument meet. This meeting point is the book's proof.
 
 ---
 
@@ -694,7 +693,7 @@ Blank nodes are scoped to their graph, so composition must standardize them apar
 
 </details>
 
-That is the bill for anonymity, and it falls exactly on the party that chose anonymity. If you name your entities, state composes by set arithmetic. If you leave them unnamed, composition becomes theorem-proving in miniature, and it lands precisely at the seam where Chapter 6 put `canon`. The formalism therefore places the work exactly where names are missing. The deployed stack's own list idiom shows the cost: an ordered collection encoded as a chain of unnamed cells carries the cost of anonymity at every link. Order is the recurring case. If you state order as facts, using one rank fact per member as Chapter 3's opening example did, then order merges like any other facts. If you fold order into shape instead, you have the chain just described: every link pays the anonymity bill, and the union of two chains is not a chain, so the order does not merge at all.
+That is the bill for anonymity, and it falls exactly on the party that chose anonymity. If you name your entities, state composes by set arithmetic. If you leave them unnamed, composition becomes theorem-proving in miniature, and it lands precisely at the seam where Chapter 6 put `canon`. The formalism therefore places the work exactly where names are missing. The deployed stack's own list idiom shows the cost: an ordered collection encoded as a chain of unnamed cells carries the cost of anonymity at every link. Order is the recurring case. If you state order as facts, using one rank fact per member as Chapter 3's opening example did, then order merges like any other facts. If you fold order into shape instead, you have the chain just described, and the union of two chains is not a chain, so the order does not merge at all.
 
 ### Mismatch two: the fourth position
 
@@ -707,17 +706,17 @@ The web adds one requirement that Chapter 5 never imposed. R1–R3 govern facts 
 <details>
 <summary><i>Proof — set union forgets who contributed; reification attributes only descriptions; one position repairs it.</i></summary>
 
-Union erases contribution: B-2d says `atoms(s ⊕ s′) = atoms(s) ∪ atoms(s′)`, and a set union keeps no record of which side an element came from. So within `𝒫(Fact)`, "who asserted this atom" is unrecoverable by construction — attribution lives in the history of the state, and states-not-histories is what B-2c chose. Reification (the standard's device of describing a fact in triples of its own) does not escape either: it attributes only a *description* of the fact. The described fact is then either also present as a plain atom or absent. If present, it is asserted outright and the attribution is defeated. If absent, it is attributed but never stated, quoted rather than asserted. The minimal repair types the atom as a pair (source, fact). The source position must refer across parties, hence lies in `I`, R3's argument (condition B-3 in Appendix B) verbatim. One extra position suffices, because attribution of attributions is more quads, not more positions. Rerun B.1–B.3 over the retyped atom: `𝒫(I × I × I × (I ∪ V))`, merge still union. ∎
+Union erases contribution: B-2d says `atoms(s ⊕ s′) = atoms(s) ∪ atoms(s′)`, and a set union keeps no record of which side an element came from. So within `𝒫(Fact)`, "who asserted this atom" is unrecoverable by construction — attribution lives in the history of the state, and states-not-histories is what B-2c chose. Reification (the standard's device of describing a fact in triples of its own) does not escape either: it attributes only a *description* of the fact. The described fact is then either also present as a plain atom or absent. If present, it is asserted outright and the attribution is defeated. If absent, it is attributed but never stated, quoted rather than asserted. The minimal repair types the atom as a pair (source, fact). The source position must refer across parties, hence lies in `I`; this is R3's argument (condition B-3 in Appendix B), verbatim. One extra position suffices, because attribution of attributions is more quads, not more positions. Rerun B.1–B.3 over the retyped atom: `𝒫(I × I × I × (I ∪ V))`, merge still union. ∎
 
 </details>
 
-Here the mismatch becomes a prediction. The 1999 core standardized triples. The deployed stack then grew exactly the fourth position: named graphs, RDF datasets, TriG, standardized in 2014. The graph name is a URI, so attribution itself dereferences. A derivation that merely matched the 1999 core could be coincidence. But the derivation requires attribution, which the 1999 core did not satisfy, and the standard's own later extension added exactly the position attribution needs. A derivation that anticipates the artifact's next move is tracking the requirements, not copying the artifact. The fourth position arrived, but the standard did not fix what the graph name *means*, and its semantics is still argued about. The prediction is structural, and claimed as nothing more. (Annotation syntaxes, RDF 1.2's triple term, by contrast, only re-serialize what reification already expressed. They are a convenience and nothing more, because syntax is not a property and Part IV's audit table scores properties.)
+Here the mismatch becomes a prediction. The 1999 core standardized triples. The deployed stack then grew exactly the fourth position: named graphs, RDF datasets, TriG (their text notation), standardized in 2014. The graph name is a URI, so attribution itself dereferences. A derivation that merely matched the 1999 core could be coincidence. But the derivation requires attribution, which the 1999 core did not satisfy, and the standard's own later extension added exactly the position attribution needs. A derivation that anticipates the artifact's next move is tracking the requirements, not copying the artifact. The fourth position arrived, but the standard did not fix what the graph name *means*, and its semantics is still argued about. The prediction is structural, and claimed as nothing more. (Annotation syntaxes such as RDF 1.2's triple term, by contrast, only re-serialize what reification already expressed. They are a convenience, because syntax is not a property and Part IV's audit table scores properties.)
 
 ### Mismatch three: the abandoned seam
 
 Chapter 6's crossing needs two pieces: a canonical serialization and a declarative tree-transformation language. The deployed stack had both, and the transformation language (XSLT) was standardized in 1999 and shipped in every browser. The platform then froze it at that 1999 revision for a quarter of a century and, as of this writing, is scheduled to remove it outright. So this mismatch is not a gap in the standards: the technology existed, and the platform stopped maintaining it. This is the evidence Chapter 6 promised: the graph-to-tree crossing needs no invention, only upkeep of software that already existed. The platform declined that upkeep, and the industry built, many times over, the compensating machinery Part IV measures.
 
-Stated generally, that is the book's practical thesis: what separates the modern web from the derived one is abandoned technology, a maintenance failure, not a research problem. And the failure is the platform's, not the language's: XSLT 3.0 (2017) runs in every current browser through [SaxonJS](https://www.saxonica.com/html/saxonjs/index.html). Its [IXSL extension](https://www.saxonica.com/saxonjs/documentation3/index.html#!ixsl-extension) binds browser events to template rules, so Chapter 7's mobility of evaluation is deployed today and interactivity stays declarative. From userland, a vendor performs the maintenance the platform dropped.
+Stated generally, that is the book's practical thesis: what separates the modern web from the derived one is abandoned technology, a maintenance failure rather than a research problem. And the failure is the platform's, not the language's: XSLT 3.0 (2017) runs in every current browser through [SaxonJS](https://www.saxonica.com/html/saxonjs/index.html). Its [IXSL extension](https://www.saxonica.com/saxonjs/documentation3/index.html#!ixsl-extension) binds browser events to template rules, so Chapter 7's mobility of evaluation is deployed today and interactivity stays declarative. From userland, a vendor performs the maintenance the platform dropped.
 
 ### Mismatch four: the write-side last mile
 
