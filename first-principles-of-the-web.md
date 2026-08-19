@@ -506,7 +506,7 @@ The seam is not an unsolved research problem, and Chapter 9 presents the evidenc
 
 ## Chapter 7. The Write Side
 
-Definition 1.1 has a second component, and with it comes the strongest objection to everything so far. Documents can be declarative. Nobody defends imperative newspapers. Applications, the objection runs, are different: they change things, they respond, and change is where declarative architectures fail. This chapter takes the objection at full strength and answers it in four propositions. Nothing from the read pipeline needs to be taken back; the write side is the factorization's mirror image, and the smaller of the two.
+Definition 1.1 has a second component, and everything derived so far concerned the first. `read` was the easy half: documents can be declarative, because a page that only displays needs no program. Applications also change things, and change is widely held to be where declarative architectures fail. This chapter derives the write side in four propositions. Nothing from the read pipeline needs to be taken back; the write side is the factorization's mirror image, and the smaller of the two.
 
 ### The delta normal form
 
