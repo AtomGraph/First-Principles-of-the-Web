@@ -145,7 +145,9 @@ Chapter 2 chose two pages that are as different as any pair it could find: the n
 
 *The starting material. One page is paper-white and editorial, the other black and numerical; they share, apparently, nothing.*
 
-**Strip the style.** Turn off CSS, switch to reader view, print in monochrome. The page looks different; nothing it *says* changes. So a document factors:
+### Strip the style
+
+Turn off CSS, switch to reader view, print in monochrome. The page looks different; nothing it *says* changes. So a document factors:
 
 ```
 Doc = Style × Content
@@ -157,7 +159,9 @@ The justification is already deployed on every device you own: dark mode, print 
 
 *CSS off. The newspaper still says everything it said — headlines, bylines, photographs, in browser-default dress. Note the asymmetry on the right, and file it for Part IV: stripping style from the newspaper leaves the news; stripping it from the dashboard leaves mostly chrome. The headline numbers survive as text, but the time-series curves were never in the document at all — they are pixels on a canvas.*
 
-**Strip the arrangement.** The same content appears as a table on desktop, a card list on mobile, a chart in the summary view. The facts are identical; their shape as a document differs. So content factors:
+### Strip the arrangement
+
+The same content appears as a table on desktop, a card list on mobile, a chart in the summary view. The facts are identical; their shape as a document differs. So content factors:
 
 ```
 Content = Arrangement × Data
@@ -169,9 +173,13 @@ Every "view toggle" on the web justifies this factoring, showing the same data a
 
 *Arrangement off. Both pages now use the same format: one block per entity, sorted, with no nesting. A headline is paired with a section, and a panel title with a value. The two sites that shared nothing now differ only in vocabulary.*
 
-**Order as data.** There is one complication before the next strip. A careful reader has already spotted it: the front page's order *means* something. The lead story leads because an editor judged it should, and a strip that discarded the judgment would be destroying content while claiming to remove arrangement. That judgment can itself be represented as data: *this article, prominence one*. The strip's real effect is that order moves out of the tree and into the data, where it survives every re-arrangement that follows. The deployed web already shows what happens otherwise: the same articles also go out through feeds, and a feed delivers them without the front page's ordering. Prominence that lives only in an arrangement is lost on every consumer who receives the content without it. Chapter 6 will harden this from a concession into a law: if the order is a message, the order is data.
+### Order as data
 
-**Strip the selection.** Every page shows a sliver of something much larger. An article's own page and the front page draw from the same pool; the dashboard shows the last six hours, but last week exists. So data factors:
+There is one complication before the next strip. A careful reader has already spotted it: the front page's order *means* something. The lead story leads because an editor judged it should, and a strip that discarded the judgment would be destroying content while claiming to remove arrangement. That judgment can itself be represented as data: *this article, prominence one*. The strip's real effect is that order moves out of the tree and into the data, where it survives every re-arrangement that follows. The deployed web already shows what happens otherwise: the same articles also go out through feeds, and a feed delivers them without the front page's ordering. Prominence that lives only in an arrangement is lost on every consumer who receives the content without it. Chapter 6 will harden this from a concession into a law: if the order is a message, the order is data.
+
+### Strip the selection
+
+Every page shows a sliver of something much larger. An article's own page and the front page draw from the same pool; the dashboard shows the last six hours, but last week exists. So data factors:
 
 ```
 Data = Selection × State
@@ -755,7 +763,7 @@ None of these mismatches invalidates a proposition from Part II. And listing the
 
 # Part IV — The Audit
 
-*Part II derived seven properties; Part III showed that one stack satisfies all of them. This part scores everything else the industry runs, and last, the derived stack itself, on the same rows; its closing chapter is the completed table.*
+*Part II derived seven properties; Part III showed that one stack satisfies all of them. This part scores everything else the industry runs against the same seven properties, and finally the derived stack itself.*
 
 *Every audit in this part fills one column of the same table; the final chapter assembles the complete table. The rows are R1 R2 R3 · S1 S2 S3 S4. Each technology is evaluated against those seven properties, and the scores carry the argument. The rows themselves are backed by proofs: R1–R3 by Theorem 5.4, S1–S4 by Proposition 4.4. So rejecting a score means rejecting a requirement, not defending a technology.*
 
@@ -783,7 +791,7 @@ Both formats share one data model. An XML document and a JSON document are order
 
 **R3.** JSON has no reference type. A URL in a JSON string is a string; the format's specifications define grammar and leave interpretation to applications, so nothing distinguishes a link from a postcode. XML held fragments of the property. Namespaces gave vocabulary terms global names; `xml:id` and XLink offered standardized reference, largely unused. The migration shed the fragments too. AWWW §4.4 named three good practices in 2004 (link identification, Web-wide linking, hypertext links), and all three fail in the format the industry migrated *to*. The destination format, JSON, scores ✗; the origin, XML, keeps a ~ for its surviving fragments.
 
-**The tooling deficit, itemized.**
+### The tooling gap
 
 | capability | XML stack | JSON stack |
 |---|---|---|
@@ -793,9 +801,11 @@ Both formats share one data model. An XML document and a JSON document are order
 | intra-document addressing | fragments + XPointer | JSON Pointer — RFC 6901, 2013 |
 | vocabulary scoping | Namespaces, 1999 | — |
 
-The JSON stack's tools arrived a quarter century late where they arrived at all. Its query language was standardized in 2024, twenty-five years after XPath, and it has no entry at all for transformation or vocabulary scoping. The migration's tooling deficit is two decades old and still open. And longevity ran the other way. The JSON column's empty transformation cell is filled by whatever framework is current, and most JavaScript frameworks of 2010 have already been retired. XSLT, frozen at its 1999 revision as Chapter 9 filed, still runs in every browser as of this writing.
+The JSON stack's query language was standardized in 2024, twenty-five years after XPath, and it has no transformation or vocabulary-scoping language at all. The transformation role is filled by whatever framework is current (the table's empty cell), and most JavaScript frameworks of 2010 have already been retired. XSLT, which the browsers froze at its 1999 revision as Chapter 9 filed, still runs in every one of them as of this writing.
 
-**Column: XML stack.**
+### XML stack
+
+The R-rows carry over from the argument above: the tree encodes any domain, the merge is missing, and the reference fragments go unused. The S-rows come from the tooling table. XPath and XSLT give query and transformation specified semantics, so S2 holds. Each capability has one standardized language, so components substitute and S3 holds. S1 is partial: a schema separates the vocabulary, but the document still fuses arrangement and data. S4 is partial: fragments and XPointer address into a document, but they are largely unused.
 
 | | XML stack |
 |---|---|
@@ -807,9 +817,9 @@ The JSON stack's tools arrived a quarter century late where they arrived at all.
 | S3 | ✓ — one standardized language per capability; components substitute |
 | S4 | ~ — fragments and XPointer address into documents, largely unused |
 
-**The S-properties of the deployment style — REST as practiced.** The style's genuine inheritance from HTTP survives in the scores: resources carry URIs, so S4 earns partial credit at the resource grain. The credit stops there, because values inside a representation cannot link onward, so the data ends at every document boundary. The style's own definition requires hypermedia links (Fielding 2000, §5.1.5); the deployments that adopted the style's name discarded the requirement. Query and transformation semantics are implementation-defined (S2 ✗). Substituting a component means renegotiating a bespoke contract per pair of parties (S3 ~). Every payload ships arrangement and data fused (S1 ~; the endpoint separates, the representation does not).
+### JSON/REST
 
-**Column: JSON/REST.**
+**The S-properties of the deployment style the industry calls REST.** The style's genuine inheritance from HTTP survives in the scores: resources carry URIs, so S4 holds for whole JSON documents. Inside the JSON it fails: a URL is a string like any other, so a generic client cannot follow it from one document's data to the next. The style's own definition requires hypermedia links (Fielding 2000, §5.1.5); the deployments that adopted the style's name discarded the requirement. Query and transformation semantics are implementation-defined (S2 ✗). Substituting a component means renegotiating a bespoke contract per pair of parties (S3 ~). Every payload ships arrangement and data fused (S1 ~; the endpoint separates, the representation does not).
 
 | | JSON/REST |
 |---|---|
@@ -821,38 +831,44 @@ The JSON stack's tools arrived a quarter century late where they arrived at all.
 | S3 | ~ — substitution behind bespoke contracts |
 | S4 | ~ — resources have URIs; values do not link onward |
 
-The opening question (*and what changed?*) now has a measured answer: the migration changed brackets, shed tooling, and gained not one property. The cells that moved (R3, S2, S3) moved down. The numbers show lateral churn.
+The opening question (*and what changed?*) now has a measured answer: the migration changed brackets, dropped the tooling, and gained no property. The cells that moved (R3, S2, S3) moved down. The numbers show lateral churn.
 
 ## Chapter 11. The Single-Page Application
 
 This chapter audits the single-page application (SPA). In the book's terms its architecture is the trivial factorization of Chapter 4 (Prop. 4.2), deployed at industry scale. `select` and `present` shrink to near-identities; the application is stuffed into one term that computes all of `read`. Fetching, state management, templating, and styling decisions interleave in one program, delivered as one bundle.
 
-**S1.** State is threaded through the term (component state, stores, caches, props) with no factor boundary anywhere; the paradigm's own architecture diagrams draw the threading as a feature. ✗
+**S1.** State lives at every level of the program (component state, stores, caches, props), with no factor boundary anywhere. The paradigm's own architecture diagrams present that flow of state as a feature. ✗
 
 **S2.** The term is imperative, so its meaning is defined by execution order. The failure is in principle rather than in implementation. Def. 4.3 requires each factor to denote a term in a language with closed semantics; an imperative program's meaning is the trace of its execution. No discipline within the paradigm can repair this, because the paradigm *is* the choice of trace over denotation. ✗
 
 **S3.** No factor can be replaced without rewriting the term as a whole. Substitutability needs a factor boundary to swap across, and S1 showed there is none. State, selection, arrangement, and presentation are one program, so changing any concern means editing that program, not substituting a term of a language. ✗
 
-**S4.** No intermediate value has a URI. The data behind a rendered view cannot be addressed, cached by intermediaries, indexed, or linked. Chapter 3's exhibit filed the evidence in passing. Stripping style from the dashboard left chrome, the frame with no facts in it, because the curves were pixels on a canvas. The state was invisible even to the application's own document. ✗
+**S4.** No intermediate value has a URI. The data behind a rendered view cannot be addressed, cached by intermediaries, indexed, or linked. Chapter 3 showed this on the dashboard: stripping style left only the chrome, because the curves were never in the document — a script drew them as pixels on a canvas. The state never reached the application's own document. ✗
 
-**The one-timeline consequence.** Independent evolution (Prop. 4.5) states what the fusion costs. The application is one component with one timeline, so any change (data, layout, theme, query) is a change to the whole term. The term is the unit of delivery, so it is also the unit of invalidation. Four consequences follow, and each one forfeits a property that Fielding's constraints were chosen to induce:
+### The one-timeline consequence
+
+Independent evolution (Prop. 4.5) states what the fusion costs. The application is one component with one timeline, so any change (data, layout, theme, query) is a change to the whole term. The term is the unit of delivery, so it is also the unit of invalidation. Four consequences follow, and each one forfeits a property that Fielding's constraints were chosen to induce:
 
 - caching degrades to bundle-level, which is the corollary to Prop. 4.5 and now an operating cost;
 - crawling requires headless browsers, machines simulating humans in order to read what machines produced;
 - reuse requires reverse-engineering a private API, the S4 tax, paid by every integrator separately;
 - hydration (shipping the document *and* the program that regenerates it) is the S1 tax: the architecture cannot tell its document from its program, so it ships both.
 
-**The R-properties.** R1 holds; a program holds any state in memory. R2 and R3 fail together. Component state has no merge law. State-synchronization libraries are the compensating industry. And references are pointers: machine-local by definition.
+### The R-properties
 
-**The platform's component model.** One objection to the audit is that these failures belong to frameworks and that the platform is the cure, since the platform has since shipped its own component model. Web Components are the test case. A custom element gives the fused term a tag name; shadow DOM gives it a boundary the document's own selectors cannot cross.
+R1 holds; a program holds any state in memory. R2 and R3 fail together. Component state has no merge law. State-synchronization libraries are the compensating industry. And references are pointers: machine-local by definition.
 
-Run the scores. The tag denotes nothing until its class executes, so meaning is still the trace (S2). The element's state lives in the class, threaded as before (S1). The shadow tree is an interior hidden *by design*: no URI reaches it, and now no selector either (S4). And no factor boundary appeared, so substitution still means rewriting the class (S3). The standard standardizes the seam *around* the term, not a seam *through* it: a component boundary is not a factor boundary. Moving the component model from framework to platform moves no score. Chapter 1 filed the framework as an implementation detail, and this is the confirming experiment.
+### The platform's component model
+
+One objection to the audit is that these failures belong to frameworks and that the platform is the cure, since the platform has since shipped its own component model. Web Components are the test case. A custom element gives the fused term a tag name; shadow DOM gives it a boundary the document's own selectors cannot cross.
+
+The tag denotes nothing until its class executes, so meaning is still the trace (S2). The element's state lives in the class, threaded as before (S1). The shadow tree is an interior hidden *by design*: no URI reaches it, and now no selector either (S4). And no factor boundary appeared, so substitution still means rewriting the class (S3). The standard draws its boundary around the fused program, not through it: shadow DOM encloses the whole term, while properness needs it cut into select, arrange, and present. A component boundary is not a factor boundary. Moving the component model from framework to platform changes no score. Chapter 1 filed the framework as an implementation detail, and this is the confirming experiment.
 
 What shadow DOM does standardize is encapsulation: state hidden behind a boundary on purpose. That is a term the book has not used until now. Chapter 13 audits the paradigm that encapsulation belongs to, and that paradigm is not the web's.
 
-The corollary: **the SPA is the un-web** — HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. The corollary adds nothing to the column, because rejecting the corollary means rejecting a score, and each score names the property that the objection must be argued against. A prediction follows, and it is labeled as one: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state (the definition Chapter 20 makes exact), and the paradigm's defining move is hiding state behind `read`. Chapter 14 measures the industry's own retreat from this position; Chapter 22 records what arrived in the meantime.
+The corollary: **the SPA is the un-web** — HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. The corollary claims nothing beyond the column. Rejecting it means rejecting one of the scores, and each score names the property an objection would have to argue against. A prediction follows: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state (the definition Chapter 20 makes exact), and the paradigm is defined by hiding state behind `read`. Chapter 14 measures the industry's own retreat from the paradigm; Chapter 22 records the machine consumers that appeared in the meantime.
 
-**Column: SPA/JS.**
+### SPA/JS
 
 | | SPA/JS |
 |---|---|
@@ -878,7 +894,7 @@ The concession is Wasm as a *leaf*: a codec, a physics kernel, a solver inside o
 
 Black-box binaries served by corporations invert the property that let every reader of the early web become an author by viewing source. That inversion is not an accident; it is the business model.
 
-**Column: Wasm-as-paradigm.**
+### Wasm-as-paradigm
 
 | | Wasm-as-paradigm |
 |---|---|
@@ -979,7 +995,7 @@ timeline
 
 *Years mark mainstream arrival, not invention. The axis the figure cannot draw is the one the chapter measures: S1 and S2 have recovered to tildes, while R3 and S4 have not been recovered at all.*
 
-**Column: GraphQL.**
+### GraphQL
 
 | | GraphQL |
 |---|---|
@@ -991,7 +1007,7 @@ timeline
 | S3 | ~ — substitution within one schema's contract |
 | S4 | ✗ — one endpoint; results are not addressable |
 
-**Column: SPA/JS, revised.**
+### SPA/JS, revised
 
 | | SPA/JS (Ch 11) | SPA/JS (2026) |
 |---|---|---|
@@ -1020,7 +1036,7 @@ What would make the column suspect is not who scored it but what the scoring lef
 
 The two that belong to the platform leave every row's score unchanged, because no row measures maintenance. The abandoned seam and the write-side last mile are deployment failures, and deployment failure is what this part has priced in every other column's compensating industry. The pricing is symmetric: no other column's row was struck for deployment either, because the industries corroborated failures the rows had already scored. The stack's own deployment bill is itemized in Chapter 9, mismatches three and four. The mismatches do not soften the column. They are why it can be trusted: Chapter 9 stated all four openly, where any reader could check them, before this audit began, and every cell below cites a result that carries its own caveats with it.
 
-**Column: Derived stack.**
+### Derived stack
 
 | | Derived stack |
 |---|---|
