@@ -777,7 +777,7 @@ Since the early 2000s, the web community has executed the largest format migrati
 |---|---|
 | `<person><name>Ada</name></person>` | `{"person":{"name":"Ada"}}` |
 
-*Twenty years of progress. The book's only sarcastic figure caption.*
+*Twenty years of progress.*
 
 Activity of this shape is **lateral churn**, motion that looks like innovation but isn't. Real innovation is vertical: new layers, new semantics, new abstractions on top of what already works. That is how the web was designed to grow. Parts II and III have shown, formally, that the vertical direction was open the entire time.
 
@@ -831,7 +831,7 @@ The R-rows carry over from the argument above: the tree encodes any domain, the 
 | S3 | ~ — substitution behind bespoke contracts |
 | S4 | ~ — resources have URIs; values do not link onward |
 
-The opening question (*and what changed?*) now has a measured answer: the migration changed brackets, dropped the tooling, and gained no property. The cells that moved (R3, S2, S3) moved down. The numbers show lateral churn.
+The opening question (*and what changed?*) now has a measured answer: the migration changed brackets, dropped the tooling, and gained no property. Three cells changed (R3, S2, S3), and every one moved down. The numbers show lateral churn.
 
 ## Chapter 11. The Single-Page Application
 
@@ -856,15 +856,15 @@ Independent evolution (Prop. 4.5) states what the fusion costs. The application 
 
 ### The R-properties
 
-R1 holds; a program holds any state in memory. R2 and R3 fail together. Component state has no merge law. State-synchronization libraries are the compensating industry. And references are pointers: machine-local by definition.
+R1 holds: a program can keep any state in memory. R2 and R3 fail together. Component state has no merge law. State-synchronization libraries are the compensating industry. And references are pointers: machine-local by definition.
 
 ### The platform's component model
 
-One objection to the audit is that these failures belong to frameworks and that the platform is the cure, since the platform has since shipped its own component model. Web Components are the test case. A custom element gives the fused term a tag name; shadow DOM gives it a boundary the document's own selectors cannot cross.
+One objection to the audit is that these failures belong to frameworks and that the platform is the cure, because the platform has since shipped its own component model. Web Components are the test case. A custom element gives the fused term a tag name; shadow DOM gives it a boundary the document's own selectors cannot cross.
 
 The tag denotes nothing until its class executes, so meaning is still the trace (S2). The element's state lives in the class, threaded as before (S1). The shadow tree is an interior hidden *by design*: no URI reaches it, and now no selector either (S4). And no factor boundary appeared, so substitution still means rewriting the class (S3). The standard draws its boundary around the fused program, not through it: shadow DOM encloses the whole term, while properness needs it cut into select, arrange, and present. A component boundary is not a factor boundary. Moving the component model from framework to platform changes no score. Chapter 1 filed the framework as an implementation detail, and this is the confirming experiment.
 
-What shadow DOM does standardize is encapsulation: state hidden behind a boundary on purpose. That is a term the book has not used until now. Chapter 13 audits the paradigm that encapsulation belongs to, and that paradigm is not the web's.
+What shadow DOM does standardize is encapsulation: state hidden behind a boundary on purpose. Chapter 13 audits the paradigm that encapsulation belongs to, and that paradigm is not the web's.
 
 The corollary: **the SPA is the un-web** — HTTP reduced to a pipe delivering a program whose interior satisfies none of the properties that define the web. The corollary claims nothing beyond the column. Rejecting it means rejecting one of the scores, and each score names the property an objection would have to argue against. A prediction follows: the paradigm caps structurally at Web 2.0, because Web 3.0 *means* machine-consumable state (the definition Chapter 20 makes exact), and the paradigm is defined by hiding state behind `read`. Chapter 14 measures the industry's own retreat from the paradigm; Chapter 22 records the machine consumers that appeared in the meantime.
 
@@ -892,7 +892,7 @@ History has already run this experiment. In 1996, Java applets were compiled pro
 
 The concession is Wasm as a *leaf*: a codec, a physics kernel, or a solver running inside one factor of a proper factorization. A leaf is useful and harmless, because computation inside a factor leaves every property intact. The factor's boundary is still a declarative term. The objection is to a program *replacing* the three factors, not to a program running inside one of them.
 
-Black-box binaries served by corporations invert the property that let every reader of the early web become an author by viewing source. That inversion is not an accident; it is the business model.
+Black-box binaries served by corporations invert the property that let every reader of the early web become an author by viewing source. That inversion is the business model, not an accident.
 
 ### Wasm-as-paradigm
 
@@ -905,8 +905,6 @@ Black-box binaries served by corporations invert the property that let every rea
 | S2 | ✗ — by construction |
 | S3 | ✗ — by construction |
 | S4 | ✗ — by construction |
-
-S1 through S4 all score zero by construction. The column scores the terminal state of fusion.
 
 ## Chapter 13. Pre-Web Paradigms
 
@@ -937,7 +935,7 @@ An ORM is a type error between two wrong models: object graphs mapped onto relat
 
 ### Imperative languages
 
-S2 is unreachable in principle here: an imperative program's meaning is the trace of its execution. Chapter 11 made that argument about the fused term; here it applies to the language itself. The compensating industry is testing: unit, integration, and end-to-end suites. When meaning is execution, every claim about meaning must be executed before it can be checked, so semantics is recovered empirically, once per program, forever.
+S2 is unreachable in principle here: an imperative program's meaning is the trace of its execution. Chapter 11 made that argument about the fused term; here it applies to the language itself. The compensating industry is testing: unit, integration, and end-to-end suites. When meaning is execution, every claim about meaning must be executed before it can be checked, so semantics is recovered empirically per program, never once for the language.
 
 ### MVC
 
@@ -974,7 +972,7 @@ This chapter is the evidence. The JavaScript ecosystem was not reading a derivat
 - **SSR — server-side rendering.** Documents should arrive as documents. The S4 tax landed as Chapter 11 predicted: every integrator had to reverse-engineer a private API, and search crawlers could not read the page at all. The industry moved for its own reasons (SEO and first paint) and the fix is `present ∘ arrange ∘ select` running on a server, where it had been running all along.
 - **Hydration.** The industry gave Chapter 11's S1 tax a name of its own. The name records a category error: it classes the document as an incomplete form of the program, dry until the program re-runs in the browser. An architecture that could tell its document from its program would have nothing to hydrate.
 - **Islands.** The industry rederived the principle of least power from the costs: most of the page needs no program, so most of the page is no longer written as one.
-- **React Server Components.** RSC pulls `select` back out of the fused term, ten years after fusion. But its wire format is a bespoke, non-addressable serialization of exactly the intermediate value S4 says should have a URI. So RSC restores the `select` factor without restoring the addressable resource that S4 requires.
+- **React Server Components.** RSC pulls `select` back out of the fused term, ten years after fusion. But its wire format is a bespoke, non-addressable serialization of exactly the intermediate value S4 says should have a URI. So RSC restores the `select` factor, but not the addressable resource that S4 requires.
 - **GraphQL.** GraphQL provides declarative queries over a graph model, and those queries return projections. It rebuilds `select` and R1, but without global identifiers. Because R3 is missing, GraphQL stops at the boundary of the organization that defines the schema: federation works within one organization and no further. Its column is below.
 - **HTMX and the hypermedia revival.** This is the same convergence, reached from the opposite direction: practitioners argued documents, links, and forms back into fashion on their original merits. Forms are Chapter 7's instrument.
 
@@ -990,7 +988,7 @@ timeline
     2019 : hydration is named — the S1 tax gets its industry name
     2021 : islands — least power, rediscovered per component
     2023 : React Server Components — select extracted from the fused term
-    2024 : the hypermedia revival peaks — documents argued from the opposite shore
+    2024 : the hypermedia revival peaks — documents argued back into fashion
 ```
 
 *Years mark mainstream adoption, not invention. The figure shows when each piece returned, not how much: S1 and S2 have recovered to partial scores, while R3 and S4 have not been recovered at all.*
@@ -1018,7 +1016,7 @@ timeline
 
 *R1, R2, S3: unchanged from Chapter 11's column.*
 
-One closing observation: the convergence recovers S1 and S2, to a tilde, not a check. But it stalls before R3 and S4, the two properties that make it *the web* rather than an app platform that happens to use browsers. The stall has a reason: the remaining work benefits everyone except the vendor doing it. Vendors adopt the properties that benefit them privately first, and adopt the properties that benefit the public later. So the convergence approaches the proper factorization without reaching it: the private-benefit properties are recovered, and the public-benefit ones are not.
+One closing observation: the convergence recovers S1 and S2, to a tilde, not a check, but neither R3 nor S4, the two properties that make an architecture *the web* rather than an app platform that happens to use browsers. The reason is that the remaining work benefits everyone except the vendor doing it: vendors recover the properties that benefit them privately and stop there.
 
 <img src="first-principles-figures/spot-ch14-the-convergence.svg" alt="A dashed path leaving the front door of a house, wandering past hills, mountains, and a lake, and stopping just short of the door beside it" class="fp-spot" width="420" />
 
@@ -1034,7 +1032,7 @@ The four S-cells draw on the two halves that met in Chapter 8: analysis and synt
 
 A self-scored column is suspect only if it leaves defects unstated, and Chapter 9 already stated them. So there are four mismatches. Which rows do they affect? The two that belong to the model affect the rows most directly. Blank nodes weaken R2 slightly: idempotence holds up to logical equivalence rather than syntactic identity, and that cost is computed exactly (Prop. 9.1). Over ground facts the row holds exactly, and the composition laws still hold. The fourth position adds a requirement rather than removing a score: the web requires R4 (attribution), and the column meets R4 by moving to quads, where merge is still set union (Prop. 9.2). R4 is not a row below because no column in this part was scored on it; it is Chapter 9's addition, and the quad model satisfies it.
 
-The two mismatches that belong to the platform leave every row's score unchanged, because no row measures maintenance. The abandoned seam and the write-side last mile are deployment failures, and deployment failure is what this part has measured in every other column's compensating industry. The treatment is the same for every column: no other technology's score was lowered for a deployment failure either, because the compensating industries only corroborated failures the rows had already scored. The stack's own deployment failures are itemized in Chapter 9 as mismatches three and four. The mismatches do not soften the column. They are why it can be trusted: Chapter 9 stated all four openly before this audit began, and every cell below cites a result that states its own qualifications.
+The two mismatches that belong to the platform leave every row's score unchanged, because no row measures maintenance. The abandoned seam and the write-side last mile are deployment failures, and deployment failure is what this part has measured in every other column's compensating industry. The stack's own deployment failures are itemized in Chapter 9 as mismatches three and four. The mismatches do not soften the column. They are why it can be trusted: Chapter 9 stated all four openly before this audit began, and every cell below cites a result that states its own qualifications.
 
 ### Derived stack
 
@@ -1052,7 +1050,7 @@ None of the seven cells is this chapter's judgment: each score was proved before
 
 ## Chapter 16. The Properness Table
 
-Every audit in this part ended with a column. This chapter assembles those columns into one table. No cell below is new, but placing the cells side by side is new, and that adjacency is what a ledger is for. Each column header cites the chapter that scores it. The derived column cites two: Chapter 8, which proved it, and Chapter 15, which audited it. Its cells add a parenthetical citing the scoring result. The rows are the seven derived properties: R1–R3 on state, S1–S4 on architecture. `✓` is satisfied, `~` partial, `✗` failed. In the online edition every cell of the derived column links to its proposition.
+Every audit in this part ended with a column. This chapter assembles those columns into one table. No cell below is new; placing them side by side is. Each column header cites the chapter that scores it. The derived column cites two: Chapter 8, which proved it, and Chapter 15, which audited it. Its cells add a parenthetical citing the scoring result. The rows are the seven derived properties: R1–R3 on state, S1–S4 on architecture. `✓` is satisfied, `~` partial, `✗` failed. In the online edition every cell of the derived column links to its proposition.
 
 | Property | Relational (13) | OOP/ORM (13) | XML stack (10) | JSON/REST (10) | SPA/JS (11) | Wasm (12) | GraphQL (14) | Derived stack (8, 15) |
 |---|---|---|---|---|---|---|---|---|
@@ -1070,9 +1068,9 @@ Notes, one per line where a cell needs it.
 - GraphQL's S2 is `~` for a specified but prose-defined semantics. Its S1 is `~`: `select` is genuinely separated, but every query is served from a single URL. S4 fails at that same URL: a query result has no URI of its own, so it cannot be linked or cached.
 - SPA/JS is scored as Chapter 11 audited it, at its 2013 consolidated form. Chapter 14 revises S1 and S2 to `~` as of 2026 and leaves the rest unchanged. That revision is Chapter 14's finding, so the column keeps its 2013 values here. The 2026 deltas live in Chapter 14's table.
 
-Read the table by row rather than by column (property by property instead of paradigm by paradigm) and the audit's finding shows its shape. R2 fails in every column but one: composition without coordination is the property nobody else has, and it is what the "world wide" in the name promises. R2, R3, and S4 (the machine-spanning properties) fail or fall partial in every column but one. R3 and S4 are the two that, as Chapter 14 put it, make an architecture the web rather than an app platform that happens to use browsers. Chapter 13 found the relational model, the best pre-web scorer, failing exactly the three machine-spanning properties (R2, R3, S4); Chapter 14 found the JavaScript convergence has recovered neither R3 nor S4. And the S-row failures kept appearing in this part twice: once as a score, once as a compensating industry.
+Read the table by row rather than by column (property by property instead of paradigm by paradigm) and the audit's finding shows its shape. R2 fails in every column but one: composition without coordination is the property nobody else has, and it is what the "world wide" in the name promises. Count the tildes and R3 and S4 join it: all three machine-spanning properties fail or fall partial everywhere but the derived column. R3 and S4 are the two that, as Chapter 14 put it, make an architecture the web rather than an app platform that happens to use browsers. Chapter 13 found the relational model, the best pre-web scorer, failing exactly the three machine-spanning properties (R2, R3, S4); Chapter 14 found the JavaScript convergence has recovered neither R3 nor S4. And the S-row failures kept appearing in this part twice: once as a score, once as a compensating industry.
 
-One column has no failures, and Part II proved that this shape was forced. Those two facts are the book's argument in a single table. Part V builds with that column.
+One column has no failures, and Part II proved its model was forced. Those two facts are the book's argument in a single table. Part V builds with that column.
 
 ---
 
@@ -1101,7 +1099,7 @@ An origin is not a new kind of name. RFC 6454 computes it *from* the URI (scheme
 Dataspace = (o, ont, e, x)      o ∈ O;   ont, e, x ∈ I∣o   (17.1)
 ```
 
-| name | component | in words |
+| name | component | gloss |
 |---|---|---|
 | `o` | the origin | read-write linked data at every document under it |
 | `ont` | the ontology | what the domain *is*, stated as one namespace |
@@ -1163,7 +1161,7 @@ And convergence has a deployed existence proof at full web scale. Vocabularies c
 
 ### The build log
 
-The build log takes the least familiar factor first. The ontology is the component the derivation predicts and the industry outsources to code: the domain, stated as facts. A dataspace's ontology *imports* the vocabularies it builds on (union applied to schema) and everything downstream reads it as data. Forms are constructed from it (Chapter 7's construction half: read the patterns, render inputs); selections range over it; layouts match on it. Ontology-driven is data-driven one level up, and it is what makes the generic engine generic: the domain travels in the state, so nothing domain-shaped remains to be hardcoded.
+The build log takes the least familiar factor first. The ontology is the component the derivation predicts and the industry outsources to code: the domain, stated as facts. A dataspace's ontology *imports* the vocabularies it builds on (union applied to schema) and everything downstream reads it as data. Forms are constructed from it (Chapter 7's construction half: read the patterns, render inputs); selections range over it; layouts match on it. This is what makes the generic engine generic: the domain travels in the state, so nothing domain-shaped remains to be hardcoded.
 
 The build log, factor by factor:
 
@@ -1189,7 +1187,7 @@ flowchart LR
 
 #### Arrangement
 
-It carries the most machinery in the build log. The arrange term may treat a name specially only if the dataspace's ontology, with its imports, declares it — a custom UI gets its special cases by declaring the vocabulary it renders. That is B.8's relative genericity, running in deployment. Unmatched state falls back to the base rendering rather than to nothing: every graph renders; declared vocabulary renders better. The stylesheets share their templates across the wire: one library, imported by a server-side stylesheet that emits documents and a browser-side one that binds events. [Saxon](https://www.saxonica.com/) runs the first and [SaxonJS](https://www.saxonica.com/html/saxonjs/index.html) with IXSL runs the second, so two XSLT 3.0 processors share one set of terms. That is Chapter 7's mobility of evaluation in production: the same terms evaluate on the server and in the browser. The convergence shares rendering code too, by running the same framework on both sides (Chapter 14's hydration); here the sides share templates without sharing an engine, because the language's semantics is closed. And independent evolution shows up as operations rather than theory: data, selection, layout, and style invalidate independently, one factor at a time and one cache entry at a time. The four timelines run as infrastructure.
+Arrangement carries the most machinery in the build log. The arrange term may treat a name specially only if the dataspace's ontology, with its imports, declares it — a custom UI gets its special cases by declaring the vocabulary it renders. That is B.8's relative genericity, running in deployment. Unmatched state falls back to the base rendering rather than to nothing: every graph renders; declared vocabulary renders better. The stylesheets share their templates across the wire: one library, imported by a server-side stylesheet that emits documents and a browser-side one that binds events. [Saxon](https://www.saxonica.com/) runs the first and [SaxonJS](https://www.saxonica.com/html/saxonjs/index.html) with IXSL runs the second, so two XSLT 3.0 processors share one set of terms. That is Chapter 7's mobility of evaluation in production: the same terms evaluate on the server and in the browser. The convergence shares rendering code too, by running the same framework on both sides (Chapter 14's hydration); here the sides share templates without sharing an engine, because the language's semantics is closed. And independent evolution shows up as operations rather than theory: data, selection, layout, and style invalidate independently, one factor at a time and one cache entry at a time. The four timelines run as infrastructure.
 
 ## Chapter 18. No New Standard
 
@@ -1201,17 +1199,17 @@ The first `GET` raises the first question. It is the web's oldest identity crisi
 
 The model here has a shorter account. Names and addresses are different roles, typed apart since Chapters 4 and 5: a URI in a fact position *names* (R3); a URI addressing a projection *locates* (S4). So the question is settled by computation, not argument. Dereferencing a name returns `read(name, S)`, a description of the named entity. Its address may coincide with the name, differ by a fragment, or differ by a redirect; the choice among the three is a wire-level detail, and nothing in the architecture depends on it. Only the collision is real. Use one URI as both name and address, and the entity is conflated with the document that describes it: "the turbine weighs 200 tons" and "the description was modified on Tuesday" now share a subject. That conflation is a data-discipline cost (measurable, like Chapter 9's mismatches), and keeping name and address apart, by fragment or by redirect, avoids it.
 
-The exhibits resolved the question both ways without instruction. The Guardian's articles collapse the two harmlessly (an article *is* its own description) while the wind farm's panels sit one hash away as fragments (`#panel-14`). That fragment is the convention the reference implementation adopts: one `GET` serves entity and description alike. The crisis, relocated: a typing discipline the model already draws, plus an encoding choice the deployment already made.
+The exhibits already resolved the question both ways. The Guardian's articles collapse the two harmlessly (an article *is* its own description) while the wind farm's panels sit one hash away as fragments (`#panel-14`). That fragment is the convention the reference implementation adopts: one `GET` serves entity and description alike. So the crisis reduces to a typing discipline the model already draws, plus an encoding choice the deployment already made.
 
 ### Composition, not creation
 
-Three seams lack Recommendations: identity, access control, and the form-native write. The first two have candidates with running code, and both fill their seam with the model itself. [WebID](https://www.w3.org/2005/Incubator/webid/spec/) has been incubated at the W3C since 2005 and never advanced to Recommendation. It makes an identity a URI whose dereference is a profile: an agent is an entity, its identity a graph, authentication a proof that the keyholder and the profile agree. [WebAccessControl](https://www.w3.org/wiki/WebAccessControl) is an ontology grown on the W3C wiki, since adopted by [Solid](https://solidproject.org/), Berners-Lee's re-decentralization project. It states permissions as facts (who, which mode, over what) so an ACL is data in the same state model it guards. Identity and authorization collapse into the substrate they protect (Chapter 19's thesis, a chapter early) and the reference implementation below runs both. For the third seam, Chapter 9's bridge ([RDF/POST](https://atomgraph.github.io/RDF-POST/)) slots a plain HTML form into the write side. RDF/POST is specified, not standardized. And as Chapter 9 showed, it is an encoding rather than an invention: it adds neither a model nor a protocol.
+Three seams lack Recommendations: identity, access control, and the form-native write. The first two have candidates with running code, and both fill their seam with the model itself. [WebID](https://www.w3.org/2005/Incubator/webid/spec/) has been incubated at the W3C since 2005 and never advanced to Recommendation. It makes an identity a URI whose dereference is a profile: an agent is an entity, its identity a graph, authentication a proof that the keyholder and the profile agree. [WebAccessControl](https://www.w3.org/wiki/WebAccessControl) is an ontology grown on the W3C wiki, since adopted by [Solid](https://solidproject.org/), Berners-Lee's re-decentralization project. It states permissions as facts (who, which mode, over what) so an ACL is data in the same state model it guards. Identity and authorization collapse into the substrate they protect (previewing Chapter 19's thesis) and the reference implementation below runs both. For the third seam, Chapter 9's bridge ([RDF/POST](https://atomgraph.github.io/RDF-POST/)) slots a plain HTML form into the write side. RDF/POST is specified, not standardized. And as Chapter 9 showed, it is an encoding rather than an invention: it adds neither a model nor a protocol.
 
 This part has contained no proposal for a new standard, and that absence is the finding. Part III showed the read side complete by 2014. The write side's last mile is an encoding of what already ships. The remaining seams have candidates that compose deployed pieces. Nothing here waits on a working group. The community's long reflex (meeting every gap with a new specification) aims at the wrong layer. After the reveal, the remaining work was never specification. It was combination: an implementation that assembles the standards in the derived shape.
 
-The reflex has a Recommendation-grade instance: the Linked Data Platform (LDP, 2015), which claimed this book's exact slot (a read-write Linked Data architecture) at the interaction layer. The Graph Store Protocol (HTTP's methods addressed to whole graphs) was already standardized. LDP's one addition to it is the *container*, a server-side collection with protocol-managed membership. But a container is a canned selection, a query frozen into the interface. It came after SPARQL had already made every collection open-ended: any members, by any pattern, composed at request time. Subtract the containers and nothing remains that the Graph Store Protocol does not already do: LDP added interface where query semantics sufficed. The gap was never in the protocols; it was in the implementations that never combined what they already offered.
+The reflex has a Recommendation-grade instance: the Linked Data Platform (LDP, 2015), which claimed this book's exact slot (a read-write Linked Data architecture) at the interaction layer. The Graph Store Protocol (HTTP's methods addressed to whole graphs) was already standardized. LDP's one addition to it is the *container*, a server-side collection with protocol-managed membership. But a container is a canned selection, a query frozen into the interface. It came after SPARQL had already made every collection open-ended: any members, by any pattern, composed at request time. Subtract the containers and nothing remains that the Graph Store Protocol does not already do: LDP added interface where query semantics sufficed. The gap was in the implementations, which never combined what the protocols already offered.
 
-The chapter's exhibit mirrors Chapter 3's, deliberately. The two sites we stripped are rebuilt as dataspaces. The strip-2 fact lists are loaded as state, with a small ontology per domain: articles and sections for one, panels and readings for the other. Each dataspace gets one `select` term per window, an `arrange` term per layout, and a stylesheet per look. Front page and dashboard become two declarative packages over the same generic machine; both domains live entirely in data. Chapter 3 computed the factorization by hand; this chapter runs it forward, on the same material. Analysis and synthesis meet on worked examples. *(The full-scale reconstruction is being built in public, as Chapter 3's exhibit once was; the miniature below runs today.)*
+The chapter's exhibit mirrors Chapter 3's, deliberately. The two sites Chapter 3 stripped are rebuilt as dataspaces. The strip-2 fact lists are loaded as state, with a small ontology per domain: articles and sections for one, panels and readings for the other. Each dataspace gets one `select` term per window, an `arrange` term per layout, and a stylesheet per look. Front page and dashboard become two declarative packages over the same generic machine; both domains live entirely in data. Chapter 3 computed the factorization by hand; this chapter runs it forward, on the same material. Analysis and synthesis meet on worked examples. *(The full-scale reconstruction is being built in public, as Chapter 3's exhibit once was; the miniature below runs today.)*
 
 <div class="fp-exhibit" data-exhibit="pipeline"></div>
 
@@ -1219,9 +1217,9 @@ The chapter's exhibit mirrors Chapter 3's, deliberately. The two sites we stripp
 
 ### The federation test
 
-Federation needs a client, and the derivation says so before any implementation does. R3 put foreign names inside local facts. In deployment, following one means calling another party's `read`. A window over another party's state is `⟦q⟧` posed to another party's endpoint. Consuming dataspaces is therefore not a feature an application adds. It is the other half of the architecture, and a dataspace that only serves is a leaf, because it never follows anyone else's names. So a reference implementation has a forced shape, both halves at once: a server publishing (17.1)'s four components (origin, ontology, endpoint, stylesheet) and a client consuming the same four from any other dataspace.
+Federation needs a client, and the derivation says so before any implementation does. R3 put foreign names inside local facts. In deployment, following one means calling another party's `read`. A window over another party's state is `⟦q⟧` posed to another party's endpoint. Consuming dataspaces is therefore the other half of the architecture, not a feature an application adds. A dataspace that only serves is a leaf, because it never follows anyone else's names. So a reference implementation has a forced shape, both halves at once: a server publishing (17.1)'s four components (origin, ontology, endpoint, stylesheet) and a client consuming the same four from any other dataspace.
 
-Both halves in one implementation enable a test no bespoke system can run: point the implementation at itself. Two instances run at two origins, and one of them browses, queries, and writes against the other. Every capability crosses the wire or fails visibly, because no in-process shortcut exists for a demo to lean on. Self-federation is not a stunt; it is the architecture's own strategy put under test. Interoperating with itself is how the implementation does federation: two instances meet as strangers, and the first federation is its own. And the test is not circular. S2 leaves the two instances nothing private to share. Everything that crosses the wire is terms of closed languages (data, query, delta, arrangement), so they meet only on the specifications' surface, with no side channel to agree over. The standards process proves interoperability with two independent implementations. A reference implementation proves it with two instances of itself. That evidence is weaker, but it is available years earlier, and it holds only as long as the wire carries nothing but spec-terms. A second implementation joins by implementing the same denotations, over the same interface the self-federation test already exercised.
+Both halves in one implementation enable a test no bespoke system can run: point the implementation at itself. Two instances run at two origins, and one of them browses, queries, and writes against the other. Every capability crosses the wire or fails visibly, because no in-process shortcut exists for a demo to lean on. Self-federation is the architecture's own strategy put under test. Interoperating with itself is how the implementation does federation: two instances meet as strangers, and the first federation is its own. And the test is not circular. S2 leaves the two instances nothing private to share. Everything that crosses the wire is a term of a closed language (data, query, delta, arrangement), so they meet only on the specifications' surface, with no side channel to agree over. The standards process proves interoperability with two independent implementations. A reference implementation proves it with two instances of itself. That evidence is weaker, but it is available years earlier, and it holds only as long as the wire carries nothing but spec-terms. A second implementation joins by implementing the same denotations, over the same interface the self-federation test already exercised.
 
 ```mermaid
 sequenceDiagram
@@ -1243,7 +1241,7 @@ The document web bootstrapped exactly this way. The pattern, stated generally: a
 
 <div class="fp-history">
 
-**The first instance, dated.** This is not an analogy; it happened. In 1990 the first web server (`info.cern.ch`) and the first browser ran on two NeXT machines at CERN and interoperated with each other before there was a third program in the world to interoperate with. That browser (WorldWideWeb, soon renamed Nexus so the web could keep the name) was also an editor: reading and writing went through one program. The write side was there on day one, then lost for a generation as the read-only browser became the thing everyone shipped. The federation test above is that first day made a permanent requirement.
+**The first instance, dated.** This is not an analogy; it happened. In 1990 the first web server (`info.cern.ch`) and the first browser ran on two NeXT machines at CERN and interoperated with each other before there was a third program in the world to interoperate with. That browser (WorldWideWeb, soon renamed Nexus so the web could keep the name) was also an editor: reading and writing went through one program. The write side was there on day one, then lost for a generation as the read-only browser became the thing everyone shipped. The federation test above makes that first day a permanent requirement.
 
 <img src="first-principles-figures/worldwideweb-next.png" alt="The WorldWideWeb browser-editor on a NeXT screen: Tim's home page, the WWW Virtual Library and CERN pages in overlapping windows, and the Links menu open on Link to marked — reading and writing in one program" class="fp-spot" width="640" />
 
@@ -1280,7 +1278,7 @@ The web has already run this experiment once, and the result is so familiar it g
 
 The claim has a second existence proof, older than the web. The spreadsheet is the most successful generic application in history: one engine serves every domain, specialized by nothing but its data. No vendor ships an accounting spreadsheet and a separate logistics spreadsheet; users pour the domain in as rows and formulas. The spreadsheet's own limits explain why it could prove no more: cell references are sheet-local (R3), two workbooks have no merge (R2), and the world's operational data lives in a million silos named `final_v2.xlsx`. The derived stack is the same generic engine, but with names that cross files and states that compose. Each proof carries half the claim: the browser is generic with the web's properties, at the document level; the spreadsheet is generic over domains, with none of the web's properties. The application this chapter describes holds both halves at once (generic over domains, with the web's properties) and it was sitting in the standards all along.
 
-The idea has also failed before, and the failure shows exactly what to avoid. Model-driven architecture (MDA) promised applications generated from models, and broke on its own compiler. The model was translated into code, the code drifted from the model, and the model ended up as documentation only, because that first generation step severed S2. The generic engine makes no such translation. The ontology is never compiled into the application; it *is* the application's data, interpreted at runtime like everything else, so nothing drifts because nothing is copied. The difference between generation and interpretation is the difference between MDA's failure and Chapter 17's build log.
+The idea has also failed before, and the failure shows exactly what to avoid. Model-driven architecture (MDA) promised applications generated from models, and broke on its own compiler. The model was translated into code, the code drifted from the model, and the model ended up as documentation only, because that first generation step severed S2. The generic engine makes no such translation. The ontology is never compiled into the application; it *is* the application's data, interpreted at runtime like everything else, so nothing drifts because nothing is copied.
 
 ### A codebase is a liability
 
@@ -1316,7 +1314,7 @@ Why, then, does every domain still get its own codebase? Chapter 13 supplied the
 
 ## Chapter 20. The Result
 
-The audit table, completed: Chapter 16 fills one page, every cell carries a chapter's score, and one column records no failures. That table contains the whole of the book's argument, as the opening argument promised. This chapter reads the table forward, and it stands between Chapter 19's economics and the demand Chapter 22 names.
+The audit table, completed: Chapter 16 fills one page, every cell carries a chapter's score, and one column records no failures. That table contains the whole of the book's argument, as the opening argument promised. This chapter states what follows from the table, and it stands between Chapter 19's economics and the demand Chapter 22 names.
 
 Web 3.0, defined: on this web, `read` is transparent all the way down (S1–S4 at every layer, R1–R3 at the substrate), for humans *and* machines alike. An agent is only another reader, as Chapter 22 will show. Every earlier use of the term outside this book named no particular property, and this one names the properties the audit table scores.
 
@@ -1331,7 +1329,7 @@ The audit applies to this book as strictly as to the paradigms it scores, so the
 | claim | where | falsified by |
 |---|---|---|
 | the SPA paradigm caps at Web 2.0 | Ch 11 | a fused-architecture deployment whose state is machine-consumable at web scale without a compensating adapter layer |
-| the convergence stalls before R3 and S4 absent new incentives | Ch 14 | a mainstream framework shipping addressable intermediates and global references as defaults |
+| the convergence recovers neither R3 nor S4 without new incentives | Ch 14 | a mainstream framework shipping addressable intermediates and global references as defaults |
 | the agent economy converges on generic systems with domains as data | Ch 22 | agent infrastructure stabilizing permanently on per-application protocol servers, adapter counts growing linearly |
 | attribution pressure keeps selecting the fourth position | Prop. 9.2 | a successor standard that discards named graphs |
 | a requirement-failure and a compensating industry always coincide | Ch 13 | a paradigm that fails a derived requirement with no compensating market at its web boundary, or such a market around a paradigm that fails none |
