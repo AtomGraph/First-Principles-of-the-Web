@@ -436,6 +436,12 @@ Chapter 3's exhibit already wrote facts in this shape without saying so. The das
 
 It sounds like rhetoric to claim that (5.3) is the only shape the web itself permits. Theorem 5.4 makes it exact: rejecting the conclusion means faulting a step of the proof (Appendix B lays the steps out for that attack) or rejecting a requirement, and each rejection has a name. Reject R1 and your model can't host the web's content. Reject R2 and your data needs a coordinator, which is a central schema authority, so you have built a silo. Reject R3 and your data cannot refer beyond itself, which is a silo again. Reject minimality and you widen the tuple, the one rejection left deliberately open; Chapter 9 takes it, adding a fourth requirement, attribution. Part IV will locate every alternative data model the industry runs on at one of the first three rejections.
 
+<div class="fp-history">
+
+**Machine-checked.** The spine of this chapter's proofs — the union law, the arity bound, and this theorem's assembly — is verified in Lean 4, and the verification lives in the book's repository. Appendix C reports what is checked and what must be assumed.
+
+</div>
+
 ### The selection algebra
 
 We are not done deriving. S2 committed `select` to being the meaning of a term in a fixed language, and a language's semantics is a set of operations over a carrier. The carrier is now fixed: `𝒫(Fact)`. What remains is the operations, and four are enough for everything the derivation builds on: match a fact pattern with variables; join matches; union alternatives; project variables out. Each is forced by a page you can point at (any master–detail page is a join; any search page is a pattern; any page merging two lists, events from either calendar, is a union; any list that shows a title per entity, and nothing else, is a projection). None of the four is expressible from the other three, so none can be dropped. Pages force more — comparisons, counts, order — and Part III's deployed language has them; the derivation stops at four because nothing that follows depends on the rest. The algebra reappears in Part III under its deployed name; what a `write` can do to a fact-set is Chapter 7's subject.
@@ -1623,7 +1629,7 @@ Prop. 5.2 and Thm. 5.4 come first, reached through B.1's formalization of R2. Th
 
 <div class="fp-history">
 
-**Machine-checked.** A Lean 4 companion to this appendix lives in the book's repository under [`proofs/`](https://github.com/AtomGraph/First-Principles-of-the-Web/tree/main/proofs). Appendix C reports what it checks and where checking must stop.
+**Machine-checked.** A Lean 4 companion to this appendix lives in the book's repository under [`proofs/`](https://github.com/AtomGraph/First-Principles-of-the-Web/tree/main/proofs). Appendix C reports what it checks and what must be assumed.
 
 </div>
 
