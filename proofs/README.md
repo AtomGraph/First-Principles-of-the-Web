@@ -151,6 +151,49 @@ is Chapter 6's bijection, taken as an input (`c : Bij Doc Tree`), exactly as
 the book overloads it "deliberately and in the open." `dec` uses classical
 choice: the factorization is an existence claim, not a program.
 
+### B-2e and the full powerset — Lemma B.1 complete, Thm 5.4's "isomorphic" exact
+
+`FirstPrinciples/Accumulation.lean`. B-2e as the book states it (`HasAccumulation`:
+every directed family has a join whose atoms are the union), and the jump it buys:
+
+| Lean name | claim | status |
+|---|---|---|
+| `atoms_realized` | every set of atoms is some state's atom-set (finite parts via `joinList`, then the directed join) | theorem |
+| `representation_full` | **Lemma B.1, complete**: atom map = injective ⊕→∪ hom onto the FULL powerset | theorem |
+| `uniqueness_iso` | **Thm 5.4, exact**: `σ : M → 𝒫(T)` is a ⊕→∪ *bijection* — "isomorphic" with no finiteness restriction | theorem |
+
+### B.4, continued — three more countermodels and the engine
+
+`FirstPrinciples/Independence.lean`.
+
+| Lean name | claim | status |
+|---|---|---|
+| `rep_forces_laws` | the engine: union's algebra pulls back — any injectively represented merge is already comm/assoc/idem | theorem |
+| `order_freedom_independent` + `_no_representation` | **B-2b**: last-arrival-wins is total/assoc/idem/identity, not comm, and admits no representation | theorem |
+| `idempotence_independent` + `_no_representation` | **B-2c**: `(ℕ, +, 0)` — multisets over one fact — counts arrivals, no representation | theorem |
+| `finsets`, `accumulation_independent` | **B-2e**: finite subsets of infinite `A` — all four laws + both atomicity axioms hold, yet the set of all atoms is realized by no state | theorem |
+| `finsets_no_accumulation` | the loop closed: what `finsets` lacks is exactly `HasAccumulation` | theorem |
+
+With `atomistic_independent` (B-2d, StateModel.lean) that is four of five. **B-2a
+(totality) deliberately has no countermodel**: totality is enforced by typing
+(`merge : M → M → M`), so dropping it makes Lemma B.1's statement ill-typed —
+the book's "Lemma B.1's target is gone" is, in Lean, a statement about
+statements, not a theorem in the logic. The Lean witness for B-2b is the minimal
+non-commutative model (last-arrival-wins), not the book's richer event-log
+witness; the proposition proved (a model with the other laws and no
+representation) is the book's.
+
+### B.6 (Prop 4.5) — independent evolution
+
+`FirstPrinciples/Evolution.lean`. The dependency triangle, mechanized the only
+honest way: each factor IS a function of its displayed arguments, so upstream
+invariance under substitution is definitional (`rfl`) — which is B.6's point,
+not a shortcut. `present_substitution` / `arrange_substitution` show a
+substituted component recomputes the document from the OLD upstream stage
+values; `timelines_independent` turns the book's effectiveness witness into the
+independent-timeline statement. Near-definitional by design; the fused half
+needs no lemma (one component, one row, nothing upstream to hold still).
+
 ### What the formalization clarified
 
 Isolating B-2d into two named predicates made two things precise that the prose
@@ -176,12 +219,12 @@ essentially nothing else is**, because the rest are not mathematical claims.
 
 | Result | Lean verdict |
 |---|---|
-| Union law (5.1) / B.1 | ✅ **done** (embedding + finite); full powerset (B-2e) remains |
+| Union law (5.1) / B.1 | ✅ **done**, complete — embedding, finite (`representation_finite`), and full powerset under B-2e (`representation_full`) |
 | Arity (5.2) / B.2 | ✅ **done** (core) — `arity_minimal_is_three`, self-containment on display as `hsc` |
-| Uniqueness (5.4) / B.3 | ✅ **done** — `uniqueness` + `uniqueness_finite` (the finite bijection), the assembly of B.1 and B.2 (atom≅triple bijection as the B.2 input) |
-| Independence of the laws / B.4 | ✅ formalizable — one of five countermodels done (`atomistic_independent`) |
+| Uniqueness (5.4) / B.3 | ✅ **done**, exact — `uniqueness` (embedding), `uniqueness_finite` (finite bijection), `uniqueness_iso` (full ⊕→∪ bijection under B-2e) |
+| Independence of the laws / B.4 | ✅ **done** — four of five countermodels (B-2b/c/d/e) + `rep_forces_laws`; B-2a is enforced by typing (see above) |
 | Analysis theorem (4.4) / B.5 | ✅ **done** (shape half) — `analysis_shape` + `minimal_window_exists`; S2–S4 are the synthesis' side (B.8) |
-| Independent evolution (4.5) / B.6 | ✅ formalizable (dependency-triangle argument) |
+| Independent evolution (4.5) / B.6 | ✅ **done** — the triangle is definitional by design (`Evolution.lean`) |
 | Delta normal form (7.1) | ✅ **done** — `delta_normal_form` (pure set algebra) |
 | Forms / one-algebra / five moves (7.2–7.4) | ✅ formalizable (mechanical) |
 | Erasure → quads (9.2) | ✅ formalizable |
@@ -217,11 +260,5 @@ would be a category error, not a bigger proof.
 
 ## Deferred (next commits)
 
-- **B.1, full powerset** — the jump from finite atom-sets to `𝒫(A)` via **B-2e**
-  (accumulation / directed joins).
-- **B.4, remaining countermodels** — drop B-2a (schema-indexed union), B-2b
-  (event logs), B-2c (multisets), B-2e (finite subsets); `atomistic_independent`
-  is the B-2d case.
-- **B.6** — independent evolution (dependency triangle).
 - **B.7 / B.8** — partial only, against a Lean model of the SPARQL denotational
-  fragment (see scope table).
+  fragment (see scope table). The last items on the formalizable list.
