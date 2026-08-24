@@ -1479,7 +1479,7 @@ The wish is old: HyperCard let people reshape a running application in place in 
 
 <div class="fp-history">
 
-**In the world, prototyped.** This is running code. LinkedDataHub (Chapter 18's reference implementation) ships a package as exactly an ontology and a stylesheet: installing one merges its vocabulary into the running application and adds the XSLT templates that render it; uninstalling one is the reverse delta. The operation is an ordinary authenticated write, so an owner runs it from the interface and an agent runs it over the same endpoint, with nothing rebuilt or redeployed. It is young: it shipped in 2026, it carries one feature so far, and its presentation refresh is not yet instantaneous. But the mechanism is the derived one, and it runs in production.
+**In the world, prototyped.** This is running code. LinkedDataHub (Chapter 18's reference implementation) ships a package as exactly an ontology and a stylesheet: installing one merges its vocabulary into the running application and adds the XSLT templates that render it; uninstalling one is the reverse delta. The operation is an ordinary authenticated write, so an owner runs it from the interface and an agent runs it over the same endpoint, with nothing rebuilt or redeployed. It is young: it shipped in 2026, it carries one feature so far, and a new package's templates take effect only after the stylesheet recompiles. But the mechanism is the derived one, and it runs in production.
 
 </div>
 
