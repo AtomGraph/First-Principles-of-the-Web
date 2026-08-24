@@ -6,4 +6,7 @@ import FirstPrinciples.Federation
 import FirstPrinciples.Arity
 import FirstPrinciples.Uniqueness
 import FirstPrinciples.Analysis
+import FirstPrinciples.Accumulation
+import FirstPrinciples.Independence
+import FirstPrinciples.Evolution
 import FirstPrinciples.Integrity
