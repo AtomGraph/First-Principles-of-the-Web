@@ -1165,12 +1165,12 @@ The build log takes the least familiar factor first. The ontology is the compone
 
 The build log, factor by factor:
 
-| factor | occupied by | the derived result, deployed |
+| factor | implemented by | the derived result, deployed |
 |---|---|---|
 | state | a triplestore behind the Graph Store Protocol — the SPARQL suite's HTTP companion, whose *direct graph identification* makes the request URI the graph name — one named graph per document | the fourth position (Prop. 9.2) as an address — attribution and location coincide |
 | domain | a namespace ontology per dataspace, importing the vocabularies it builds on | imports resolve by union — vocabulary is data and composes like it |
 | select | a SPARQL endpoint per dataspace | S4: query results and graphs are resources with URIs of their own |
-| arrange | XSLT over the canonical serialization — a base stylesheet naming no vocabulary, per-vocabulary overrides layered by the language's import mechanism | Chapter 6's seam occupied; S3's substitution, performed in daily practice |
+| arrange | XSLT over the canonical serialization — a base stylesheet naming no vocabulary, per-vocabulary overrides layered by the language's import mechanism | Chapter 6's seam filled; S3's substitution, performed in daily practice |
 | present | CSS | in continuous service since 1996 |
 | write | HTML forms encoding graphs (Chapter 9's RDF/POST bridge, deployed in Chapter 18), written through the Graph Store Protocol's unsafe methods | Chapter 1's unsafe methods applied per graph — POST appends, PUT replaces, DELETE removes; the delta itself a PATCH, a graph-scoped SPARQL Update carrying its two sets |
 
@@ -1342,7 +1342,7 @@ The book rests on one claim. Strip any page and the same skeleton appears. Three
 
 # Part VI — The Future
 
-*The synthesis, carried forward. Three readings of the web's future: the adoption already underway, the era its machine readers bring on, and the web the derived stack permits once it is occupied.*
+*This part carries the synthesis into the future: the adoption already underway, the era the web's machine readers bring on, and the web the derived stack makes possible.*
 
 <img src="first-principles-figures/part6-the-future.svg" alt="Chains of three linked dots converging up from a level foundation to a single core, then reopening into a highlighted pair, the next tier outlined and fanning further out" class="fp-frontispiece" width="440" />
 
@@ -1357,11 +1357,11 @@ The book rests on one claim. Strip any page and the same skeleton appears. Three
 
 ### The name
 
-The state Part II derived is in production at scale, under an industry name. A knowledge graph is instance data and the ontologies that describe it, held and queried as one graph. The name went mainstream in May 2012, when Google introduced its [Knowledge Graph](https://blog.google/products-and-platforms/products/search/introducing-knowledge-graph-things-not/), "things, not strings." Freebase seeded it; Chapter 23 shows Freebase browsed live in 2008. Google has never published what its graph runs on, but the contents are expressible as triples, and its public API serves them that way. Knowledge graphs are also built on other graph models; the ones this chapter counts are RDF.
+The state Part II derived is in production at scale, under an industry name. A knowledge graph is instance data and the ontologies that describe it, stored and queried as one graph. The name went mainstream in May 2012, when Google introduced its [Knowledge Graph](https://blog.google/products-and-platforms/products/search/introducing-knowledge-graph-things-not/), "things, not strings." Google had bought Freebase, a collaboratively edited database of entities, in 2010, and Freebase's data became the Knowledge Graph's starting content. Chapter 23 shows Freebase browsed live in 2008. Google has never published what its graph runs on, but the contents are expressible as triples, and its public API serves them that way. Knowledge graphs are also built on other graph models; this chapter's examples are RDF.
 
 ### The first movers
 
-The practice preceded the name, and the first movers published their reasons as they went.
+Organizations were building knowledge graphs before the term went mainstream, and the first movers documented why: faster publishing at scale, an order of magnitude less code, integration without bespoke pipelines.
 
 <div class="fp-history">
 
@@ -1373,7 +1373,7 @@ The practice preceded the name, and the first movers published their reasons as 
 
 <div class="fp-history">
 
-**In the world, dated 2011.** The Danish comics site [Helt Normalt](https://atomgraph.com/cases/helt-normalt/) rebuilt its publishing on RDF, SPARQL and XSLT. Its builders [told a W3C workshop](https://www.w3.org/2011/09/LinkedData/ledp2011_submission_1.pdf) that the codebase shrank by an order of magnitude against the relational system it replaced, and that its ontologies were reused rather than written, down to [a zodiac vocabulary](https://data.totl.net/zodiac/) found on the open web, for the daily horoscope strip. The platform was Graphity, LinkedDataHub's predecessor (disclosure: the author's, per Chapter 18).
+**In the world, dated 2011.** The Danish comics site [Helt Normalt](https://atomgraph.com/cases/helt-normalt/) rebuilt its publishing on RDF, SPARQL and XSLT. Its builders [told a W3C workshop](https://www.w3.org/2011/09/LinkedData/ledp2011_submission_1.pdf) that the codebase shrank by an order of magnitude against the relational system it replaced. Its ontologies were reused rather than written: even the daily horoscope strip ran on [a zodiac vocabulary](https://data.totl.net/zodiac/) found on the open web. The platform was Graphity, LinkedDataHub's predecessor (disclosure: the author's, per Chapter 18).
 
 <img src="first-principles-figures/helt-normalt-2012.png" alt="The Helt Normalt front page in 2012: a Wulffmorgenthaler strip of a T. rex on a toilet, arms too short for the toilet paper, dated 8 March 2012, with star ratings, Facebook comments, and a column of recent strips on a bright green layout" class="fp-spot" width="640" />
 
@@ -1381,19 +1381,19 @@ The practice preceded the name, and the first movers published their reasons as 
 
 <div class="fp-history">
 
-**In the world, dated 2013.** NXP Semiconductors, its product data "scattered and duplicated across numerous applications and databases," [published its exit](https://www.nxp.com/company/about-nxp/smarter-world-blog/BL-LINKED-DATA-THE-INTEGRATION-FUTURE): an HTTP URI per product, every source converted to RDF, SPARQL underneath. "The Linked Data is the API." NXP's pages were served by the same Graphity.
+**In the world, dated 2013.** NXP Semiconductors described its product data as "scattered and duplicated across numerous applications and databases," and [published the fix](https://www.nxp.com/company/about-nxp/smarter-world-blog/BL-LINKED-DATA-THE-INTEGRATION-FUTURE): every product got an HTTP URI, every source was converted to RDF, and SPARQL ran underneath. "The Linked Data is the API." NXP's pages were served by the same Graphity.
 
 </div>
 
 ### The wave
 
-The wave behind the first movers arrived a decade later, at the top of the market. NASA runs the systems engineering of its Moon program on an RDF graph. Siemens holds 1.2 million products in one. The banks maintain FIBO, a shared financial ontology, in OWL. Gartner dated the wave in 2021: "[by 2025, graph technologies will be used in 80% of data and analytics innovations, up from 10% in 2021](https://www.gartner.com/en/newsroom/press-releases/2021-03-16-gartner-identifies-top-10-data-and-analytics-technologies-trends-for-2021)", a figure spanning every graph model, not RDF alone. And what accelerated the wave is the machine reader. A statistical model answering business questions over an enterprise database [got 17 of 100 right against raw SQL, and 54 against the same data as an RDF graph](https://arxiv.org/abs/2311.07509). Chapter 22 derives what the graph is doing under the model.
+The wave behind the first movers arrived a decade later, at the top of the market. NASA runs the systems engineering of its Moon program on an RDF graph. Siemens holds 1.2 million products in one. The banks maintain FIBO, a shared financial ontology, in OWL. Gartner dated the wave in 2021: "[by 2025, graph technologies will be used in 80% of data and analytics innovations, up from 10% in 2021](https://www.gartner.com/en/newsroom/press-releases/2021-03-16-gartner-identifies-top-10-data-and-analytics-technologies-trends-for-2021)", a figure spanning every graph model, not RDF alone. And AI accelerated the wave. An LLM answering business questions over an enterprise database [got 17 of 100 right against raw SQL, and 54 against the same data as an RDF graph](https://arxiv.org/abs/2311.07509). Chapter 22 derives what the graph does underneath the LLM.
 
-The words went mainstream too. Palantir has sold its platform's core abstraction as [the Ontology](https://www.palantir.com/platforms/ontology/) since 2018 and put the word in its SEC filing in 2020. Microsoft followed: Power BI's datasets became [semantic models](https://powerbi.microsoft.com/en-us/blog/datasets-renamed-to-semantic-models/) in 2023, and Fabric now ships [an ontology of its own](https://learn.microsoft.com/en-us/fabric/iq/ontology/overview), "a shared, machine-understandable vocabulary of your business." Neither ontology runs on RDF. The point is smaller and telling: *ontology* was an academic word the industry would not say aloud, and now it is a product name.
+The words went mainstream too. Palantir has sold its platform's core abstraction as [the Ontology](https://www.palantir.com/platforms/ontology/) since 2018 and put the word in its SEC filing in 2020. Microsoft followed: Power BI's datasets became [semantic models](https://powerbi.microsoft.com/en-us/blog/datasets-renamed-to-semantic-models/) in 2023, and Fabric now ships [an ontology of its own](https://learn.microsoft.com/en-us/fabric/iq/ontology/overview), "a shared, machine-understandable vocabulary of your business." Neither ontology runs on RDF. The point is small but real: *ontology* was an academic word the industry avoided, and now it is a product name.
 
 ### The open giants
 
-The largest knowledge graphs are not corporate at all. UniProt, the protein knowledge base, has published its data as RDF since 2008 and holds [232 billion triples](https://sparql.uniprot.org/) behind a public SPARQL endpoint, the largest knowledge graph anyone can query. Wikidata (where part of Freebase settled) serves [about eighteen billion more](https://www.wikidata.org/wiki/Wikidata:Statistics). Google last counted its own graph in 2020: [500 billion facts](https://blog.google/products-and-platforms/products/search/about-knowledge-graph-and-knowledge-panels/), private, unqueryable. And the open graphs link to one another: the Linked Open Data cloud maps [1,360 interlinked datasets](https://lod-cloud.net/) as of June 2026.
+The largest knowledge graphs are not corporate. UniProt, the protein knowledge base, has published its data as RDF since 2008 and holds [232 billion triples](https://sparql.uniprot.org/) behind a public SPARQL endpoint, the largest knowledge graph anyone can query. Wikidata (which inherited part of Freebase's data when Google closed it) serves [about eighteen billion more](https://www.wikidata.org/wiki/Wikidata:Statistics). Google last counted its own graph in 2020: [500 billion facts](https://blog.google/products-and-platforms/products/search/about-knowledge-graph-and-knowledge-panels/) that nobody outside Google can query. And the open graphs link to one another: the Linked Open Data cloud maps [1,360 interlinked datasets](https://lod-cloud.net/) as of June 2026.
 
 <img src="first-principles-figures/lod-cloud-2026-06.png" alt="The Linked Open Data cloud diagram, version June 2026: more than a thousand circles, each a published dataset, packed into one dense ball and joined by a line wherever one dataset links to another" class="fp-spot" width="640" />
 
@@ -1401,11 +1401,11 @@ The largest knowledge graphs are not corporate at all. UniProt, the protein know
 
 <img src="first-principles-figures/spot-ch21-the-long-tail.svg" alt="A single curve drops steeply from a high head at the left and flattens into a long tail hugging the axis to the right; the short head is blue, the long tail grey; the axis legends read organizations, largest first, and integration pain" class="fp-spot" width="420" />
 
-The wave stops partway down the market, and the reason is arithmetic. Integration pain scales with organization size: General Electric ran [about seventy-five procurement systems, Merck about four thousand Oracle databases](https://cs.uwaterloo.ca/~ilyas/papers/StonebrakerIEEE2018.pdf). Chapter 17 counted the bridges between silos at N × M, and every acquisition raises the count. Down the tail the count falls to a handful, the bill falls with it, and no organization there has enough integration pain to need a knowledge graph. Adoption tracks the head. That is the distribution the epigraph names: the future, already here, unevenly.
+The wave has reached the largest enterprises but few smaller ones, and the reason is arithmetic. Integration pain scales with organization size: General Electric ran [about seventy-five procurement systems, Merck about four thousand Oracle databases](https://cs.uwaterloo.ca/~ilyas/papers/StonebrakerIEEE2018.pdf). Chapter 17 counted the bridges between silos at N × M, and every acquisition raises the count. Adoption follows organization size: smaller organizations run only a handful of data silos, so integration stays manageable by hand and a knowledge graph never becomes necessary.
 
 ### The unclaimed half
 
-Many have realized RDF's potential for data integration. Very few have realized its potential for web application architecture. The audit says the same in its own columns: the industry adopted the R-rows and left the S-rows unclaimed. A knowledge graph is Chapter 5's state without Chapter 4's architecture. It is the data half of the derivation, running at scale, while the architectural half goes unadopted. The two chapters that follow are about the other half.
+Many have realized RDF's potential for data integration. Very few have realized its potential for web application architecture. The audit says the same in its own columns: the industry adopted the R-rows and left the S-rows unclaimed. A knowledge graph is Chapter 5's state without Chapter 4's architecture. The two chapters that follow are about the other half.
 
 ## Chapter 22. The Agent Era
 
@@ -1433,7 +1433,7 @@ The chapter ends with a question, put to any agent directly: *is it more efficie
 
 ## Chapter 23. The Next Web
 
-Chapter 20 stated the result; Chapter 22 named its machine readers. What remains is the web they compose: Web 3.0, on Chapter 20's definition, not a forecast but a reading of what the derived properties already permit. It is occupied rather than built and shipped: parties take it up one origin at a time. It does a handful of things no fused web can do.
+Chapter 20 stated the result; Chapter 22 named its machine readers. What remains is the web they compose: Web 3.0, on Chapter 20's definition, not a forecast but a reading of what the derived properties already permit. No one builds and ships it: parties take it up one origin at a time. It does a handful of things no fused web can do.
 
 <img src="first-principles-figures/spot-ch23-the-condensation.svg" alt="A row of silos with a gathering cloud of small linked dataspaces condensing around them; the rightmost silo has faded to a dashed copy behind the solid dataspace that detached from it" class="fp-spot" width="420" />
 
@@ -1849,7 +1849,7 @@ This list is the spec concordance. The axioms below are the book's external depe
 - [WebID](https://www.w3.org/2005/Incubator/webid/spec/) — W3C Incubator, 2005–; identity as a dereferenceable URI. The identity seam (Ch 18).
 - [WebAccessControl](https://www.w3.org/wiki/WebAccessControl) — the `acl` ontology, grown on the W3C wiki; adopted by [Solid](https://solidproject.org/). The access-control seam (Ch 18).
 - [RDF/POST](https://atomgraph.github.io/RDF-POST/) — community spec, AtomGraph, building on Sergei Egorov's original draft. The form-native write seam (Ch 9; Ch 18).
-- [SaxonJS 3](https://www.saxonica.com/html/saxonjs/index.html) with [IXSL](https://www.saxonica.com/saxonjs/documentation3/index.html#!ixsl-extension) — XSLT 3.0 evaluated in the browser; the interactive extension binds events to template rules. The arrange seam, occupied client-side (Ch 9; Ch 17).
+- [SaxonJS 3](https://www.saxonica.com/html/saxonjs/index.html) with [IXSL](https://www.saxonica.com/saxonjs/documentation3/index.html#!ixsl-extension) — XSLT 3.0 evaluated in the browser; the interactive extension binds events to template rules. The arrange seam, filled client-side (Ch 9; Ch 17).
 
 *Prior art — the formal neighbors of Appendix B, cited so the boundaries can be checked:*
 
