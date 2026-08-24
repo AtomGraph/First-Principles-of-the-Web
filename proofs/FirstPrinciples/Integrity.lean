@@ -18,6 +18,8 @@ import FirstPrinciples.Analysis
 import FirstPrinciples.Accumulation
 import FirstPrinciples.Independence
 import FirstPrinciples.Evolution
+import FirstPrinciples.Homomorphism
+import FirstPrinciples.Genericity
 
 open FirstPrinciples
 
@@ -118,3 +120,33 @@ info: 'FirstPrinciples.Independence.finsets_no_accumulation' depends on axioms: 
 /-- info: 'FirstPrinciples.Evolution.timelines_independent' does not depend on any axioms -/
 #guard_msgs in
 #print axioms Evolution.timelines_independent
+
+/--
+info: 'FirstPrinciples.Homomorphism.homomorphism' depends on axioms: [propext, Quot.sound]
+-/
+#guard_msgs in
+#print axioms Homomorphism.homomorphism
+
+/-- info: 'FirstPrinciples.Homomorphism.seval_monotone' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Homomorphism.seval_monotone
+
+/-- info: 'FirstPrinciples.Homomorphism.toTriple_range' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Homomorphism.toTriple_range
+
+/--
+info: 'FirstPrinciples.Genericity.transposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms Genericity.transposition
+
+/--
+info: 'FirstPrinciples.Genericity.treats_no_name_specially' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms Genericity.treats_no_name_specially
+
+/-- info: 'FirstPrinciples.Genericity.generic_comp' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Genericity.generic_comp
