@@ -23,6 +23,8 @@ variable {α : Type u}
 
 /-- Union. -/
 def union (s t : Set' α) : Set' α := fun a => s a ∨ t a
+/-- Intersection. -/
+def inter (s t : Set' α) : Set' α := fun a => s a ∧ t a
 /-- Difference `s \ t`. -/
 def diff (s t : Set' α) : Set' α := fun a => s a ∧ ¬ t a
 /-- Inclusion. -/

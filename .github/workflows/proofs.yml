@@ -1,0 +1,25 @@
+name: proofs
+
+on:
+  push:
+    paths: ['proofs/**', '.github/workflows/proofs.yml']
+  pull_request:
+    paths: ['proofs/**', '.github/workflows/proofs.yml']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache elan toolchain
+        uses: actions/cache@v4
+        with:
+          path: ~/.elan
+          key: elan-${{ runner.os }}-${{ hashFiles('proofs/lean-toolchain') }}
+      - name: Install elan
+        run: |
+          curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Build (includes Integrity.lean axiom guards)
+        working-directory: proofs
+        run: lake build

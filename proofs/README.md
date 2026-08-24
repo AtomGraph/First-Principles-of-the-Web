@@ -14,6 +14,12 @@ lake build
 Requires only `elan` (installs the pinned `leanprover/lean4:v4.15.0` on first
 build). No network dependencies beyond the toolchain.
 
+The build itself enforces the integrity claims: `FirstPrinciples/Integrity.lean`
+pins every key theorem's axiom footprint with `#guard_msgs` around
+`#print axioms`, so a `sorry` (surfacing as `sorryAx`) or a new axiom anywhere
+fails the build. CI (`.github/workflows/proofs.yml`) runs `lake build` on every
+change under `proofs/`.
+
 ## What is mechanized
 
 `FirstPrinciples/StateModel.lean`. A `StateModel` bundles the merge laws that are
@@ -115,12 +121,35 @@ bijection to land in `𝒫(triples)`.
 | `uniqueness_compose` | representation (B.1) + atom bijection (B.2) ⟹ injective ⊕→∪ hom `M → 𝒫(T)` | theorem |
 | `atomRep`, `atomRep_hom`, `atomRep_inj` | B.1's representation, packaged over the atom subtype | theorem |
 | `uniqueness` | **Thm 5.4**: a state model with the atomicity axioms whose atoms biject with `T` embeds reading-preservingly into `𝒫(T)` | theorem |
+| `uniqueness_finite` | **Thm 5.4, finite bijection**: the embedding, plus every finite set of triples realized (`atomsBelow_joinList` transported) — "isomorphic" made exact in the finite | theorem |
 
 `uniqueness` **genuinely rests on B.1** — it is `uniqueness_compose` fed with
 `atomRep` (from `StateModel.atomsBelow_merge` / `atoms_injective`). The
 atom≅triple bijection is the explicit **B.2 input**, exactly as the book's B.3
 takes B.2's conclusion as an input to the assembly. So the spine
 **B.1 → B.2 → B.3** is now machine-checked end to end.
+
+### B.5 (Prop 4.4) — the analysis theorem, shape half
+
+`FirstPrinciples/Analysis.lean`. Finite dependence: every request has a finite
+*window* `K r` with `read r S = read r (S ∩ K r)`. The factorization then holds
+by construction: `select` ships the window's facts plus the request encoded as
+facts under a reserved authority; `arrange` and `present` are functions of
+their argument alone — S1 with no side channels, enforced by the types.
+
+| Lean name | B.5 claim | status |
+|---|---|---|
+| `IsWindow`, `FiniteDependence` | Prop. 4.4's hypothesis, formalized | def |
+| `Encoding` | request-as-facts under a reserved authority (B-1), injective | def |
+| `analysis_shape` | **Prop. 4.4 / B.5 (shape)**: `present (arrange (select r S)) = read r S` | theorem |
+| `minimal_window_exists` | a minimal window sits inside any window (windows are finite) | theorem |
+
+Honesty: this is the **shape half** — S1 and the three-stage form. S2–S4 are
+claims about languages and addresses; no analysis argument can conjure those,
+and the book assigns them to the synthesis theorem (B.8). `canon` at type `Doc`
+is Chapter 6's bijection, taken as an input (`c : Bij Doc Tree`), exactly as
+the book overloads it "deliberately and in the open." `dec` uses classical
+choice: the factorization is an existence claim, not a program.
 
 ### What the formalization clarified
 
@@ -149,9 +178,9 @@ essentially nothing else is**, because the rest are not mathematical claims.
 |---|---|
 | Union law (5.1) / B.1 | ✅ **done** (embedding + finite); full powerset (B-2e) remains |
 | Arity (5.2) / B.2 | ✅ **done** (core) — `arity_minimal_is_three`, self-containment on display as `hsc` |
-| Uniqueness (5.4) / B.3 | ✅ **done** — `uniqueness`, the assembly of B.1 and B.2 (atom≅triple bijection as the B.2 input) |
+| Uniqueness (5.4) / B.3 | ✅ **done** — `uniqueness` + `uniqueness_finite` (the finite bijection), the assembly of B.1 and B.2 (atom≅triple bijection as the B.2 input) |
 | Independence of the laws / B.4 | ✅ formalizable — one of five countermodels done (`atomistic_independent`) |
-| Analysis theorem (4.4) / B.5 | ✅ core (finite dependence ⇒ 3-stage S1 factorization); S2–S4 are the definitional "lift" |
+| Analysis theorem (4.4) / B.5 | ✅ **done** (shape half) — `analysis_shape` + `minimal_window_exists`; S2–S4 are the synthesis' side (B.8) |
 | Independent evolution (4.5) / B.6 | ✅ formalizable (dependency-triangle argument) |
 | Delta normal form (7.1) | ✅ **done** — `delta_normal_form` (pure set algebra) |
 | Forms / one-algebra / five moves (7.2–7.4) | ✅ formalizable (mechanical) |
@@ -193,7 +222,6 @@ would be a category error, not a bigger proof.
 - **B.4, remaining countermodels** — drop B-2a (schema-indexed union), B-2b
   (event logs), B-2c (multisets), B-2e (finite subsets); `atomistic_independent`
   is the B-2d case.
-- **B.5** — the analysis theorem (finite dependence ⇒ three-stage S1 factorization).
 - **B.6** — independent evolution (dependency triangle).
 - **B.7 / B.8** — partial only, against a Lean model of the SPARQL denotational
   fragment (see scope table).
