@@ -328,7 +328,7 @@ XREF = re.compile(
     r"|(?:(?:Prop|Props|Thm|Def)\.?|Theorem|Definition|Proposition) (?P<pch>\d+)\.(?P<psub>\d+)"
     r"|Lemma (?P<lemc>B\.\d+)"
     r"|Appendix B\.(?P<appcn>\d+)"
-    r"|Appendix (?P<app>[A-C])\b"
+    r"|Appendix (?P<app>[A-D])\b"
     r"|\bB\.(?P<csecn>\d+)\b"
     r"|\bB-(?P<ccondn>\d[a-d]?)(?:–[a-d])?\b"
     r"|\bCh (?P<chshort>\d+)\b"

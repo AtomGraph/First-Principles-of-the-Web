@@ -402,7 +402,7 @@ The passage from "no coordinator" to the merge laws is the one bridge in the der
 | copies are free and unmarked; the cache hit *is* the resource | composition is idempotent (B-2c) |
 | aggregators consume content outside its original arrangement, without its publisher's consent | no meaning survives in arrangement (B-2d) |
 
-Each left cell is deployed and citable — RFC 9111 carries the middle two, AWWW's global-identifiers principle the first, and the last is every search engine and feed reader in operation. Each right cell is a numbered condition in Appendix B; B.4 proves none is redundant. Appendix C carries the CRDT citation. State-based replication requires a join-semilattice, which means totality, order-freedom, and idempotence. That literature derives those three properties from replication pressure alone. The theorem that follows applies to the web only to the extent that this table holds.
+Each left cell is deployed and citable — RFC 9111 carries the middle two, AWWW's global-identifiers principle the first, and the last is every search engine and feed reader in operation. Each right cell is a numbered condition in Appendix B; B.4 proves none is redundant. Appendix D carries the CRDT citation. State-based replication requires a join-semilattice, which means totality, order-freedom, and idempotence. That literature derives those three properties from replication pressure alone. The theorem that follows applies to the web only to the extent that this table holds.
 
 ### The smallest fact
 
@@ -1621,6 +1621,12 @@ The named results follow, so that a reader can move between the prose and the ap
 
 Prop. 5.2 and Thm. 5.4 come first, reached through B.1's formalization of R2. They are the two results everything downstream rests on, so they get the most care. Then come independence (B.4), analysis (B.5), timelines (B.6), the homomorphism (B.7), synthesis with genericity made exact (B.8), and federation closure (B.9).
 
+<div class="fp-history">
+
+**Machine-checked.** A Lean 4 companion to this appendix lives in the book's repository under [`proofs/`](https://github.com/AtomGraph/First-Principles-of-the-Web/tree/main/proofs). Appendix C reports what it checks and where checking must stop.
+
+</div>
+
 ### B.1 R2, formalized — and the representation lemma
 
 Chapter 5 argued in prose; a proof needs the requirements as mathematics. The translation is itself the honest step: every choice below is a numbered condition with its one-line justification from the web, so that rejecting one is a precise act rather than a suspicion. Chapter 16's Properness Table already tells you what each rejection costs. Conditions carry the number of the requirement they formalize (B-2a–e for R2, B-1 for R1, B-3 for R3, B-0 for the form-level ground), hyphenated, to keep condition B-1 apart from section B.1 and its lemma.
@@ -1757,7 +1763,30 @@ Together with the analysis theorem (B.5): every windowed `read` has the form, it
 
 One boundary, stated rather than buried: the closure is of *states*. A federation is not itself a dataspace (it has many origins, no single ontology) and (17.1) claims no such thing. What the parties hold before aligning and what alignment yields is Chapter 17's cost-of-alignment section, not this lemma.
 
-## C. References
+## C. The mechanization
+
+Appendix B is prose, and prose proofs can hide a step. This appendix reports the machine check: a self-contained Lean 4 development in the book's repository under [`proofs/`](https://github.com/AtomGraph/First-Principles-of-the-Web/tree/main/proofs), using no mathematics library, so every ingredient of the argument appears explicitly. One command re-checks everything, on a pinned toolchain. No proof contains a placeholder, and the checker reports each theorem's axioms.
+
+Checked so far — the spine, the write side, and federation:
+
+| result | Lean theorem |
+|---|---|
+| B.1 representation, finite (the union law) | `representation_finite` |
+| B.2 arity core (Prop. 5.2) | `arity_minimal_is_three` |
+| B.3 uniqueness, assembled (Thm. 5.4) | `uniqueness` |
+| B.4 independence, the atomicity countermodel | `atomistic_independent` |
+| Prop. 7.1 delta normal form | `delta_normal_form` |
+| B.9 federation closure | `federation_closure` |
+
+The embedding half of B.1 and the arity core depend on no axioms at all; the rest use only Lean's three standard ones.
+
+The check sharpened two things the prose states only in passing. B-2d splits into two named hypotheses: one half of the atom-map homomorphism is derivable from the merge laws alone, and only the "no emergence" half is genuinely axiomatic. And that axiom is necessary: the model `(ℕ, max)` satisfies every merge law yet violates atomicity, so B.1 must assume what it assumes. The formalization answers "did you assume what you needed?" with: yes, necessarily, and here is the witness.
+
+The ceiling is a category boundary, not a shortfall. Lean checks the conditional skeleton: given the requirements as axioms, everything downstream follows. What it can never do is discharge the axioms, because their justification is the Transposition Thesis, and that is unprovable the way the Church–Turing thesis is unprovable: it equates an informal subject (what the web enforces) with a formal object (the merge laws). No formalism can certify its own adequacy to an informal subject. Corroborated, consequence-tested, proved never.
+
+Remaining: B.1's full-powerset half (B-2e), B.4's other four countermodels, B.5 and B.6, and B.7–B.8 against a formal model of the query algebra's specification. Parts I, IV, and VI are not on the list, because scores and history are not mathematics.
+
+## D. References
 
 This list is the spec concordance. The axioms below are the book's external dependencies, and deliberately its only ones. Four lists follow, kept separate per the discipline of Appendix A: the witnesses, the candidates, the prior art, and the works the audit examines.
 
@@ -1861,7 +1890,7 @@ This list is the spec concordance. The axioms below are the book's external depe
 
 ## Draft status
 
-> *All twenty-three chapters and Appendices A–C are drafted in prose, with exhibits, scored audit columns, and full proofs (B.1–B.9). Under construction: the Chapter 18 reconstruction exhibit, the mechanization of the proofs, and the online edition. Feedback is most valuable on R1–R3, the arity argument, and the Transposition Thesis (Chapter 5, Appendix B) — if something is smuggled, it is there.*
+> *All twenty-three chapters and Appendices A–D are drafted in prose, with exhibits, scored audit columns, and full proofs (B.1–B.9). Under construction: the Chapter 18 reconstruction exhibit, the mechanization of the proofs, and the online edition. Feedback is most valuable on R1–R3, the arity argument, and the Transposition Thesis (Chapter 5, Appendix B) — if something is smuggled, it is there.*
 
 | Part | Status |
 |---|---|
@@ -1874,7 +1903,7 @@ This list is the spec concordance. The axioms below are the book's external depe
 | Ch 10–16 | drafted — every audit column scored; the table assembled |
 | Ch 17–20 | drafted — LinkedDataHub as reference implementation; reconstruction exhibit pending |
 | Ch 21–23 (Part VI) | drafted — knowledge graphs, the agent era, and the next web; `part6` frontispiece pending |
-| Appendices A, C | drafted |
-| Appendix B | complete — B.1–B.9; mechanization pending |
-| Rigor & prior art | uniqueness, arity, and genericity checked against prior work; corroborations and the full prior-art ledger are in Appendix C |
+| Appendices A, C, D | drafted |
+| Appendix B | complete — B.1–B.9; core spine machine-checked in [`proofs/`](https://github.com/AtomGraph/First-Principles-of-the-Web/tree/main/proofs), B.5–B.8 pending |
+| Rigor & prior art | uniqueness, arity, and genericity checked against prior work; corroborations and the full prior-art ledger are in Appendix D |
 | Figures | mermaid diagrams and screenshot strips complete; Chapter 18 reconstruction exhibit pending |
