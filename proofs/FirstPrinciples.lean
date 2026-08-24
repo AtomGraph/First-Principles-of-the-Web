@@ -5,3 +5,5 @@ import FirstPrinciples.Delta
 import FirstPrinciples.Federation
 import FirstPrinciples.Arity
 import FirstPrinciples.Uniqueness
+import FirstPrinciples.Analysis
+import FirstPrinciples.Integrity

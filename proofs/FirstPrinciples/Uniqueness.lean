@@ -111,5 +111,52 @@ theorem uniqueness (S : StateModel) (hne : S.NoEmergence) (hat : S.Atomistic)
         ∧ (∀ x y, σ x = σ y → x = y) :=
   uniqueness_compose S.merge (atomRep S) (atomRep_hom S hne) (atomRep_inj S hat) e
 
+/-! ### The finite bijection — Thm 5.4's "isomorphic", made exact
+
+`uniqueness` gives the embedding. Thm 5.4 says "isomorphic", and in the finite
+(the version B.1 flags as the one carrying the operational content) the atom map
+is also surjective: every finite set of triples is some state's image. This
+transports `atomsBelow_joinList` along the atom≅triple bijection. The full
+powerset needs B-2e and stays on the deferred list. -/
+
+/-- **Thm 5.4, finite bijection.** The embedding `σ` of `uniqueness`, plus
+    realization: every finite set of triples (any `List T`, as a set) is `σ` of
+    some state — the join of the atoms the bijection names. So `σ` is a ⊕→∪
+    bijection onto its image, and the image contains every finite set. -/
+theorem uniqueness_finite (S : StateModel) (hne : S.NoEmergence) (hat : S.Atomistic)
+    {T : Type u} (e : Bij {a : S.M // S.IsAtom a} T) :
+    ∃ σ : S.M → Set' T,
+      (∀ x y, σ (S.merge x y) = Set'.union (σ x) (σ y))
+        ∧ (∀ x y, σ x = σ y → x = y)
+        ∧ (∀ l : List T, ∃ m : S.M, σ m = fun t => t ∈ l) := by
+  refine ⟨fun m => transport e (atomRep S m),
+          fun x y => by
+            show transport e (atomRep S (S.merge x y))
+              = Set'.union (transport e (atomRep S x)) (transport e (atomRep S y))
+            rw [atomRep_hom S hne, transport_union],
+          fun x y h => atomRep_inj S hat x y (transport_injective e h),
+          ?_⟩
+  intro l
+  -- The state: the join of the atoms the bijection assigns to `l`'s triples.
+  refine ⟨S.joinList (l.map fun t => (e.invFun t).val), ?_⟩
+  apply Set'.ext
+  intro t
+  show S.atomsBelow (S.joinList (l.map fun t => (e.invFun t).val)) (e.invFun t).val
+    ↔ t ∈ l
+  rw [S.atomsBelow_joinList hne _
+        (by rintro a ha
+            obtain ⟨u, _, rfl⟩ := List.mem_map.mp ha
+            exact (e.invFun u).property)]
+  constructor
+  · rintro ⟨_, hmem⟩
+    obtain ⟨u, hu, hval⟩ := List.mem_map.mp hmem
+    have : e.invFun u = e.invFun t := Subtype.ext hval
+    have : u = t := by
+      have h1 : e.toFun (e.invFun u) = e.toFun (e.invFun t) := congrArg e.toFun this
+      rwa [e.right_inv, e.right_inv] at h1
+    exact this ▸ hu
+  · intro ht
+    exact ⟨(e.invFun t).property, List.mem_map.mpr ⟨t, ht, rfl⟩⟩
+
 end Uniqueness
 end FirstPrinciples
