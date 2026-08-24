@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 40 500 400" role="img">
+  <title>One engine, specialized by data — the same application for every domain</title>
+  <defs>
+    <marker id="up" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#005a9c"/>
+    </marker>
+  </defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- three identical application windows: CMS, CRM, ERP -->
+    <!-- lane 1 (x=160) -->
+    <rect x="105" y="58" width="110" height="74" rx="7" fill="#ffffff" stroke="#1b1e22" stroke-width="2"/>
+    <path d="M105 78 L215 78" stroke="#1b1e22" stroke-width="1.5"/>
+    <g fill="#5a6270" stroke="none">
+      <circle cx="117" cy="68" r="2.5"/>
+      <circle cx="127" cy="68" r="2.5"/>
+      <circle cx="137" cy="68" r="2.5"/>
+    </g>
+    <g stroke="#d8dce1" stroke-width="5">
+      <path d="M117 96 L203 96"/>
+      <path d="M117 110 L169 110"/>
+    </g>
+    <rect x="117" y="118" width="54" height="9" rx="3" fill="#e3eef7" stroke="none"/>
+    <!-- lane 2 (x=310) -->
+    <rect x="255" y="58" width="110" height="74" rx="7" fill="#ffffff" stroke="#1b1e22" stroke-width="2"/>
+    <path d="M255 78 L365 78" stroke="#1b1e22" stroke-width="1.5"/>
+    <g fill="#5a6270" stroke="none">
+      <circle cx="267" cy="68" r="2.5"/>
+      <circle cx="277" cy="68" r="2.5"/>
+      <circle cx="287" cy="68" r="2.5"/>
+    </g>
+    <g stroke="#d8dce1" stroke-width="5">
+      <path d="M267 96 L353 96"/>
+      <path d="M267 110 L319 110"/>
+    </g>
+    <rect x="267" y="118" width="54" height="9" rx="3" fill="#e3eef7" stroke="none"/>
+    <!-- lane 3 (x=460) -->
+    <rect x="405" y="58" width="110" height="74" rx="7" fill="#ffffff" stroke="#1b1e22" stroke-width="2"/>
+    <path d="M405 78 L515 78" stroke="#1b1e22" stroke-width="1.5"/>
+    <g fill="#5a6270" stroke="none">
+      <circle cx="417" cy="68" r="2.5"/>
+      <circle cx="427" cy="68" r="2.5"/>
+      <circle cx="437" cy="68" r="2.5"/>
+    </g>
+    <g stroke="#d8dce1" stroke-width="5">
+      <path d="M417 96 L503 96"/>
+      <path d="M417 110 L469 110"/>
+    </g>
+    <rect x="417" y="118" width="54" height="9" rx="3" fill="#e3eef7" stroke="none"/>
+    <!-- domain labels: only the name differs -->
+    <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="17" fill="#5a6270" text-anchor="middle" stroke="none">
+      <text x="160" y="148">CMS</text>
+      <text x="310" y="148">CRM</text>
+      <text x="460" y="148">ERP</text>
+    </g>
+    <!-- engine to app: one arrow per lane, pointing up -->
+    <g stroke="#005a9c" stroke-width="2.2" marker-end="url(#up)">
+      <path d="M160 206 L160 164"/>
+      <path d="M310 206 L310 164"/>
+      <path d="M460 206 L460 164"/>
+    </g>
+    <!-- one continuous generic engine, spanning all three lanes -->
+    <rect x="115" y="210" width="390" height="74" rx="12" fill="#ffffff" stroke="#005a9c" stroke-width="2.4"/>
+    <g stroke="#005a9c" stroke-width="2">
+      <circle cx="190" cy="247" r="16"/>
+      <circle cx="190" cy="247" r="6"/>
+      <path d="M206 247 L213 247"/>
+      <path d="M201.3 258.3 L206.3 263.3"/>
+      <path d="M190 263 L190 270"/>
+      <path d="M178.7 258.3 L173.7 263.3"/>
+      <path d="M174 247 L167 247"/>
+      <path d="M178.7 235.7 L173.7 230.7"/>
+      <path d="M190 231 L190 224"/>
+      <path d="M201.3 235.7 L206.3 230.7"/>
+    </g>
+    <text x="342" y="253" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="17" fill="#005a9c" text-anchor="middle" stroke="none">generic engine</text>
+    <!-- data to engine: one arrow per lane, pointing up -->
+    <g stroke="#005a9c" stroke-width="2.2" marker-end="url(#up)">
+      <path d="M160 314 L160 290"/>
+      <path d="M310 314 L310 290"/>
+      <path d="M460 314 L460 290"/>
+    </g>
+    <!-- three data cards: only the data differs (highlighted row moves) -->
+    <!-- lane 1 (x=160) -->
+    <rect x="120" y="320" width="80" height="62" rx="6" fill="#ffffff" stroke="#1b1e22" stroke-width="2"/>
+    <rect x="132" y="329" width="56" height="12" rx="2" fill="#e3eef7" stroke="none"/>
+    <g stroke="#d8dce1" stroke-width="1.5">
+      <rect x="132" y="345" width="56" height="12" rx="2"/>
+      <rect x="132" y="361" width="56" height="12" rx="2"/>
+    </g>
+    <g stroke="#5a6270" stroke-width="2">
+      <path d="M138 335 L178 335"/>
+      <path d="M138 351 L166 351"/>
+      <path d="M138 367 L172 367"/>
+    </g>
+    <!-- lane 2 (x=310) -->
+    <rect x="270" y="320" width="80" height="62" rx="6" fill="#ffffff" stroke="#1b1e22" stroke-width="2"/>
+    <rect x="282" y="345" width="56" height="12" rx="2" fill="#e3eef7" stroke="none"/>
+    <g stroke="#d8dce1" stroke-width="1.5">
+      <rect x="282" y="329" width="56" height="12" rx="2"/>
+      <rect x="282" y="361" width="56" height="12" rx="2"/>
+    </g>
+    <g stroke="#5a6270" stroke-width="2">
+      <path d="M288 335 L322 335"/>
+      <path d="M288 351 L316 351"/>
+      <path d="M288 367 L326 367"/>
+    </g>
+    <!-- lane 3 (x=460) -->
+    <rect x="420" y="320" width="80" height="62" rx="6" fill="#ffffff" stroke="#1b1e22" stroke-width="2"/>
+    <rect x="432" y="361" width="56" height="12" rx="2" fill="#e3eef7" stroke="none"/>
+    <g stroke="#d8dce1" stroke-width="1.5">
+      <rect x="432" y="329" width="56" height="12" rx="2"/>
+      <rect x="432" y="345" width="56" height="12" rx="2"/>
+    </g>
+    <g stroke="#5a6270" stroke-width="2">
+      <path d="M438 335 L472 335"/>
+      <path d="M438 351 L466 351"/>
+      <path d="M438 367 L476 367"/>
+    </g>
+    <!-- data names: the domain data that specializes the engine -->
+    <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="17" fill="#5a6270" text-anchor="middle" stroke="none">
+      <text x="160" y="400">articles</text>
+      <text x="310" y="400">contacts</text>
+      <text x="460" y="400">orders</text>
+    </g>
+  </g>
+</svg>

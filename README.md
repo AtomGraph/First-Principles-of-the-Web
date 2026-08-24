@@ -1,10 +1,12 @@
 # First Principles of the Web
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21940029.svg)](https://doi.org/10.5281/zenodo.21940029)
+
 *Graphs are not the thing, they are the thing that gets us to the thing.*
 
 A book that derives web application architecture from the web's own specifications — and finds the answer was standardized decades ago.
 
-**Read the book: <https://atomgraph.github.io/First-Principles-of-the-Web/>**
+**Read the book: <https://firstprinciplesoftheweb.org/>**
 
 ## The claim
 

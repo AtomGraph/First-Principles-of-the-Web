@@ -3,7 +3,8 @@
  * Self-contained: no dependencies, no network, no build step. The pattern
  * engine below is deliberately small — the book claims the selection algebra
  * is four operations, and the claim is checkable by reading this file.
- * Arrangement is executed by XSLTProcessor, the engine every browser ships.
+ * Arrangement is a small tree transform in JS here; the LinkedDataHub edition
+ * refactors it to IXSL.
  *
  * Widgets mount into <div class="fp-exhibit" data-exhibit="..."> stubs in the
  * source; without this script the stubs are invisible and the captions stand.
@@ -176,52 +177,38 @@
     return { next: next, added: { has: function (k) { return !!added[k]; } } };
   }
 
-  /* ——————— arrange = ⟦t⟧ ∘ canon — t executed by the browser's XSLT engine ——————— */
+  /* ——————— arrange = ⟦t⟧ ∘ canon — the term t, as a small tree transform ——————— */
 
-  var XSLT = {
-    cards: '<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">' +
-      '<xsl:output method="html"/>' +
-      '<xsl:template match="/data"><div>' +
-      '<xsl:for-each select="entity"><xsl:sort select="@name"/>' +
-      '<div class="fp-card"><h3><xsl:choose>' +
-      '<xsl:when test="fact[@attr=\'title\']"><xsl:value-of select="fact[@attr=\'title\']"/></xsl:when>' +
-      '<xsl:when test="fact[@attr=\'label\']"><xsl:value-of select="fact[@attr=\'label\']"/></xsl:when>' +
-      '<xsl:when test="fact[@attr=\'name\']"><xsl:value-of select="fact[@attr=\'name\']"/></xsl:when>' +
-      '<xsl:otherwise><xsl:value-of select="@name"/></xsl:otherwise>' +
-      "</xsl:choose></h3>" +
-      '<dl><xsl:for-each select="fact[@attr!=\'title\' and @attr!=\'type\']">' +
-      '<dt><xsl:value-of select="@attr"/></dt><dd><xsl:value-of select="."/></dd>' +
-      "</xsl:for-each></dl>" +
-      "</div></xsl:for-each></div></xsl:template></xsl:stylesheet>",
-    table: '<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">' +
-      '<xsl:output method="html"/>' +
-      '<xsl:template match="/data"><table>' +
-      "<tr><th>entity</th><th>attribute</th><th>value</th></tr>" +
-      '<xsl:for-each select="entity"><xsl:sort select="@name"/>' +
-      '<xsl:for-each select="fact">' +
-      '<tr><td><xsl:value-of select="../@name"/></td>' +
-      '<td><xsl:value-of select="@attr"/></td>' +
-      '<td><xsl:value-of select="."/></td></tr>' +
-      "</xsl:for-each></xsl:for-each></table></xsl:template></xsl:stylesheet>"
-  };
-
-  function runXSLT(cm, which) {
-    if (typeof XSLTProcessor === "undefined") return null;
-    var doc = document.implementation.createDocument(null, "data", null);
-    cm.order.forEach(function (s) {
-      var e = doc.createElement("entity");
-      e.setAttribute("name", s);
-      cm.by[s].forEach(function (f) {
-        var fe = doc.createElement("fact");
-        fe.setAttribute("attr", f.p);
-        fe.textContent = isLit(f.o) ? f.o.replace(/^"|"$/g, "") : f.o;
-        e.appendChild(fe);
+  function arrangeHTML(cm, which) {
+    function val(f) { return isLit(f.o) ? f.o.replace(/^"|"$/g, "") : f.o; }
+    if (which === "table") {
+      var rows = "";
+      cm.order.forEach(function (s) {
+        cm.by[s].forEach(function (f) {
+          rows += "<tr><td>" + esc(s) + "</td><td>" + esc(f.p) +
+            "</td><td>" + esc(val(f)) + "</td></tr>";
+        });
       });
-      doc.documentElement.appendChild(e);
+      return "<table><tr><th>entity</th><th>attribute</th><th>value</th></tr>" +
+        rows + "</table>";
+    }
+    var out = "";
+    cm.order.forEach(function (s) {
+      var fs = cm.by[s];
+      function pick(attr) {
+        for (var i = 0; i < fs.length; i++) if (fs[i].p === attr) return val(fs[i]);
+        return null;
+      }
+      var heading = pick("title") || pick("label") || pick("name") || s;
+      var dl = "";
+      fs.forEach(function (f) {
+        if (f.p !== "title" && f.p !== "type") {
+          dl += "<dt>" + esc(f.p) + "</dt><dd>" + esc(val(f)) + "</dd>";
+        }
+      });
+      out += '<div class="fp-card"><h3>' + esc(heading) + "</h3><dl>" + dl + "</dl></div>";
     });
-    var proc = new XSLTProcessor();
-    proc.importStylesheet(new DOMParser().parseFromString(XSLT[which], "text/xml"));
-    return proc.transformToFragment(doc, document);
+    return "<div>" + out + "</div>";
   }
 
   /* ——————— the state, drawn as the graph it is ——————— */
@@ -386,9 +373,8 @@
       '<div class="fp-view-2" hidden><pre class="fp-out"></pre></div>' +
       '<div class="fp-view-3" hidden><pre class="fp-out"></pre></div>' +
       "</div>";
-    var frag0 = runXSLT(cm, "cards"), frag1 = runXSLT(cm, "cards");
-    if (frag0) q(root, ".fp-view-0 .fp-rendered").appendChild(frag0);
-    if (frag1) q(root, ".fp-view-1 .fp-rendered").appendChild(frag1);
+    q(root, ".fp-view-0 .fp-rendered").innerHTML = arrangeHTML(cm, "cards");
+    q(root, ".fp-view-1 .fp-rendered").innerHTML = arrangeHTML(cm, "cards");
     q(root, ".fp-view-2 pre").innerHTML = canonHTML(cm, "derived");
     var winKeys = { has: sel.touched.has };
     q(root, ".fp-view-3 pre").innerHTML =
@@ -423,9 +409,9 @@
       '<textarea class="fp-b" spellcheck="false" aria-label="Party B facts"></textarea></div>' +
       "</div>" +
       '<div class="fp-note fp-count"></div>' +
-      '<div class="fp-panel"><div class="fp-head"><span>A ∪ B — one state; no coordinator was consulted</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span>A ∪ B — one <code>State</code>; no coordinator was consulted</span></div>' +
       '<pre class="fp-out fp-merged"></pre></div>' +
-      '<div class="fp-panel"><div class="fp-head"><span>the same state, as the graph it is</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span>the same <code>State</code>, as the graph it is</span></div>' +
       '<div class="fp-body fp-graph-box"></div></div>';
     q(root, ".fp-a").value = SEED.A;
     q(root, ".fp-b").value = SEED.B;
@@ -467,14 +453,14 @@
   function wSelect(root) {
     root.innerHTML =
       '<div class="fp-cols">' +
-      '<div class="fp-panel"><div class="fp-head"><span>pattern — ?x binds</span>' +
+      '<div class="fp-panel"><div class="fp-head"><span>pattern — <code>?x</code> binds</span>' +
       '<span class="fp-btns"><button type="button" class="fp-q1">panels &amp; values</button>' +
       '<button type="button" class="fp-q2">cross-party join</button></span></div>' +
       '<textarea class="fp-q fp-short" spellcheck="false" aria-label="Pattern"></textarea></div>' +
       '<div class="fp-panel"><div class="fp-head"><span class="fp-sols-head">solutions</span></div>' +
       '<div class="fp-body fp-sols"></div></div>' +
       "</div>" +
-      '<div class="fp-panel"><div class="fp-head"><span>Data — the sub-state the solutions touched</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>Data</code> — the sub-state the solutions touched</span></div>' +
       '<pre class="fp-out fp-window"></pre></div>';
     q(root, ".fp-q").value = SEED.Q1;
     function facts() { return shared.merged || mergedSeed(); }
@@ -523,10 +509,10 @@
       '<div class="fp-panel"><div class="fp-head"><span>facts, in arrival order</span>' +
       '<span class="fp-btns"><button type="button" class="fp-shuffle">shuffle</button></span></div>' +
       '<textarea class="fp-in" spellcheck="false" aria-label="Facts"></textarea></div>' +
-      '<div class="fp-panel"><div class="fp-head"><span>canon — one block per entity, sorted, no nesting</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>canon</code> — one block per entity, sorted, no nesting</span></div>' +
       '<pre class="fp-out fp-canon"></pre></div>' +
       "</div>" +
-      '<div class="fp-note fp-c-note">canon is a function of the atoms alone — not of their order, grouping, or provenance.</div>';
+      '<div class="fp-note fp-c-note"><code>canon</code> is a function of the atoms alone — not of their order, grouping, or provenance.</div>';
     var seedText = mergedSeed().map(function (f) { return f.s + " " + f.p + " " + f.o; }).join("\n");
     q(root, ".fp-in").value = seedText;
     var shuffles = 0, last = "";
@@ -555,12 +541,12 @@
 
   function wDelta(root) {
     root.innerHTML =
-      '<div class="fp-panel"><div class="fp-head"><span class="fp-s-head">S — the state</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span class="fp-s-head"><code>S</code> — the <code>State</code></span></div>' +
       '<pre class="fp-out fp-s"></pre></div>' +
       '<div class="fp-cols">' +
-      '<div class="fp-panel"><div class="fp-head"><span>D⁻ — the facts removed</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>D⁻</code> — the facts removed</span></div>' +
       '<textarea class="fp-dm fp-short" spellcheck="false" aria-label="Facts removed"></textarea></div>' +
-      '<div class="fp-panel"><div class="fp-head"><span>D⁺ — the facts added</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>D⁺</code> — the facts added</span></div>' +
       '<textarea class="fp-dp fp-short" spellcheck="false" aria-label="Facts added"></textarea></div>' +
       "</div>" +
       '<div class="fp-controls"><button type="button" class="fp-apply">apply: (S ∖ D⁻) ∪ D⁺</button>' +
@@ -570,8 +556,8 @@
     q(root, ".fp-dm").value = SEED.DMINUS;
     q(root, ".fp-dp").value = SEED.DPLUS;
     function render(marks) {
-      q(root, ".fp-s-head").textContent = gen === 0 ? "S — the state" :
-        "S" + "′".repeat(Math.min(gen, 4)) + " — the state, after " + gen +
+      q(root, ".fp-s-head").innerHTML = gen === 0 ? "<code>S</code> — the <code>State</code>" :
+        "<code>S" + "′".repeat(Math.min(gen, 4)) + "</code> — the <code>State</code>, after " + gen +
         " delta" + (gen > 1 ? "s" : "");
       q(root, ".fp-s").innerHTML = stateHTML(S, "derived", marks || {});
     }
@@ -603,13 +589,100 @@
     render({});
   }
 
+  /* ——————— Chapter 17: the write methods — POST/PUT/DELETE as PATCH at a fixed delta ——————— */
+
+  function wMethods(root) {
+    var id = "fpm" + (++uid);
+    var SEED_G =
+      'panel-14 type Panel\n' +
+      'panel-14 title "Current Power"\n' +
+      'panel-14 value "15.5 kW"\n' +
+      'panel-14 partOf farm';
+    var POST_P = 'panel-14 unit "kW"';
+    var PUT_P =
+      'panel-14 type Panel\n' +
+      'panel-14 title "Current Power"\n' +
+      'panel-14 value "16.1 kW"';
+    var PATCH_M = 'panel-14 value "15.5 kW"';
+    var PATCH_P = 'panel-14 value "16.1 kW"';
+    var NOTES = {
+      GET: "GET reads. It returns <code>S</code> and writes nothing — <code>D⁻</code> = <code>D⁺</code> = ∅.",
+      POST: "POST fixes <code>D⁻</code> = ∅ — additions only, a <code>merge</code> into the graph.",
+      PUT: "PUT fixes <code>D⁻</code> = <code>S(u)</code> — the whole graph out, <code>D⁺</code> in. Replace, creating it if absent.",
+      DELETE: "DELETE fixes <code>D⁻</code> = <code>S(u)</code>, <code>D⁺</code> = ∅ — the graph removed.",
+      PATCH: "PATCH — any <code>D⁻</code>, <code>D⁺</code>. The general <code>write</code>; the other three are it at a fixed delta."
+    };
+
+    root.innerHTML =
+      '<div class="fp-controls">' +
+      seg(id, [
+        { v: "GET", l: "GET" }, { v: "POST", l: "POST" }, { v: "PUT", l: "PUT" },
+        { v: "DELETE", l: "DELETE" }, { v: "PATCH", l: "PATCH" }
+      ], "PATCH") +
+      '<span class="fp-note fp-m-note"></span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span class="fp-s-head"></span></div>' +
+      '<pre class="fp-out fp-s"></pre></div>' +
+      '<div class="fp-cols">' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>D⁻</code> — removed</span></div>' +
+      '<textarea class="fp-dm fp-short" spellcheck="false" aria-label="Facts removed"></textarea></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>D⁺</code> — added</span></div>' +
+      '<textarea class="fp-dp fp-short" spellcheck="false" aria-label="Facts added"></textarea></div>' +
+      "</div>" +
+      '<div class="fp-controls"><button type="button" class="fp-apply">apply: (S ∖ D⁻) ∪ D⁺</button>' +
+      '<button type="button" class="fp-reset">reset</button></div>';
+
+    var S, gen;
+    var dm = q(root, ".fp-dm"), dp = q(root, ".fp-dp"), apply = q(root, ".fp-apply");
+
+    function serialize(facts) {
+      return facts.map(function (f) { return f.s + " " + f.p + " " + f.o; }).join("\n");
+    }
+    function method() { return segValue(root, id) || "PATCH"; }
+
+    function snap() {
+      var m = method();
+      dm.readOnly = false; dp.readOnly = false;
+      if (m === "GET") { dm.value = ""; dp.value = ""; dm.readOnly = dp.readOnly = true; }
+      else if (m === "POST") { dm.value = ""; dm.readOnly = true; dp.value = POST_P; }
+      else if (m === "PUT") { dm.value = serialize(S); dm.readOnly = true; dp.value = PUT_P; }
+      else if (m === "DELETE") { dm.value = serialize(S); dm.readOnly = true; dp.value = ""; dp.readOnly = true; }
+      else { dm.value = PATCH_M; dp.value = PATCH_P; }
+      apply.disabled = (m === "GET");
+      q(root, ".fp-m-note").innerHTML = NOTES[m];
+    }
+
+    function renderS(marks) {
+      q(root, ".fp-s-head").innerHTML =
+        (gen === 0 ? "<code>S</code>" : "<code>S" + "′".repeat(Math.min(gen, 4)) + "</code>") + " — the graph …/panel-14";
+      q(root, ".fp-s").innerHTML = S.length
+        ? stateHTML(S, "derived", marks || {})
+        : '<span class="fp-tok-kw">∅ — the graph is gone</span>';
+    }
+
+    apply.addEventListener("click", function () {
+      var before = S.map(key).sort().join("|");
+      var r = applyDelta(S, parseFacts(dm.value), parseFacts(dp.value));
+      S = r.next;
+      if (before !== S.map(key).sort().join("|")) gen++;
+      renderS({ add: r.added });
+      var m = method();
+      if (m === "PUT" || m === "DELETE") dm.value = serialize(S);
+    });
+    q(root, ".fp-reset").addEventListener("click", function () {
+      S = parseFacts(SEED_G); gen = 0; snap(); renderS({});
+    });
+    on(root, 'input[name="' + id + '"]', "change", function () { snap(); renderS({}); });
+
+    S = parseFacts(SEED_G); gen = 0; snap(); renderS({});
+  }
+
   /* ——————— Chapter 8: the reveal — nothing recomputed, only renamed ——————— */
 
   function wReveal(root) {
     var id = "fps" + (++uid);
     var facts = parseFacts(SEED.DELTA_S);
     var HEADS = {
-      derived: ["State = 𝒫(Fact) — (5.3)", "the selection algebra — pattern, join, project", "the delta — (7.1)"],
+      derived: ["<code>State</code> = 𝒫(Fact) — (5.3)", "the selection algebra — pattern, join, project", "the delta — (7.1)"],
       shipped: ["an RDF graph — Turtle", "SPARQL", "SPARQL Update"]
     };
     var SELECTION = {
@@ -638,9 +711,9 @@
       "</div>";
     function render() {
       var skin = segValue(root, id) || "derived";
-      q(root, ".fp-h1").textContent = HEADS[skin][0];
-      q(root, ".fp-h2").textContent = HEADS[skin][1];
-      q(root, ".fp-h3").textContent = HEADS[skin][2];
+      q(root, ".fp-h1").innerHTML = HEADS[skin][0];
+      q(root, ".fp-h2").innerHTML = HEADS[skin][1];
+      q(root, ".fp-h3").innerHTML = HEADS[skin][2];
       q(root, ".fp-p1").innerHTML = stateHTML(facts, skin);
       q(root, ".fp-p2").textContent = "";
       q(root, ".fp-p2").innerHTML = skin === "derived"
@@ -657,7 +730,7 @@
     render();
   }
 
-  /* ——————— Chapter 15: two dataspaces, one generic machine ——————— */
+  /* ——————— Chapter 18: two dataspaces, one generic machine ——————— */
 
   function wPipeline(root) {
     var id = "fpd" + (++uid), idT = "fpt" + uid, idC = "fpc" + uid;
@@ -669,23 +742,23 @@
     root.innerHTML =
       '<div class="fp-controls">' +
       seg(id, [{ v: "wind", l: "the wind farm" }, { v: "news", l: "the front page" }], "wind") +
-      '<span class="fp-note">two datasets — the domain travels in the state</span></div>' +
+      '<span class="fp-note">two datasets — the domain travels in the <code>State</code></span></div>' +
       '<div class="fp-cols">' +
-      '<div class="fp-panel"><div class="fp-head"><span>state — the domain lives here</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>State</code> — the domain lives here</span></div>' +
       '<textarea class="fp-facts" spellcheck="false" aria-label="State"></textarea></div>' +
-      '<div class="fp-panel"><div class="fp-head"><span>select — the window</span>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>select</code> — the window</span>' +
       '<span class="fp-btns"><button type="button" class="fp-q-reset">reset</button></span></div>' +
       '<textarea class="fp-query" spellcheck="false" aria-label="Selection"></textarea></div>' +
       "</div>" +
-      '<div class="fp-panel"><div class="fp-head"><span>canon(Data) — the canonical serialization</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span><code>canon(Data)</code> — the canonical serialization</span></div>' +
       '<pre class="fp-out fp-canon"></pre></div>' +
       '<div class="fp-controls">' +
-      '<span class="fp-note">arrange — the term t:</span>' +
+      '<span class="fp-note"><code>arrange</code> — the term <code>t</code>:</span>' +
       seg(idT, [{ v: "cards", l: "t₁ · cards" }, { v: "table", l: "t₂ · table" }], "cards") +
-      '<span class="fp-note">present — the stylesheet:</span>' +
+      '<span class="fp-note"><code>present</code> — the stylesheet:</span>' +
       seg(idC, [{ v: "editorial", l: "editorial" }, { v: "console", l: "console" }], "console") +
       "</div>" +
-      '<div class="fp-panel"><div class="fp-head"><span class="fp-r-head">read(r, S) — the document</span></div>' +
+      '<div class="fp-panel"><div class="fp-head"><span class="fp-r-head"><code>read(r, S)</code> — the document</span></div>' +
       '<div class="fp-render fp-theme-console"><div class="fp-rendered fp-target"></div></div></div>' +
       '<div class="fp-note">swap any factor — data, selection, term, stylesheet — and the others hold still.</div>';
     q(root, ".fp-facts").value = store.wind.facts;
@@ -700,10 +773,7 @@
       var win = facts.filter(function (f) { return r.touched.has(key(f)); });
       var cm = canonMap(win);
       q(root, ".fp-canon").innerHTML = canonHTML(cm, "shipped");
-      var frag = runXSLT(cm, segValue(root, idT) || "cards");
-      var target = q(root, ".fp-target");
-      target.innerHTML = "";
-      if (frag) target.appendChild(frag);
+      q(root, ".fp-target").innerHTML = arrangeHTML(cm, segValue(root, idT) || "cards");
       q(root, ".fp-render").className = "fp-render fp-theme-" + (segValue(root, idC) || "console");
     }
     on(root, 'input[name="' + id + '"]', "change", function () {
@@ -730,7 +800,7 @@
 
   var WIDGETS = {
     strip: wStrip, merge: wMerge, select: wSelect, canon: wCanon,
-    delta: wDelta, reveal: wReveal, pipeline: wPipeline
+    delta: wDelta, methods: wMethods, reveal: wReveal, pipeline: wPipeline
   };
 
   function init() {

@@ -25,8 +25,15 @@ jobs:
       - name: Project the book (split.py)
         run: python3 split.py
 
+      # Renders HTML + EPUB. Mermaid is pre-rendered to committed SVGs
+      # (render-mermaid.py), so no headless browser is needed here.
       - name: Render
         run: quarto render
+
+      # Make the EPUB valid + self-contained: swap dead video iframes for
+      # embedded posters, quote boolean attrs. Pure stdlib, no browser.
+      - name: Post-process EPUB
+        run: python3 epub_fix.py _book/First-Principles-of-the-Web.epub video-posters
 
       - uses: actions/configure-pages@v5
 

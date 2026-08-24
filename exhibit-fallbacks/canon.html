@@ -1,0 +1,34 @@
+<div class="fp-cols"><div class="fp-panel"><div class="fp-head"><span>facts, in arrival order</span></div><pre class="fp-out fp-static">farm name "Anholt Offshore"
+farm operator "Ørsted A/S"
+panel-14 partOf farm
+panel-14 title "Current Power"
+panel-14 type Panel
+panel-14 unit "kW"
+panel-14 value "15.5 kW"
+panel-7 partOf farm
+panel-7 title "Wind Speed"
+panel-7 type Panel
+panel-7 value "8.2 m/s"
+turbine-3 feeds panel-14
+turbine-3 label "A-03"
+turbine-3 type Turbine</pre></div><div class="fp-panel"><div class="fp-head"><span><code>canon</code> — one block per entity, sorted, no nesting</span></div><pre class="fp-out fp-canon"><span class="fp-tok-name">⟨…#farm⟩</span>
+    <span class="fp-tok-name">name</span> · <span class="fp-tok-lit">"Anholt Offshore"</span>
+    <span class="fp-tok-name">operator</span> · <span class="fp-tok-lit">"Ørsted A/S"</span>
+
+<span class="fp-tok-name">⟨…#panel-14⟩</span>
+    <span class="fp-tok-name">partOf</span> · <span class="fp-tok-name">⟨…#farm⟩</span>
+    <span class="fp-tok-name">title</span> · <span class="fp-tok-lit">"Current Power"</span>
+    <span class="fp-tok-name">type</span> · <span class="fp-tok-name">⟨…#Panel⟩</span>
+    <span class="fp-tok-name">unit</span> · <span class="fp-tok-lit">"kW"</span>
+    <span class="fp-tok-name">value</span> · <span class="fp-tok-lit">"15.5 kW"</span>
+
+<span class="fp-tok-name">⟨…#panel-7⟩</span>
+    <span class="fp-tok-name">partOf</span> · <span class="fp-tok-name">⟨…#farm⟩</span>
+    <span class="fp-tok-name">title</span> · <span class="fp-tok-lit">"Wind Speed"</span>
+    <span class="fp-tok-name">type</span> · <span class="fp-tok-name">⟨…#Panel⟩</span>
+    <span class="fp-tok-name">value</span> · <span class="fp-tok-lit">"8.2 m/s"</span>
+
+<span class="fp-tok-name">⟨…#turbine-3⟩</span>
+    <span class="fp-tok-name">feeds</span> · <span class="fp-tok-name">⟨…#panel-14⟩</span>
+    <span class="fp-tok-name">label</span> · <span class="fp-tok-lit">"A-03"</span>
+    <span class="fp-tok-name">type</span> · <span class="fp-tok-name">⟨…#Turbine⟩</span></pre></div></div><div class="fp-note fp-c-note"><code>canon</code> is a function of the atoms alone — not of their order, grouping, or provenance.</div>
