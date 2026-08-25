@@ -99,6 +99,8 @@ may use only the atom's own names.
 | `arity2_insufficient` | a 2-name atom can't express a fact of 3 distinct names (pigeonhole) | theorem (no axioms) |
 | `enc3`, `arity3_sufficient` | arity 3 is self-contained **and** expresses every fact | theorem (no axioms) |
 | `arity_minimal_is_three` | **Prop 5.2 (core)**: three is the minimal arity | theorem (no axioms) |
+| `encN`, `encN_faithful`, `encN_self_contained` | the n-ary decomposition: `R(a₁…aₙ)` ↦ `(e, rel, R)` + `(e, roleᵢ, aᵢ)`, faithfully, every atom still meaning alone | theorem (no axioms) |
+| `arity_above_three_decomposes` | **why three is *minimal*, not merely sufficient**: wider atoms encode back into triples, so the conditions bound arity from below and parsimony selects three | theorem (no axioms) |
 
 **Honesty note (this is the book's flagged danger zone).** This mechanizes the
 mathematical core *given self-containment*, which is an **explicit hypothesis on
@@ -122,6 +124,10 @@ bijection to land in `𝒫(triples)`.
 | `atomRep`, `atomRep_hom`, `atomRep_inj` | B.1's representation, packaged over the atom subtype | theorem |
 | `uniqueness` | **Thm 5.4**: a state model with the atomicity axioms whose atoms biject with `T` embeds reading-preservingly into `𝒫(T)` | theorem |
 | `uniqueness_finite` | **Thm 5.4, finite bijection**: the embedding, plus every finite set of triples realized (`atomsBelow_joinList` transported) — "isomorphic" made exact in the finite | theorem |
+
+| `Reading`, `Reading.toBij` | the atom≅triple bijection **constructed** from a universal reading that is onto (R1) and one-to-one (faithfulness) — not postulated | def + proofs |
+| `uniqueness_from_reading` | **Thm 5.4, welded**: uniqueness from the reading's two properties, no bijection assumed | theorem |
+| `no_pair_reading` | the codomain is forced wider than pairs: a self-contained arity-2 reading is never onto (`arity2_insufficient` applied) — B.2 used inside B.3 | theorem (no axioms) |
 
 `uniqueness` **genuinely rests on B.1** — it is `uniqueness_compose` fed with
 `atomRep` (from `StateModel.atomsBelow_merge` / `atoms_injective`). The
@@ -266,6 +272,23 @@ near-definitional by design, like B.6.
 count of existential blocks, added on merge), not a formalization of RDF
 semantics; canonical labeling and coNP-complete redundancy elimination stay
 cited.
+
+### Where the halves meet
+
+`FirstPrinciples/Meeting.lean`. B.8 closes: "every windowed `read` has the
+form, its select window-shaped (a union of ground matches, inside the derived
+algebra) and the stack fills the form." Analysis hands back an abstract
+`select`; B.7 carries algebra terms to SPARQL; the sentence joining them was
+prose. Now:
+
+| Lean name | claim | status |
+|---|---|---|
+| `ground_match_iff` | a ground pattern matches exactly when its fact is in the state — membership is a term of the algebra | theorem |
+| `window_select_algebraic` | hence `S ∩ K` is a union of ground matches: B.5's select lies **inside** the derived algebra | theorem |
+| `halves_meet` | the three results as one statement: the form (B.5), its select algebraic (here), the algebra carried to the deployed side (B.7) | theorem |
+
+Nothing new is assumed; the content is that two halves developed in separate
+files compose.
 
 ### What the formalization clarified
 

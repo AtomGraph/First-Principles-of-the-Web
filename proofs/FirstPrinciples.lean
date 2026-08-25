@@ -14,4 +14,5 @@ import FirstPrinciples.Genericity
 import FirstPrinciples.Canon
 import FirstPrinciples.Writes
 import FirstPrinciples.Quads
+import FirstPrinciples.Meeting
 import FirstPrinciples.Integrity

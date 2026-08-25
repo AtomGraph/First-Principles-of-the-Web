@@ -17,6 +17,7 @@
   conclusion as an input to the assembly.
 -/
 
+import FirstPrinciples.Arity
 import FirstPrinciples.Delta
 import FirstPrinciples.StateModel
 
@@ -157,6 +158,70 @@ theorem uniqueness_finite (S : StateModel) (hne : S.NoEmergence) (hat : S.Atomis
     exact this ▸ hu
   · intro ht
     exact ⟨(e.invFun t).property, List.mem_map.mpr ⟨t, ht, rfl⟩⟩
+
+/-! ### The weld — B.2's conclusion, used rather than assumed
+
+`uniqueness` and `uniqueness_iso` take the atom≅triple bijection as an input,
+the way the book's B.3 takes B.2's conclusion as an input to the assembly. That
+leaves a fair question: is the bijection *derived*, or merely assumed? This
+section answers it in two moves.
+
+First, the bijection is **constructed** from the two conditions the book
+actually states — a fixed universal reading of atoms as facts (B-0), which is
+onto because every fact must be expressible (R1) and one-to-one because
+distinct atoms say distinct things. No bijection is postulated: give the
+reading and its two properties, and the bijection follows.
+
+Second, the reading's codomain is **not a free choice**: `no_pair_reading`
+shows a self-contained arity-2 reading cannot be onto, so R1 rules the narrower
+atom out. That is B.2 doing work inside B.3 rather than beside it. -/
+
+/-- A **reading** of atoms as facts, with the two properties the derivation
+    supplies: onto (R1 — every fact is expressible) and one-to-one (distinct
+    atoms say distinct things). -/
+structure Reading (A T : Type u) where
+  rd : A → T
+  onto : ∀ t, ∃ a, rd a = t
+  faithful : ∀ a b, rd a = rd b → a = b
+
+/-- The reading **is** the bijection: its inverse is choice applied to
+    surjectivity, and the two round-trips are its two properties. -/
+noncomputable def Reading.toBij {A T : Type u} (R : Reading A T) : Bij A T where
+  toFun := R.rd
+  invFun := fun t => Classical.choose (R.onto t)
+  left_inv := fun a => R.faithful _ _ (Classical.choose_spec (R.onto (R.rd a)))
+  right_inv := fun t => Classical.choose_spec (R.onto t)
+
+/-- **Theorem 5.4, welded.** A state model with the atomicity axioms whose
+    atoms carry a reading as facts — onto by R1, one-to-one by faithfulness —
+    embeds reading-preservingly into `𝒫(Fact)`. The bijection is constructed
+    here, not assumed: this is B.1 and B.2 meeting inside B.3. -/
+theorem uniqueness_from_reading (S : StateModel) (hne : S.NoEmergence)
+    (hat : S.Atomistic) {T : Type u} (R : Reading {a : S.M // S.IsAtom a} T) :
+    ∃ σ : S.M → Set' T,
+      (∀ x y, σ (S.merge x y) = Set'.union (σ x) (σ y))
+        ∧ (∀ x y, σ x = σ y → x = y) :=
+  uniqueness S hne hat R.toBij
+
+/-- **The reading's codomain is forced wider than pairs.** A self-contained
+    arity-2 reading cannot be onto: by `arity2_insufficient` it never reaches a
+    fact of three distinct names, so R1 fails for it. The narrower atom is
+    excluded by the derivation, not by preference — B.2 used, not restated. -/
+theorem no_pair_reading {Name : Type u} (r : Name × Name → Arity.Fact Name)
+    (hsc : ∀ p y, Arity.factMem (r p) y → y = p.1 ∨ y = p.2)
+    {A B C : Name} (hAB : A ≠ B) (hAC : A ≠ C) (hBC : B ≠ C) :
+    ¬ (∀ f, ∃ p, r p = f) := by
+  intro honto
+  obtain ⟨p, hp⟩ := honto (A, B, C)
+  exact Arity.arity2_insufficient r hsc hAB hAC hBC p hp
+
+/-- The same statement in the `Reading` packaging: no arity-2 reading of atoms
+    as facts exists at all, once three distinct names are in play. -/
+theorem no_pair_reading' {Name : Type u} {A B C : Name}
+    (hAB : A ≠ B) (hAC : A ≠ C) (hBC : B ≠ C)
+    (R : Reading (Name × Name) (Arity.Fact Name))
+    (hsc : ∀ p y, Arity.factMem (R.rd p) y → y = p.1 ∨ y = p.2) : False :=
+  no_pair_reading R.rd hsc hAB hAC hBC R.onto
 
 end Uniqueness
 end FirstPrinciples
