@@ -1785,14 +1785,14 @@ Checked — every result on the formalizable list:
 | B.5 analysis theorem, the shape half (Prop. 4.4) | `analysis_shape`, `minimal_window_exists` |
 | B.6 independent evolution (Prop. 4.5) | `present_substitution`, `timelines_independent` |
 | B.7 homomorphism, against a model of §18 (Prop. 8.1) | `homomorphism`, `seval_monotone` |
-| B.8 genericity core: the free theorem (Thm. 8.2) | `transposition`, `treats_no_name_specially`, `generic_comp` |
+| B.8 genericity core: the free theorem (Thm. 8.2) | `transposition`, `treats_no_name_specially`, `not_generic_of_treatsSpecially`, `canon_renaming_commutes` |
 | Prop. 7.1 delta normal form | `delta_normal_form` |
 | B.9 federation closure | `federation_closure` |
 | B.5 ↔ B.7, the halves meeting | `halves_meet` |
 | Prop. 6.1 `canon` exists, ground states | `canon_exists` |
 | Props. 7.2–7.4 forms, one algebra, five moves | `submit`, `find_then_denote`, `five_moves` |
 | Prop. 9.1 the bill for anonymity, algebraic core | `bill_for_anonymity` |
-| Prop. 9.2 erasure, and the quad repair | `attribution_erased`, `attrOf_merge` |
+| Prop. 9.2 erasure, and the quad repair | `attribution_erased`, `attrOf_merge`, `attribution_closes` |
 | Prop. 19.1 nothing else to vary | `nothing_else_to_vary` |
 
 The embedding half of B.1 and the arity core depend on no axioms at all; the rest use only Lean's three standard ones.

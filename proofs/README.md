@@ -295,12 +295,40 @@ near-definitional by design, like B.6.
 |---|---|---|
 | `attribution_erased` | **9.2, erasure**: two sources publishing one fact publish the *same* triple-state, so no function of it recovers the asserter — impossibility proved, not asserted | theorem |
 | `attribution_recovered`, `attrOf_merge`, `quad_merge_is_union` | **9.2, repair**: quads recover attribution, attribution is itself a ⊕→∪ homomorphism, and merge is still union | theorem |
+| `attrQuad`, `attribution_closes` | **9.2, closure**: attribution of attributions is more quads, never a fifth position — name the statement and the claim about it is an ordinary quad again | theorem (no axioms) |
 | `bill_for_anonymity` | **9.1**: ground — union and idempotence on the nose; anonymous — idempotence up to equivalence (`blank_idem_up_to_equiv`), never identity (`blank_idem_fails`) | theorem |
 
 9.1 is a faithful *miniature* of the doubling phenomenon (ground facts plus a
 count of existential blocks, added on merge), not a formalization of RDF
 semantics; canonical labeling and coNP-complete redundancy elimination stay
 cited.
+
+### `canon` under renaming — B.8's tree clause, discharged
+
+`FirstPrinciples/CanonGeneric.lean`. B.8 defines the renaming action on a
+canonical tree as rewrite-then-recanonicalize and warns that without the clause
+"even the identity transform would fail the equation, tripped by block order
+alone." Genericity.lean took the output action abstractly; with Canon.lean in
+place, the concrete `canon` discharges it.
+
+| Lean name | claim | status |
+|---|---|---|
+| `canon_commutes` | rewriting then recanonicalizing = recanonicalizing the rewritten canonical form — for *any* relabeling, since `canon` depends on the fact-set alone | theorem |
+| `canon_renaming_commutes` | the same with the book's action: `ρ · canon(S) = canon(ρS)` | theorem |
+| `canon_needs_recanonicalization` | the clause is load-bearing: a concrete relabeling where naive rewriting breaks the sort | theorem (no axioms) |
+
+### The synthesis theorem's "only those" clause
+
+In `Genericity.lean`: `TreatsSpecially` writes out B.8's definition, and
+`not_generic_of_treatsSpecially` proves a transform that treats any name outside
+`V₀` specially is not generic — so the stack realizes only proper factorizations.
+Chapter 8's "excluding smuggling" caveat becomes a clause.
+
+One caution the formalization makes visible: the transposition test is
+**necessary, not sufficient**. Transpositions do not exhaust the renamings of an
+infinite name space, so passing them all is not by itself genericity —
+`Generic` quantifies over every renaming, and that is what the synthesis
+theorem needs.
 
 ### Where the halves meet
 

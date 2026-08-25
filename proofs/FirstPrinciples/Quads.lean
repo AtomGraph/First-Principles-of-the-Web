@@ -103,6 +103,37 @@ theorem quad_merge_is_union (S T : Set' (Quad Src F)) :
 theorem quad_projects_to_facts (S : Set' (Quad Src F)) (f : F) :
     (∃ a, attrOf S f a) ↔ ∃ a, S (a, f) := Iff.rfl
 
+/-! ### Attribution of attributions is more quads, not more positions
+
+Prop 9.2's closing move: "One extra position suffices, because attribution of
+attributions is more quads, not more positions." Name the attributed statement
+— minting a name costs nothing (RFC 3986's authority component) — and the claim
+*about* that statement is an ordinary quad again. The model is closed under its
+own attribution, so no fifth position is ever needed. -/
+
+/-- Attribution facts are ordinary triples of names. -/
+abbrev Triple (Nm : Type u) := Nm × Nm × Nm
+
+/-- Quads whose sources and facts are both over names — the shape R4 forces
+    when the source position is typed into `I` (R3's argument, verbatim). -/
+abbrev AQuad (Nm : Type u) := Quad Nm (Triple Nm)
+
+/-- "Source `b` asserts the statement named `nm q`, which `q`'s source asserted"
+    — itself a quad. -/
+def attrQuad {Nm : Type u} (nm : AQuad Nm → Nm) (asserts : Nm) (b : Nm)
+    (q : AQuad Nm) : AQuad Nm :=
+  (b, (nm q, asserts, q.1))
+
+/-- **The quad model is closed under attribution.** Given names for statements,
+    attributing an attribution is faithful and stays a quad: distinct quads get
+    distinct attribution quads. Attribution of attributions is more quads, never
+    a fifth position. -/
+theorem attribution_closes {Nm : Type u} (nm : AQuad Nm → Nm)
+    (hnm : ∀ q q', nm q = nm q' → q = q') (asserts b : Nm) :
+    ∀ q q', attrQuad nm asserts b q = attrQuad nm asserts b q' → q = q' := by
+  intro q q' h
+  exact hnm q q' (congrArg (fun x => x.2.1) h)
+
 /-! ### Prop 9.1 — the bill for anonymity -/
 
 /-- A state with existentials: ground facts, plus a count of anonymous blocks.

@@ -16,5 +16,6 @@ import FirstPrinciples.Writes
 import FirstPrinciples.Quads
 import FirstPrinciples.Gadget
 import FirstPrinciples.Convergence
+import FirstPrinciples.CanonGeneric
 import FirstPrinciples.Meeting
 import FirstPrinciples.Integrity
