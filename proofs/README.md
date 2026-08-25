@@ -264,7 +264,7 @@ an abstract action, so `canon` stays external, as the scope table says.
 `homomorphism` and `seval_monotone` use no choice; `generic_comp` no axioms at
 all. "XSLT is Turing-complete on trees" and RDFC-1.0 stay cited external facts.
 
-### The chapter propositions — 6.1, 7.2–7.4, 9.1, 9.2, 19.1
+### The chapter propositions — 6.1, 7.2–7.4, 9.1, 9.2, 20.1
 
 The scope table marks these formalizable; here they are.
 
@@ -283,10 +283,10 @@ RDFC-1.0, external.
 | `submit`, `bound_pattern_functional`, `bound_pattern_total` | **7.2**: a bound pattern denotes exactly one fact per triple, so submission IS a delta | theorem |
 | `find_then_denote` | **7.3**: same pattern, same matching relation, both directions — bindings found by match denote only matched facts | theorem |
 | `five_moves` | **7.4**: every passage between configurations decomposes into the five single-input moves; "no sixth move" is the type's arity | theorem |
-| `nothing_else_to_vary` | **19.1**: over one engine, applications agreeing on terms and state agree at every request | theorem |
+| `nothing_else_to_vary` | **20.1**: over one engine, applications agreeing on terms and state agree at every request | theorem |
 
 7.2–7.3 reuse `Pattern` and `matchTP` *imported from* Homomorphism.lean — the
-one-algebra claim is enforced by reuse, not restated. 7.4 and 19.1 are
+one-algebra claim is enforced by reuse, not restated. 7.4 and 20.1 are
 near-definitional by design, like B.6.
 
 `FirstPrinciples/Quads.lean` — **Prop 9.2** and **Prop 9.1**.
@@ -382,7 +382,7 @@ essentially nothing else is**, because the rest are not mathematical claims.
 | Forms / one-algebra / five moves (7.2–7.4) | ✅ **done** — `submit`/`bound_pattern_*`, `find_then_denote`, `five_moves` (Writes.lean) |
 | Erasure → quads (9.2) | ✅ **done** — `attribution_erased` + the quad repair (Quads.lean) |
 | Federation closure / B.9 | ✅ **done** — `federation_closure` |
-| Nothing else to vary (19.1) | ✅ **done** — `nothing_else_to_vary` (a corollary, and it stays one) |
+| Nothing else to vary (20.1) | ✅ **done** — `nothing_else_to_vary` (a corollary, and it stays one) |
 | Homomorphism (8.1) / B.7 | ✅ **done** (partial as scoped) — `homomorphism` against the §18 model in Homomorphism.lean; correspondence to *that model*, not to Saxon |
 | Synthesis + genericity (8.2) / B.8 | ✅ **done** (core as scoped) — free theorem + relativization + composition in Genericity.lean; XSLT-completeness stays a cited external fact |
 | `canon` exists (6.1) | ✅ **done** for ground states — `canon_exists` (Canon.lean); ❌ blank-node RDFC-1.0 (enormous external spec) |

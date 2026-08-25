@@ -1,5 +1,5 @@
 /-
-  First Principles of the Web — Props 7.2–7.4 and 19.1, the write side and its
+  First Principles of the Web — Props 7.2–7.4 and 20.1, the write side and its
   corollaries. Self-contained: Lean 4 core only (no Mathlib).
 
   * Prop 7.2 (forms are inverse transforms): a form's fields are a fact
@@ -22,7 +22,7 @@
     Near-definitional BY DESIGN, like B.6: the "no sixth move" claim is the
     type signature of `document`.
 
-  * Prop 19.1 (nothing else to vary): two proper applications over the same
+  * Prop 20.1 (nothing else to vary): two proper applications over the same
     engine that agree on terms and state are the same application at every
     request. "A corollary the apparatus yields at once" — and here it is one.
 -/
@@ -129,7 +129,7 @@ theorem find_then_denote (P : Pattern Var I V) (S : Set' (DFact I V))
   rw [bound_pattern_functional β tp f f' hm hm']
   exact hf'
 
-/-! ### Prop 7.4 — the five moves; Prop 19.1 — nothing else to vary -/
+/-! ### Prop 7.4 — the five moves; Prop 20.1 — nothing else to vary -/
 
 open Evolution (document)
 
@@ -174,7 +174,7 @@ def docOf (Jq : Q → R → St → V₁) (Jx : X → V₁ → V₂) (Js : Sm →
     (c : Cfg Q X Sm R St) : Doc :=
   document Jq Jx Js c.q c.x c.s c.r c.S
 
-/-- **Prop 19.1 (nothing else to vary).** Over one engine, two applications
+/-- **Prop 20.1 (nothing else to vary).** Over one engine, two applications
     that agree on their terms and their state produce the same document at
     every request: an application IS its terms and its state, and the engine is
     generic. A corollary the apparatus yields at once — and here, one. -/
