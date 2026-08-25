@@ -290,12 +290,12 @@ The benefit of S4 is immediate and measurable. It is [Fielding's](https://www.ic
 
 **Prop. 4.4 (Analysis theorem).** If a `read`'s output depends on `State` only through some finite part, it factors into the three stages, satisfying S1. The factorization then lifts to proper: realize each factor as a term of the languages Part III fixes in advance, give each stage's output a URI, and S2–S4 hold. Finite dependence forces the shape; the lift is a construction the web always permits, never a consequence of finiteness.
 
-The hypothesis is mild: a document renders finitely many facts, so every site ever deployed qualifies. Finiteness is there to make the proof's minimal fragment well-defined; it excludes nothing real.
+The hypothesis is mild: a document renders finitely many facts, so every site ever deployed qualifies. Finiteness is there to guarantee a minimal fragment exists; it excludes nothing real.
 
 <details>
-<summary><i>Proof sketch — take the minimal fragment the output depends on.</i></summary>
+<summary><i>Proof sketch — take a minimal fragment the output depends on.</i></summary>
 
-Define `select(r, S)` as a minimal fragment of S on which `read(r, ·)` actually depends, well-defined by finiteness; `arrange` and `present` are the induced quotients. That much is the analysis half: it gives S1 and the three-stage shape. S2–S4 are the lift. S2 is realization in languages whose semantics are fixed in advance and shared across applications, never invented around the `read` (which would make S2 vacuous). S3 is substitution within them, and S4 is publication, an act. The synthesis theorem (8.2) supplies all three. Full proof in Appendix B. ∎
+Define `select(r, S)` as a minimal fragment of S on which `read(r, ·)` actually depends, guaranteed by finiteness; `arrange` and `present` are the induced quotients. That much is the analysis half: it gives S1 and the three-stage shape. S2–S4 are the lift. S2 is realization in languages whose semantics are fixed in advance and shared across applications, never invented around the `read` (which would make S2 vacuous). S3 is substitution within them, and S4 is publication, an act. The synthesis theorem (8.2) supplies all three. Full proof in Appendix B. ∎
 
 </details>
 
@@ -1701,7 +1701,7 @@ Each law's countermodel is one of Chapter 5's rejections, its non-redundancy now
 
 Formalize the hypothesis first. *Finite dependence* says: for every request `r` there is a finite set of facts `K(r) ⊆ Fact`, the request's *window*, such that `read(r, S) = read(r, S ∩ K(r))` for all states `S`. In words: the response depends only on the facts inside the window, and the rest of the state can change without changing the response. This is what "depends on `State` only through some finite part" means, and it sets the theorem's scope: a `read` that inspects the whole infinite state at once has no window, and the theorem does not apply to it. Deployed reads have windows, because a response is finite and is computed in finite time from finitely many facts.
 
-For each `r`, fix one window that is as small as possible: a window no proper subset of which is still a window. Such a minimal window exists inside any window, because windows are finite. Several minimal windows may exist; pick any one, because the construction below works for every choice. Chapter 4's sketch said "the minimal fragment"; strictly it is "a minimal fragment", fixed once and used from here on.
+For each `r`, fix one window that is as small as possible: a window no proper subset of which is still a window. Such a minimal window exists inside any window, because windows are finite. Several minimal windows may exist; pick any one, because the construction below works for every choice.
 
 Now the construction. One wrinkle must be handled in the open: the output may depend on `r` beyond the selection (the same data renders differently for a different `Accept-Language`) and `arrange` is forbidden by S1 from seeing `r`. The repair uses the derivation's own move: a request is a finite named structure, so by B-1 it encodes as facts. Define:
 
@@ -1713,7 +1713,7 @@ present       =  the rendering of a canonical tree as Doc
 
 `select` is a function of `(r, S)`, as typed. `dec` is well-defined because `enc` is injective and its facts are disjoint from `K(r)` (mint them under a reserved authority, which costs nothing). `arrange` is a function of `D` alone: everything it needs (the window's facts and the request's) arrived in its argument, so S1 holds by construction rather than by discipline. `canon` is overloaded here, deliberately and in the open: Chapter 6 typed it on states, but its argument above is `read`'s output, a `Doc`. At this type `canon` means the document's canonical tree, and `present` is its inverse, rendering the tree back unchanged. `present` sees a tree, never the data. Composing: `present(arrange(select(r, S))) = read(r, S ∩ K(r)) = read(r, S)` by finite dependence. ∎
 
-What this proof does and does not give: it gives S1 and the shape: every windowed `read` has the three-stage form with no side channels. S2 through S4 are claims about *languages and addresses*, and no analysis argument can conjure those. They are exactly what the synthesis theorem supplies (B.8). Analysis and synthesis are halves of one proof, and the halves meet in the middle, as promised.
+What this proof does and does not give: it gives S1 and the shape: every windowed `read` has the three-stage form with no side channels. The shape alone is cheap: here `arrange` carries the whole computation and `present` only inverts `canon`. Three functions become three concerns under S2–S4, and not before. S2 through S4 are claims about *languages and addresses*, and no analysis argument can conjure those. They are exactly what the synthesis theorem supplies (B.8). Analysis and synthesis are halves of one proof, and the halves meet in the middle, as promised.
 
 ### B.6 Independent evolution (Prop. 4.5)
 
