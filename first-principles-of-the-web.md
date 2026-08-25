@@ -921,7 +921,7 @@ Black-box binaries served by corporations invert the property that let every rea
 — Bret Victor, *The Future of Programming*, 2013
 </div>
 
-Four columns of failures have accumulated: two bracket stacks (Chapter 10), the single-page application (Chapter 11), and the applet (Chapter 12). The pattern repeats. The scores cannot say where architectures that fail this way keep coming from. The answer is that they do not come from the web. Relational databases, object orientation, object-relational mappers (ORMs), imperative languages, and MVC (model–view–controller) all predate the web. Each fails the derived requirements at one identifiable seam, and that is *why* each of them has a compensating industry at the web boundary. The industries are the evidence that the gaps are real: nobody builds a bridge across a gap that isn't there. And the claim is falsifiable: it would be refuted by a paradigm that fails no derived requirement but has a compensating industry.
+Four columns of failures have accumulated: two bracket stacks (Chapter 10), the single-page application (Chapter 11), and the applet (Chapter 12). The pattern repeats. The scores cannot say where architectures that fail this way keep coming from. The answer is that they do not come from the web. Relational databases, object orientation, object-relational mappers (ORMs), imperative languages, and MVC (model–view–controller) all predate the web. Property graphs postdate the web and fail the same way. Each fails the derived requirements at one identifiable seam, and that is *why* each of them has a compensating industry at the web boundary. The industries are the evidence that the gaps are real: nobody builds a bridge across a gap that isn't there. And the claim is falsifiable: it would be refuted by a paradigm that fails no derived requirement but has a compensating industry.
 
 <img src="first-principles-figures/spot-ch13-the-bridges.svg" alt="Four tall silos joined by improvised plank bridges, a rope bridge, and a leaning ladder; two silos on a shared foundation stand apart, unbridged" class="fp-spot" width="420" />
 
@@ -930,6 +930,10 @@ Four columns of failures have accumulated: two bracket stacks (Chapter 10), the 
 The relational model is the strongest of the pre-web paradigms and the most instructive. Inside one database it scores where nothing else pre-web does. Relational algebra is denotational, which means it had S2-grade semantics decades before the web. Its separation of query from storage is genuine S1 discipline. The failure is R3, and it is total: keys are database-scoped, so a reference is only meaningful to clients holding the same connection string, and two databases share no name for anything if their owners never coordinated. R2 fails as a consequence, because composition now requires a schema authority. The compensating industry is data integration: each pair of silos is bridged by hand, and every new pair needs a new bridge.
 
 The relational world even rediscovered the triple shape (5.3) from the inside. Entity–attribute–value (EAV) is a schema of one three-column table. It appears wherever attributes cannot be fixed in advance ([clinical records are the classic case](https://pmc.ncbi.nlm.nih.gov/articles/PMC61391/)). [The practitioner literature files it under anti-pattern](https://pragprog.com/titles/bksqla/sql-antipatterns/): the schema no longer names the attributes, and every query becomes self-joins. The audit agrees with both parties. EAV is the triple shape with both `I` positions stripped of global scope: entities are row keys, attributes are strings, both meaningful only inside one database. R3 still fails, so no second party can merge or join. The shape's benefits are coordination-free merge and cross-party reference, and a single database has no other parties, so EAV carries the shape's costs and none of its benefits. That is why the anti-pattern verdict is correct inside the silo.
+
+### Property graphs
+
+The property graph is the relational model's graph-shaped successor. Nodes and edges carry key–value properties, so the shape is close to (5.3) and R1 holds. What the model does not change is identity: a node's identifier is minted by the database that stores it, so two databases share no name for the same entity. R3 fails where it failed for keys, and R2 follows. [GQL](https://www.gqlstandards.org/) (ISO/IEC 39075, 2024) standardized query for the model, and transformation never was, so S2 stops at a partial. The compensating industry is the same one under a newer name: entity resolution, run per pair of graphs.
 
 ### Object orientation
 
@@ -950,6 +954,7 @@ MVC assembles the paradigms above. Its Model has neither R2 nor R3, its Views la
 | Paradigm | Fails | The compensating industry |
 |---|---|---|
 | Relational | R3 (keys are database-scoped) | integration: hand-built bridges between silos |
+| Property graph | R3 (node identifiers are database-scoped) | entity resolution, per pair of graphs |
 | OOP | R1 half-inverted (state present but hidden) | serialization frameworks, DTO layers |
 | ORM | a type error between two wrong models | the impedance-mismatch literature |
 | Imperative | S2 unreachable in principle | test suites doing the work semantics should |
@@ -957,17 +962,17 @@ MVC assembles the paradigms above. Its Model has neither R2 nor R3, its Views la
 
 These are not outdated because they are old. HTTP is old. They are *pre-web* in the technical sense: their reference, composition, and semantics mechanisms are machine-local, and the web is definitionally the machine-spanning case. The 1960s–70s stack answers "how do I compute inside one machine". The web asks "how do independent parties share state with no coordinator". Theorem 5.4 shows that the second question forces one model, and none of these paradigms matches it.
 
-Two columns cover the five paradigms. OOP and its ORM share one column. The audit of imperative languages comes down to a single cell, S2, which is unreachable in principle. A column for MVC would repeat the others.
+Three columns cover the paradigms above. OOP and its ORM share one column. The audit of imperative languages comes down to a single cell, S2, which is unreachable in principle. A column for MVC would repeat the others.
 
-| | Relational | OOP/ORM |
-|---|---|---|
-| R1 | ✓ — any domain, one schema at a time | ~ — state present but hidden |
-| R2 | ✗ — no shared names, so composition needs a schema authority | ✗ — objects do not merge |
-| R3 | ✗ — keys are database-scoped | ✗ — identity is a pointer |
-| S1 | ✓ — query separated from storage | ✗ — encapsulation fuses state and behavior |
-| S2 | ✓ — relational algebra is denotational | ✗ |
-| S3 | ~ — within one vendor's dialect | ~ — behind interfaces, within one runtime |
-| S4 | ✗ — no value addressable from outside | ✗ |
+| | Relational | Property graph | OOP/ORM |
+|---|---|---|---|
+| R1 | ✓ — any domain, one schema at a time | ✓ — any domain, in a graph shape | ~ — state present but hidden |
+| R2 | ✗ — no shared names, so composition needs a schema authority | ✗ — merging needs agreement on node identity | ✗ — objects do not merge |
+| R3 | ✗ — keys are database-scoped | ✗ — node identifiers are database-scoped | ✗ — identity is a pointer |
+| S1 | ✓ — query separated from storage | ✓ — query separated from storage | ✗ — encapsulation fuses state and behavior |
+| S2 | ✓ — relational algebra is denotational | ~ — GQL standardizes query, not transformation | ✗ |
+| S3 | ~ — within one vendor's dialect | ~ — within one vendor's dialect | ~ — behind interfaces, within one runtime |
+| S4 | ✗ — no value addressable from outside | ✗ — no value addressable from outside | ✗ |
 
 The relational column is worth reading twice: it holds the highest pre-web score in the book, and it fails on exactly the machine-spanning properties. The diagnosis follows from the scores. The relational model is a correct answer to the single-machine question, applied to the machine-spanning question instead. The scores are final, but the compensating work goes on: the bridges, the serializers, the test suites. What the industry changed after a decade of that work is the next chapter.
 
@@ -1028,7 +1033,7 @@ One closing observation: the convergence recovers S1 and S2, to a tilde, not a c
 
 ## Chapter 15. The Derived Stack
 
-Five chapters have scored seven columns between them, and every column holds a failure. One column remains, scored on the same seven rows: the stack Part III revealed. An audit that stopped here would have skipped exactly the technology the book argues for. This chapter scores it against the same seven properties. It is the audit with the least new work in it, and that is the finding: every cell below carries a citation to a result already proved. So where the other columns needed scoring, this one needs collecting.
+Five chapters have scored eight columns between them, and every column holds a failure. One column remains, scored on the same seven rows: the stack Part III revealed. An audit that stopped here would have skipped exactly the technology the book argues for. This chapter scores it against the same seven properties. It is the audit with the least new work in it, and that is the finding: every cell below carries a citation to a result already proved. So where the other columns needed scoring, this one needs collecting.
 
 When Chapter 11 scored the SPA, each score was an argument made in prose: the cell named its property, and disputing the score meant attacking that property. The cells below assert nothing new. R2's ✓ is the union law (5.1), proved in Part II before the stack was named; S2's ✓ is Theorem 8.2, proved in Part III. The part's opening rule is that rejecting a score means rejecting a property. That rule reaches its hardest case here: each of this column's properties is backed by a proved result, and each cell names which one.
 
@@ -1058,20 +1063,21 @@ None of the seven cells is this chapter's judgment: each score was proved before
 
 Every audit in this part ended with a column. This chapter assembles those columns into one table. No cell below is new; placing them side by side is. Each column header cites the chapter that scores it. The derived column cites two: Chapter 8, which proved it, and Chapter 15, which audited it. Its cells add a parenthetical citing the scoring result. The rows are the seven derived properties: R1–R3 on state, S1–S4 on architecture. `✓` is satisfied, `~` partial, `✗` failed. In the online edition every cell of the derived column links to its proposition.
 
-| Property | Relational (13) | OOP/ORM (13) | XML stack (10) | JSON/REST (10) | SPA/JS (11) | Wasm (12) | GraphQL (14) | Derived stack (8, 15) |
-|---|---|---|---|---|---|---|---|---|
-| R1 | ✓ | ~ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ (5.2, 5.4) |
-| R2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ (5.1) |
-| R3 | ✗ | ✗ | ~ | ✗ | ✗ | ✗ | ✗ | ✓ (5.3) |
-| S1 | ✓ | ✗ | ~ | ~ | ✗ | ✗ | ~ | ✓ (4.3) |
-| S2 | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | ~ | ✓ (8.2) |
-| S3 | ~ | ~ | ✓ | ~ | ✗ | ✗ | ~ | ✓ (8.2) |
-| S4 | ✗ | ✗ | ~ | ~ | ✗ | ✗ | ✗ | ✓ (4.3, 8.2) |
+| Property | Relational (13) | Property graph (13) | OOP/ORM (13) | XML stack (10) | JSON/REST (10) | SPA/JS (11) | Wasm (12) | GraphQL (14) | Derived stack (8, 15) |
+|---|---|---|---|---|---|---|---|---|---|
+| R1 | ✓ | ✓ | ~ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ (5.2, 5.4) |
+| R2 | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ (5.1) |
+| R3 | ✗ | ✗ | ✗ | ~ | ✗ | ✗ | ✗ | ✗ | ✓ (5.3) |
+| S1 | ✓ | ✓ | ✗ | ~ | ~ | ✗ | ✗ | ~ | ✓ (4.3) |
+| S2 | ✓ | ~ | ✗ | ✓ | ✗ | ✗ | ✗ | ~ | ✓ (8.2) |
+| S3 | ~ | ~ | ~ | ✓ | ~ | ✗ | ✗ | ~ | ✓ (8.2) |
+| S4 | ✗ | ✗ | ✗ | ~ | ~ | ✗ | ✗ | ✗ | ✓ (4.3, 8.2) |
 
 Notes, one per line where a cell needs it.
 
 - XML's R3 and S4 are `~` for namespaces, `xml:id`, and fragment addressing, standardized slivers of the properties, largely unused (Ch 10).
 - GraphQL's S2 is `~` for a specified but prose-defined semantics. Its S1 is `~`: `select` is genuinely separated, but every query is served from a single URL. S4 fails at that same URL: a query result has no URI of its own, so it cannot be linked or cached.
+- The property graph's S2 is `~` for GQL (2024): query standardized, transformation never (Ch 13).
 - SPA/JS is scored as Chapter 11 audited it, at its 2013 consolidated form. Chapter 14 revises S1 and S2 to `~` as of 2026 and leaves the rest unchanged. That revision is Chapter 14's finding, so the column keeps its 2013 values here. The 2026 deltas live in Chapter 14's table.
 
 Read the table by row rather than by column (property by property instead of paradigm by paradigm) and the audit's finding shows its shape. R2 fails in every column but one: composition without coordination is the property nobody else has, and it is what the "world wide" in the name promises. Count the tildes and R3 and S4 join it: all three machine-spanning properties fail or fall partial everywhere but the derived column. R3 and S4 are the two that, as Chapter 14 put it, make an architecture the web rather than an app platform that happens to use browsers. Chapter 13 found the relational model, the best pre-web scorer, failing exactly the three machine-spanning properties (R2, R3, S4); Chapter 14 found the JavaScript convergence has recovered neither R3 nor S4. And the S-row failures kept appearing in this part twice: once as a score, once as a compensating industry.
