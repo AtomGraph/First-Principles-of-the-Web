@@ -229,6 +229,44 @@ an abstract action, so `canon` stays external, as the scope table says.
 `homomorphism` and `seval_monotone` use no choice; `generic_comp` no axioms at
 all. "XSLT is Turing-complete on trees" and RDFC-1.0 stay cited external facts.
 
+### The chapter propositions — 6.1, 7.2–7.4, 9.1, 9.2, 19.1
+
+The scope table marks these formalizable; here they are.
+
+`FirstPrinciples/Canon.lean` — **Prop 6.1 (`canon` exists)**, ground core.
+Given an injective sort key, `canonL` (insertion sort with dedup) is
+structure-free (`canonL_sorted`: order is the key's, and the key means
+nothing), lossless (`canonL_mem`), and **deterministic in the strong sense**
+(`canonL_canonical`: any two enumerations with the same members — any arrival
+order, any duplication — canonicalize identically). Blank-node labeling is
+RDFC-1.0, external.
+
+`FirstPrinciples/Writes.lean` — the write side and its corollaries.
+
+| Lean name | claim | status |
+|---|---|---|
+| `submit`, `bound_pattern_functional`, `bound_pattern_total` | **7.2**: a bound pattern denotes exactly one fact per triple, so submission IS a delta | theorem |
+| `find_then_denote` | **7.3**: same pattern, same matching relation, both directions — bindings found by match denote only matched facts | theorem |
+| `five_moves` | **7.4**: every passage between configurations decomposes into the five single-input moves; "no sixth move" is the type's arity | theorem |
+| `nothing_else_to_vary` | **19.1**: over one engine, applications agreeing on terms and state agree at every request | theorem |
+
+7.2–7.3 reuse `Pattern` and `matchTP` *imported from* Homomorphism.lean — the
+one-algebra claim is enforced by reuse, not restated. 7.4 and 19.1 are
+near-definitional by design, like B.6.
+
+`FirstPrinciples/Quads.lean` — **Prop 9.2** and **Prop 9.1**.
+
+| Lean name | claim | status |
+|---|---|---|
+| `attribution_erased` | **9.2, erasure**: two sources publishing one fact publish the *same* triple-state, so no function of it recovers the asserter — impossibility proved, not asserted | theorem |
+| `attribution_recovered`, `attrOf_merge`, `quad_merge_is_union` | **9.2, repair**: quads recover attribution, attribution is itself a ⊕→∪ homomorphism, and merge is still union | theorem |
+| `bill_for_anonymity` | **9.1**: ground — union and idempotence on the nose; anonymous — idempotence up to equivalence (`blank_idem_up_to_equiv`), never identity (`blank_idem_fails`) | theorem |
+
+9.1 is a faithful *miniature* of the doubling phenomenon (ground facts plus a
+count of existential blocks, added on merge), not a formalization of RDF
+semantics; canonical labeling and coNP-complete redundancy elimination stay
+cited.
+
 ### What the formalization clarified
 
 Isolating B-2d into two named predicates made two things precise that the prose
@@ -261,14 +299,14 @@ essentially nothing else is**, because the rest are not mathematical claims.
 | Analysis theorem (4.4) / B.5 | ✅ **done** (shape half) — `analysis_shape` + `minimal_window_exists`; S2–S4 are the synthesis' side (B.8) |
 | Independent evolution (4.5) / B.6 | ✅ **done** — the triangle is definitional by design (`Evolution.lean`) |
 | Delta normal form (7.1) | ✅ **done** — `delta_normal_form` (pure set algebra) |
-| Forms / one-algebra / five moves (7.2–7.4) | ✅ formalizable (mechanical) |
-| Erasure → quads (9.2) | ✅ formalizable |
+| Forms / one-algebra / five moves (7.2–7.4) | ✅ **done** — `submit`/`bound_pattern_*`, `find_then_denote`, `five_moves` (Writes.lean) |
+| Erasure → quads (9.2) | ✅ **done** — `attribution_erased` + the quad repair (Quads.lean) |
 | Federation closure / B.9 | ✅ **done** — `federation_closure` |
-| Nothing else to vary (19.1) | ✅ trivial corollary |
+| Nothing else to vary (19.1) | ✅ **done** — `nothing_else_to_vary` (a corollary, and it stays one) |
 | Homomorphism (8.1) / B.7 | ✅ **done** (partial as scoped) — `homomorphism` against the §18 model in Homomorphism.lean; correspondence to *that model*, not to Saxon |
 | Synthesis + genericity (8.2) / B.8 | ✅ **done** (core as scoped) — free theorem + relativization + composition in Genericity.lean; XSLT-completeness stays a cited external fact |
-| `canon` exists (6.1) | ✅ ground states; ❌ blank-node RDFC-1.0 (enormous external spec) |
-| Bill for anonymity (9.1) | ✅ algebraic core; ❌ coNP-completeness is a cited complexity result |
+| `canon` exists (6.1) | ✅ **done** for ground states — `canon_exists` (Canon.lean); ❌ blank-node RDFC-1.0 (enormous external spec) |
+| Bill for anonymity (9.1) | ✅ **done** (algebraic core) — `bill_for_anonymity` (Quads.lean); ❌ coNP-completeness is a cited complexity result |
 | **Transposition Thesis** | ❌ **never** — the bridge from the world to the axioms; can only be *assumed* |
 | **R1–R4 requirements** | ❌ become axioms/hypotheses, not theorems |
 | **All of Part IV (the audit)** | ❌ empirical — a Lean toy model of a competitor proves things about the *model*, relocating the model-vs-world gap, not closing it |

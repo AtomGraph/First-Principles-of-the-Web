@@ -1787,6 +1787,11 @@ Checked — every result on the formalizable list:
 | B.8 genericity core: the free theorem (Thm. 8.2) | `transposition`, `treats_no_name_specially`, `generic_comp` |
 | Prop. 7.1 delta normal form | `delta_normal_form` |
 | B.9 federation closure | `federation_closure` |
+| Prop. 6.1 `canon` exists, ground states | `canon_exists` |
+| Props. 7.2–7.4 forms, one algebra, five moves | `submit`, `find_then_denote`, `five_moves` |
+| Prop. 9.1 the bill for anonymity, algebraic core | `bill_for_anonymity` |
+| Prop. 9.2 erasure, and the quad repair | `attribution_erased`, `attrOf_merge` |
+| Prop. 19.1 nothing else to vary | `nothing_else_to_vary` |
 
 The embedding half of B.1 and the arity core depend on no axioms at all; the rest use only Lean's three standard ones.
 
@@ -1794,7 +1799,7 @@ The check sharpened two things the prose states only in passing. B-2d splits int
 
 The ceiling is a category boundary, not a shortfall. Lean checks the conditional skeleton: given the requirements as axioms, everything downstream follows. What it can never do is discharge the axioms, because their justification is the Transposition Thesis, and that is unprovable the way the Church–Turing thesis is unprovable: it equates an informal subject (what the web enforces) with a formal object (the merge laws). No formalism can certify its own adequacy to an informal subject. Corroborated, consequence-tested, proved never.
 
-Nothing formalizable remains. B.7's correspondence is to a model of the query algebra's specification, never to an engine; B.8's is the free-theorem core, with the transformation language's completeness staying a cited fact. The fifth independence condition, totality, is enforced by the formalization's own typing, so dropping it leaves nothing to state. Parts I, IV, and VI are not on the list, because scores and history are not mathematics.
+Nothing formalizable remains. Four results are checked to a stated scope: B.7's correspondence is to a model of the query algebra's specification, never to an engine; B.8's is the free-theorem core; `canon` is checked on named entities; and the bill for anonymity is checked as algebra. What those four defer — the transformation language's completeness, the canonical labeling of unnamed entities, the cost of redundancy elimination — stays cited, because each is someone else's theorem. The fifth independence condition, totality, is enforced by the formalization's own typing, so dropping it leaves nothing to state. Parts I, IV, and VI are not on the list, because scores and history are not mathematics.
 
 ## D. References
 

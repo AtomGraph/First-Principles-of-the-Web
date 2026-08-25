@@ -20,6 +20,9 @@ import FirstPrinciples.Independence
 import FirstPrinciples.Evolution
 import FirstPrinciples.Homomorphism
 import FirstPrinciples.Genericity
+import FirstPrinciples.Canon
+import FirstPrinciples.Writes
+import FirstPrinciples.Quads
 
 open FirstPrinciples
 
@@ -150,3 +153,37 @@ info: 'FirstPrinciples.Genericity.treats_no_name_specially' depends on axioms: [
 /-- info: 'FirstPrinciples.Genericity.generic_comp' does not depend on any axioms -/
 #guard_msgs in
 #print axioms Genericity.generic_comp
+
+/-- info: 'FirstPrinciples.Canon.canon_exists' depends on axioms: [propext] -/
+#guard_msgs in
+#print axioms Canon.canon_exists
+
+/-- info: 'FirstPrinciples.Writes.bound_pattern_functional' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Writes.bound_pattern_functional
+
+/-- info: 'FirstPrinciples.Writes.find_then_denote' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Writes.find_then_denote
+
+/-- info: 'FirstPrinciples.Writes.five_moves' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Writes.five_moves
+
+/-- info: 'FirstPrinciples.Writes.nothing_else_to_vary' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Writes.nothing_else_to_vary
+
+/-- info: 'FirstPrinciples.Quads.attribution_erased' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Quads.attribution_erased
+
+/-- info: 'FirstPrinciples.Quads.attrOf_merge' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Quads.attrOf_merge
+
+/--
+info: 'FirstPrinciples.Quads.bill_for_anonymity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms Quads.bill_for_anonymity
