@@ -20,6 +20,7 @@ import FirstPrinciples.Independence
 import FirstPrinciples.Evolution
 import FirstPrinciples.Homomorphism
 import FirstPrinciples.Genericity
+import FirstPrinciples.CanonGeneric
 import FirstPrinciples.Gadget
 import FirstPrinciples.Convergence
 import FirstPrinciples.Meeting
@@ -242,3 +243,29 @@ info: 'FirstPrinciples.Meeting.halves_meet' depends on axioms: [propext, Classic
 /-- info: 'FirstPrinciples.Convergence.replica_laws' depends on axioms: [propext] -/
 #guard_msgs in
 #print axioms Convergence.replica_laws
+
+/-- info: 'FirstPrinciples.CanonGeneric.canon_commutes' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs in
+#print axioms CanonGeneric.canon_commutes
+
+/--
+info: 'FirstPrinciples.CanonGeneric.canon_renaming_commutes' depends on axioms: [propext, Quot.sound]
+-/
+#guard_msgs in
+#print axioms CanonGeneric.canon_renaming_commutes
+
+/--
+info: 'FirstPrinciples.CanonGeneric.canon_needs_recanonicalization' does not depend on any axioms
+-/
+#guard_msgs in
+#print axioms CanonGeneric.canon_needs_recanonicalization
+
+/--
+info: 'FirstPrinciples.Genericity.not_generic_of_treatsSpecially' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms Genericity.not_generic_of_treatsSpecially
+
+/-- info: 'FirstPrinciples.Quads.attribution_closes' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Quads.attribution_closes

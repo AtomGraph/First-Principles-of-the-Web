@@ -166,6 +166,42 @@ theorem treats_no_name_outside_W_specially {V₀ W : Set' I}
       = actOut (transposition u u' hu hu') (T S) :=
   hT (transposition u u' hu hu') S
 
+/-! ### The synthesis theorem's "only those" clause
+
+B.8: "the stack realizes the factorization, and realizes only proper ones: a
+non-generic `arrange` fails the definition just given, which is the 'excluding
+smuggling' caveat of Chapter 8, now a clause rather than a caution." Here is the
+clause.
+
+A caution about the test, which the formalization makes visible: the free
+theorem's transposition test is **necessary, not sufficient**. Transpositions
+are renamings, so a generic transform passes every one of them; but they do not
+exhaust the renamings of an infinite name space, so passing them all is not by
+itself genericity. `Generic` quantifies over every renaming, and that is the
+condition the synthesis theorem needs. -/
+
+/-- `T` **treats `u` specially**: some state and some fresh `u′` where the
+    output fails to move by exactly the transposition's action. This is B.8's
+    definition, with "does not change the output by exactly the action of
+    `(u u′)`" written out. -/
+def TreatsSpecially (V₀ : Set' I)
+    (actOut : Renaming I V₀ → Out → Out)
+    (T : Set' (DFact I V) → Out) (u : I) : Prop :=
+  ∃ (u' : I) (hu : ¬ V₀ u) (hu' : ¬ V₀ u') (S : Set' (DFact I V)),
+    T (actState (transposition u u' hu hu') S)
+      ≠ actOut (transposition u u' hu hu') (T S)
+
+/-- **"…and only those."** A transform that treats any name outside the
+    reserved vocabulary specially is not generic, so the stack does not realize
+    it. Chapter 8's "excluding smuggling" caveat is a clause of the theorem, not
+    a caution beside it. -/
+theorem not_generic_of_treatsSpecially {V₀ : Set' I}
+    {actOut : Renaming I V₀ → Out → Out} {T : Set' (DFact I V) → Out} {u : I}
+    (h : TreatsSpecially V₀ actOut T u) : ¬ Generic V₀ actOut T := by
+  intro hgen
+  obtain ⟨u', hu, hu', S, hne⟩ := h
+  exact hne (hgen (transposition u u' hu hu') S)
+
 /-! ### Genericity composes down the pipeline -/
 
 variable {Out₂ : Type u}
