@@ -1673,7 +1673,7 @@ What remains free is the structure of an atom. Three more conditions name what C
 
 **Scope, and the history that shapes it.** The mathematics here has a pedigree and a trap, and both belong on the table. As pure relation theory, the shape of this result is **Peirce's Reduction Thesis**: dyads insufficient, triads sufficient, higher arities decompose. The thesis was conjectured in the 1880s and proven in modern form by Burch (1991), Dau & Hereth Correia (2006), Hereth Correia & Pöschel (2011), and Koshkin (2022–2025). The arity theorem is not new mathematics, and this appendix does not claim it. What is claimed is the derivation of its *hypotheses* from web-state axioms, and the typing of its positions into `I` — no work in the Peirce line mentions the web or its data models.
 
-The trap: the insufficiency of pairs is *operation-relative*, and stated without qualification it is false. Löwenheim (1915) and Quine (1954) proved that under unrestricted set-theoretic pairing, every relation of every arity reduces to dyads, the same fresh-entity move this proof uses to decompose n-ary facts, pushed one step further. What blocks the push here is B-0 and B-2d: the pairing reduction manufactures atoms that no fixed universal reading interprets alone, pairs that mean only via their neighbors. That is the gadget escape, closed above. In Peirce's setting, the analogous restriction has been accused of gerrymandering (Skidmore 1971; Koshkin 2022): drawn where it must be for triads to win. In this setting the accusation has an answer the Peircean one lacks. The restriction is the Transposition Thesis's fourth row: no meaning survives in arrangement. That row is a deployed invariant of the web, adopted for reasons that predate any question about arity. The web drew the line, not the theorem.
+The trap: the insufficiency of pairs is *operation-relative*, and stated without qualification it is false. Löwenheim (1915) and Quine (1954) proved that under unrestricted set-theoretic pairing, every relation of every arity reduces to dyads, the same fresh-entity move this proof uses to decompose n-ary facts, pushed one step further. What blocks the push here is B-0 and B-2d: the pairing reduction manufactures atoms that no fixed universal reading interprets alone, pairs that mean only via their neighbors. That is the gadget escape, closed above and machine-checked in Appendix C. In Peirce's setting, the analogous restriction has been accused of gerrymandering (Skidmore 1971; Koshkin 2022): drawn where it must be for triads to win. In this setting the accusation has an answer the Peircean one lacks. The restriction is the Transposition Thesis's fourth row: no meaning survives in arrangement. That row is a deployed invariant of the web, adopted for reasons that predate any question about arity. The web drew the line, not the theorem.
 
 One prior assertion completes the record. Robertson (2005) wrote of RDF that ternary relations are "the minimal … way to encode semantics wherein metadata may be treated uniformly with regular data", asserted as motivation for a triadic query algebra, underived. This appendix is, among other things, the derivation that assertion was owed.
 
@@ -1779,6 +1779,7 @@ Checked — every result on the formalizable list:
 |---|---|
 | B.1 representation, finite and full (the union law) | `representation_finite`, `representation_full` |
 | B.2 arity core (Prop. 5.2) | `arity_minimal_is_three` |
+| B.2's trap: the pairing reduction, located | `gadget_escape_closed` |
 | B.3 uniqueness, assembled and exact (Thm. 5.4) | `uniqueness`, `uniqueness_iso` |
 | B.4 independence, four of the five conditions | `atomistic_independent`, `order_freedom_independent`, `idempotence_independent`, `accumulation_independent` |
 | B.5 analysis theorem, the shape half (Prop. 4.4) | `analysis_shape`, `minimal_window_exists` |
@@ -1795,6 +1796,8 @@ Checked — every result on the formalizable list:
 | Prop. 19.1 nothing else to vary | `nothing_else_to_vary` |
 
 The embedding half of B.1 and the arity core depend on no axioms at all; the rest use only Lean's three standard ones.
+
+One result in the development checks nothing above: coordination-free convergence — parties that received the same updates agree, in any order, with any duplication — follows from the merge laws alone, which turns Chapter 5's corroboration from the replication literature into a theorem about this model.
 
 The check sharpened two things the prose states only in passing. B-2d splits into two named hypotheses: one half of the atom-map homomorphism is derivable from the merge laws alone, and only the "no emergence" half is genuinely axiomatic. And that axiom is necessary: the model `(ℕ, max)` satisfies every merge law yet violates atomicity, so B.1 must assume what it assumes. The formalization answers "did you assume what you needed?" with: yes, necessarily, and here is the witness.
 

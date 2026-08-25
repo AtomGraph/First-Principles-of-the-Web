@@ -111,6 +111,35 @@ the book grounds in the Transposition Thesis's fourth row (a deployed web
 invariant, argued not proved). The arity bound is the *consequence* of the
 condition, not a proof of the condition.
 
+### B.2's trap — the Löwenheim–Quine escape, located
+
+`FirstPrinciples/Gadget.lean`. The book states the trap in the open: pairs are
+insufficient only *relative to* the operations allowed, and under unrestricted
+set-theoretic pairing every relation reduces to dyads. The Peircean literature
+calls the analogous restriction gerrymandered. A formalization that proved only
+"pairs lose" would deserve that accusation, so this file proves **both halves**.
+
+| Lean name | claim | status |
+|---|---|---|
+| `chain_injective` | the reduction **works**: with fresh cells, the gadget's atom-set determines the fact — read the whole arrangement and nothing is lost | theorem (no axioms) |
+| `no_atom_says` | and it says nothing atom by atom: no pair-atom's reading is a fact of three distinct names | theorem (no axioms) |
+| `SaysOnlyViaAtoms`, `no_dyadic_state` | so under **B-2d** — a state says exactly what its atoms say — no state of pair-atoms asserts such a fact, however many cells it mints | theorem (no axioms) |
+| `gadget_escape_closed` | both halves in one statement | theorem (no axioms) |
+
+Quine is not refuted; he is located. The escape needs meaning to live in
+arrangement, and that is precisely what the Transposition Thesis's fourth row
+forbids — a rule aggregators enforced on the document web long before anyone
+asked about arity. The whole file is axiom-free.
+
+### Coordination-free convergence — the CRDT corroboration, checked
+
+`FirstPrinciples/Convergence.lean`. Chapter 5 notes that replication research
+derived the same laws from an unrelated motive. This proves the consequence for
+the derived model: **`converges`** — two parties that received the same updates
+hold the same state, in any order, with any duplication. Nothing beyond B-2a–c
+is used: no delivery guarantees, no causal order, no version vectors, no
+consensus. Strong eventual consistency as a theorem of the merge laws alone.
+
 ### Theorem 5.4 / B.3 (Uniqueness) — the spine closes
 
 `FirstPrinciples/Uniqueness.lean`. B.3 is the assembly: "compose the
