@@ -933,7 +933,7 @@ The relational world even rediscovered the triple shape (5.3) from the inside. E
 
 ### Property graphs
 
-The property graph is the relational model's graph-shaped successor. Nodes and edges carry key–value properties, so each property has (5.3)'s three positions and R1 holds. What the model does not change is identity: a node's identifier is minted by the database that stores it, so two databases share no name for the same entity. R3 fails where it failed for keys, and R2 follows. [GQL](https://www.gqlstandards.org/) (Graph Query Language, ISO/IEC 39075, 2024) standardized query for the model, and transformation never was, so S2 stops at a partial. The compensating industry is the same one under a newer name: entity resolution, run per pair of graphs.
+The property graph is the relational model's graph-shaped successor. Nodes and edges carry key–value properties, so each property has (5.3)'s three positions and R1 holds. Identity did not change with the shape: a node's identifier is minted by the database that stores it, so two databases share no name for the same entity. R3 fails where it failed for keys, and R2 follows. [GQL](https://www.gqlstandards.org/) (Graph Query Language, ISO/IEC 39075, 2024) standardized query for the model, and transformation never was, so S2 stops at a partial. The compensating industry is the same one under a newer name: entity resolution, run per pair of graphs.
 
 ### Object orientation
 
