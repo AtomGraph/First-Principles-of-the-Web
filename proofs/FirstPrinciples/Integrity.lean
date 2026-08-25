@@ -20,6 +20,8 @@ import FirstPrinciples.Independence
 import FirstPrinciples.Evolution
 import FirstPrinciples.Homomorphism
 import FirstPrinciples.Genericity
+import FirstPrinciples.Gadget
+import FirstPrinciples.Convergence
 import FirstPrinciples.Meeting
 import FirstPrinciples.Canon
 import FirstPrinciples.Writes
@@ -220,3 +222,23 @@ info: 'FirstPrinciples.Meeting.halves_meet' depends on axioms: [propext, Classic
 -/
 #guard_msgs in
 #print axioms Meeting.halves_meet
+
+/-- info: 'FirstPrinciples.Gadget.no_dyadic_state' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Gadget.no_dyadic_state
+
+/-- info: 'FirstPrinciples.Gadget.chain_injective' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Gadget.chain_injective
+
+/-- info: 'FirstPrinciples.Gadget.gadget_escape_closed' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Gadget.gadget_escape_closed
+
+/-- info: 'FirstPrinciples.Convergence.converges' depends on axioms: [propext] -/
+#guard_msgs in
+#print axioms Convergence.converges
+
+/-- info: 'FirstPrinciples.Convergence.replica_laws' depends on axioms: [propext] -/
+#guard_msgs in
+#print axioms Convergence.replica_laws
