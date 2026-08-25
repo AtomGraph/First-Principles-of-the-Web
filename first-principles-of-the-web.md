@@ -1773,7 +1773,7 @@ One boundary, stated rather than buried: the closure is of *states*. A federatio
 
 Appendix B is prose, and prose proofs can hide a step. This appendix reports the machine check: a self-contained Lean 4 development in the book's repository under [`proofs/`](https://github.com/AtomGraph/First-Principles-of-the-Web/tree/main/proofs), using no mathematics library, so every ingredient of the argument appears explicitly. One command re-checks everything, on a pinned toolchain. No proof contains a placeholder, and the checker reports each theorem's axioms.
 
-Checked so far — the spine, the analysis shape, independence, the write side, and federation:
+Checked — every result on the formalizable list:
 
 | result | Lean theorem |
 |---|---|
@@ -1783,6 +1783,8 @@ Checked so far — the spine, the analysis shape, independence, the write side, 
 | B.4 independence, four of the five conditions | `atomistic_independent`, `order_freedom_independent`, `idempotence_independent`, `accumulation_independent` |
 | B.5 analysis theorem, the shape half (Prop. 4.4) | `analysis_shape`, `minimal_window_exists` |
 | B.6 independent evolution (Prop. 4.5) | `present_substitution`, `timelines_independent` |
+| B.7 homomorphism, against a model of §18 (Prop. 8.1) | `homomorphism`, `seval_monotone` |
+| B.8 genericity core: the free theorem (Thm. 8.2) | `transposition`, `treats_no_name_specially`, `generic_comp` |
 | Prop. 7.1 delta normal form | `delta_normal_form` |
 | B.9 federation closure | `federation_closure` |
 
@@ -1792,7 +1794,7 @@ The check sharpened two things the prose states only in passing. B-2d splits int
 
 The ceiling is a category boundary, not a shortfall. Lean checks the conditional skeleton: given the requirements as axioms, everything downstream follows. What it can never do is discharge the axioms, because their justification is the Transposition Thesis, and that is unprovable the way the Church–Turing thesis is unprovable: it equates an informal subject (what the web enforces) with a formal object (the merge laws). No formalism can certify its own adequacy to an informal subject. Corroborated, consequence-tested, proved never.
 
-Remaining: B.7–B.8, against a formal model of the query algebra's specification. The fifth independence condition, totality, is enforced by the formalization's own typing, so dropping it leaves nothing to state. Parts I, IV, and VI are not on the list, because scores and history are not mathematics.
+Nothing formalizable remains. B.7's correspondence is to a model of the query algebra's specification, never to an engine; B.8's is the free-theorem core, with the transformation language's completeness staying a cited fact. The fifth independence condition, totality, is enforced by the formalization's own typing, so dropping it leaves nothing to state. Parts I, IV, and VI are not on the list, because scores and history are not mathematics.
 
 ## D. References
 
@@ -1912,6 +1914,6 @@ This list is the spec concordance. The axioms below are the book's external depe
 | Ch 17–20 | drafted — LinkedDataHub as reference implementation; reconstruction exhibit pending |
 | Ch 21–23 (Part VI) | drafted — knowledge graphs, the agent era, and the next web; `part6` frontispiece pending |
 | Appendices A, C, D | drafted |
-| Appendix B | complete — B.1–B.9; B.1–B.6 and B.9 machine-checked in [`proofs/`](https://github.com/AtomGraph/First-Principles-of-the-Web/tree/main/proofs), B.7–B.8 pending |
+| Appendix B | complete — B.1–B.9, machine-checked in [`proofs/`](https://github.com/AtomGraph/First-Principles-of-the-Web/tree/main/proofs) to the scope Appendix C states |
 | Rigor & prior art | uniqueness, arity, and genericity checked against prior work; corroborations and the full prior-art ledger are in Appendix D |
 | Figures | mermaid diagrams and screenshot strips complete; Chapter 18 reconstruction exhibit pending |

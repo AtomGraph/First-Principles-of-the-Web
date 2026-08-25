@@ -194,6 +194,41 @@ values; `timelines_independent` turns the book's effectiveness witness into the
 independent-timeline statement. Near-definitional by design; the fused half
 needs no lemma (one component, one row, nothing upstream to hold still).
 
+### B.7 (Prop 8.1) — the homomorphism, against a model of §18
+
+`FirstPrinciples/Homomorphism.lean`. Both sides defined independently — Chapter
+5's algebra over `Fact = I×I×(I∪V)` with bindings total on exactly `Var(P)`,
+and a Lean model of SPARQL 1.1 Query §18's denotational clauses (BGP as
+`μ(BGP) ⊆ G`, Join as compatible merge, Union, Project) over `iri`/`lit` terms.
+
+| Lean name | B.7 claim | status |
+|---|---|---|
+| `homomorphism` | **Prop 8.1**: φ-image of the derived evaluation = deployed evaluation of the translated term, by induction — four clauses, four checks | theorem |
+| `toSols_dmatch` | the base clause: `φ(match(P)(S)) = eval(BGP_{φ(P)}, φ(S))` | theorem |
+| `seval_monotone` | the fragment is the monotone core (what OPTIONAL/MINUS give up) | theorem |
+| `toTriple_inj`, `toTriple_range` | φ is a bijection between ground states and well-formed ground graphs | theorem |
+
+The book's three boundaries hold by construction: no blank nodes in the term
+type; AND/UNION/SELECT under set semantics only; literals are terms with
+character-level identity. This is correspondence to *this model* of §18, never
+to an engine — the partial the scope table promises.
+
+### B.8 (Thm 8.2) — the genericity core
+
+`FirstPrinciples/Genericity.lean`. Renamings (bijections on `I` fixing `V₀`
+pointwise, literals untouched), acting on facts and states; the output side is
+an abstract action, so `canon` stays external, as the scope table says.
+
+| Lean name | B.8 claim | status |
+|---|---|---|
+| `transposition` | `(u u′)` IS a renaming when `u, u′ ∉ V₀` — the free theorem's instrument, constructed | def + proofs |
+| `treats_no_name_specially` | **the free theorem**: a generic transform's output moves by exactly the transposition's action | theorem |
+| `treats_no_name_outside_W_specially` | the free theorem relativized to a declared `W`, verbatim | theorem |
+| `generic_comp` | genericity composes down the pipeline (the synthesis assembly step) | theorem |
+
+`homomorphism` and `seval_monotone` use no choice; `generic_comp` no axioms at
+all. "XSLT is Turing-complete on trees" and RDFC-1.0 stay cited external facts.
+
 ### What the formalization clarified
 
 Isolating B-2d into two named predicates made two things precise that the prose
@@ -230,8 +265,8 @@ essentially nothing else is**, because the rest are not mathematical claims.
 | Erasure → quads (9.2) | ✅ formalizable |
 | Federation closure / B.9 | ✅ **done** — `federation_closure` |
 | Nothing else to vary (19.1) | ✅ trivial corollary |
-| Homomorphism (8.1) / B.7 | ⚠️ **partial** — needs a Lean model of SPARQL §18's denotational defs; proves correspondence to *that model*, not to Saxon |
-| Synthesis + genericity (8.2) / B.8 | ⚠️ **partial** — genericity/free-theorem core formalizable; "XSLT is Turing-complete on trees" stays a cited external fact |
+| Homomorphism (8.1) / B.7 | ✅ **done** (partial as scoped) — `homomorphism` against the §18 model in Homomorphism.lean; correspondence to *that model*, not to Saxon |
+| Synthesis + genericity (8.2) / B.8 | ✅ **done** (core as scoped) — free theorem + relativization + composition in Genericity.lean; XSLT-completeness stays a cited external fact |
 | `canon` exists (6.1) | ✅ ground states; ❌ blank-node RDFC-1.0 (enormous external spec) |
 | Bill for anonymity (9.1) | ✅ algebraic core; ❌ coNP-completeness is a cited complexity result |
 | **Transposition Thesis** | ❌ **never** — the bridge from the world to the axioms; can only be *assumed* |
@@ -258,7 +293,9 @@ which upgrades rigor from **A– to "A, modulo one openly-declared axiom"**, and
 not one notch further. Formalizing Parts I / III-reveal / IV / V-economics / VI
 would be a category error, not a bigger proof.
 
-## Deferred (next commits)
+## Deferred
 
-- **B.7 / B.8** — partial only, against a Lean model of the SPARQL denotational
-  fragment (see scope table). The last items on the formalizable list.
+Nothing on the formalizable list. What remains outside it is outside by kind,
+not by effort — see the scope table: the Transposition Thesis, the R-conditions
+as axioms, the audits, and the external specs (RDFC-1.0, XSLT-completeness,
+coNP-completeness) stay cited, never re-proved.

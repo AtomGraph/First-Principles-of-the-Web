@@ -9,4 +9,6 @@ import FirstPrinciples.Analysis
 import FirstPrinciples.Accumulation
 import FirstPrinciples.Independence
 import FirstPrinciples.Evolution
+import FirstPrinciples.Homomorphism
+import FirstPrinciples.Genericity
 import FirstPrinciples.Integrity
