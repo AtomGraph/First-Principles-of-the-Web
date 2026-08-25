@@ -921,7 +921,7 @@ Black-box binaries served by corporations invert the property that let every rea
 — Bret Victor, *The Future of Programming*, 2013
 </div>
 
-Four columns of failures have accumulated: two bracket stacks (Chapter 10), the single-page application (Chapter 11), and the applet (Chapter 12). The pattern repeats. The scores cannot say where architectures that fail this way keep coming from. The answer is that they do not come from the web. Relational databases, object orientation, object-relational mappers (ORMs), imperative languages, and MVC (model–view–controller) all predate the web. Property graphs postdate the web and fail the same way. Each fails the derived requirements at one identifiable seam, and that is *why* each of them has a compensating industry at the web boundary. The industries are the evidence that the gaps are real: nobody builds a bridge across a gap that isn't there. And the claim is falsifiable: it would be refuted by a paradigm that fails no derived requirement but has a compensating industry.
+Four columns of failures have accumulated: two bracket stacks (Chapter 10), the single-page application (Chapter 11), and the applet (Chapter 12). The pattern repeats. The scores cannot say where architectures that fail this way keep coming from. The answer is that they do not come from the web. Relational databases, object orientation, object-relational mappers (ORMs), imperative languages, and MVC (model–view–controller) all predate the web. Property graphs postdate the web and fail where the relational model fails. Each fails the derived requirements at one identifiable seam, and that is *why* each of them has a compensating industry at the web boundary. The industries are the evidence that the gaps are real: nobody builds a bridge across a gap that isn't there. And the claim is falsifiable: it would be refuted by a paradigm that fails no derived requirement but has a compensating industry.
 
 <img src="first-principles-figures/spot-ch13-the-bridges.svg" alt="Four tall silos joined by improvised plank bridges, a rope bridge, and a leaning ladder; two silos on a shared foundation stand apart, unbridged" class="fp-spot" width="420" />
 
@@ -933,7 +933,7 @@ The relational world even rediscovered the triple shape (5.3) from the inside. E
 
 ### Property graphs
 
-The property graph is the relational model's graph-shaped successor. Nodes and edges carry key–value properties, so the shape is close to (5.3) and R1 holds. What the model does not change is identity: a node's identifier is minted by the database that stores it, so two databases share no name for the same entity. R3 fails where it failed for keys, and R2 follows. [GQL](https://www.gqlstandards.org/) (ISO/IEC 39075, 2024) standardized query for the model, and transformation never was, so S2 stops at a partial. The compensating industry is the same one under a newer name: entity resolution, run per pair of graphs.
+The property graph is the relational model's graph-shaped successor. Nodes and edges carry key–value properties, so each property has (5.3)'s three positions and R1 holds. What the model does not change is identity: a node's identifier is minted by the database that stores it, so two databases share no name for the same entity. R3 fails where it failed for keys, and R2 follows. [GQL](https://www.gqlstandards.org/) (Graph Query Language, ISO/IEC 39075, 2024) standardized query for the model, and transformation never was, so S2 stops at a partial. The compensating industry is the same one under a newer name: entity resolution, run per pair of graphs.
 
 ### Object orientation
 
@@ -954,7 +954,7 @@ MVC assembles the paradigms above. Its Model has neither R2 nor R3, its Views la
 | Paradigm | Fails | The compensating industry |
 |---|---|---|
 | Relational | R3 (keys are database-scoped) | integration: hand-built bridges between silos |
-| Property graph | R3 (node identifiers are database-scoped) | entity resolution, per pair of graphs |
+| Property graph | R3 (node identifiers are database-scoped) | entity resolution: run per pair of graphs |
 | OOP | R1 half-inverted (state present but hidden) | serialization frameworks, DTO layers |
 | ORM | a type error between two wrong models | the impedance-mismatch literature |
 | Imperative | S2 unreachable in principle | test suites doing the work semantics should |
