@@ -20,6 +20,7 @@ import FirstPrinciples.Independence
 import FirstPrinciples.Evolution
 import FirstPrinciples.Homomorphism
 import FirstPrinciples.Genericity
+import FirstPrinciples.Meeting
 import FirstPrinciples.Canon
 import FirstPrinciples.Writes
 import FirstPrinciples.Quads
@@ -187,3 +188,35 @@ info: 'FirstPrinciples.Quads.bill_for_anonymity' depends on axioms: [propext, Cl
 -/
 #guard_msgs in
 #print axioms Quads.bill_for_anonymity
+
+/-- info: 'FirstPrinciples.Arity.arity_above_three_decomposes' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Arity.arity_above_three_decomposes
+
+/-- info: 'FirstPrinciples.Arity.encN_faithful' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Arity.encN_faithful
+
+/--
+info: 'FirstPrinciples.Uniqueness.uniqueness_from_reading' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms Uniqueness.uniqueness_from_reading
+
+/-- info: 'FirstPrinciples.Uniqueness.no_pair_reading' does not depend on any axioms -/
+#guard_msgs in
+#print axioms Uniqueness.no_pair_reading
+
+/-- info: 'FirstPrinciples.Meeting.ground_match_iff' depends on axioms: [propext] -/
+#guard_msgs in
+#print axioms Meeting.ground_match_iff
+
+/-- info: 'FirstPrinciples.Meeting.window_select_algebraic' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs in
+#print axioms Meeting.window_select_algebraic
+
+/--
+info: 'FirstPrinciples.Meeting.halves_meet' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms Meeting.halves_meet
