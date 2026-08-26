@@ -1042,6 +1042,10 @@ Read that as an audit finding. The store's own identifier does not refer, so the
 
 Merging two property graphs means deciding which nodes are the same node. Nothing in the model decides it.
 
+<img src="first-principles-figures/ch15-two-models.svg" alt="Two panels. Left, the property graph: the operator's store holds a node numbered 4711 carrying a value, the contractor's store holds a node numbered 92 carrying a title, and a dashed line between them is labelled 'same panel?'. Right, the derived model: both stores hold a fact whose first position is the same global name, joined by a solid line labelled 'same name'." class="fp-diagram" />
+
+*The same two facts, held by two parties. On the left the identifiers are minted by the stores, so the question in the middle has no answer inside the model. On the right the name is minted once by whoever owns it, so the two sets merge by union and the question never arises.*
+
 ### Standardized twice
 
 The query side is standardized, and recently. Cypher shipped with Neo4j in 2011 and was opened as [openCypher](https://opencypher.org/) in 2015. The SQL committee added property graph queries to SQL itself as SQL/PGQ (ISO/IEC 9075-16) in 2023. [GQL](https://www.gqlstandards.org/) (Graph Query Language, ISO/IEC 39075) followed in 2024 as a language of its own. A query now means the same thing across implementations, which is what S2 asks of `select`.

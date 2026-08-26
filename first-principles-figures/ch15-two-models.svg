@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 880 400" role="img" style="max-width: 880px; background-color: white;" font-family="Georgia, 'Times New Roman', serif" fill="#1b1e22">
+  <title>The same two facts, held by two parties, in both graph models</title>
+  <desc>On the left, the property graph: the operator's store holds a node numbered 4711 and the contractor's store holds a node numbered 92, both describing Panel 14. Nothing in the model says they are the same panel. On the right, the derived model: both stores hold facts whose subject is the same global name, so the two sets merge by union.</desc>
+
+  <g font-size="17">
+    <text x="224" y="26" text-anchor="middle">Property graph</text>
+    <text x="656" y="26" text-anchor="middle">The derived model</text>
+  </g>
+  <line x1="440" y1="10" x2="440" y2="392" stroke="#d9d3c5" stroke-width="1"/>
+
+  <!-- ============ left panel: property graph ============ -->
+  <g>
+    <rect x="32" y="48" width="384" height="100" rx="6" fill="#f4f1e9" stroke="#d9d3c5"/>
+    <text x="46" y="70" font-size="12.5" fill="#5a6270">Operator's store</text>
+    <rect x="46" y="82" width="356" height="50" rx="4" fill="#e3eef7" stroke="#005a9c"/>
+    <text x="62" y="103" font-size="13" font-family="ui-monospace, Menlo, monospace">node 4711</text>
+    <text x="62" y="122" font-size="13" font-family="ui-monospace, Menlo, monospace">value: "15.5 kW"</text>
+
+    <rect x="32" y="228" width="384" height="100" rx="6" fill="#f4f1e9" stroke="#d9d3c5"/>
+    <text x="46" y="250" font-size="12.5" fill="#5a6270">Contractor's store</text>
+    <rect x="46" y="262" width="356" height="50" rx="4" fill="#e3eef7" stroke="#005a9c"/>
+    <text x="62" y="283" font-size="13" font-family="ui-monospace, Menlo, monospace">node 92</text>
+    <text x="62" y="302" font-size="13" font-family="ui-monospace, Menlo, monospace">title: "Panel 14"</text>
+
+    <line x1="224" y1="148" x2="224" y2="228" stroke="#5a6270" stroke-width="1.5" stroke-dasharray="5,5"/>
+    <rect x="160" y="176" width="128" height="24" rx="4" fill="#fffdf9" stroke="#d9d3c5"/>
+    <text x="224" y="193" font-size="13" text-anchor="middle" fill="#5a6270">same panel?</text>
+  </g>
+
+  <!-- ============ right panel: the derived model ============ -->
+  <g>
+    <rect x="464" y="48" width="384" height="100" rx="6" fill="#f4f1e9" stroke="#d9d3c5"/>
+    <text x="478" y="70" font-size="12.5" fill="#5a6270">Operator's store</text>
+    <rect x="478" y="82" width="356" height="50" rx="4" fill="#e3eef7" stroke="#005a9c"/>
+    <text x="494" y="112" font-size="13" font-family="ui-monospace, Menlo, monospace">⟨…#panel-14⟩   value   "15.5 kW"</text>
+
+    <rect x="464" y="228" width="384" height="100" rx="6" fill="#f4f1e9" stroke="#d9d3c5"/>
+    <text x="478" y="250" font-size="12.5" fill="#5a6270">Contractor's store</text>
+    <rect x="478" y="262" width="356" height="50" rx="4" fill="#e3eef7" stroke="#005a9c"/>
+    <text x="494" y="292" font-size="13" font-family="ui-monospace, Menlo, monospace">⟨…#panel-14⟩   title   "Panel 14"</text>
+
+    <line x1="656" y1="148" x2="656" y2="228" stroke="#005a9c" stroke-width="1.5"/>
+    <rect x="592" y="176" width="128" height="24" rx="4" fill="#fffdf9" stroke="#005a9c"/>
+    <text x="656" y="193" font-size="13" text-anchor="middle">same name</text>
+  </g>
+
+  <!-- ============ captions ============ -->
+  <g font-size="13" text-anchor="middle" fill="#5a6270">
+    <text x="224" y="360">Two identifiers, each minted by the store</text>
+    <text x="224" y="379">that holds it. Merging needs a decision.</text>
+    <text x="656" y="360">One name, minted once by its owner.</text>
+    <text x="656" y="379">Merging is union.</text>
+  </g>
+</svg>
