@@ -1,54 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 880 400" role="img" style="max-width: 880px; background-color: white;" font-family="Georgia, 'Times New Roman', serif" fill="#1b1e22">
-  <title>The same two facts, held by two parties, in both graph models</title>
-  <desc>On the left, the property graph: the operator's store holds a node numbered 4711 and the contractor's store holds a node numbered 92, both describing Panel 14. Nothing in the model says they are the same panel. On the right, the derived model: both stores hold facts whose subject is the same global name, so the two sets merge by union.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 880 410" role="img" style="max-width: 880px; background-color: white;" font-family="Georgia, 'Times New Roman', serif" fill="#1b1e22">
+  <title>The same graph, held by two parties, in both models</title>
+  <desc>On the left, the property graph: the operator's graph has a Panel 14 node with internal id 4711 feeding a Site 3 node, and the contractor's graph has its own Panel 14 node with internal id 92. A dashed line between the two panel nodes is labelled "same panel?" and nothing in the model answers it. On the right, the derived model: both parties use the same global name for the panel, so a solid line joins them and the two graphs merge by union.</desc>
+
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5a6270"/>
+    </marker>
+  </defs>
 
   <g font-size="17">
-    <text x="224" y="26" text-anchor="middle">Property graph</text>
-    <text x="656" y="26" text-anchor="middle">The derived model</text>
+    <text x="224" y="28" text-anchor="middle">Property graph</text>
+    <text x="656" y="28" text-anchor="middle">The derived model</text>
   </g>
-  <line x1="440" y1="10" x2="440" y2="392" stroke="#d9d3c5" stroke-width="1"/>
+  <line x1="440" y1="12" x2="440" y2="402" stroke="#d9d3c5"/>
 
-  <!-- ============ left panel: property graph ============ -->
-  <g>
-    <rect x="32" y="48" width="384" height="100" rx="6" fill="#f4f1e9" stroke="#d9d3c5"/>
-    <text x="46" y="70" font-size="12.5" fill="#5a6270">Operator's store</text>
-    <rect x="46" y="82" width="356" height="50" rx="4" fill="#e3eef7" stroke="#005a9c"/>
-    <text x="62" y="103" font-size="13" font-family="ui-monospace, Menlo, monospace">node 4711</text>
-    <text x="62" y="122" font-size="13" font-family="ui-monospace, Menlo, monospace">value: "15.5 kW"</text>
+  <!-- ================= left: property graph ================= -->
+  <rect x="36" y="58" width="376" height="126" rx="8" fill="#f4f1e9" stroke="#d9d3c5" stroke-dasharray="4,4"/>
+  <text x="50" y="78" font-size="12" fill="#5a6270">Operator's graph</text>
+  <rect x="56" y="100" width="124" height="46" rx="8" fill="#e3eef7" stroke="#005a9c"/>
+  <text x="118" y="118" font-size="13.5" text-anchor="middle">Panel 14</text>
+  <text x="118" y="135" font-size="11.5" text-anchor="middle" fill="#5a6270" font-family="ui-monospace, Menlo, monospace">id 4711</text>
+  <rect x="268" y="100" width="120" height="46" rx="8" fill="#e3eef7" stroke="#005a9c"/>
+  <text x="328" y="118" font-size="13.5" text-anchor="middle">Site 3</text>
+  <text x="328" y="135" font-size="11.5" text-anchor="middle" fill="#5a6270" font-family="ui-monospace, Menlo, monospace">id 88</text>
+  <line x1="180" y1="123" x2="262" y2="123" stroke="#5a6270" stroke-width="1.4" marker-end="url(#ar)"/>
+  <text x="221" y="116" font-size="11.5" text-anchor="middle" fill="#5a6270" font-family="ui-monospace, Menlo, monospace">FEEDS</text>
 
-    <rect x="32" y="228" width="384" height="100" rx="6" fill="#f4f1e9" stroke="#d9d3c5"/>
-    <text x="46" y="250" font-size="12.5" fill="#5a6270">Contractor's store</text>
-    <rect x="46" y="262" width="356" height="50" rx="4" fill="#e3eef7" stroke="#005a9c"/>
-    <text x="62" y="283" font-size="13" font-family="ui-monospace, Menlo, monospace">node 92</text>
-    <text x="62" y="302" font-size="13" font-family="ui-monospace, Menlo, monospace">title: "Panel 14"</text>
+  <rect x="36" y="240" width="376" height="96" rx="8" fill="#f4f1e9" stroke="#d9d3c5" stroke-dasharray="4,4"/>
+  <text x="50" y="260" font-size="12" fill="#5a6270">Contractor's graph</text>
+  <rect x="56" y="272" width="124" height="46" rx="8" fill="#e3eef7" stroke="#005a9c"/>
+  <text x="118" y="290" font-size="13.5" text-anchor="middle">Panel 14</text>
+  <text x="118" y="307" font-size="11.5" text-anchor="middle" fill="#5a6270" font-family="ui-monospace, Menlo, monospace">id 92</text>
 
-    <line x1="224" y1="148" x2="224" y2="228" stroke="#5a6270" stroke-width="1.5" stroke-dasharray="5,5"/>
-    <rect x="160" y="176" width="128" height="24" rx="4" fill="#fffdf9" stroke="#d9d3c5"/>
-    <text x="224" y="193" font-size="13" text-anchor="middle" fill="#5a6270">same panel?</text>
-  </g>
+  <line x1="118" y1="184" x2="118" y2="240" stroke="#5a6270" stroke-width="1.4" stroke-dasharray="5,5"/>
+  <rect x="64" y="197" width="108" height="24" rx="4" fill="#fffdf9" stroke="#d9d3c5"/>
+  <text x="118" y="214" font-size="12.5" text-anchor="middle" fill="#5a6270">same panel?</text>
 
-  <!-- ============ right panel: the derived model ============ -->
-  <g>
-    <rect x="464" y="48" width="384" height="100" rx="6" fill="#f4f1e9" stroke="#d9d3c5"/>
-    <text x="478" y="70" font-size="12.5" fill="#5a6270">Operator's store</text>
-    <rect x="478" y="82" width="356" height="50" rx="4" fill="#e3eef7" stroke="#005a9c"/>
-    <text x="494" y="112" font-size="13" font-family="ui-monospace, Menlo, monospace">⟨…#panel-14⟩   value   "15.5 kW"</text>
+  <!-- ================= right: the derived model ================= -->
+  <rect x="468" y="58" width="376" height="126" rx="8" fill="#f4f1e9" stroke="#d9d3c5" stroke-dasharray="4,4"/>
+  <text x="482" y="78" font-size="12" fill="#5a6270">Operator's graph</text>
+  <rect x="488" y="100" width="150" height="46" rx="8" fill="#e3eef7" stroke="#005a9c"/>
+  <text x="563" y="128" font-size="12.5" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">⟨…#panel-14⟩</text>
+  <rect x="700" y="100" width="132" height="46" rx="8" fill="#e3eef7" stroke="#005a9c"/>
+  <text x="766" y="128" font-size="12.5" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">⟨…#site-3⟩</text>
+  <line x1="638" y1="123" x2="694" y2="123" stroke="#5a6270" stroke-width="1.4" marker-end="url(#ar)"/>
+  <text x="666" y="116" font-size="11.5" text-anchor="middle" fill="#5a6270" font-family="ui-monospace, Menlo, monospace">feeds</text>
 
-    <rect x="464" y="228" width="384" height="100" rx="6" fill="#f4f1e9" stroke="#d9d3c5"/>
-    <text x="478" y="250" font-size="12.5" fill="#5a6270">Contractor's store</text>
-    <rect x="478" y="262" width="356" height="50" rx="4" fill="#e3eef7" stroke="#005a9c"/>
-    <text x="494" y="292" font-size="13" font-family="ui-monospace, Menlo, monospace">⟨…#panel-14⟩   title   "Panel 14"</text>
+  <rect x="468" y="240" width="376" height="96" rx="8" fill="#f4f1e9" stroke="#d9d3c5" stroke-dasharray="4,4"/>
+  <text x="482" y="260" font-size="12" fill="#5a6270">Contractor's graph</text>
+  <rect x="488" y="272" width="150" height="46" rx="8" fill="#e3eef7" stroke="#005a9c"/>
+  <text x="563" y="300" font-size="12.5" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">⟨…#panel-14⟩</text>
 
-    <line x1="656" y1="148" x2="656" y2="228" stroke="#005a9c" stroke-width="1.5"/>
-    <rect x="592" y="176" width="128" height="24" rx="4" fill="#fffdf9" stroke="#005a9c"/>
-    <text x="656" y="193" font-size="13" text-anchor="middle">same name</text>
-  </g>
+  <line x1="563" y1="184" x2="563" y2="240" stroke="#005a9c" stroke-width="1.6"/>
+  <rect x="505" y="197" width="116" height="24" rx="4" fill="#fffdf9" stroke="#005a9c"/>
+  <text x="563" y="214" font-size="12.5" text-anchor="middle">same name</text>
 
-  <!-- ============ captions ============ -->
+  <!-- ================= captions ================= -->
   <g font-size="13" text-anchor="middle" fill="#5a6270">
-    <text x="224" y="360">Two identifiers, each minted by the store</text>
-    <text x="224" y="379">that holds it. Merging needs a decision.</text>
-    <text x="656" y="360">One name, minted once by its owner.</text>
-    <text x="656" y="379">Merging is union.</text>
+    <text x="224" y="370">Each graph numbers the panel itself. Whether</text>
+    <text x="224" y="389">the two are one panel is asked outside the model.</text>
+    <text x="656" y="370">Both graphs name the panel the same way,</text>
+    <text x="656" y="389">so their union is the merge.</text>
   </g>
 </svg>

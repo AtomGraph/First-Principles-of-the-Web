@@ -1042,9 +1042,9 @@ Read that as an audit finding. The store's own identifier does not refer, so the
 
 Merging two property graphs means deciding which nodes are the same node. Nothing in the model decides it.
 
-<img src="first-principles-figures/ch15-two-models.svg" alt="Two panels. Left, the property graph: the operator's store holds a node numbered 4711 carrying a value, the contractor's store holds a node numbered 92 carrying a title, and a dashed line between them is labelled 'same panel?'. Right, the derived model: both stores hold a fact whose first position is the same global name, joined by a solid line labelled 'same name'." class="fp-diagram" />
+<img src="first-principles-figures/ch15-two-models.svg" alt="Two panels, each showing the same graph held by two parties. Left, the property graph: the operator's graph has a Panel 14 node numbered 4711 with a FEEDS edge to a Site 3 node, the contractor's graph has its own Panel 14 node numbered 92, and a dashed line between the two is labelled 'same panel?'. Right, the derived model: both graphs name the panel identically and a solid line labelled 'same name' joins them." class="fp-diagram" />
 
-*The same two facts, held by two parties. On the left the identifiers are minted by the stores, so the question in the middle has no answer inside the model. On the right the name is minted once by whoever owns it, so the two sets merge by union and the question never arises.*
+*The same panel, described by two parties. The question on the left has no answer inside the model. On the right it never arises.*
 
 ### Standardized twice
 
@@ -1055,6 +1055,10 @@ S2 asks it of the other two factors as well, and neither got a language. No tran
 ### The argument the field has
 
 The two graph models have argued with each other for fifteen years, and the argument is almost always about edge properties. A property graph hangs data on a relationship directly. The derived model in its plain form cannot, and the standard device for doing so is clumsy enough that Chapter 9 audited it as a mismatch.
+
+<img src="first-principles-figures/ch15-edge-properties.svg" alt="Two panels. Left, the property graph: a FEEDS edge runs from Panel 14 to Site 3 and a box reading 'since: 2021' hangs off the edge itself. Right, the derived model: the same feeds edge runs between two globally named nodes, but the annotation attaches to a node naming the fact, which then carries a 'since' edge to 2021." class="fp-diagram" />
+
+*Saying when the relationship began. The property graph puts it on the edge; the derived model names the fact first.*
 
 The rows do not settle that argument, because it is not about any of them. It is about arity, and Chapter 9 answered arity by deriving a fourth position from attribution rather than borrowing one. Both models can carry data about an edge. What the rows measure is whether the names in the positions refer beyond the store.
 
