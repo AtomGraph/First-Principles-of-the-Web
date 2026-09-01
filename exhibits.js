@@ -589,7 +589,7 @@
     render({});
   }
 
-  /* ——————— Chapter 17: the write methods — POST/PUT/DELETE as PATCH at a fixed delta ——————— */
+  /* ——————— Chapter 18: the write methods — POST/PUT/DELETE as PATCH at a fixed delta ——————— */
 
   function wMethods(root) {
     var id = "fpm" + (++uid);
@@ -730,7 +730,7 @@
     render();
   }
 
-  /* ——————— Chapter 18: two dataspaces, one generic machine ——————— */
+  /* ——————— Chapter 19: two dataspaces, one generic machine ——————— */
 
   function wPipeline(root) {
     var id = "fpd" + (++uid), idT = "fpt" + uid, idC = "fpc" + uid;
