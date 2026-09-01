@@ -1034,7 +1034,7 @@ A property graph stores nodes and edges directly, with properties on both. That 
 
 Nodes and edges carry key–value properties. Edges are typed, directed, and have identities of their own. Any domain encodes, so R1 holds. Each property is three things: the element it belongs to, a key, and a value. That is the arity Proposition 5.2 derived. The positions are typed differently, and R3 is where that shows.
 
-### Names
+### The names
 
 A node's identity is local to the store, so applications put a second identifier in a property: a UUID, an asset code, a customer number. That is where R3 fails, and it fails the way Chapter 10 found for JSON. That identifier is a string, and the model does not distinguish it from any other string. Two parties must therefore agree on which property holds the identifier, on where its values come from, and on what they refer to. Those agreements are the coordination R2 forbids. Reference here is global by discipline, never by type.
 
@@ -1052,7 +1052,7 @@ The query side is standardized, and recently. Cypher shipped with Neo4j in 2011 
 
 S2 asks the same of `arrange` and `present`. No transformation language was standardized for the property graph, and no presentation language. Chapter 10 scored JSON `✗` for two reasons: it has no transformation language either, and it leaves interpretation to the application. The property graph shares the first reason and escapes the second, because GQL specifies what a query means. One reason scores a tilde, where two scored a cross. S4 fails outright: a query goes to an endpoint and the result comes back as a payload with no address of its own, so no intermediate value can be linked or cached. That is GraphQL's cell again, and for the same reason.
 
-### Edge properties
+### The edge-property argument
 
 The two models have argued for fifteen years, almost always about edge properties. A property graph hangs data on a relationship directly. Plain RDF cannot. The standard device is clumsy enough that Chapter 9 audited it as a mismatch.
 
@@ -1066,11 +1066,13 @@ The rows do not settle that argument, because it is not about any of them. It is
 
 Entity resolution is the work of deciding that a node here and a node there are the same thing. It sells as a product category, and the graph vendors sell it against their own model. It bridges R3, and it is built per pair of graphs, exactly as Chapter 13 found for relational keys.
 
+### Property graph
+
 | | Property graph |
 |---|---|
 | R1 | ✓ — any domain, in a graph shape |
 | R2 | ✗ — merging needs agreement on node identity |
-| R3 | ✗ — identifiers are minted by the storing database |
+| R3 | ✗ — reference is by convention, not by type |
 | S1 | ✓ — query separated from storage |
 | S2 | ~ — query standardized, transformation never |
 | S3 | ~ — within one vendor's dialect |
