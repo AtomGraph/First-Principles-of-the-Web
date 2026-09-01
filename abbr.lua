@@ -59,7 +59,7 @@ local function esc(s)
   return (s:gsub("&", "&amp;"):gsub('"', "&quot;"):gsub("<", "&lt;"):gsub(">", "&gt;"))
 end
 
-function Str(el)
+local function expand(el)
   -- html output only; other formats keep the plain text untouched
   if not (FORMAT and FORMAT:match("html")) then return nil end
 
@@ -81,4 +81,14 @@ function Str(el)
     .. '<abbr title="' .. esc(abbr[key]) .. '">' .. key .. "</abbr>"
     .. suffix .. trail
   return pandoc.RawInline("html", html)
+end
+
+-- Body only. A top-level Str filter is applied to metadata as well, and the
+-- `description` metadata is stringified into <meta content="">, where a
+-- RawInline has no plain-text form -- so an abbreviation there was dropped
+-- from the description entirely. It also consumed the first-use flag, leaving
+-- the body's real first occurrence unwrapped.
+function Pandoc(doc)
+  doc.blocks = doc.blocks:walk({ Str = expand })
+  return doc
 end
