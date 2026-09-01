@@ -1050,7 +1050,7 @@ A merge must decide which nodes are the same node. The model decides nothing.
 
 The query side is standardized, and recently. Cypher shipped with Neo4j in 2011 and was opened as [openCypher](https://opencypher.org/) in 2015. The SQL committee added property graph queries to SQL itself as SQL/PGQ (ISO/IEC 9075-16) in 2023. [GQL](https://www.gqlstandards.org/) followed in 2024 as a language of its own (Graph Query Language, ISO/IEC 39075). A query now means the same thing across implementations, which is what S2 asks of `select`.
 
-S2 asks the same of `arrange` and `present`. No transformation language was standardized for the property graph, and no presentation language. Chapter 10 scored JSON `✗` for two reasons: it has no transformation language either, and it leaves interpretation to the application. The property graph shares the first reason and escapes the second, because GQL specifies what a query means. One reason scores a tilde, where two scored a cross. S4 fails outright: a query goes to an endpoint and the result comes back as a payload with no address of its own, so no intermediate value can be linked or cached. That is GraphQL's cell again, and for the same reason.
+S2 asks the same of `arrange` and `present`. No transformation language was standardized for the property graph, and no presentation language. Chapter 10 scored JSON `✗` for two reasons: it has no transformation language either, and it leaves interpretation to the application. The property graph shares the first reason and escapes the second, because GQL specifies what a query means. One reason scores a tilde, where two scored a cross. S4 fails on the protocol rather than for want of endpoints. GQL standardizes a language and no wire protocol, so each product ships its own, and they carry the query in a request body. Neo4j's [Query API](https://neo4j.com/docs/query-api/current/query/) is a `POST` to `/db/<name>/query/v2` with the Cypher in JSON. A query in a body is not a URL, so its result has no address to link to or cache. [SPARQL's protocol](https://www.w3.org/TR/sparql11-protocol/) defines query via `GET` instead, percent-encoded into the query string, which is what makes a result a resource. That is GraphQL's cell again, and for the same reason.
 
 ### The edge-property argument
 
@@ -1076,7 +1076,7 @@ Entity resolution is the work of deciding that a node here and a node there are 
 | S1 | ✓ — query separated from storage |
 | S2 | ~ — query standardized, transformation never |
 | S3 | ~ — within one vendor's dialect |
-| S4 | ✗ — results are returned, not addressed |
+| S4 | ✗ — the query travels in a body, so the result has no URL |
 
 The property graph got the shape right and left the names local. Chapter 13 found the relational model failing the machine-spanning properties from the single-machine side. This column fails them from the graph side, which is nearer, and the failure is the same one.
 
