@@ -1069,6 +1069,8 @@ The two models have argued for fifteen years, almost always about edge propertie
 
 The rows do not settle that argument, because it is not about any of them. It is about arity, and Chapter 9 answered arity by deriving a fourth position from attribution rather than borrowing one. Both models can carry data about an edge. The rows measure something else: whether the names in the positions refer beyond the store.
 
+The standards are building that bridge. [RDF 1.2](https://www.w3.org/TR/rdf12-concepts/) adds the triple term, a triple used as the object of another triple, so a statement can be described without being asserted. It reached Candidate Recommendation in April 2026, and [SPARQL 1.2](https://www.w3.org/TR/sparql12-query/) is still a Working Draft. No cell in this column changes for it. A new kind of term answers the ergonomic complaint, and the seven rows ask about names and factors rather than about how many kinds of term a model has.
+
 ### The compensating industry
 
 Entity resolution is the work of deciding that a node here and a node there are the same thing. It sells as a product category, and the graph vendors sell it against their own model. It bridges R3, and it is built per pair of graphs, exactly as Chapter 13 found for relational keys.
@@ -1893,7 +1895,7 @@ This list is the spec concordance. The axioms below are the book's external depe
 | presentation | [CSS](https://www.w3.org/TR/CSS/) (1996) | Ch 8 |
 | forms as the write instrument | [HTML: forms](https://html.spec.whatwg.org/multipage/forms.html) | Prop. 7.2 |
 
-*Currency — checked July 2026:* RFC 3986 remains Internet Standard 66 — updated, never obsoleted. The update is BCP 190 ([RFC 8820](https://www.rfc-editor.org/rfc/rfc8820)): guidance on URI *ownership*, with no change to syntax. That is B.2's minting doctrine, in BCP form. RFC 9110 and 9111 are the current HTTP standards. RFC 6454 stands unrevised since 2011; the HTML Standard restates the same scheme–host–port tuple for browsers. RDF 1.2 (Candidate Recommendation, April 2026) preserves every definition cited above: data conforming to 1.1 remains conforming. Its headline addition, the triple term, is the annotation syntax Chapter 9 contrasts and scores. And RDF 1.2 keeps named graphs — the fourth position, Chapter 9's structural prediction, survives another revision. SPARQL is cited at 1.1 throughout, the current Recommendation.
+*Currency — checked July 2026:* RFC 3986 remains Internet Standard 66 — updated, never obsoleted. The update is BCP 190 ([RFC 8820](https://www.rfc-editor.org/rfc/rfc8820)): guidance on URI *ownership*, with no change to syntax. That is B.2's minting doctrine, in BCP form. RFC 9110 and 9111 are the current HTTP standards. RFC 6454 stands unrevised since 2011; the HTML Standard restates the same scheme–host–port tuple for browsers. RDF 1.2 (Candidate Recommendation, April 2026) preserves every definition cited above: data conforming to 1.1 remains conforming. Its headline addition, the triple term, is the annotation syntax Chapter 9 contrasts and scores. And RDF 1.2 keeps named graphs — the fourth position, Chapter 9's structural prediction, survives another revision. SPARQL is cited at 1.1 throughout, the current Recommendation; 1.2 remains a Working Draft.
 
 *Witnesses — norms and independent results corroborating, never premises:*
 
