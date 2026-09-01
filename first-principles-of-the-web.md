@@ -1038,7 +1038,7 @@ Nodes and edges carry key–value properties. Edges are typed, directed, and hav
 
 A node's identity is local to the store, so applications put a second identifier in a property: a UUID, an asset code, a customer number. That is where R3 fails, and it fails the way Chapter 10 found for JSON. That identifier is a string, and the model does not distinguish it from any other string. Two parties must therefore agree on which property holds the identifier, on where its values come from, and on what they refer to. Those agreements are the coordination R2 forbids. Reference here is global by discipline, never by type.
 
-A URI needs no such agreement. Its authority component delegates minting, so any party can issue a global name without asking anyone, and (5.3) makes reference a matter of type rather than convention. The obvious repair is to invent a global scheme of your own, and Chapter 5 ruled it out: a second naming system violates R2 by itself, because two parties' private schemes collide on merge.
+A URI needs no such agreement. Its authority component delegates minting, so any party can issue a global name without asking anyone, and (5.3) makes reference a matter of type rather than discipline. The obvious repair is to invent a global scheme of your own, and Chapter 5 ruled it out: a second naming system violates R2 by itself, because two parties' private schemes collide on merge.
 
 A merge must decide which nodes are the same node. The model decides nothing.
 
@@ -1048,9 +1048,9 @@ A merge must decide which nodes are the same node. The model decides nothing.
 
 ### Standardized twice
 
-The query side is standardized, and recently. Cypher shipped with Neo4j in 2011 and was opened as [openCypher](https://opencypher.org/) in 2015. The SQL committee added property graph queries to SQL itself as SQL/PGQ (ISO/IEC 9075-16) in 2023. [GQL](https://www.gqlstandards.org/) followed in 2024 as a language of its own (Graph Query Language, ISO/IEC 39075). A query now means the same thing across implementations, which is what S2 asks of `select`.
+A query is a term evaluated against the store, not code inside it, so selection is separated from storage and S1 holds. The query side is standardized too, and recently. Cypher shipped with Neo4j in 2011 and was opened as [openCypher](https://opencypher.org/) in 2015. The SQL committee added property graph queries to SQL itself as SQL/PGQ (ISO/IEC 9075-16) in 2023. [GQL](https://www.gqlstandards.org/) followed in 2024 as a language of its own (Graph Query Language, ISO/IEC 39075). A query now means the same thing across implementations, which is what S2 asks of `select`.
 
-S2 asks the same of `arrange` and `present`. No transformation language was standardized for the property graph, and no presentation language. Chapter 10 scored JSON `✗` for two reasons: it has no transformation language either, and it leaves interpretation to the application. The property graph shares the first reason and escapes the second, because GQL specifies what a query means. One reason scores a tilde, where two scored a cross. S4 fails on the protocol rather than for want of endpoints. GQL standardizes a language and no wire protocol, so each product ships its own, and they carry the query in a request body. Neo4j's [Query API](https://neo4j.com/docs/query-api/current/query/) is a `POST` to `/db/<name>/query/v2` with the Cypher in JSON. A query in a body is not a URL, so its result has no address to link to or cache. [SPARQL's protocol](https://www.w3.org/TR/sparql11-protocol/) defines query via `GET` instead, percent-encoded into the query string, which is what makes a result a resource. That is GraphQL's cell again, and for the same reason.
+S2 asks the same of `arrange` and `present`. No transformation language was standardized for the property graph, and no presentation language. Chapter 10 scored JSON `✗` for two reasons: it has no transformation language either, and it leaves interpretation to the application. The property graph shares the first reason and escapes the second, because GQL specifies what a query means. One reason scores a tilde, where two scored a cross. S3 takes a tilde for the dialects: products implement [GQL to different degrees](https://neo4j.com/docs/cypher-manual/current/appendix/gql-conformance/) and keep their own extensions, so a term written for one does not always evaluate in another. S4 fails on the protocol rather than for want of endpoints. GQL standardizes a language and no wire protocol, so each product ships its own, and they carry the query in a request body. Neo4j's [Query API](https://neo4j.com/docs/query-api/current/query/) is a `POST` to `/db/<name>/query/v2` with the Cypher in JSON. A query in a body is not a URL, so its result has no address to link to or cache. [SPARQL's protocol](https://www.w3.org/TR/sparql11-protocol/) defines query via `GET` instead, percent-encoded into the query string, which is what makes a result a resource. Chapter 14 named the practical form of this cost. Without addressable resources every integrator reverse-engineers a private API, and a query API that no standard defines is a private API by definition. That is GraphQL's cell again, and for the same reason.
 
 ### The edge-property argument
 
@@ -1072,7 +1072,7 @@ Entity resolution is the work of deciding that a node here and a node there are 
 |---|---|
 | R1 | ✓ — any domain, in a graph shape |
 | R2 | ✗ — merging needs agreement on node identity |
-| R3 | ✗ — reference is by convention, not by type |
+| R3 | ✗ — reference is by discipline, not by type |
 | S1 | ✓ — query separated from storage |
 | S2 | ~ — query standardized, transformation never |
 | S3 | ~ — within one vendor's dialect |
@@ -1878,6 +1878,7 @@ This list is the spec concordance. The axioms below are the book's external depe
 | blank nodes as existentials | [RDF 1.1 Semantics](https://www.w3.org/TR/rdf11-mt/) | Prop. 9.1 |
 | datasets and named graphs | [RDF 1.1](https://www.w3.org/TR/rdf11-concepts/#section-dataset); [TriG](https://www.w3.org/TR/trig/) (2014) | Prop. 9.2 |
 | the selection algebra, denotationally | [SPARQL 1.1 Query §18](https://www.w3.org/TR/sparql11-query/#sparqlDefinition) | Ch 8; Prop. 8.1 |
+| query via `GET`, so a result is a resource | [SPARQL 1.1 Protocol](https://www.w3.org/TR/sparql11-protocol/) | Ch 15; Ch 16 |
 | the delta on the wire | [SPARQL 1.1 Update](https://www.w3.org/TR/sparql11-update/) | Ch 8 (Prop. 7.1's reveal) |
 | documents as named graphs, read-write | [SPARQL 1.1 Graph Store HTTP Protocol](https://www.w3.org/TR/sparql11-http-rdf-update/) | Ch 8; Ch 18 |
 | canonical labeling of unnamed entities | [RDFC-1.0](https://www.w3.org/TR/rdf-canon/) (2024) | Prop. 6.1; Prop. 9.1 |
@@ -1957,6 +1958,7 @@ This list is the spec concordance. The axioms below are the book's external depe
 - [XML 1.0](https://www.w3.org/TR/xml/) (1998); [Namespaces in XML](https://www.w3.org/TR/xml-names/) (1999); [XPath 1.0](https://www.w3.org/TR/xpath-10/) (1999); [XSD](https://www.w3.org/TR/xmlschema-1/) (2001); [`xml:id`](https://www.w3.org/TR/xml-id/) (2005); [XLink](https://www.w3.org/TR/xlink11/); [XPointer](https://www.w3.org/TR/xptr-framework/); [XQuery 1.0 and XPath 2.0 Formal Semantics](https://www.w3.org/TR/xquery-semantics/) (2007) — Ch 8's rarity remark, Ch 10.
 - [JSON — RFC 8259](https://www.rfc-editor.org/rfc/rfc8259) / [ECMA-404](https://ecma-international.org/publications-and-standards/standards/ecma-404/); [JSON Pointer — RFC 6901](https://www.rfc-editor.org/rfc/rfc6901) (2013); [JSONPath — RFC 9535](https://www.rfc-editor.org/rfc/rfc9535) (2024); [JSON Schema](https://json-schema.org/specification) (drafts) — Ch 10's tooling table.
 - [GraphQL](https://spec.graphql.org/) — Ch 14; Ch 17's table.
+- [GQL](https://www.gqlstandards.org/) (ISO/IEC 39075, 2024); SQL/PGQ (ISO/IEC 9075-16, 2023); [openCypher](https://opencypher.org/) (2015); [Neo4j's Query API](https://neo4j.com/docs/query-api/current/query/) — Ch 15's column; the language is standardized and the protocol is not.
 - [Linked Data Platform 1.0](https://www.w3.org/TR/ldp/) (W3C REC, 2015) — Ch 19's wrong-layer instance: containers as canned selections; subtract them and the Graph Store Protocol remains.
 - [*Should we remove XSLT from the web platform?*](https://github.com/whatwg/html/issues/11523), WHATWG HTML issue, August 2025 — Ch 9's third mismatch, with the removal underway. The stated grounds are unmaintained implementations, which is Ch 9's maintenance-failure finding in the platform's own words.
 
