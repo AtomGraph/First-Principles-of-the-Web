@@ -1073,7 +1073,7 @@ The standards are building that bridge. [RDF 1.2](https://www.w3.org/TR/rdf12-co
 
 ### The compensating industry
 
-Entity resolution is the work of deciding that a node here and a node there are the same thing. It sells as a product category, and the graph vendors sell it against their own model. It bridges R3, and it is built per pair of graphs, exactly as Chapter 13 found for relational keys.
+Entity resolution is the work of deciding that a node here and a node there are the same thing. It exists because identity is a property rather than a name, which is R3 failing. Two stores can hold the same panel under different keys in differently named fields, and nothing in the model objects, so the matching is done afterwards by hand or by inference. The graph vendors sell the remedy beside the model, [as a solution category of its own](https://www.tigergraph.com/solutions/entity-resolution/). The bridge is per pair of stores, so a third store adds two more pairs and not one more name. Chapter 13 found the same industry at the relational boundary and called it integration.
 
 ### Property graph
 
