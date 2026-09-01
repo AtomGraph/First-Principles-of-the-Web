@@ -1052,7 +1052,7 @@ The query side is standardized, and recently. Cypher shipped with Neo4j in 2011 
 
 S2 asks the same of `arrange` and `present`. No transformation language was standardized for the property graph, and no presentation language. Chapter 10 scored JSON `✗` for two reasons: it has no transformation language either, and it leaves interpretation to the application. The property graph shares the first reason and escapes the second, because GQL specifies what a query means. One reason scores a tilde, where two scored a cross. S4 fails outright: a query goes to an endpoint and the result comes back as a payload with no address of its own, so no intermediate value can be linked or cached. That is GraphQL's cell again, and for the same reason.
 
-### The argument the field has
+### Edge properties
 
 The two models have argued for fifteen years, almost always about edge properties. A property graph hangs data on a relationship directly. Plain RDF cannot. The standard device is clumsy enough that Chapter 9 audited it as a mismatch.
 
