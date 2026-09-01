@@ -1028,7 +1028,7 @@ One closing observation: the convergence recovers S1 and S2, to a tilde, not a c
 
 ## Chapter 15. Property Graphs
 
-A property graph stores nodes and edges directly, with properties on both. It is the closest any deployed model comes to the derived one, and that is why this part needs one more column. Seven rows that cannot separate two graph models are not measuring anything.
+A property graph stores nodes and edges directly, with properties on both. That makes it the closest any deployed model comes to the derived stack, which Chapter 8 revealed as RDF. Seven rows that cannot separate two graph models are not measuring anything, so this part needs one more column.
 
 ### The model
 
@@ -1042,7 +1042,7 @@ A URI needs no such agreement. Its authority component delegates minting, so any
 
 Merging two property graphs means deciding which nodes are the same node. Nothing in the model decides it.
 
-<img src="first-principles-figures/ch15-two-models.svg" alt="Two panels, each showing the same graph held by two parties. Left, the property graph: the operator's graph has a Panel 14 node numbered 4711 with a FEEDS edge to a Site 3 node, the contractor's graph has its own Panel 14 node numbered 92, and a dashed line between the two is labelled 'same panel?'. Right, the derived model: both graphs name the panel identically and a solid line labelled 'same name' joins them." class="fp-diagram" />
+<img src="first-principles-figures/ch15-two-models.svg" alt="Two panels, each showing the same graph held by two parties. Left, the property graph: the operator's graph has a Panel 14 node numbered 4711 with a FEEDS edge to a Site 3 node, the contractor's graph has its own Panel 14 node numbered 92, and a dashed line between the two is labelled 'same panel?'. Right, RDF: both graphs name the panel identically and a solid line labelled 'same name' joins them." class="fp-diagram" />
 
 *The same panel, described by two parties. The question on the left has no answer inside the model. On the right it never arises.*
 
@@ -1054,11 +1054,11 @@ S2 asks it of the other two factors as well, and neither got a language. No tran
 
 ### The argument the field has
 
-The two graph models have argued with each other for fifteen years, and the argument is almost always about edge properties. A property graph hangs data on a relationship directly. The derived model in its plain form cannot, and the standard device for doing so is clumsy enough that Chapter 9 audited it as a mismatch.
+The two graph models have argued with each other for fifteen years, and the argument is almost always about edge properties. A property graph hangs data on a relationship directly. RDF in its plain form cannot, and the standard device for doing so is clumsy enough that Chapter 9 audited it as a mismatch.
 
-<img src="first-principles-figures/ch15-edge-properties.svg" alt="Two panels. Left, the property graph: a FEEDS edge runs from Panel 14 to Site 3 and a box reading 'since: 2021' hangs off the edge itself. Right, the derived model: the same feeds edge runs between two globally named nodes, but the annotation attaches to a node naming the fact, which then carries a 'since' edge to 2021." class="fp-diagram" />
+<img src="first-principles-figures/ch15-edge-properties.svg" alt="Two panels. Left, the property graph: a FEEDS edge runs from Panel 14 to Site 3 and a box reading 'since: 2021' hangs off the edge itself. Right, RDF: the same feeds edge runs between two globally named nodes, but the annotation attaches to a node naming the fact, which then carries a 'since' edge to 2021." class="fp-diagram" />
 
-*Saying when the relationship began. The property graph puts it on the edge; the derived model names the fact first.*
+*Saying when the relationship began. The property graph puts it on the edge; RDF names the fact first.*
 
 The rows do not settle that argument, because it is not about any of them. It is about arity, and Chapter 9 answered arity by deriving a fourth position from attribution rather than borrowing one. Both models can carry data about an edge. What the rows measure is whether the names in the positions refer beyond the store.
 
