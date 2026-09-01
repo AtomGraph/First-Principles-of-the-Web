@@ -1036,9 +1036,9 @@ Nodes and edges both carry key–value properties. Edges are typed, directed, an
 
 ### Names
 
-An identifier in a property graph is minted by the database that stores it. The vendors document the consequence themselves. [Neo4j's manual](https://neo4j.com/docs/cypher-manual/current/functions/scalar/), specifying the function that returns one, warns that "Neo4j reuses its internal IDs when nodes and relationships are deleted", that applications relying on them "are, as a result, brittle and can be inaccurate", and that outside a single transaction "no guarantees are given about the mapping between ID values and elements". The recommendation is to use application-generated identifiers instead.
+The model's own node identity is local to the store, so an identifier that has to travel lives in a property: a UUID, an asset code, a customer number. That is where R3 fails, and it fails the way Chapter 10 found for JSON. An identifier in a property is a string, and no type tells it from any other string. Two parties must therefore agree on which property carries identity, on the space its values are drawn from, and on what those values denote. Each of those agreements is the coordination R2 forbids. Reference here is global by discipline, never by type.
 
-Read that as an audit finding. The store's own identifier does not refer, so the reference has to come from somewhere else, and the manual sends the application to invent it. R3 asks for names that refer across parties. A name each application invents is a name two applications must agree on, and agreement is what R2 forbids. Both rows fail together, for the reason Chapter 13 gave for keys.
+A URI needs no such agreement. Its authority component delegates minting, so any party can issue a global name without asking anyone, and (5.3) puts reference in the type of a position rather than in a convention about a property. Chapter 5 answered the obvious repair in advance. Inventing a second global naming system violates R2 by itself, because two parties' private schemes collide on merge.
 
 Merging two property graphs means deciding which nodes are the same node. Nothing in the model decides it.
 
