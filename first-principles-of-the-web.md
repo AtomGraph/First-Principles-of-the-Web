@@ -1049,7 +1049,7 @@ A URI needs no such agreement. Its authority component delegates minting, so any
 
 A merge must decide which nodes are the same node. The model decides nothing.
 
-<img src="first-principles-figures/ch15-two-models.svg" alt="Two panels, each showing the same graph held by two parties. Left, the property graph: the operator's graph has a Panel 14 node numbered 4711 with a FEEDS edge to a Site 3 node, the contractor's graph has its own Panel 14 node numbered 92, and a dashed line between the two is labelled 'same panel?'. Right, RDF: both graphs name the panel identically and a solid line labelled 'same name' joins them." class="fp-diagram" />
+<img src="first-principles-figures/ch15-two-models.svg" alt="Two panels, each showing the same graph held by two parties. Left, the property graph: the operator's graph identifies Panel 14 by a uuid property and feeds it to a Site 3 node, while the contractor's graph identifies the same panel by an assetId property with a different value, and a dashed line between them is labelled 'same panel?'. Right, RDF: both graphs name the panel identically and a solid line labelled 'same name' joins them." class="fp-diagram" />
 
 *The same panel, described by two parties. The model cannot answer the question on the left. On the right it never arises.*
 
@@ -1078,11 +1078,11 @@ Entity resolution is the work of deciding that a node here and a node there are 
 | | Property graph |
 |---|---|
 | R1 | ✓ — any domain, in a graph shape |
-| R2 | ✗ — merging needs agreement on node identity |
+| R2 | ✗ — merging needs agreement the model does not supply |
 | R3 | ✗ — reference is by discipline, not by type |
 | S1 | ✓ — query separated from storage |
 | S2 | ~ — query standardized, transformation never |
-| S3 | ~ — within one vendor's dialect |
+| S3 | ~ — GQL conformance varies by product |
 | S4 | ✗ — the query travels in a body, so the result has no URL |
 
 The property graph got the shape right and left the names local. Chapter 13 found the relational model failing the machine-spanning properties from the single-machine side. This column fails them from the graph side, which is nearer, and the failure is the same one.
