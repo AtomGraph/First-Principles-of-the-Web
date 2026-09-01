@@ -1036,9 +1036,9 @@ Nodes and edges both carry key–value properties. Edges are typed, directed, an
 
 ### Names
 
-The model's own node identity is local to the store, so an identifier that has to travel lives in a property: a UUID, an asset code, a customer number. That is where R3 fails, and it fails the way Chapter 10 found for JSON. An identifier in a property is a string, and no type tells it from any other string. Two parties must therefore agree on which property carries identity, on the space its values are drawn from, and on what those values denote. Each of those agreements is the coordination R2 forbids. Reference here is global by discipline, never by type.
+A node's identity is local to the store, so applications put a second identifier in a property: a UUID, an asset code, a customer number. That is where R3 fails, and it fails the way Chapter 10 found for JSON. An identifier in a property is a string, and the model does not distinguish it from any other string. Two parties must therefore agree on which property holds the identifier, on where its values come from, and on what they refer to. Each of those agreements is the coordination R2 forbids. Reference here is global by discipline, never by type.
 
-A URI needs no such agreement. Its authority component delegates minting, so any party can issue a global name without asking anyone, and (5.3) puts reference in the type of a position rather than in a convention about a property. Chapter 5 answered the obvious repair in advance. Inventing a second global naming system violates R2 by itself, because two parties' private schemes collide on merge.
+A URI needs no such agreement. Its authority component delegates minting, so any party can issue a global name without asking anyone, and (5.3) makes reference a matter of type rather than convention. The obvious repair is to invent a global scheme of your own, and Chapter 5 ruled it out: a second naming system violates R2 by itself, because two parties' private schemes collide on merge.
 
 Merging two property graphs means deciding which nodes are the same node. Nothing in the model decides it.
 
