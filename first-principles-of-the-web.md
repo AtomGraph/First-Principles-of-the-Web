@@ -1080,7 +1080,7 @@ The property graph got the shape right and left the names local. Chapter 13 foun
 
 ## Chapter 16. The Derived Stack
 
-Six chapters have scored eight columns between them, and every column holds a failure. One column remains, scored on the same seven rows: the stack Part III revealed. An audit that stopped here would have skipped exactly the technology the book argues for. This chapter scores it against the same seven properties. It is the audit with the least new work in it, and that is the finding: every cell below carries a citation to a result already proved. So where the other columns needed scoring, this one needs collecting.
+Six chapters have scored eight columns between them, and every column holds a failure. One column remains, scored on the same seven rows: the stack Part III revealed as RDF, SPARQL, XSLT and CSS. An audit that stopped here would have skipped exactly the technology the book argues for. This chapter scores it against the same seven properties. It is the audit with the least new work in it, and that is the finding: every cell below carries a citation to a result already proved. So where the other columns needed scoring, this one needs collecting.
 
 When Chapter 11 scored the SPA, each score was an argument made in prose: the cell named its property, and disputing the score meant attacking that property. The cells below assert nothing new. R2's ✓ is the union law (5.1), proved in Part II before the stack was named; S2's ✓ is Theorem 8.2, proved in Part III. The part's opening rule is that rejecting a score means rejecting a property. That rule reaches its hardest case here: each of this column's properties is backed by a proved result, and each cell names which one.
 
