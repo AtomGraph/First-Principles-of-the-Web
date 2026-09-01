@@ -1028,6 +1028,13 @@ One closing observation: the convergence recovers S1 and S2, to a tilde, not a c
 
 ## Chapter 15. Property Graphs
 
+<div class="fp-epigraph">
+
+*Use URIs as names for things.*
+
+— Tim Berners-Lee, the first rule of *Linked Data*, 2006
+</div>
+
 A property graph stores nodes and edges directly, with properties on both. That makes it the closest any deployed model comes to the derived stack, which Chapter 8 revealed as RDF. This part needs one more column, because seven rows that cannot tell two graph models apart are measuring nothing.
 
 ### The model
@@ -1050,7 +1057,7 @@ A merge must decide which nodes are the same node. The model decides nothing.
 
 A query is a term evaluated against the store, not code inside it, so selection is separated from storage and S1 holds. The query side is standardized too, and recently. Cypher shipped with Neo4j in 2011 and was opened as [openCypher](https://opencypher.org/) in 2015. The SQL committee added property graph queries to SQL itself as SQL/PGQ (ISO/IEC 9075-16) in 2023. [GQL](https://www.gqlstandards.org/) followed in 2024 as a language of its own (Graph Query Language, ISO/IEC 39075). A query now means the same thing across implementations, which is what S2 asks of `select`.
 
-S2 asks the same of `arrange` and `present`. No transformation language was standardized for the property graph, and no presentation language. Chapter 10 scored JSON `✗` for two reasons: it has no transformation language either, and it leaves interpretation to the application. The property graph shares the first reason and escapes the second, because GQL specifies what a query means. One reason scores a tilde, where two scored a cross. S3 takes a tilde for the dialects: products implement [GQL to different degrees](https://neo4j.com/docs/cypher-manual/current/appendix/gql-conformance/) and keep their own extensions, so a term written for one does not always evaluate in another. S4 fails on the protocol rather than for want of endpoints. GQL standardizes a language and no wire protocol, so each product ships its own, and they carry the query in a request body. Neo4j's [Query API](https://neo4j.com/docs/query-api/current/query/) is a `POST` to `/db/<name>/query/v2` with the Cypher in JSON. A query in a body is not a URL, so its result has no address to link to or cache. [SPARQL's protocol](https://www.w3.org/TR/sparql11-protocol/) defines query via `GET` instead, percent-encoded into the query string, which is what makes a result a resource. Chapter 14 named the practical form of this cost. Without addressable resources every integrator reverse-engineers a private API, and a query API that no standard defines is a private API by definition. That is GraphQL's cell again, and for the same reason.
+S2 asks the same of `arrange` and `present`. No transformation language was standardized for the property graph, and no presentation language. Chapter 10 scored JSON `✗` for two reasons: it has no transformation language either, and it leaves interpretation to the application. The property graph shares the first reason and escapes the second, because GQL specifies what a query means. One reason scores a tilde, where two scored a cross. S3 takes a tilde for the dialects: products implement [GQL to different degrees](https://neo4j.com/docs/cypher-manual/current/appendix/gql-conformance/) and keep their own extensions, so one product's term does not always evaluate in another. S4 fails on the protocol rather than for want of endpoints. GQL standardizes a language and no wire protocol, so each product ships its own, and they carry the query in a request body. Neo4j's [Query API](https://neo4j.com/docs/query-api/current/query/) is a `POST` to `/db/<name>/query/v2` with the Cypher in JSON. A query in a body is not a URL, so its result has no address to link to or cache. [SPARQL's protocol](https://www.w3.org/TR/sparql11-protocol/) defines query via `GET` instead, percent-encoded into the query string, which is what makes a result a resource. Chapter 14 named the practical form of this cost. Every integrator reverse-engineers a private API when resources are not addressable. No standard defines this one, so it is private by definition. That is GraphQL's cell again, and for the same reason.
 
 ### The edge-property argument
 
@@ -1931,6 +1938,7 @@ This list is the spec concordance. The axioms below are the book's external depe
 - Apple, *HyperCard* (1987) — a running application reshaped in place, its stacks editable documents, with no rebuild and no redeploy; Chapter 24's live-morphability lineage, lacking only a cross-party substrate.
 - D. Shea, [*CSS Zen Garden*](https://www.csszengarden.com/) (2003) — one unchanged HTML document redressed by hundreds of stylesheets; Chapter 24's presentation independence (S1), demonstrated at the presentation layer alone.
 - The Semantic Web stack (the "layer cake"), W3C, early 2000s — *proof* and *trust* sketched as its top layers and left unbuilt; Chapter 24's provenance capability (R4), the layer the deployed web skipped.
+- T. Berners-Lee, [*Linked Data*](https://www.w3.org/DesignIssues/LinkedData.html) (W3C Design Issues, 2006) — four rules, the first of which is "Use URIs as names for things"; asked of publishers, and Chapter 15's epigraph because the property graph does not.
 - T. Berners-Lee, [*Cool URIs don't change*](https://www.w3.org/Provider/Style/URI) (W3C, 1998) — persistence of names asked of the web and mostly declined; Chapter 24's data-outlives-the-application (R3).
 - The mashup era — P. Rademacher's *HousingMaps* (Google Maps × Craigslist, 2005) and *ProgrammableWeb* (2005) — combination without permission, until the APIs metered and re-siloed; Chapter 24's applications-nobody-planned (R2/S3).
 
