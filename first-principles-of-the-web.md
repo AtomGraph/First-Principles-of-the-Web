@@ -1028,43 +1028,43 @@ One closing observation: the convergence recovers S1 and S2, to a tilde, not a c
 
 ## Chapter 15. Property Graphs
 
-A property graph stores nodes and edges directly, with properties on both. That makes it the closest any deployed model comes to the derived stack, which Chapter 8 revealed as RDF. Seven rows that cannot separate two graph models are not measuring anything, so this part needs one more column.
+A property graph stores nodes and edges directly, with properties on both. That makes it the closest any deployed model comes to the derived stack, which Chapter 8 revealed as RDF. This part needs one more column, because seven rows that cannot tell two graph models apart are measuring nothing.
 
 ### The model
 
-Nodes and edges both carry key–value properties. Edges are typed, directed, and have identities of their own. Any domain encodes, so R1 holds. Each property is three things: the element it belongs to, a key, and a value. That is the arity Proposition 5.2 derived. What differs is the typing of the positions, and R3 is where the difference shows.
+Nodes and edges carry key–value properties. Edges are typed, directed, and have identities of their own. Any domain encodes, so R1 holds. Each property is three things: the element it belongs to, a key, and a value. That is the arity Proposition 5.2 derived. The positions are typed differently, and R3 is where that shows.
 
 ### Names
 
-A node's identity is local to the store, so applications put a second identifier in a property: a UUID, an asset code, a customer number. That is where R3 fails, and it fails the way Chapter 10 found for JSON. An identifier in a property is a string, and the model does not distinguish it from any other string. Two parties must therefore agree on which property holds the identifier, on where its values come from, and on what they refer to. Each of those agreements is the coordination R2 forbids. Reference here is global by discipline, never by type.
+A node's identity is local to the store, so applications put a second identifier in a property: a UUID, an asset code, a customer number. That is where R3 fails, and it fails the way Chapter 10 found for JSON. That identifier is a string, and the model does not distinguish it from any other string. Two parties must therefore agree on which property holds the identifier, on where its values come from, and on what they refer to. Those agreements are the coordination R2 forbids. Reference here is global by discipline, never by type.
 
 A URI needs no such agreement. Its authority component delegates minting, so any party can issue a global name without asking anyone, and (5.3) makes reference a matter of type rather than convention. The obvious repair is to invent a global scheme of your own, and Chapter 5 ruled it out: a second naming system violates R2 by itself, because two parties' private schemes collide on merge.
 
-Merging two property graphs means deciding which nodes are the same node. Nothing in the model decides it.
+A merge must decide which nodes are the same node. The model decides nothing.
 
 <img src="first-principles-figures/ch15-two-models.svg" alt="Two panels, each showing the same graph held by two parties. Left, the property graph: the operator's graph has a Panel 14 node numbered 4711 with a FEEDS edge to a Site 3 node, the contractor's graph has its own Panel 14 node numbered 92, and a dashed line between the two is labelled 'same panel?'. Right, RDF: both graphs name the panel identically and a solid line labelled 'same name' joins them." class="fp-diagram" />
 
-*The same panel, described by two parties. The question on the left has no answer inside the model. On the right it never arises.*
+*The same panel, described by two parties. The model cannot answer the question on the left. On the right it never arises.*
 
 ### Standardized twice
 
-The query side is standardized, and recently. Cypher shipped with Neo4j in 2011 and was opened as [openCypher](https://opencypher.org/) in 2015. The SQL committee added property graph queries to SQL itself as SQL/PGQ (ISO/IEC 9075-16) in 2023. [GQL](https://www.gqlstandards.org/) (Graph Query Language, ISO/IEC 39075) followed in 2024 as a language of its own. A query now means the same thing across implementations, which is what S2 asks of `select`.
+The query side is standardized, and recently. Cypher shipped with Neo4j in 2011 and was opened as [openCypher](https://opencypher.org/) in 2015. The SQL committee added property graph queries to SQL itself as SQL/PGQ (ISO/IEC 9075-16) in 2023. [GQL](https://www.gqlstandards.org/) followed in 2024 as a language of its own (Graph Query Language, ISO/IEC 39075). A query now means the same thing across implementations, which is what S2 asks of `select`.
 
 S2 asks the same of the other two factors, and neither got a language. No transformation was standardized for the model, and no presentation. Chapter 10 scored JSON `✗` for two reasons: it has no transformation language, and it leaves interpretation to the application. The property graph shares the first and escapes the second, because GQL specifies what a query means. One reason rather than two, so the cell is a tilde. S4 fails outright: a query goes to an endpoint and the result comes back as a payload with no address of its own, so no intermediate value can be linked or cached. That is GraphQL's cell again, and for the same reason.
 
 ### The argument the field has
 
-The two graph models have argued with each other for fifteen years, and the argument is almost always about edge properties. A property graph hangs data on a relationship directly. RDF in its plain form cannot, and the standard device for doing so is clumsy enough that Chapter 9 audited it as a mismatch.
+The two models have argued for fifteen years, almost always about edge properties. A property graph hangs data on a relationship directly. Plain RDF cannot. The standard device is clumsy enough that Chapter 9 audited it as a mismatch.
 
 <img src="first-principles-figures/ch15-edge-properties.svg" alt="Two panels. Left, the property graph: a FEEDS edge runs from Panel 14 to Site 3 and a box reading 'since: 2021' hangs off the edge itself. Right, RDF: the same feeds edge runs between two globally named nodes, but the annotation attaches to a node naming the fact, which then carries a 'since' edge to 2021." class="fp-diagram" />
 
 *Saying when the relationship began. The property graph puts it on the edge; RDF names the fact first.*
 
-The rows do not settle that argument, because it is not about any of them. It is about arity, and Chapter 9 answered arity by deriving a fourth position from attribution rather than borrowing one. Both models can carry data about an edge. What the rows measure is whether the names in the positions refer beyond the store.
+The rows do not settle that argument, because it is not about any of them. It is about arity, and Chapter 9 answered arity by deriving a fourth position from attribution rather than borrowing one. Both models can carry data about an edge. The rows measure something else: whether the names in the positions refer beyond the store.
 
 ### The compensating industry
 
-Entity resolution is the work of deciding that a node here and a node there are the same thing. It sells as a product category, and the graph vendors sell it against their own model. The gap it bridges is R3, and it is built per pair of graphs, exactly as Chapter 13 found for relational keys.
+Entity resolution is the work of deciding that a node here and a node there are the same thing. It sells as a product category, and the graph vendors sell it against their own model. It bridges R3, and it is built per pair of graphs, exactly as Chapter 13 found for relational keys.
 
 | | Property graph |
 |---|---|
