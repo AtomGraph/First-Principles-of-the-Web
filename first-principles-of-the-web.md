@@ -1051,7 +1051,7 @@ A merge must decide which nodes are the same node. The model decides nothing.
 
 <img src="first-principles-figures/ch15-two-models.svg" alt="Two panels, each showing the same graph held by two parties. Left, the property graph: the operator's graph identifies Panel 14 by a uuid property and feeds it to a Site 3 node, while the contractor's graph identifies the same panel by an assetId property with a different value, and a dashed line between them is labelled 'same panel?'. Right, RDF: both graphs name the panel identically and a solid line labelled 'same name' joins them." class="fp-diagram" />
 
-*The same panel, described by two parties. The model cannot answer the question on the left. On the right it never arises.*
+*The same panel, described by two parties. The property graph cannot say whether the two nodes on the left are one panel. The shared name settles it on the right.*
 
 ### Standardized twice
 
