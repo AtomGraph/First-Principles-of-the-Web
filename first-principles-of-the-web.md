@@ -1087,7 +1087,7 @@ Entity resolution is the work of deciding that a node here and a node there are 
 | S3 | ~ — GQL conformance varies by product |
 | S4 | ✗ — the query travels in a body, so the result has no URL |
 
-The property graph got the shape right and left the names local. Chapter 13 found the relational model failing the machine-spanning properties from the single-machine side. This column fails them from the graph side, which is nearer, and the failure is the same one.
+The property graph got the shape right and left the names local. Chapter 13 found the relational model failing R2, R3 and S4, the three machine-spanning properties, because it answers a single-machine question. This column fails the same three. The shape changed and those three did not.
 
 ## Chapter 16. The Derived Stack
 
