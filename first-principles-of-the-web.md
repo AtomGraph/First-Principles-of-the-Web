@@ -1433,7 +1433,15 @@ The state Part II derived is in production at scale, under an industry name. A k
 
 ### The first movers
 
-Organizations were building knowledge graphs before the term went mainstream, and the first movers documented why: faster publishing at scale, an order of magnitude less code, integration without bespoke pipelines.
+Organizations were building knowledge graphs before the term went mainstream, and the first movers documented why: a private thesaurus turned into public identifiers, faster publishing at scale, an order of magnitude less code, integration without bespoke pipelines.
+
+<div class="fp-history">
+
+**In the world, dated 2009.** The New York Times had tagged its archive for nearly a century against a thesaurus of ["more than a million terms organized into five controlled vocabularies"](https://archive.nytimes.com/open.blogs.nytimes.com/2009/06/26/nyt-to-release-thesaurus-and-enter-linked-data-cloud/). "Unfortunately, our list of subject headings is an island," its architects wrote. So they [gave the first five thousand HTTP URIs](https://archive.nytimes.com/open.blogs.nytimes.com/2009/10/29/first-5000-tags-released-to-the-linked-data-cloud/) and RDF representations under a Creative Commons license, each one mapped by hand to its match in DBpedia and Freebase. Today data.nytimes.com no longer resolves.
+
+<img src="first-principles-figures/nyt-data-2011.png" alt="data.nytimes.com in 2011: approximately 10,000 subject headings published as linked open data under a CC BY license, with SKOS files to download, a Linked Open Data cloud diagram alongside, and a breakdown table of 4,978 people, 3,081 organizations, 1,910 locations and 498 descriptors, 10,467 in all" class="fp-spot" width="640" />
+
+</div>
 
 <div class="fp-history">
 
@@ -1927,6 +1935,7 @@ This list is the spec concordance. The axioms below are the book's external depe
 - P. Nadkarni, L. Marenco, R. Chen, E. Skoufos, G. Shepherd, P. Miller, [*Organization of Heterogeneous Scientific Data Using the EAV/CR Representation*](https://pmc.ncbi.nlm.nih.gov/articles/PMC61391/) (JAMIA, 1999) — the triple shape rediscovered inside one database, where attributes cannot be fixed in advance; Chapter 13's EAV witness.
 - B. Karwin, [*SQL Antipatterns*](https://pragprog.com/titles/bksqla/sql-antipatterns/) (Pragmatic Bookshelf, 2010) — the practitioner verdict against EAV inside a silo; Chapter 13's counter-witness.
 - J. Somers, [*The Coming Software Apocalypse*](https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/) (The Atlantic, September 2017) — code grown past comprehension in safety-critical systems, and the remedies that move engineers above it (model-based design, Lamport's TLA+); Chapter 20's liability, reported from the field.
+- R. Larson, E. Sandhaus, [*NYT to Release Thesaurus and Enter Linked Data Cloud*](https://archive.nytimes.com/open.blogs.nytimes.com/2009/06/26/nyt-to-release-thesaurus-and-enter-linked-data-cloud/) (NYT Open, June 2009) and [*First 5,000 Tags Released to the Linked Data Cloud*](https://archive.nytimes.com/open.blogs.nytimes.com/2009/10/29/first-5000-tags-released-to-the-linked-data-cloud/) (October 2009) — a century-old newspaper thesaurus given HTTP URIs and RDF under a Creative Commons license, mapped by hand to DBpedia and Freebase; the host stopped resolving (checked September 2026); Chapter 22's first mover on the vocabulary side.
 - J. Rayfield, [*BBC World Cup 2010 dynamic semantic publishing*](https://www.bbc.co.uk/blogs/bbcinternet/2010/07/bbc_world_cup_2010_dynamic_sem.html) (BBC Internet Blog, July 2010) and [*Sports Refresh: Dynamic Semantic Publishing*](https://www.bbc.co.uk/blogs/bbcinternet/2012/04/sports_dynamic_semantic.html) (April 2012) — 700-plus World Cup pages, then ten thousand Olympic pages, generated from an RDF triple store; Chapter 22's first mover on the publishing side.
 - M. Jusevičius, A. Smirnovas, J. Šėporaitis, [*Graphity – A Generic Linked Data Platform*](https://www.w3.org/2011/09/LinkedData/ledp2011_submission_1.pdf) (position paper, [W3C Workshop on Linked Enterprise Data Patterns](https://www.w3.org/2011/09/LinkedData/), December 2011) — the comics site Helt Normalt on RDF, SPARQL and XSLT, the codebase an order of magnitude smaller than the relational system it replaced, ontologies reused down to [a zodiac vocabulary](https://data.totl.net/zodiac/); Chapter 22's first mover on the application side (the author's, per Chapter 19).
 - A. Singhal, [*Introducing the Knowledge Graph: things, not strings*](https://blog.google/products-and-platforms/products/search/introducing-knowledge-graph-things-not/) (Google, May 2012) — the announcement that made *knowledge graph* the industry's name for graph-shaped state; Chapter 22's dating of the term.
