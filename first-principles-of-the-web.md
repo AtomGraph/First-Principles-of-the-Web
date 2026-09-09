@@ -8,9 +8,9 @@
 
 ## Preface
 
-The claim: there is exactly one way to build applications that are *of* the web rather than merely *on* it, and it is data-centric, declarative, and graph-based. "Exactly one" is relative to rules imposed by the web itself. This book derives those rules and examines the consequences of rejecting them. Part IV scores JSON APIs, JavaScript frameworks, and compile-to-browser toolchains against the same rules. The finding: each is a partial rediscovery of this way or a detour from it.
+There is exactly one way to build applications that are *of* the web rather than merely *on* it, and it is data-centric, declarative, and graph-based. "Exactly one" is relative to rules imposed by the web itself. This book derives those rules and examines the consequences of rejecting them. It scores today's JSON APIs, JavaScript frameworks, and compile-to-browser toolchains against the same rules; each turns out to be a partial rediscovery of this way or a detour from it.
 
-The book is structured as a derivation. Every statement in it is one of three things: a definition quoted from the web's own specifications, a proposition that follows from previous statements, or an observation you can verify against deployed reality. If you find a statement that is none of the three, the book has a bug, and I would like a report. There is one deliberate exception: Chapter 5 makes a bridge from the web to the formalism that is argued but not proved. If you want to reject the book's conclusion, that is the step to reject. The six parts define the object of study, analyze it, identify the resulting structure in existing standards, audit current technologies, reconstruct the architecture, and consider its implications. Chapter 2 explains the method; Appendix A covers notation and reading tracks.
+The book is structured as a derivation: every statement in it is a definition quoted from the web's own specifications, a proposition that follows from previous statements, or an observation you can verify against the deployed web. If you find a statement that is none of the three, the book has a bug; please report it. There is one deliberate exception: Chapter 5 makes a bridge from the web to the formalism that is argued but not proved. If you want to reject the book's conclusion, that is the step to reject. Chapter 2 explains the method; Appendix A covers notation and reading tracks.
 
 Underneath the method is a choice of genre. The web is mostly treated as software engineering, a craft of frameworks and taste; this book treats it as a science, an object whose structure can be derived, proved, and tested by prediction rather than surveyed and preferred. Chapter 21 returns to it once the scores are in.
 
@@ -24,9 +24,9 @@ A web application is two functions. `read` turns a request and the state of the 
 
 Strip any page (a newspaper, a dashboard) and the same skeleton emerges: first style, then arrangement, then selection, leaving state. Every `read` can therefore be factored as `present ∘ arrange ∘ select` (one factor per stripped layer). The factorization matters only if the factors are separate, declarative, substitutable, and addressable.
 
-Ask what `State` must be, and the requirements come from the web itself. `State` must host any domain. It must compose across parties who have never met — which forces merging by union over facts that carry their own meaning. Its names must work globally. The smallest fact meeting all three requirements is a triple: two global names and a value that may itself be such a name. Any minimal model meeting the requirements is isomorphic to sets of triples under union. The uniqueness is a theorem; to reject its conclusion you must fault a step of the proof or reject a requirement.
+Ask what `State` must be, and the requirements come from the web itself. `State` must host any domain. It must compose across parties who have never met — which forces merging by union over facts that carry their own meaning. Its names must work globally. The smallest fact meeting all three requirements is a triple: two global names and a value that may itself be such a name. Any minimal model meeting the requirements is isomorphic to this one: sets of triples, merged by union. That is a uniqueness theorem; to reject its conclusion you must fault a step of the proof or reject a requirement.
 
-The resulting structure maps to RDF, SPARQL, XSLT, and CSS, standardized between 1996 and 2014 and later abandoned — abandoned, the book will argue, not refuted. Part IV compares current technologies against the derived requirements and examines the compensating industry that grows where a requirement is not met: a market that sells the bridge across the gap. Its final table applies the same criteria to every stack, including the derived one. The components can then be combined into a complete architecture without introducing a new standard: a generic engine whose behavior is specialized by data rather than application-specific code. This matters again now because software agents need machine-consumable state, while the industry is building new integration layers to provide it.
+The resulting structure maps to RDF, SPARQL, XSLT, and CSS, standardized between 1996 and 2014 and later abandoned — abandoned, the book will argue, not refuted. The book then audits current technologies against the derived requirements, examines the compensating industry that grows where a requirement is not met, and ends with one table scoring every stack, the derived one included. The components can then be combined into a complete architecture without introducing a new standard: a generic engine whose behavior is specialized by data rather than application-specific code. This matters again now: software agents need machine-consumable state, and the industry is building new integration layers to provide it.
 
 If the derivation holds, the next web needs no inventing; it needs only to be put to use. The rest of this book is the proof, the scores, and the evidence.
 
@@ -55,7 +55,7 @@ The web ships with its own definitions, and they are shorter than you probably e
 I     the set of URIs                                    (RFC 3986)
 ```
 
-There are requests, which are built from identifiers:
+There are requests, which HTTP (RFC 9110) builds from identifiers:
 
 ```
 Req = I × Method × Headers × Body                        (RFC 9110)
@@ -71,14 +71,14 @@ Resp = Status × Headers × Body                           (RFC 9110)
 
 For the model below, only the response body matters. The body itself is octets. A header names their format (`Content-Type`). How the octets parse is defined by the format's own specification, so the book does not have to define it. On the parsed side of that line lives the document, the thing a user agent displays. Call that domain `Doc`, and leave its internals alone for now. The envelope around it (the status code, the response headers) is how a document travels, ages, and caches. That is transfer machinery, and Definition 1.1 will not mention it.
 
-**Definition 1.1.** A *web application* is a pair of functions:
+**Definition 1.1.** A *web application* is a pair of functions, `read` and `write`:
 
 ```
 read  : Req × State → Doc
 write : Req × State → State
 ```
 
-In this model, `read` corresponds to HTTP's safe methods. `GET` takes a request and the current state of the world and produces a document. `write` is what the unsafe methods do. `POST`, `PUT`, `PATCH`, `DELETE` take a request and a state and produce a new state. The request's body carries what the change should be. The body belongs to the write side: on a safe request it has no defined meaning (RFC 9110 §9.3.1), and `read` ignores it. `read`'s output travels in the *response's* body instead. Like `Doc`, `Body` stays opaque for now; Chapter 7 explains what fills it.
+In this model, `read` corresponds to HTTP's safe methods: `GET` takes a request and the current state of the world and produces a document. `write` is what the unsafe methods do: `POST`, `PUT`, `PATCH`, `DELETE` take a request and a state and produce a new state. The request's body carries what the change should be. The body belongs to the write side: on a safe request it has no defined meaning (RFC 9110 §9.3.1), and `read` ignores it. `read`'s output travels in the *response's* body instead. Like `Doc`, `Body` stays opaque for now; Chapter 7 defines its contents.
 
 Every web application you have ever used implements these two functions — from a static homepage to the heaviest single-page application — because HTTP gives it no other way to be an application on the web. The framework it was built in is an implementation detail of Definition 1.1.
 
@@ -88,7 +88,12 @@ Definition 1.1 deliberately leaves `State` unspecified. The central question of 
 >
 > **Prop. 1.3.** Definition 1.1 places no constraint on architecture. Both a 1993 CGI script and a 2026 React application satisfy it. *(This is why the definition is safe as an axiom; no one on any side of any framework war can reject it.)*
 
-**Persistent connections.** WebSockets and server push may look like a counterexample because messages on an established connection are not themselves HTTP requests with safe or unsafe methods. At the application level, however, they still carry either data from the server to the client or changes from the client to the server. The first corresponds to `read` output delivered when state changes; the second corresponds to input to `write` delivered over an existing channel. Definition 1.1 therefore still describes the application behavior. What changes is the surrounding HTTP machinery: individual messages no longer necessarily have their own method, cache semantics, or URI. Each dropped piece has a cost; Part IV computes those costs one by one.
+<details>
+<summary><i>Persistent connections — why WebSockets and server push are not a counterexample.</i></summary>
+
+WebSockets (an open two-way message channel between browser and server) and server push may look like a counterexample because messages on an established connection are not themselves HTTP requests with safe or unsafe methods. At the application level, however, they still carry either data from the server to the client or changes from the client to the server. The first corresponds to `read` output delivered when state changes; the second corresponds to input to `write` delivered over an existing channel. Definition 1.1 therefore still describes the application behavior. What changes is the surrounding HTTP machinery: individual messages no longer necessarily have their own method, cache semantics, or URI. Each dropped piece has a cost; Part IV computes those costs one by one.
+
+</details>
 
 The web succeeded against contemporaries such as Gopher, BBSs, desktop applications, and Java applets; Chapter 12 revisits that comparison. It succeeded because its `read` was *transparent*: documents were declarative, addressable, linkable, indexable, and legible to machines that did not produce them. Part IV evaluates later technologies on one variable: how much of that transparency they preserve. Chapter 21 makes the term exact. Before doing that, the undefined `State` in Definition 1.1 needs a model. Chapter 2 explains the method used to derive one rather than selecting it from current practice or personal preference.
 
@@ -473,7 +478,7 @@ Chapter 5 closed on a mismatch of shapes; the pipeline's types locate it. `State
 
 </div>
 
-Every web framework in history is a strategy for this one crossing. That is an observation you can verify against deployed reality, and Part IV verifies it, framework by framework. But the crossing is not yet well-defined. Graph-to-tree serialization is a *relation*, not a function: one graph, many trees (orderings, nestings, groupings). Yet Chapter 4 typed `arrange` as a function without saying where the choice among the trees lives. The fix is canonicalization:
+Every web framework in history is a strategy for this one crossing. That is an observation you can verify against the deployed web, and Part IV verifies it, framework by framework. But the crossing is not yet well-defined. Graph-to-tree serialization is a *relation*, not a function: one graph, many trees (orderings, nestings, groupings). Yet Chapter 4 typed `arrange` as a function without saying where the choice among the trees lives. The fix is canonicalization:
 
 ```
 arrange = ⟦t⟧ ∘ canon
