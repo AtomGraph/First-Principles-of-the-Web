@@ -74,6 +74,20 @@ factors as a *least* pair of sets — a delta. A minimal set layer
 "Two sets. That is the entire theory of mutation over a fact-set model." — now
 exact: mutation's normal form is computed by subtraction.
 
+### Prop 7.5 (Commuting writes) — B.10
+
+`FirstPrinciples/Concurrency.lean`. Union is order-free; a delta is not.
+Deltas confined to disjoint regions of facts commute, and the hypothesis is
+necessary.
+
+| Lean name | claim | status |
+|---|---|---|
+| `writes_commute` | **Prop 7.5 / B.10**: deltas confined to disjoint regions commute | theorem |
+| `same_fact_writes_conflict` | without disjointness, add-then-remove ≠ remove-then-add | theorem |
+
+In a dataspace the regions are the parties' graphs, so R2's order-freedom
+extends from merges to writes.
+
 ### B.9 (Federation closure)
 
 `FirstPrinciples/Federation.lean`. RFC 6454 makes the origin a function of the
@@ -379,6 +393,7 @@ essentially nothing else is**, because the rest are not mathematical claims.
 | Analysis theorem (4.4) / B.5 | ✅ **done** (shape half) — `analysis_shape` + `minimal_window_exists`; S2–S4 are the synthesis' side (B.8) |
 | Independent evolution (4.5) / B.6 | ✅ **done** — the triangle is definitional by design (`Evolution.lean`) |
 | Delta normal form (7.1) | ✅ **done** — `delta_normal_form` (pure set algebra) |
+| Commuting writes (7.5) / B.10 | ✅ **done** — `writes_commute`, conflict witness `same_fact_writes_conflict` |
 | Forms / one-algebra / five moves (7.2–7.4) | ✅ **done** — `submit`/`bound_pattern_*`, `find_then_denote`, `five_moves` (Writes.lean) |
 | Erasure → quads (9.2) | ✅ **done** — `attribution_erased` + the quad repair (Quads.lean) |
 | Federation closure / B.9 | ✅ **done** — `federation_closure` |

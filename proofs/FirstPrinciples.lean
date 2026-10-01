@@ -2,6 +2,7 @@
 -- Self-contained: Lean 4 core only, no Mathlib.
 import FirstPrinciples.StateModel
 import FirstPrinciples.Delta
+import FirstPrinciples.Concurrency
 import FirstPrinciples.Federation
 import FirstPrinciples.Arity
 import FirstPrinciples.Uniqueness

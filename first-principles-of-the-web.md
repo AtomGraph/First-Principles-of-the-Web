@@ -525,7 +525,7 @@ The seam is not an unsolved research problem, and Chapter 9 presents the evidenc
 
 ## Chapter 7. The Write Side
 
-Definition 1.1 has a second component, and everything derived so far concerned the first. `read` was the easy half: documents can be declarative, because a page that only displays needs no program. Applications also change things, and change is widely held to be where declarative architectures fail. This chapter derives the write side in four propositions. Nothing from the read pipeline needs to be taken back; the write side is the factorization's mirror image, and the smaller of the two.
+Definition 1.1 has a second component, and everything derived so far concerned the first. `read` was the easy half: documents can be declarative, because a page that only displays needs no program. Applications also change things, and change is widely held to be where declarative architectures fail. This chapter derives the write side in five propositions. Nothing from the read pipeline needs to be taken back; the write side is the factorization's mirror image, and the smaller of the two.
 
 ### The delta normal form
 
@@ -596,6 +596,25 @@ The consequence is practical as much as formal: the write side adds no expressiv
 5. **reselect** — substitute the `select` term: a saved query edited, a dashboard reconfigured.
 
 Moves 2–5 are independent evolution's four timelines; move 1 is the request, an argument to the application, not a component of it (Chapter 4). There is no sixth move because there is no sixth input. Interactivity *is* the factorization being exercised. Fusion adds no move to this list; what it gains is the freedom to make the moves without saying which component they touch. Part IV will show what that freedom costs.
+
+### Concurrent writes
+
+Union is order-free, but a delta is not. Removal and addition do not commute: if one write adds a fact and another removes it, the final state depends on which arrives last. So the write side needs one more rule, and it has two scopes.
+
+Within one party, writes can be put in order. R2 forbids coordination between parties, not inside one. HTTP already provides the mechanism. A write carries the validator of the state it was computed against (`If-Match` with the `ETag`, RFC 9110 §13.1.1). If that state has changed, the server refuses the write with `412 Precondition Failed` (§15.5.13), and the writer recomputes its delta. No change is lost silently.
+
+Between parties, no order is needed, because each party removes only facts it asserted. A party cannot delete another party's fact. It can assert a fact of its own that disputes it. Chapter 9 gives every fact a position that records who asserted it, so the rule can be checked fact by fact.
+
+**Prop. 7.5 (Commuting writes).** Two deltas confined to disjoint sets of facts commute: applied in either order, they give the same state.
+
+<details>
+<summary><i>Proof — no fact is touched by both deltas.</i></summary>
+
+Take any fact. If neither delta mentions it, it stays as it was. If one delta mentions it, the other leaves it alone, in either order. The sets are disjoint, so no fact is mentioned by both. Appendix B.10 gives the proof, and it also shows that dropping disjointness breaks the result. ∎
+
+</details>
+
+So R2 holds for writes as it holds for merges. Parties write without asking each other, and the order in which their changes arrive does not matter.
 
 ### The latency concession
 
@@ -1220,6 +1239,8 @@ The Graph Store Protocol leaves `PATCH` informative; realized, it is a graph-sco
 
 And the union law returns. Federation adds one thing to prove, and B.9 proves it from the types alone. Distinct origins are disjoint regions of `I`, so two dataspaces' graph names never collide, and the union of their states is again well-formed. Every document is still under exactly one origin, and attribution survives the merge because the fourth position carries it. Federation is the union law: merge, and be done.
 
+Writes federate the same way. A party writes only graphs under its own origin, so two parties' deltas lie in disjoint regions of `I`, and Prop. 7.5 makes them commute. Within one origin, conditional requests put the writes in order (Chapter 7).
+
 ### The cost of alignment
 
 Chapter 5's scope note deferred an objection, and here it returns: *union is cheap; alignment is not.* Two dataspaces describe the same turbine. Each minted its own name, because minting is free. The union holds two disconnected descriptions and joins nothing. Two ontologies cover the same domain and share no term. The merge laws guaranteed mechanics, never convergence: nothing makes independent parties end up sharing names and terms. *Alignment* is the missing step: stating that the two names denote one turbine and that the two vocabularies' terms correspond. So, says the objection, the model has merely moved the integration cost it claimed to remove. Granted: it moved from the merge to the alignment, and that position makes the difference. The cost is universal, because no model makes strangers agree on names. So the question is never whether alignment costs, but what you hold before aligning, and what aligning yields.
@@ -1694,6 +1715,7 @@ The named results follow, so that a reader can move between the prose and the ap
 | forms as inverse transforms | Prop. 7.2 | Ch 7 |
 | one algebra, both directions | Prop. 7.3 | Ch 7 |
 | the five moves | Prop. 7.4 | Ch 7 |
+| commuting writes | Prop. 7.5 | Ch 7; B.10 |
 | the homomorphism | Prop. 8.1 | Ch 8; B.7 |
 | the synthesis theorem | Thm. 8.2 | Ch 8; B.8 |
 | the bill for anonymity | Prop. 9.1 | Ch 9 |
@@ -1704,7 +1726,7 @@ The named results follow, so that a reader can move between the prose and the ap
 
 ## B. Proofs
 
-Prop. 5.2 and Thm. 5.4 come first, reached through B.1's formalization of R2. They are the two results everything downstream rests on, so they get the most care. Then come independence (B.4), analysis (B.5), timelines (B.6), the homomorphism (B.7), synthesis with genericity made exact (B.8), and federation closure (B.9).
+Prop. 5.2 and Thm. 5.4 come first, reached through B.1's formalization of R2. They are the two results everything downstream rests on, so they get the most care. Then come independence (B.4), analysis (B.5), timelines (B.6), the homomorphism (B.7), synthesis with genericity made exact (B.8), federation closure (B.9), and commuting writes (B.10).
 
 <div class="fp-history">
 
@@ -1848,6 +1870,14 @@ Together with the analysis theorem (B.5): every windowed `read` has the form, it
 
 One boundary, stated rather than buried: the closure is of *states*. A federation is not itself a dataspace (it has many origins, no single ontology) and (18.1) claims no such thing. What the parties hold before aligning and what alignment yields is Chapter 18's cost-of-alignment section, not this lemma.
 
+### B.10 Commuting writes (Prop. 7.5)
+
+*The claim.* Write `apply(S, δ) = (S ∖ D⁻) ∪ D⁺` for a delta `δ = (D⁻, D⁺)`. Let `δ₁` have `D₁⁻ ∪ D₁⁺ ⊆ R₁` and `δ₂` have `D₂⁻ ∪ D₂⁺ ⊆ R₂`, with `R₁ ∩ R₂ = ∅`. Then `apply(apply(S, δ₁), δ₂) = apply(apply(S, δ₂), δ₁)`.
+
+*The proof.* Pointwise, for a fact `f`. If `f ∉ R₁ ∪ R₂`, neither delta mentions `f`, so both sides contain `f` exactly when `S` does. If `f ∈ R₁`, then `f ∉ R₂`, so `δ₂` leaves `f` unchanged in either order, and both sides agree with `apply(S, δ₁)` on `f`. The case `f ∈ R₂` is symmetric. ∎
+
+Disjointness cannot be dropped. Take `S = ∅`, `δ₁ = (∅, {f})` and `δ₂ = ({f}, ∅)`: one order gives `{f}`, the other `∅`. In a dataspace the regions are the parties' graphs, the quads whose fourth position lies under one origin (Prop. 9.2, B.9). Within one region, HTTP's conditional requests order the writes; the algebra does not need to.
+
 ## C. The mechanization
 
 Appendix B is prose, and prose proofs can hide a step. This appendix reports the machine check: a self-contained Lean 4 development in the book's repository under [`proofs/`](https://github.com/AtomGraph/First-Principles-of-the-Web/tree/main/proofs), using no mathematics library, so every ingredient of the argument appears explicitly. One command re-checks everything, on a pinned toolchain. No proof contains a placeholder, and the checker reports each theorem's axioms.
@@ -1866,6 +1896,7 @@ Checked — every result on the formalizable list:
 | B.7 homomorphism, against a model of §18 (Prop. 8.1) | `homomorphism`, `seval_monotone` |
 | B.8 genericity core: the free theorem (Thm. 8.2) | `transposition`, `treats_no_name_specially`, `not_generic_of_treatsSpecially`, `canon_renaming_commutes` |
 | Prop. 7.1 delta normal form | `delta_normal_form` |
+| Prop. 7.5 commuting writes, and the conflict without disjointness | `writes_commute`, `same_fact_writes_conflict` |
 | B.9 federation closure | `federation_closure` |
 | B.5 ↔ B.7, the halves meeting | `halves_meet` |
 | Prop. 6.1 `canon` exists, ground states | `canon_exists` |
