@@ -392,7 +392,7 @@ State = 𝒫(Fact)        merge = ∪                          (5.1)
 
 State is a *set of atomic facts*, and two states, from any two parties, anywhere, compose by union. Union is order-free, idempotent, associative, and commutative, so it has every property that federation needs.
 
-**R3 — Global reference.** A fact on one site can be about an entity described on another; the web's entire point is that things link. Therefore names *inside* facts need global scope. The web possesses exactly one global naming system (`I`, the URIs from Chapter 1), and inventing a second one would itself violate R2 (two parties' private naming schemes collide on merge). So references in facts are drawn from `I`. R3 asks only for global names; nothing requires that they dereference. They *can*, though, and that comes free with the construction: the naming system and the web's address system are one. Chapter 19 confronts what that identification costs.
+**R3 — Global reference.** A fact on one site can be about an entity described on another; the web's entire point is that things link. Therefore names *inside* facts need global scope. The web possesses exactly one global naming system (`I`, the URIs from Chapter 1), and inventing a second one would itself violate R2 (two parties' private naming schemes collide on merge). Newer global schemes, such as decentralized identifiers (W3C, 2022) and names built from a content hash (RFC 6920), are not a second system: each is defined as a URI scheme (`did:`, `ni:`), so its names are already in `I`. So references in facts are drawn from `I`. R3 asks only for global names; nothing requires that they dereference. They *can*, though, and that comes free with the construction: the naming system and the web's address system are one. Chapter 19 confronts what that identification costs.
 
 ### The one bridge
 
@@ -666,6 +666,7 @@ Everything in Part II was derived from three RFC-level definitions (identifiers,
 | dereferencing `select` results (S4) | Linked Data; Graph Store Protocol (HTTP methods addressed to whole graphs) | 2006 / 2013 |
 | `canon` | canonical RDF/XML; RDFC-1.0 (RDF Dataset Canonicalization) for the unnamed entities (*blank nodes*) | 2004 / 2024 |
 | `⟦t⟧ : Tree → Tree` after canon | XSLT | 1999 / 3.0 2017 |
+| validation, a predicate on deltas (Ch 7) | SHACL (Shapes Constraint Language), checking the state a delta produces | 2017 |
 | `present` | CSS | 1996 |
 
 *Table 8.1. The correspondence.*
@@ -965,7 +966,7 @@ An ORM is a type error between two wrong models: object graphs mapped onto relat
 
 ### Imperative languages
 
-S2 is unreachable in principle here: an imperative program's meaning is the trace of its execution. Chapter 11 made that argument about the fused term; here it applies to the language itself. The compensating industry is testing: unit, integration, and end-to-end suites. When meaning is execution, every claim about meaning must be executed before it can be checked, so semantics is recovered empirically per program, never once for the language.
+S2 is unreachable in principle here: an imperative program's meaning is the trace of its execution. Chapter 11 made that argument about the fused term; here it applies to the language itself. The compensating industry is testing: unit, integration, and end-to-end suites. When meaning is execution, every claim about meaning must be executed before it can be checked, so semantics is recovered empirically per program, never once for the language. Declarative code is tested too. Its meaning, though, is fixed by the language before any test runs, so a test checks that the term says the right thing, not what the term means.
 
 ### MVC
 
@@ -1153,6 +1154,8 @@ Every audit in this part ended with a column. This chapter assembles those colum
 | S3 | ~ | ~ | ~ | ✓ | ~ | ✗ | ✗ | ~ | ✓ (8.2) |
 | S4 | ✗ | ✗ | ✗ | ~ | ~ | ✗ | ✗ | ✗ | ✓ (4.3, 8.2) |
 
+*Table 17.1. The properness table.*
+
 Notes, one per line where a cell needs it.
 
 - XML's R3 and S4 are `~` for namespaces, `xml:id`, and fragment addressing, standardized slivers of the properties, largely unused (Ch 10).
@@ -1209,6 +1212,8 @@ Dereference is graph lookup — `select(u, S) = S(u)`, the fourth position as th
 #### One state
 
 The endpoint `e` answers `⟦q⟧` posed to `S` itself, the same `S` the documents project. "Projecting the same state" is an equation: a document serves facts and the endpoint returns facts, both come from one `S`, so they must agree. If a second store drifts from `S`, the agreement breaks observably.
+
+An endpoint that answers any query takes on a cost. Evaluating general query patterns is PSPACE-complete ([Pérez, Arenas, and Gutierrez, 2009](https://doi.org/10.1145/1567274.1567278)), so some queries are expensive for any engine. A public endpoint therefore limits what it runs, by time or by result size. [Triple Pattern Fragments](https://doi.org/10.1016/j.websem.2016.03.003) take another route: the server answers single patterns only, each at its own cacheable URI, and the client computes the joins.
 
 #### Domain as data
 
@@ -1427,6 +1432,8 @@ The audit applies to this book as strictly as to the paradigms it scores, so the
 | the agent economy converges on generic systems with domains as data | Ch 23 | agent infrastructure stabilizing permanently on per-application protocol servers, adapter counts growing linearly |
 | attribution pressure keeps selecting the fourth position | Prop. 9.2 | a successor standard that discards named graphs |
 | a requirement-failure and a compensating industry always coincide | Ch 13 | a paradigm that fails a derived requirement with no compensating market at its web boundary, or such a market around a paradigm that fails none |
+
+*Table 21.1. The book's open claims.*
 
 Retrodictions (claims history had already graded, like quads and the JS convergence) are marked as such where they occur. This table lists only what is still open. Registered July 2026.
 
@@ -1724,6 +1731,26 @@ The named results follow, so that a reader can move between the prose and the ap
 | nothing else to vary | Prop. 20.1 | Ch 20 |
 | the Transposition Thesis | a thesis, deliberately unnumbered | Ch 5; B.2 |
 
+
+The coined terms, one line each:
+
+| term | meaning | where |
+|---|---|---|
+| alignment | facts stating that two names, or two vocabularies' terms, correspond | Ch 18 |
+| `canon` | the canonical serialization: a graph as a bare tree, with no structural choice | Ch 6 |
+| compensating industry | the tools and services that grow where a paradigm fails a derived requirement | Ch 13 |
+| dataspace | one party's stake in the data web: an origin, an ontology, an endpoint, and a stylesheet over one state | (18.1) |
+| delta | the pair of fact-sets `(D⁻, D⁺)` that one write removes and adds | Prop. 7.1 |
+| fused factorization | the trivial factorization, with the whole of `read` inside `arrange` | Prop. 4.2 |
+| generic transform | an `arrange` term invariant under URI renaming | Thm. 8.2; B.8 |
+| lateral churn | a change of syntax presented as a change of substance | Ch 10 |
+| mismatch | a place where the derived model, the standard, and the shipping platform disagree | Ch 9 |
+| package | a feature shipped as data: an ontology and a stylesheet | Ch 20 |
+| properness | the four separation properties S1–S4 of a factorization | Def. 4.3 |
+| timelines | the four components that change independently: state, `select`, `arrange`, `present` | Prop. 4.5 |
+| Transposition Thesis | the one unproved bridge: the web's rules for documents, applied to data, are the merge laws | Ch 5 |
+| witness | a source that corroborates a result but is never a premise | App A |
+
 ## B. Proofs
 
 Prop. 5.2 and Thm. 5.4 come first, reached through B.1's formalization of R2. They are the two results everything downstream rests on, so they get the most care. Then come independence (B.4), analysis (B.5), timelines (B.6), the homomorphism (B.7), synthesis with genericity made exact (B.8), federation closure (B.9), and commuting writes (B.10).
@@ -1927,6 +1954,7 @@ This list is the spec concordance. The axioms below are the book's external depe
 | `Req`, `Resp` — the message form; the safe/unsafe method split | [RFC 9110 §6](https://www.rfc-editor.org/rfc/rfc9110#section-6), [§9](https://www.rfc-editor.org/rfc/rfc9110#section-9) | Def. 1.1 |
 | representations reflect resource state over time | [RFC 9110 §3.2](https://www.rfc-editor.org/rfc/rfc9110#section-3.2) | Ch 4 (`τ`) |
 | validators `Last-Modified`, `ETag` | [RFC 9110 §8.8](https://www.rfc-editor.org/rfc/rfc9110#section-8.8) | Prop. 4.5 |
+| conditional writes: `If-Match`, `412 Precondition Failed` | [RFC 9110 §13.1.1](https://www.rfc-editor.org/rfc/rfc9110#section-13.1.1), [§15.5.13](https://www.rfc-editor.org/rfc/rfc9110#section-15.5.13) | Prop. 7.5 |
 | the caching calculus | [RFC 9111](https://www.rfc-editor.org/rfc/rfc9111) | Prop. 4.5, corollary |
 | origins — `I` partitioned into parties' regions | [RFC 6454](https://www.rfc-editor.org/rfc/rfc6454) | (18.1); B.9 |
 | triple, graph, merge | [RDF 1.1 Concepts](https://www.w3.org/TR/rdf11-concepts/) (2014) | Ch 8 |
@@ -1938,6 +1966,7 @@ This list is the spec concordance. The axioms below are the book's external depe
 | documents as named graphs, read-write | [SPARQL 1.1 Graph Store HTTP Protocol](https://www.w3.org/TR/sparql11-http-rdf-update/) | Ch 8; Ch 18 |
 | canonical labeling of unnamed entities | [RDFC-1.0](https://www.w3.org/TR/rdf-canon/) (2024) | Prop. 6.1; Prop. 9.1 |
 | tree transformation | [XSLT](https://www.w3.org/TR/xslt-30/) (1999; 3.0, 2017) | Ch 8 |
+| validation of the state a delta produces | [SHACL](https://www.w3.org/TR/shacl/) (2017) | Ch 8 |
 | presentation | [CSS](https://www.w3.org/TR/CSS/) (1996) | Ch 8 |
 | forms as the write instrument | [HTML: forms](https://html.spec.whatwg.org/multipage/forms.html) | Prop. 7.2 |
 
@@ -1954,6 +1983,9 @@ This list is the spec concordance. The axioms below are the book's external depe
 - [*The Rule of Least Power*](https://www.w3.org/2001/tag/doc/leastPower.html), TAG finding, 2006 — prefer the least powerful language that suffices: the norm behind Ch 12's scoring.
 - R. T. Fielding, [*Architectural Styles and the Design of Network-based Software Architectures*](https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm), dissertation, 2000 — Ch 4's payoff: the positioning of this book as the second half of a derivation whose first half Fielding wrote, and the uniform interface's four clauses (§5.1.5) typed there. Also the discarded hypermedia constraint in Ch 10, and the property list of Ch 11.
 - M. Shapiro, N. Preguiça, C. Baquero, M. Zawirski, [*Conflict-free Replicated Data Types*](https://inria.hal.science/inria-00609399/), 2011 — the independent derivation of the merge laws from replication pressure (Ch 5's corroboration; B.4).
+- [*Decentralized Identifiers (DIDs) v1.0*](https://www.w3.org/TR/did-core/), W3C Recommendation, 2022, and S. Farrell et al., [*Naming Things with Hashes*](https://www.rfc-editor.org/rfc/rfc6920) (RFC 6920, 2013) — newer global names, each defined as a URI scheme; Ch 5's R3.
+- J. Pérez, M. Arenas, C. Gutierrez, [*Semantics and Complexity of SPARQL*](https://doi.org/10.1145/1567274.1567278) (ACM TODS 34(3), 2009) — general query patterns are PSPACE-complete to evaluate; Ch 18's query cost.
+- R. Verborgh et al., [*Triple Pattern Fragments: A Low-Cost Knowledge Graph Interface for the Web*](https://doi.org/10.1016/j.websem.2016.03.003) (Journal of Web Semantics 37–38, 2016) — single-pattern answers at cacheable URIs, joins on the client; Ch 18.
 - [httpRange-14](https://www.w3.org/2001/tag/issues.html#httpRange-14), W3C TAG issue, resolved 2005 — the name/address distinction the model types apart (R3 vs. S4); Ch 19's encoding choices.
 - [*Cool URIs for the Semantic Web*](https://www.w3.org/TR/cooluris/), W3C Interest Group Note, 2008 — the deployed encodings (fragment, `303`) of that distinction.
 - Pappus of Alexandria, *Collection*, Book VII — the classical statement of the twin method of analysis and synthesis; Chapter 2's name for the book's shape.
