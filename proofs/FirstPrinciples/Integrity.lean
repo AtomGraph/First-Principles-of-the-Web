@@ -11,6 +11,7 @@
 
 import FirstPrinciples.StateModel
 import FirstPrinciples.Delta
+import FirstPrinciples.Concurrency
 import FirstPrinciples.Federation
 import FirstPrinciples.Arity
 import FirstPrinciples.Uniqueness
@@ -269,3 +270,13 @@ info: 'FirstPrinciples.Genericity.not_generic_of_treatsSpecially' depends on axi
 /-- info: 'FirstPrinciples.Quads.attribution_closes' does not depend on any axioms -/
 #guard_msgs in
 #print axioms Quads.attribution_closes
+
+/--
+info: 'FirstPrinciples.Concurrency.writes_commute' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms Concurrency.writes_commute
+
+/-- info: 'FirstPrinciples.Concurrency.same_fact_writes_conflict' depends on axioms: [propext] -/
+#guard_msgs in
+#print axioms Concurrency.same_fact_writes_conflict
