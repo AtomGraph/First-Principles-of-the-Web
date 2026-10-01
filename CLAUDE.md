@@ -10,6 +10,7 @@ The book's chronic failure mode is over-complication: each model pass adds inset
 4. **When Martynas sketches wording: transcribe, don't elaborate.** His beats, his order, his sentence count; hard cap 1.2× his word count; add nothing (no citations, appositives, parallel constructions).
 5. **No imported metaphors.** Finance verbs (pay/buy/spend/cash) as metaphor are banned; the book's own cost-audit content (costs, the bill, the S4 tax, N × M) is fine. No meta-narration, no drumroll, no staged questions.
 6. **Propose old→new in chat before applying targeted edits;** whole-book sweeps go on a branch as one PR. Never commit to main — fresh branch + PR, always.
+7. **No LLM tics.** Banned shapes: preemptive denials ("This is not an analogy", "This is not speculative"); the "X stops being A and becomes B" / "harden from A into B" formula; paragraph-closing slogans that restate the paragraph; drumroll setups ("One more thing", "One X remains", "met at full strength", "Hold that until"); "exactly"/"precisely" as intensifiers; asserting obviousness ("plainly", "the answer is obvious"); unnamed appeals to "the literature"; uncited quantitative claims. Rule 5's finance verbs include rent and compound.
 
 Self-check before presenting ANY drafted prose: is it longer than what it replaces? Does any sentence break rule 1? If yes, fix before showing.
 
