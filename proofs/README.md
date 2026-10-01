@@ -397,7 +397,7 @@ essentially nothing else is**, because the rest are not mathematical claims.
 | Forms / one-algebra / five moves (7.2–7.4) | ✅ **done** — `submit`/`bound_pattern_*`, `find_then_denote`, `five_moves` (Writes.lean) |
 | Erasure → quads (9.2) | ✅ **done** — `attribution_erased` + the quad repair (Quads.lean) |
 | Federation closure / B.9 | ✅ **done** — `federation_closure` |
-| Nothing else to vary (20.1) | ✅ **done** — `nothing_else_to_vary` (a corollary, and it stays one) |
+| Nothing else to vary (21.1) | ✅ **done** — `nothing_else_to_vary` (a corollary, and it stays one) |
 | Homomorphism (8.1) / B.7 | ✅ **done** (partial as scoped) — `homomorphism` against the §18 model in Homomorphism.lean; correspondence to *that model*, not to Saxon |
 | Synthesis + genericity (8.2) / B.8 | ✅ **done** (core as scoped) — free theorem + relativization + composition in Genericity.lean; XSLT-completeness stays a cited external fact |
 | `canon` exists (6.1) | ✅ **done** for ground states — `canon_exists` (Canon.lean); ❌ blank-node RDFC-1.0 (enormous external spec) |
