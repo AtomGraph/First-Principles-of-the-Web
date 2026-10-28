@@ -599,7 +599,7 @@ if status:
 # so it lives here, not in the single-source markdown. Written directly (not via
 # write()) so cross-ref linkification never touches the license text.
 COLOPHON = (
-    "*First Principles of the Web* — Draft 0.1.\n\n"
+    "*First Principles of the Web* — Draft 0.2.\n\n"
     "© 2026 Martynas Jusevičius. Published by [AtomGraph](https://atomgraph.com).\n\n"
     "This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 "
     "International License (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/). "
