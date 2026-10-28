@@ -37,4 +37,4 @@ python3 split.py && quarto preview
 
 ## Status
 
-Draft 0.1 — all twenty-one chapters and appendices in prose, proofs B.1–B.9 complete. The full ledger is in the book's Draft-status table. Feedback is most valuable on R1–R3, the arity argument, and the Transposition Thesis (Chapter 5, Appendix B).
+Draft 0.2 — all twenty-five chapters and appendices in prose, proofs B.1–B.9 complete. The full ledger is in the book's Draft-status table. Feedback is most valuable on R1–R3, the arity argument, and the Transposition Thesis (Chapter 5, Appendix B).
