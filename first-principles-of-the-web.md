@@ -696,7 +696,7 @@ flowchart LR
 
 **You have already accepted RDF. You did it in Chapter 5, before I told you its name.**
 
-Whatever you believed about the semantic web when you opened this book (too academic, too complicated, died in the nineties), you derived it yourself. You derived it from three requirements, and you can reject each one only at the cost that requirement itself states. The technologies were not a committee's enthusiasm in search of a problem. They occupy a position that was forced, and the people who standardized them in 1999 had already arrived there. What failed in the nineties was not the position. The tooling failed, and the timing was wrong, because the substrate is built for machine consumption and the machines that could consume it were twenty years away. Chapter 19 makes the demand-side case.
+Whatever you believed about the semantic web when you opened this book (too academic, too complicated, died in the nineties), you derived it yourself. You derived it from three requirements, and you can reject each one only at the cost that requirement itself states. The technologies were not a committee's enthusiasm in search of a problem. They occupy a position that was forced, and the people who standardized them in 1999 had already arrived there. What failed in the nineties was not the position. The tooling failed, and the timing was wrong, because the substrate is built for machine consumption and the machines that could consume it were twenty years away. In 2009 Aaron Swartz, a former member of the RDF Core Working Group, judged the tooling the same way: RDF was "nowhere near as easy to use as JSON." Chapter 19 makes the demand-side case.
 
 <div class="fp-exhibit" data-exhibit="reveal"></div>
 
@@ -869,6 +869,13 @@ One variant changes the R-rows without changing the brackets. [JSON-LD](https://
 The opening question (*and what changed?*) now has a measured answer: the migration changed brackets, dropped the tooling, and gained no property. Three cells changed (R3, S2, S3), and every one moved down.
 
 ## Chapter 11. The Single-Page Application
+
+<div class="fp-epigraph">
+
+*Well, you may get an application you can use through a browser out of it, but you won't get a web app.*
+
+— Aaron Swartz, co-author of RSS 1.0 (*A Programmable Web*, 2009)
+</div>
 
 This chapter audits the single-page application (SPA). In the book's terms its architecture is the trivial factorization of Chapter 4 (Prop. 4.2), deployed at industry scale. `select` and `present` shrink to near-identities; the application is stuffed into one term that computes all of `read`. Fetching, state management, templating, and styling decisions interleave in one program, delivered as one bundle.
 
@@ -1297,7 +1304,7 @@ Chapter 5's scope note deferred an objection, and here it returns: *union is che
 
 Before aligning: the unaligned union is well-formed state. Both descriptions are present, queryable, and published, and both are rendered by the vocabulary-blind base term the build log below introduces (B.8). The worst case here is *not yet joined*; in every other column of the audit the worst case is *cannot merge* (two JSON documents do not compose at all, and two schemas do no better).
 
-After aligning: an alignment is one more fact, an equivalence, a subclass, a subproperty, in the shape of (5.3). The fourth position attributes it to its asserter (Prop. 9.2), it can be retracted as a delta (Prop. 7.1), and it composes by union like everything else. A mapping published this way is stated once and serves the whole web. The integration industry holds the same knowledge as a join buried in pipeline code, once per pair of systems. It has no asserter, cannot be shared, and costs N × M forever.
+After aligning: an alignment is one more fact, an equivalence, a subclass, a subproperty, in the shape of (5.3). The fourth position attributes it to its asserter (Prop. 9.2), it can be retracted as a delta (Prop. 7.1), and it composes by union like everything else. A mapping published this way is stated once and serves the whole web. Swartz (Chapter 8) saw this in 2009: with RDF you can "just publish another RDF document that explains the mapping." The integration industry holds the same knowledge as a join buried in pipeline code, once per pair of systems. It has no asserter, cannot be shared, and costs N × M forever.
 
 Even the failure mode improves. The known hazard of alignment is the careless identity link: assert that two names denote the same entity when they do not, and the error spreads through every join that uses the link. In this model a wrong link is at least a published fact: anyone can see it, its asserter is recorded, and a delta retracts it. The same mistake in an integration pipeline is a wrong join key buried in code: no one outside can see it, and nothing can retract it.
 
@@ -1396,6 +1403,13 @@ The document web bootstrapped this way. The pattern, stated generally: a server 
 This chapter is where the book's existence proof enters as evidence. The architecture has a reference implementation: **[LinkedDataHub](https://atomgraph.github.io/LinkedDataHub/)**, open source, in production for years. It federates the way the section above requires: instance to instance, its client half consuming what its server half serves. It also delivers the chapter's other promises: WebID and WebAccessControl are running, RDF/POST is accepted on the write side, and an entity's name differs from its description's address by only a fragment. And the online edition of this book is being built on it, keeping the promise the preface made. The point of an installable existence proof is that no one has to take the book's word for it.
 
 ## Chapter 21. Generic Software
+
+<div class="fp-epigraph">
+
+*What if we had a format that did to data what HTML did to documents—provide a single, consistent representation for them that supports the hypertextual nature of the Web.*
+
+— Aaron Swartz, co-author of RSS 1.0 (*A Programmable Web*, 2009)
+</div>
 
 This chapter converts the derivation into economics. A one-line corollary collapses every domain application into one generic engine specialized by data; the browser and the spreadsheet are the existence proofs. Two consequences follow: domain functionality ships as data, and computation stays outside the engine, submitting its results through `write` like any other caller. The chapter closes on the incentives that keep bespoke code in place despite them.
 
@@ -1595,7 +1609,7 @@ Chapter 22 stated the result; Chapter 24 described the agents that read it. What
 
 <img src="first-principles-figures/spot-ch24-the-condensation.svg" alt="A row of silos with a gathering cloud of small linked dataspaces condensing around them; the rightmost silo has faded to a dashed copy behind the solid dataspace that detached from it" class="fp-spot" width="420" />
 
-This web gives the end user three things. The end user can navigate and drill into any data without knowing a query language, because Chapter 7's five moves (navigate, write, restyle, rearrange, reselect) are interface primitives and none of them requires a programmer. The end user can fork and augment a running application declaratively — swap the stylesheet, change a layout, add a saved query — with no vendor involved. The user exercises S3 without the vendor's permission. And the end user can federate without asking permission: federation is nothing more than merging two states, and merge is union (5.1).
+This web gives the end user three things. The end user can navigate and drill into any data without knowing a query language, because Chapter 7's five moves (navigate, write, restyle, rearrange, reselect) are interface primitives and none of them requires a programmer. The end user can fork and augment a running application declaratively — swap the stylesheet, change a layout, add a saved query — with no vendor involved. The user exercises S3 without the vendor's permission. In 2009 Aaron Swartz called this freedom unsolved: an API let users automate a web application, but not "change how the application actually works." And the end user can federate without asking permission: federation is nothing more than merging two states, and merge is union (5.1).
 
 None of this asks the existing web to stop, or even to notice. A silo doesn't have to migrate to be included: wrapped (Chapter 24), it enters a federation as a view of itself, before its vendor has agreed to anything. So the transition to this next web has no launch and no platform to join. What forms instead is an accumulation: small, private dataspaces gathering around the silos until the silos hold the copy and the dataspaces hold the original. Each dataspace is detachable from the services it summarizes, from the software that serves it, and from the machine it happens to sit on. Union is additive: a dataspace runs alongside the systems already in place, and whatever stays fused keeps the failures Part IV measured. Only one thing is required: that new systems be built as dataspaces, publishing their state, instead of as applications around private databases.
 
@@ -2040,6 +2054,7 @@ This list is the spec concordance. The axioms below are the book's external depe
 - T. Berners-Lee, J. Hendler, O. Lassila, [*The Semantic Web*](https://www.scientificamerican.com/article/the-semantic-web/) (Scientific American, May 2001) — the agent-over-machine-readable-data scenario Chapter 24 derives; written as fiction, now falsifiable.
 - R. Hickey, [*Cognicast* Episode 103: "Clojure spec with Rich Hickey"](https://www.cognitect.com/cognicast/103) (June 2016) — the creator of Clojure and Datomic naming RDF as prior art for properties defined independent of aggregates; Chapter 8's epigraph.
 - J. E. Labra Gayo, E. Prud'hommeaux, I. Boneva, D. Kontokostas, *Validating RDF Data* (2017), foreword by D. Brickley and L. Miller — Chapter 9's epigraph.
+- A. Swartz, [*Aaron Swartz's A Programmable Web: An Unfinished Work*](https://commons.wikimedia.org/wiki/File:Aaron_Swartz_s_A_Programmable_Web_An_Unfinished_Work.pdf) (Morgan & Claypool, 2013; DOI 10.2200/S00481ED1V01Y201302WBE005; written 2009, unfinished at his death) — the RDF tooling verdict (Chapter 8), the published mapping (Chapter 19), web-application freedom left unsolved (Chapter 25), and the epigraphs of Chapters 11 and 21.
 - D. McComb, *Software Wasteland* (Technics, 2018) and *The Data-Centric Revolution* (Technics, 2019) — the [data-centric](https://www.semanticarts.com/data-centric/) case (Semantic Arts) for data over application code; Chapter 21's corollary reached from enterprise waste rather than derivation.
 - P. Nadkarni, L. Marenco, R. Chen, E. Skoufos, G. Shepherd, P. Miller, [*Organization of Heterogeneous Scientific Data Using the EAV/CR Representation*](https://pmc.ncbi.nlm.nih.gov/articles/PMC61391/) (JAMIA, 1999) — the triple shape rediscovered inside one database, where attributes cannot be fixed in advance; Chapter 13's EAV witness.
 - B. Karwin, [*SQL Antipatterns*](https://pragprog.com/titles/bksqla/sql-antipatterns/) (Pragmatic Bookshelf, 2010) — the practitioner verdict against EAV inside a silo; Chapter 13's counter-witness.
